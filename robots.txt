@@ -1,0 +1,9 @@
+# hexo robots.txt
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /p/
+Disallow: /js/
+Disallow: /css/
+Sitemap: https://zengwu.com.cn/sitemap.xml
+Sitemap: https://zengwu.com.cn/baidusitemap.xml
