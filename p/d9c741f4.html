@@ -684,8 +684,8 @@ db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/p/3296f49.html" rel="next" title="WIN10远程连接报错：你的凭据不工作">
-                  <i class="fa fa-chevron-left"></i> WIN10远程连接报错：你的凭据不工作
+                <a href="/p/daf9791f.html" rel="next" title="Go文件名命名规则">
+                  <i class="fa fa-chevron-left"></i> Go文件名命名规则
                 </a>
               
             </div>
@@ -694,8 +694,8 @@ db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/p/3172944f.html" rel="prev" title="Win10 安装 MongoDB">
-                  Win10 安装 MongoDB <i class="fa fa-chevron-right"></i>
+                <a href="/p/3296f49.html" rel="prev" title="WIN10远程连接报错：你的凭据不工作">
+                  WIN10远程连接报错：你的凭据不工作 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -983,6 +983,7 @@ db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1033,9 +1034,12 @@ db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

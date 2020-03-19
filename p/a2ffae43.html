@@ -146,13 +146,13 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="win中打开环境变量，配置GOPROXY&#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;goproxy&#x2F;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/a2ffae43/19826068-73bf96a65343c38c.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/a2ffae43/19826068-73bf96a65343c38c.png">
 <meta property="article:published_time" content="2019-12-30T11:48:55.000Z">
 <meta property="article:modified_time" content="2020-02-24T13:42:13.824Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="Golang">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/a2ffae43/19826068-73bf96a65343c38c.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/a2ffae43/19826068-73bf96a65343c38c.png">
 
 
 
@@ -544,7 +544,7 @@
       
         <h2 id="win中"><a href="#win中" class="headerlink" title="win中"></a>win中</h2><p>打开环境变量，配置GOPROXY=<a href="https://mirrors.aliyun.com/goproxy/" target="_blank" rel="noopener">https://mirrors.aliyun.com/goproxy/</a></p>
 <a id="more"></a>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/a2ffae43/19826068-73bf96a65343c38c.png" alt></p>
+<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/a2ffae43/19826068-73bf96a65343c38c.png" alt></p>
 <h2 id="linux中"><a href="#linux中" class="headerlink" title="linux中"></a>linux中</h2><p>将export GOPROXY=<a href="https://mirrors.aliyun.com/goproxy/写入环境变量中" target="_blank" rel="noopener">https://mirrors.aliyun.com/goproxy/写入环境变量中</a></p>
 <pre><code class="line-numbers language-bash">cat &gt;&gt; /etc/profile &lt;&lt;EOF
 &gt;
@@ -973,6 +973,7 @@ source /etc/profile</code></pre>
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1023,9 +1024,12 @@ source /etc/profile</code></pre>
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

@@ -146,13 +146,13 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="在游戏中经常需要用到各种字体，但是一些字体都是比较大的。我们只需要提取自己需要的一些字符就行了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/40a78198/19826068-f1b78c208df63802.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/40a78198/19826068-f1b78c208df63802.png">
 <meta property="article:published_time" content="2019-11-06T13:15:55.000Z">
 <meta property="article:modified_time" content="2020-02-24T13:42:14.232Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="软件使用">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/40a78198/19826068-f1b78c208df63802.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/40a78198/19826068-f1b78c208df63802.png">
 
 
 
@@ -547,7 +547,7 @@
 <a id="more"></a></li>
 <li><p>sfntly是一款谷歌开源的字体提取工具<br>下载地址：<a href="https://github.com/googlefonts/sfntly" target="_blank" rel="noopener">https://github.com/googlefonts/sfntly</a></p>
 </li>
-<li><p>编译<br>用Intellij IDEA打开java工程目录，设置Artifacts为SfntTool，直接编译<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/40a78198/19826068-f1b78c208df63802.png" alt></p>
+<li><p>编译<br>用Intellij IDEA打开java工程目录，设置Artifacts为SfntTool，直接编译<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/40a78198/19826068-f1b78c208df63802.png" alt></p>
 </li>
 <li><p>找到Artifacts输出目录中的sfntly.jar</p>
 </li>
@@ -970,6 +970,7 @@ F:\sfntly-master\java\classes\artifacts\sfntly_jar&gt;</code></pre>
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1020,9 +1021,12 @@ F:\sfntly-master\java\classes\artifacts\sfntly_jar&gt;</code></pre>
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

@@ -146,16 +146,16 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="像git默认是需要填写备注信息的，如果没有会不让提交，而svn默认没有这个设定。这样会导致很多时候查看提交日志的时候都不知道提交的是啥，所以，加一个强制的判断会比较好">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/190f4e5/19826068-493992540a671292.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/190f4e5/19826068-fd3a7814b651e8af.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/190f4e5/19826068-9b76ad50085a40b3.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/190f4e5/19826068-493992540a671292.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/190f4e5/19826068-fd3a7814b651e8af.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/190f4e5/19826068-9b76ad50085a40b3.png">
 <meta property="article:published_time" content="2019-11-18T06:48:55.000Z">
 <meta property="article:modified_time" content="2020-02-24T13:42:13.950Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="软件使用">
 <meta property="article:tag" content="Window">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/190f4e5/19826068-493992540a671292.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/190f4e5/19826068-493992540a671292.png">
 
 
 
@@ -550,9 +550,9 @@
 <ol>
 <li><p>打开VisualSVN Server控制面版</p>
 </li>
-<li><p>右键选中需要修改的项目-&gt;”Properties…”<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/190f4e5/19826068-493992540a671292.png" alt></p>
+<li><p>右键选中需要修改的项目-&gt;”Properties…”<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/190f4e5/19826068-493992540a671292.png" alt></p>
 </li>
-<li><p>在属性页面中，选择”Hooks”分页，选中”Pre-commit hook”，点击下面”Edit”<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/190f4e5/19826068-fd3a7814b651e8af.png" alt></p>
+<li><p>在属性页面中，选择”Hooks”分页，选中”Pre-commit hook”，点击下面”Edit”<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/190f4e5/19826068-fd3a7814b651e8af.png" alt></p>
 </li>
 <li><p>在弹出的编辑框中输入以下内容</p>
 <pre><code class="line-numbers language-powershell">@echo off
@@ -577,7 +577,7 @@ exit 1</code></pre>
 <li>:err echo 后的不足时的提示内容</li>
 </ul>
 <ol start="5">
-<li>提交测试<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/190f4e5/19826068-9b76ad50085a40b3.png" alt></li>
+<li>提交测试<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/190f4e5/19826068-9b76ad50085a40b3.png" alt></li>
 </ol>
 
       
@@ -978,6 +978,7 @@ exit 1</code></pre>
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1028,9 +1029,12 @@ exit 1</code></pre>
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

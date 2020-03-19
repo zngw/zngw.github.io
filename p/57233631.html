@@ -146,14 +146,14 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="最近在连Windows Server 2012 R2服务器的时候，有时正常一下就连上了，有时就会出现正在加密远程连接，等很久之后会弹出一个内部错误的连接失几诉提示。 解决办法： 打开远程桌面窗口 -&gt; 显示选项 -&gt; 高级 -&gt; 服务器身份验证选择连接且不显示警告">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/57233631/19826068-8d56b9f8eb3e883b.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/57233631/19826068-8d56b9f8eb3e883b.png">
 <meta property="article:published_time" content="2020-03-18T02:39:55.000Z">
 <meta property="article:modified_time" content="2020-03-18T09:19:33.008Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="软件使用">
 <meta property="article:tag" content="Window">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/57233631/19826068-8d56b9f8eb3e883b.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/57233631/19826068-8d56b9f8eb3e883b.png">
 
 
 
@@ -544,7 +544,7 @@
 
       
         <p>最近在连Windows Server 2012 R2服务器的时候，有时正常一下就连上了，有时就会出现<code>正在加密远程连接</code>，等很久之后会弹出一个<code>内部错误</code>的连接失几诉提示。</p>
-<p>解决办法：<br> 打开远程桌面窗口 -&gt; <code>显示选项</code> -&gt; <code>高级</code> -&gt; 服务器身份验证选择<code>连接且不显示警告</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/57233631/19826068-8d56b9f8eb3e883b.png" alt></p>
+<p>解决办法：<br> 打开远程桌面窗口 -&gt; <code>显示选项</code> -&gt; <code>高级</code> -&gt; 服务器身份验证选择<code>连接且不显示警告</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/57233631/19826068-8d56b9f8eb3e883b.png" alt></p>
 
       
     </div>
@@ -944,6 +944,7 @@
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -994,9 +995,12 @@
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

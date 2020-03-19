@@ -146,13 +146,13 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="Kafka介绍Kafka是由Apache软件基金会开发的统一、高吞吐、低延迟的一个开源流处理平台。在游戏中，一些日志会用到它，游戏服务器是消息的生产者产生日志消息；日志服务器是消息的消费者，处理游戏的日志并存数据库。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/c6a5e268/19826068-f41f40d0a525b3a9.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/c6a5e268/19826068-f41f40d0a525b3a9.png">
 <meta property="article:published_time" content="2019-12-01T17:09:55.000Z">
 <meta property="article:modified_time" content="2020-02-27T04:11:51.936Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="Golang">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/c6a5e268/19826068-f41f40d0a525b3a9.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/c6a5e268/19826068-f41f40d0a525b3a9.png">
 
 
 
@@ -702,7 +702,7 @@ func TopicCallBack(data []byte) {
     log.Trace(&quot;kafka&quot;, &quot;Test:&quot;+string(data))
 }</code></pre>
 <ul>
-<li>执行结果<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/c6a5e268/19826068-f41f40d0a525b3a9.png" alt></li>
+<li>执行结果<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/c6a5e268/19826068-f41f40d0a525b3a9.png" alt></li>
 </ul>
 
       
@@ -1126,6 +1126,7 @@ func TopicCallBack(data []byte) {
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1176,9 +1177,12 @@ func TopicCallBack(data []byte) {
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

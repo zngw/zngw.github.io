@@ -744,8 +744,8 @@ go get -u -v golang.org/x/crypto/...</code></pre>
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/p/4b25257e.html" rel="prev" title="CentOS 7 在线安装dotnet环境">
-                  CentOS 7 在线安装dotnet环境 <i class="fa fa-chevron-right"></i>
+                <a href="/p/8c986da4.html" rel="prev" title="SSH获取连接者IP">
+                  SSH获取连接者IP <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -1033,6 +1033,7 @@ go get -u -v golang.org/x/crypto/...</code></pre>
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1083,9 +1084,12 @@ go get -u -v golang.org/x/crypto/...</code></pre>
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

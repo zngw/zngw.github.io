@@ -664,8 +664,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/p/4b25257e.html" rel="next" title="CentOS 7 在线安装dotnet环境">
-                  <i class="fa fa-chevron-left"></i> CentOS 7 在线安装dotnet环境
+                <a href="/p/56b2f397.html" rel="next" title="关于golang.org.x包问题">
+                  <i class="fa fa-chevron-left"></i> 关于golang.org.x包问题
                 </a>
               
             </div>
@@ -674,8 +674,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/p/28a0bfec.html" rel="prev" title="React环境搭建">
-                  React环境搭建 <i class="fa fa-chevron-right"></i>
+                <a href="/p/4b25257e.html" rel="prev" title="CentOS 7 在线安装dotnet环境">
+                  CentOS 7 在线安装dotnet环境 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -938,6 +938,7 @@
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -988,9 +989,12 @@
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

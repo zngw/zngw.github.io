@@ -639,7 +639,7 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\355346b3.html" rel="bookmark">Ubuntu18.04从apt-get安装MongoDB.4.0</a></div>
+      <div class="popular-posts-title"><a href="\p\65eba897.html" rel="bookmark">CentOS-7中离线安装MongoDB</a></div>
       
     </li>
   
@@ -985,6 +985,7 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1035,9 +1036,12 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

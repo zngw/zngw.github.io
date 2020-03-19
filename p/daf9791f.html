@@ -710,8 +710,8 @@ package main</code></pre>
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/p/ab6cd228.html" rel="prev" title="将VS Code 添加到友键菜单">
-                  将VS Code 添加到友键菜单 <i class="fa fa-chevron-right"></i>
+                <a href="/p/d9c741f4.html" rel="prev" title="MongoDB 忘记密码">
+                  MongoDB 忘记密码 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -999,6 +999,7 @@ package main</code></pre>
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1049,9 +1050,12 @@ package main</code></pre>
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

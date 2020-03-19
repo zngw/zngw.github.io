@@ -146,16 +146,16 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="MongoDB GridFS介绍GridFS 用于存储和恢复那些超过16M（BSON文件限制）的文件(如：图片、音频、视频等)。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/446643ac/19826068-9aae5aa04ab0c20d.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/446643ac/19826068-3cb6c990a1b21777.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/446643ac/19826068-4f50ba8bfb9d4fdc.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/446643ac/19826068-9aae5aa04ab0c20d.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/446643ac/19826068-3cb6c990a1b21777.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/446643ac/19826068-4f50ba8bfb9d4fdc.png">
 <meta property="article:published_time" content="2019-11-30T15:56:55.000Z">
 <meta property="article:modified_time" content="2020-02-27T04:11:51.936Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="Golang">
 <meta property="article:tag" content="MongoDB">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/446643ac/19826068-9aae5aa04ab0c20d.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/446643ac/19826068-9aae5aa04ab0c20d.png">
 
 
 
@@ -547,8 +547,8 @@
       
         <h2 id="MongoDB-GridFS介绍"><a href="#MongoDB-GridFS介绍" class="headerlink" title="MongoDB GridFS介绍"></a>MongoDB GridFS介绍</h2><p>GridFS 用于存储和恢复那些超过16M（BSON文件限制）的文件(如：图片、音频、视频等)。</p>
 <a id="more"></a>
-<p>GridFS 会将大文件对象分割成多个小的chunk(文件片段),一般为256k/个,每个chunk将作为MongoDB的一个文档(document)被存储在chunks集合中。<br>GridFS 用两个集合来存储一个文件：fs.files与fs.chunks。<br>每个文件的实际内容被存在chunks(二进制数据)中,和文件有关的meta数据(filename,content_type,还有用户自定义的属性)将会被存在files集合中。<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/446643ac/19826068-9aae5aa04ab0c20d.png" alt="GridFS文件内容"></p>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/446643ac/19826068-3cb6c990a1b21777.png" alt=" fs.files 集合"><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/446643ac/19826068-4f50ba8bfb9d4fdc.png" alt="fs.chunks 集合"></p>
+<p>GridFS 会将大文件对象分割成多个小的chunk(文件片段),一般为256k/个,每个chunk将作为MongoDB的一个文档(document)被存储在chunks集合中。<br>GridFS 用两个集合来存储一个文件：fs.files与fs.chunks。<br>每个文件的实际内容被存在chunks(二进制数据)中,和文件有关的meta数据(filename,content_type,还有用户自定义的属性)将会被存在files集合中。<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/446643ac/19826068-9aae5aa04ab0c20d.png" alt="GridFS文件内容"></p>
+<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/446643ac/19826068-3cb6c990a1b21777.png" alt=" fs.files 集合"><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/446643ac/19826068-4f50ba8bfb9d4fdc.png" alt="fs.chunks 集合"></p>
 <h2 id="go中使用"><a href="#go中使用" class="headerlink" title="go中使用"></a>go中使用</h2><ol>
 <li>增加文件</li>
 </ol>
@@ -1205,6 +1205,7 @@ func RemoveFile(fileId string) (err error) {
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1255,9 +1256,12 @@ func RemoveFile(fileId string) (err error) {
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

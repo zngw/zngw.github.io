@@ -146,15 +146,15 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="1. 开启SMTP服务1.1 在QQ邮箱的 设置-&gt;账户 里开启 SMTP 服务">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/cef164ca/1581753992690.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/cef164ca/1581754348008.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/cef164ca/1581755694497.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/cef164ca/1581753992690.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/cef164ca/1581754348008.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/cef164ca/1581755694497.png">
 <meta property="article:published_time" content="2020-02-16T03:01:55.000Z">
 <meta property="article:modified_time" content="2020-02-24T13:42:13.889Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/cef164ca/1581753992690.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/cef164ca/1581753992690.png">
 
 
 
@@ -546,9 +546,9 @@
       
         <h2 id="1-开启SMTP服务"><a href="#1-开启SMTP服务" class="headerlink" title="1. 开启SMTP服务"></a>1. 开启SMTP服务</h2><p>1.1 在QQ邮箱的 <strong>设置-&gt;账户</strong> 里开启 SMTP 服务</p>
 <a id="more"></a>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/cef164ca/1581753992690.png" alt></p>
+<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/cef164ca/1581753992690.png" alt></p>
 <p>1.2 QQ邮箱不能直接用QQ密码，而是使用 <strong>授权码</strong> ，点击 <strong>生成授权码</strong></p>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/cef164ca/1581754348008.png" alt></p>
+<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/cef164ca/1581754348008.png" alt></p>
 <h2 id="2-编写代码"><a href="#2-编写代码" class="headerlink" title="2. 编写代码"></a>2. 编写代码</h2><p>2.1 添加依赖的jar包<br>maven中在直接添加</p>
 <pre><code class="line-numbers language-xml">&lt;dependency&gt;
    &lt;groupId&gt;com.sun.mail&lt;/groupId&gt;
@@ -613,7 +613,7 @@ public class SendQQMail {
 }</code></pre>
 <p>2.3 测试<br>编写测试代码</p>
 <pre><code class="line-numbers language-java">SendQQMail.SendEmail(&quot;QQMail 测试&quot;,&quot;这是 Java 发送 QQMail 测试代码！&quot;, &quot;接收邮箱&quot;,&quot;发送的QQ邮箱&quot;,&quot;发送邮箱对应授权码&quot;);</code></pre>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/cef164ca/1581755694497.png" alt="1581755694497"></p>
+<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/cef164ca/1581755694497.png" alt="1581755694497"></p>
 
       
     </div>
@@ -1015,6 +1015,7 @@ public class SendQQMail {
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1065,9 +1066,12 @@ public class SendQQMail {
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

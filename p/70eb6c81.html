@@ -146,15 +146,15 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="在Win中右键操作只能修改只读和隐藏属性，不能操作系统属性">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/70eb6c81/19826068-7639e719967561ed.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/70eb6c81/19826068-4494501c4f86d3c0.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/70eb6c81/19826068-7639e719967561ed.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/70eb6c81/19826068-4494501c4f86d3c0.png">
 <meta property="article:published_time" content="2020-03-03T07:02:55.000Z">
 <meta property="article:modified_time" content="2020-03-03T07:23:27.528Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="软件使用">
 <meta property="article:tag" content="Window">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/70eb6c81/19826068-7639e719967561ed.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/70eb6c81/19826068-7639e719967561ed.png">
 
 
 
@@ -546,7 +546,7 @@
       
         <p>在Win中右键操作只能修改<code>只读</code>和<code>隐藏</code>属性，不能操作<code>系统</code>属性</p>
 <a id="more"></a>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/70eb6c81/19826068-7639e719967561ed.png" alt></p>
+<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/70eb6c81/19826068-7639e719967561ed.png" alt></p>
 <p>如果要修改系统属性，就要借助<code>attrib</code>属性了。下面写了一个批处理来操作。<br>新建一个 <code>改属性.bat</code>文件，写入下面内容：</p>
 <pre><code class="line-numbers language-powershell">@echo off
 setlocal enabledelayedexpansion
@@ -598,7 +598,7 @@ attrib.exe !d!s !d!h &quot;%~1&quot;
 )
 pause&amp;shift&amp;goto loop </code></pre>
 <p>使用的时候直接要将修改的文件或文件夹拖到<code>改属性.bat</code>上就会弹出操作窗口，再根据需要选择<code>增加属性</code>还是<code>减少属性</code>。如果是文件夹要选择是针对文件夹或子文件夹之类的。之后就等处理就行了。</p>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/70eb6c81/19826068-4494501c4f86d3c0.png" alt></p>
+<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/70eb6c81/19826068-4494501c4f86d3c0.png" alt></p>
 
       
     </div>
@@ -998,6 +998,7 @@ pause&amp;shift&amp;goto loop </code></pre>
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1048,9 +1049,12 @@ pause&amp;shift&amp;goto loop </code></pre>
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

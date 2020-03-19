@@ -146,15 +146,15 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="下载微软开源的openssh下载最新的二进制版本: https:&#x2F;&#x2F;github.com&#x2F;PowerShell&#x2F;Win32-OpenSSH&#x2F;releases">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/8257a63e/19826068-2bc0e28d086aaab1.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/8257a63e/19826068-1d2cd83d3131dda3.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/8257a63e/19826068-c35d11060cfaeb68.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8257a63e/19826068-2bc0e28d086aaab1.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8257a63e/19826068-1d2cd83d3131dda3.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8257a63e/19826068-c35d11060cfaeb68.png">
 <meta property="article:published_time" content="2020-01-05T14:06:55.000Z">
 <meta property="article:modified_time" content="2020-02-24T13:42:13.926Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="Window">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/8257a63e/19826068-2bc0e28d086aaab1.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8257a63e/19826068-2bc0e28d086aaab1.png">
 
 
 
@@ -549,16 +549,16 @@
 <li>解压到<code>C:\Program Files</code>并重命名为<code>OpenSSH</code></li>
 <li>启动Window PowerShell 并进入C:\Program Files\OpenSSH目录</li>
 <li>输入命令安装sshd和ssh-agent服务<pre><code class="line-numbers language-powershell">powershell -ExecutionPolicy Bypass -File install-sshd.ps1</code></pre>
-<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/8257a63e/19826068-2bc0e28d086aaab1.png" alt></li>
+<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8257a63e/19826068-2bc0e28d086aaab1.png" alt></li>
 <li>打开防火墙，开启22端口<pre><code class="line-numbers language-powershell">netsh advfirewall firewall add rule name=sshd dir=in action=allow protocol=TCP localport=22</code></pre>
-<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/8257a63e/19826068-1d2cd83d3131dda3.png" alt></li>
+<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8257a63e/19826068-1d2cd83d3131dda3.png" alt></li>
 <li>设置开机启动<pre><code class="line-numbers language-powershell">Set-Service sshd -StartupType Automatic
 Set-Service ssh-agent -StartupType Automatic</code></pre>
 </li>
 <li>启动服务<pre><code class="line-numbers language-powershell">Start-Service sshd
 Start-Service ssh-agent</code></pre>
 </li>
-<li>连接测试<br>使用xshell输入ip，用户名密码为Win 2008 r2登录的用户名和密码<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/8257a63e/19826068-c35d11060cfaeb68.png" alt></li>
+<li>连接测试<br>使用xshell输入ip，用户名密码为Win 2008 r2登录的用户名和密码<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8257a63e/19826068-c35d11060cfaeb68.png" alt></li>
 </ol>
 
       
@@ -957,6 +957,7 @@ Start-Service ssh-agent</code></pre>
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1007,9 +1008,12 @@ Start-Service ssh-agent</code></pre>
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

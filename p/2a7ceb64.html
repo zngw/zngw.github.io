@@ -146,14 +146,14 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="身为一个喜欢拍照的猿，博空中怎么可能少了相册呢。Hexo博客自身没有相册功能，网上找了一些资料都是瀑布流的样式较多，这不是我想要的，于是借鉴了 水寒写的添加瀑布流相册 自己写了一个。先上几张图看一下效果（ps:css现学现卖拼凑出为的，页面效果有待优化哈，完整效果可以去我博客看过愙相册）   1. 创建页面和导航栏进入博客根目录，用命令hexo new page photos新建相册页面 ，这样会">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/2a7ceb64/19826068-b151b157d4420d34.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/2a7ceb64/19826068-6155639a68a1387e.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2a7ceb64/19826068-b151b157d4420d34.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2a7ceb64/19826068-6155639a68a1387e.png">
 <meta property="article:published_time" content="2020-03-15T04:15:55.000Z">
 <meta property="article:modified_time" content="2020-03-16T16:16:39.740Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="软件使用">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/2a7ceb64/19826068-b151b157d4420d34.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2a7ceb64/19826068-b151b157d4420d34.png">
 
 
 
@@ -544,8 +544,8 @@
 
       
         <p>身为一个喜欢拍照的猿，博空中怎么可能少了相册呢。<br>Hexo博客自身没有相册功能，网上找了一些资料都是瀑布流的样式较多，这不是我想要的，于是借鉴了 <a href="https://dp2px.com/2018/09/29/hexophotos/" target="_blank" rel="noopener">水寒写的添加瀑布流相册</a> 自己写了一个。先上几张图看一下效果（ps:css现学现卖拼凑出为的，页面效果有待优化哈，完整效果可以去我博客看<a href="https://zengwu.com.cn/photos/index.html">过愙相册</a>）</p>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/2a7ceb64/19826068-b151b157d4420d34.png" alt="相册目录页"></p>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/2a7ceb64/19826068-6155639a68a1387e.png" alt="单个相册"></p>
+<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2a7ceb64/19826068-b151b157d4420d34.png" alt="相册目录页"></p>
+<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2a7ceb64/19826068-6155639a68a1387e.png" alt="单个相册"></p>
 <h2 id="1-创建页面和导航栏"><a href="#1-创建页面和导航栏" class="headerlink" title="1. 创建页面和导航栏"></a>1. 创建页面和导航栏</h2><p>进入博客根目录，用命令<code>hexo new page photos</code>新建相册页面 ，这样会在 /source/ 下创建 photos/index.md，在其中添加 type: picture。<br>在主题配置文件<code>themes\next\_config.yml</code>中对应位置 menu 里添加 photos: /photos || camera-retro ，这样生成后就有导航栏菜单了。<br>有了语言，还要到语言对应的目录中修改。</p>
 <h2 id="2-json-文件处理图片信息"><a href="#2-json-文件处理图片信息" class="headerlink" title="2. json 文件处理图片信息"></a>2. json 文件处理图片信息</h2><h3 id="2-1-文件分析"><a href="#2-1-文件分析" class="headerlink" title="2.1 文件分析"></a>2.1 文件分析</h3><p>为了生成多级的相册，这里的目录分为二级。</p>
 <ul>
@@ -1669,6 +1669,7 @@ type: picture
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1719,9 +1720,12 @@ type: picture
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

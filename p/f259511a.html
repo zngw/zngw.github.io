@@ -146,14 +146,14 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="比如有表 我们要统计A列中，大于5且小于10的值的个数 选择一个空白表格中，输入以下公式&#x3D;COUNTIFS(L24:L33,&quot;&gt;&#x3D;14&quot;,L24:L33,&quot;&lt;&#x3D;17&quot;)">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/f259511a/19826068-23161e0a9826a514.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/f259511a/19826068-415be0b246435c52.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/f259511a/19826068-23161e0a9826a514.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/f259511a/19826068-415be0b246435c52.png">
 <meta property="article:published_time" content="2019-10-24T12:55:55.000Z">
 <meta property="article:modified_time" content="2020-02-24T13:42:13.940Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="软件使用">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/f259511a/19826068-23161e0a9826a514.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/f259511a/19826068-23161e0a9826a514.png">
 
 
 
@@ -544,10 +544,10 @@
 
       
         <ul>
-<li>比如有表<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/f259511a/19826068-23161e0a9826a514.png" alt></li>
+<li>比如有表<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/f259511a/19826068-23161e0a9826a514.png" alt></li>
 <li>我们要统计A列中，大于5且小于10的值的个数</li>
 <li>选择一个空白表格中，输入以下公式<pre><code class="line-numbers language-none">=COUNTIFS(L24:L33,&quot;&gt;=14&quot;,L24:L33,&quot;&lt;=17&quot;)</code></pre>
-<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/f259511a/19826068-415be0b246435c52.png" alt></li>
+<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/f259511a/19826068-415be0b246435c52.png" alt></li>
 </ul>
 
       
@@ -946,6 +946,7 @@
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -996,9 +997,12 @@
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>

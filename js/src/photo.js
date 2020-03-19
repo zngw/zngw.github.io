@@ -1,4 +1,4 @@
-const imgRoot = '//guoke3915.coding.net/p/guoke3915/d/img/git/raw/master/photos'
+const imgRoot = '//guoke3915.coding.net/p/guoke3915/d/img/git/raw/master'
 //const imgRoot = '/photos'
 photo = {
     // 当前显示类型、dir-目录,photo-照片

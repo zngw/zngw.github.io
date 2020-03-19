@@ -146,20 +146,20 @@
 <meta property="og:site_name" content="过愙">
 <meta property="og:description" content="更新的文件被打开导致失败，然后运行“cleanup”时出现了Previous operation has not finished; run &#39;cleanup&#39; if it was interrupted">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-97ecda247b768466.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-a66a2580e83eae5d.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-7835ff5854de76aa.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-39535f7a23ad6e81.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-23ede874722ce254.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-545bf58454e14df1.png">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-ebb258389a6e53c2.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-97ecda247b768466.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-a66a2580e83eae5d.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-7835ff5854de76aa.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-39535f7a23ad6e81.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-23ede874722ce254.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-545bf58454e14df1.png">
+<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-ebb258389a6e53c2.png">
 <meta property="article:published_time" content="2019-10-31T14:18:55.000Z">
 <meta property="article:modified_time" content="2020-02-24T13:42:14.230Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="软件使用">
 <meta property="article:tag" content="ERROR">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-97ecda247b768466.png">
+<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-97ecda247b768466.png">
 
 
 
@@ -551,16 +551,16 @@
       
         <ol>
 <li>更新的文件被打开导致失败，然后运行“cleanup”时出现了<pre><code>Previous operation has not finished; run &#39;cleanup&#39; if it was interrupted</code></pre><a id="more"></a>
-<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-97ecda247b768466.png" alt></li>
-<li>在svn工程目录下，有一个隐藏目录”.svn”，在这个目录下有一个wc.db文件。<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-a66a2580e83eae5d.png" alt></li>
-<li>用sqlite3.exe 打开 wc.db文件<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-7835ff5854de76aa.png" alt></li>
+<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-97ecda247b768466.png" alt></li>
+<li>在svn工程目录下，有一个隐藏目录”.svn”，在这个目录下有一个wc.db文件。<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-a66a2580e83eae5d.png" alt></li>
+<li>用sqlite3.exe 打开 wc.db文件<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-7835ff5854de76aa.png" alt></li>
 <li>查看记录<pre><code class="line-numbers language-sql">select * from work_queue;</code></pre>
-<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-39535f7a23ad6e81.png" alt></li>
+<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-39535f7a23ad6e81.png" alt></li>
 <li>把列表清空<pre><code class="line-numbers language-sql">delete from work_queue;</code></pre>
-<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-23ede874722ce254.png" alt></li>
+<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-23ede874722ce254.png" alt></li>
 <li>再次查询，确认是否清空<pre><code class="line-numbers language-sql">select * from work_queue;</code></pre>
-<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-545bf58454e14df1.png" alt></li>
-<li>然后，再 clean up清空<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/raw/master/p/3ee90d06/19826068-ebb258389a6e53c2.png" alt></li>
+<img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-545bf58454e14df1.png" alt></li>
+<li>然后，再 clean up清空<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3ee90d06/19826068-ebb258389a6e53c2.png" alt></li>
 </ol>
 
       
@@ -961,6 +961,7 @@
 
 <span id="sitetime"></span>
 <script language=javascript>
+  var sitetime = document.getElementById("sitetime")
 	function siteTime(){
 		window.setTimeout("siteTime()", 1000);
 
@@ -1011,9 +1012,12 @@
       str =  (d + 1) + '天 '
     }
 
-		document.getElementById("sitetime").innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
 	}
-	siteTime();
+ 
+  if(sitetime){
+	  siteTime();
+  }
 </script>
 
 <div>
