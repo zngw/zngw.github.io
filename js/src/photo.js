@@ -1,6 +1,3 @@
-const imgRoot = '//guoke3915.coding.net/p/guoke3915/d/img/git/raw/master'
-//const imgRoot = '/photos'
-
 // 当前显示类型、dir-目录,photo-照片
 var type = 'dir';
 
@@ -23,7 +20,7 @@ photo = {
         if (photoArray == null) {
             $.ajax({
                 type:"GET",
-                url:imgRoot + "/photo.jsonp",
+                url:"//guoke3915.coding.net/p/guoke3915/d/photo/git/raw/master/photo.jsonp",
                 dataType:"jsonp",
                 jsonp:"callback",
                 jsonpCallback:"callback",
@@ -80,13 +77,14 @@ photo = {
         $(".photo-div").empty();
         let li = '<div class="photo-box">';
         for (let i = 0; i < data.length; i++) {
+            let url = data[i].url;
             let cover = data[i].cover; // 封面
             let width = 275;    // 相册目录定长宽 3:2
             let height = 183; // width * cover.height / cover.width;
             let title = '创建于'+data[i].date+' 共'+data[i].num+'张'
             li += '<div class="photo-box-item" style="width: ' + width + 'px">' +
                         '<div class="photo-box-item-click" onclick="photo.navClick('+i+')" style="height:' + height + 'px">' +
-                            '<img class="nofancybox"  src="' + imgRoot + cover.url + '" alt="' + title + '" title="' + title + '"/>' +
+                            '<img class="nofancybox"  src="' + url + cover.url + '" alt="' + title + '" title="' + title + '"/>' +
                         '</div>' +
                         '<div>' + data[i].dir + '</div>' +
                     '</div>'
@@ -107,6 +105,8 @@ photo = {
 
         type = 'photo';
 
+        let url = photoData.url;
+
         // 显示目录
         let tocData = new Array()
         for (let i = 0; i < photoData.photos.length; i++) {
@@ -124,7 +124,7 @@ photo = {
         if (page == 1) {
             let li = '<div class="photo-title">' +
                 '<div class="photo-title-text">' + photoData.dir + 
-                '<a href="" class="photo-back" onclick="photo.backClick()">返回</a>'  +'</div>' +
+                '<a href="javascript:void(0);" class="photo-back" onclick="photo.backClick()">返回</a>'  +'</div>' +
                 //'<div class="photo-title-desc"> 创建于' + photoData.date + '/ 共' + photoData.num +' 张</div>' +
                 '<div class="photo-title-desc">'+
                 '<span class="post-time">'+
@@ -177,10 +177,8 @@ photo = {
 
                     // 相片数据
                     let data = photoCategory.photo[j];
-                    let imgNameWithPattern = data.url;
-                    let imgName = data.name;
-                    let li = '<a data-fancybox="gallery" href="' +imgRoot + imgNameWithPattern  + '?raw=true" data-caption="' + imgName + '">' +
-                    '<img class="photo-img" src="' + imgRoot + photoData.mini + imgNameWithPattern + '" alt="' + imgName + '" title="' + imgName + '"></a>'
+                    let li = '<a data-fancybox="gallery" href="' + url + photoData.hd + data.url + '?raw=true" data-caption="' + data.name + '">' +
+                    '<img class="photo-img" src="' + url + photoData.mini + data.url + '" alt="' + data.name + '" title="' + data.name + '"></a>'
                        
                     $('.photo-category-box-' + i).append(li);
                     $('.photo-category-box-' + i).justifiedGallery({
@@ -295,8 +293,7 @@ photo = {
             return;
         }
 
-        let url = window.location.href.split('#')[0];
-        window.location.replace(url+'#');
+        window.location.replace('#');
         $(".photo-div").empty();
         this.randerDir();
         return false;
