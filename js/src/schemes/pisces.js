@@ -12,7 +12,7 @@ $(document).ready(function () {
         contentHeight = $('#content').height();
 
     // Not affix if sidebar taller then content (to prevent bottom jumping).
-    if (headerOffset + sidebarHeight < contentHeight) {
+    if ($('#photo-div') || headerOffset + sidebarHeight < contentHeight) {
       sidebarInner.affix({
         offset: {
           top: headerOffset - CONFIG.sidebar.offset,

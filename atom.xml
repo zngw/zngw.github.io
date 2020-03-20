@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-03-18T09:19:33.015Z</updated>
+  <updated>2020-03-20T03:40:58.125Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vscode搜索自动过滤.gitignore中的配置</title>
+    <link href="https://zengwu.com.cn/p/587c77b8.html"/>
+    <id>https://zengwu.com.cn/p/587c77b8.html</id>
+    <published>2020-03-20T02:42:55.000Z</published>
+    <updated>2020-03-20T03:40:58.125Z</updated>
+    
+    <content type="html"><![CDATA[<p>用vscode打开了一个nodejs项目，然后<code>ctrl+shift+f</code>全局搜<code>node_modules</code>目录中的东西，结果是找不到。<br>后来在<code>ctrl+shift+p</code>输入setting打开设置文件加入search.exclude之后还是搜不出来。</p><pre><code class="line-numbers language-json">&quot;search.exclude&quot;: {  &quot;**/node_modules&quot;: false}</code></pre><p>最后发现项目中存在<code>.gitignore</code>文件，vscode搜索时会自动过滤<code>.gitignore</code>这个配置。最终在<code>setting.json</code>设置中加入<code>&quot;search.useIgnoreFiles&quot;: false</code>就好了。<br>微软老是加隐藏buf，真让人难找。</p><p>解决办法参考：<a href="https://github.com/Microsoft/vscode/issues/43795" target="_blank" rel="noopener">https://github.com/Microsoft/vscode/issues/43795</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;用vscode打开了一个nodejs项目，然后&lt;code&gt;ctrl+shift+f&lt;/code&gt;全局搜&lt;code&gt;node_modules&lt;/code&gt;目录中的东西，结果是找不到。&lt;br&gt;后来在&lt;code&gt;ctrl+shift+p&lt;/code&gt;输入setting打开设置文件
+      
+    
+    </summary>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
   
   <entry>
     <title>自定义远程桌面连接名</title>
@@ -516,31 +544,6 @@ hexo: 4.2.0
     
     
       <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Win远程桌面文件传输</title>
-    <link href="https://zengwu.com.cn/p/37a24aa7.html"/>
-    <id>https://zengwu.com.cn/p/37a24aa7.html</id>
-    <published>2020-02-20T04:02:55.000Z</published>
-    <updated>2020-02-24T13:42:13.932Z</updated>
-    
-    <content type="html"><![CDATA[<p>在远程桌面操作的时候，为了方便文件传输，可以将本地驱动映射到远程电脑上，之后在远程随意进行文件传输了</p><a id="more"></a><ol><li>运行<code>mstsc</code>打开远程桌面<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/37a24aa7/19826068-8e2d2dddfe290b4b.png" alt></li><li>进入远程桌面连接详细选项，并在本地设备和资源中进入详细信息<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/37a24aa7/19826068-e4fc15cbee47fd76.png" alt></li><li>勾选上需要挂载到远程电脑的磁盘驱动<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/37a24aa7/19826068-3a96f61f37e52dda.png" alt></li><li>连接远程电脑后，在远程电脑里，会发现前面勾选的磁盘了，然后就和网络映射磁盘一样的操作就可以了<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/37a24aa7/19826068-19e952a9ca56e4fa.png" alt></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在远程桌面操作的时候，为了方便文件传输，可以将本地驱动映射到远程电脑上，之后在远程随意进行文件传输了&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Windows" scheme="https://zengwu.com.cn/categories/Windows/"/>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
     
   </entry>
   
