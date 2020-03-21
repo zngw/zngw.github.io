@@ -9958,38 +9958,6 @@ nvm alias default v10.16.3</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>MongoDB 忘记密码</title>
-    <url>/p/d9c741f4.html</url>
-    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
-<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
-<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
-<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>停止服务<code>kill 9564</code> 进程ID</li>
-<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
-use admin                      # 切换到系统帐户表
-db.system.users.find()         # 查看当前帐户（密码有加密过）
-db.system.users.remove({})     # 删除所有帐户
-db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
-</li>
-<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
-<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
-<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
-<li>注释掉<code>authorization:enabled</code></li>
-<li>重启MongoDB服务<code>service mongodb restart</code></li>
-<li>同上运行命令删除账户</li>
-<li>恢复 <code>authorization:enabled</code></li>
-<li>重启 mongodb 服务<code>service mongodb restart</code></li>
-</ul>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>WIN10远程连接报错：你的凭据不工作</title>
     <url>/p/3296f49.html</url>
     <content><![CDATA[<ol>
@@ -10081,6 +10049,38 @@ Windows Registry Editor Version 5.00
       <tags>
         <tag>软件使用</tag>
         <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MongoDB 忘记密码</title>
+    <url>/p/d9c741f4.html</url>
+    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
+<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
+<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
+<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>停止服务<code>kill 9564</code> 进程ID</li>
+<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
+use admin                      # 切换到系统帐户表
+db.system.users.find()         # 查看当前帐户（密码有加密过）
+db.system.users.remove({})     # 删除所有帐户
+db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
+</li>
+<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
+<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
+<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
+<li>注释掉<code>authorization:enabled</code></li>
+<li>重启MongoDB服务<code>service mongodb restart</code></li>
+<li>同上运行命令删除账户</li>
+<li>恢复 <code>authorization:enabled</code></li>
+<li>重启 mongodb 服务<code>service mongodb restart</code></li>
+</ul>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
       </tags>
   </entry>
   <entry>
