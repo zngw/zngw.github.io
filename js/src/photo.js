@@ -20,7 +20,7 @@ photo = {
         if (photoArray == null) {
             $.ajax({
                 type:"GET",
-                url:"//guoke3915.coding.net/p/guoke3915/d/photo/git/raw/master/photo1.jsonp",
+                url:"//guoke3915.coding.net/p/guoke3915/d/photo/git/raw/master/photo.jsonp",
                 dataType:"jsonp",
                 jsonp:"callback",
                 jsonpCallback:"callback",

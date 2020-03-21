@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-03-20T03:40:58.125Z</updated>
+  <updated>2020-03-21T04:45:34.904Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Win10查看热键占用</title>
+    <link href="https://zengwu.com.cn/p/732bbb85.html"/>
+    <id>https://zengwu.com.cn/p/732bbb85.html</id>
+    <published>2020-03-21T02:45:55.000Z</published>
+    <updated>2020-03-21T04:45:34.904Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天打开电脑突然发现idea的向后导航<code>ctrl+alt+←</code>键不能用了。<br>微软也不出一个热键设置的接口，还是自己找。<br><code>Windows Hotkey Explorer</code>这个比较暴力而且win10貌似不能用（运行了一下然后死机了）<br>下面用PC hunter来查看，v1.56版本支持Win10(17763)</p><h2 id="1-先下载免费版本"><a href="#1-先下载免费版本" class="headerlink" title="1. 先下载免费版本"></a>1. 先下载免费版本</h2><p><a href="http://www.xuetr.com/?p=191" target="_blank" rel="noopener">PC hunter v1.56</a></p><h2 id="2-运行"><a href="#2-运行" class="headerlink" title="2. 运行"></a>2. 运行</h2><p>下载的zip包里有32位和64位的，选择适合自己系统版本直接双击运行</p><h2 id="3-查看进程热键"><a href="#3-查看进程热键" class="headerlink" title="3. 查看进程热键"></a>3. 查看进程热键</h2><p>随便找个进程，右键查看进程热键<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/732bbb85/19826068-6c64c1fb49f70eab.png" alt="image.png"></p><h2 id="4-查看所有热键"><a href="#4-查看所有热键" class="headerlink" title="4. 查看所有热键"></a>4. 查看所有热键</h2><p>在进程热键页面中，右键，选择<code>显示所有进程热键</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/732bbb85/19826068-4d8f56106eef30e9.png" alt="image.png"></p><h2 id="5-查看热键信息"><a href="#5-查看热键信息" class="headerlink" title="5. 查看热键信息"></a>5. 查看热键信息</h2><p>点一下标题栏的<code>热键</code>，按热键排序，这样方便查找出你需要的热键，找到热键后面有线程Id和进程名<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/732bbb85/19826068-3f6b784dcb8ff93c.png" alt="image.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天打开电脑突然发现idea的向后导航&lt;code&gt;ctrl+alt+←&lt;/code&gt;键不能用了。&lt;br&gt;微软也不出一个热键设置的接口，还是自己找。&lt;br&gt;&lt;code&gt;Windows Hotkey Explorer&lt;/code&gt;这个比较暴力而且win10貌似不能用（运行了一下
+      
+    
+    </summary>
+    
+    
+      <category term="Windows" scheme="https://zengwu.com.cn/categories/Windows/"/>
+    
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
     <title>vscode搜索自动过滤.gitignore中的配置</title>
     <link href="https://zengwu.com.cn/p/587c77b8.html"/>
     <id>https://zengwu.com.cn/p/587c77b8.html</id>
     <published>2020-03-20T02:42:55.000Z</published>
-    <updated>2020-03-20T03:40:58.125Z</updated>
+    <updated>2020-03-21T04:44:52.532Z</updated>
     
     <content type="html"><![CDATA[<p>用vscode打开了一个nodejs项目，然后<code>ctrl+shift+f</code>全局搜<code>node_modules</code>目录中的东西，结果是找不到。<br>后来在<code>ctrl+shift+p</code>输入setting打开设置文件加入search.exclude之后还是搜不出来。</p><pre><code class="line-numbers language-json">&quot;search.exclude&quot;: {  &quot;**/node_modules&quot;: false}</code></pre><p>最后发现项目中存在<code>.gitignore</code>文件，vscode搜索时会自动过滤<code>.gitignore</code>这个配置。最终在<code>setting.json</code>设置中加入<code>&quot;search.useIgnoreFiles&quot;: false</code>就好了。<br>微软老是加隐藏buf，真让人难找。</p><p>解决办法参考：<a href="https://github.com/Microsoft/vscode/issues/43795" target="_blank" rel="noopener">https://github.com/Microsoft/vscode/issues/43795</a></p>]]></content>
     
@@ -516,34 +542,6 @@ hexo: 4.2.0
     
     
       <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>凤栖梧</title>
-    <link href="https://zengwu.com.cn/p/2d4f36f7.html"/>
-    <id>https://zengwu.com.cn/p/2d4f36f7.html</id>
-    <published>2020-02-25T18:55:55.000Z</published>
-    <updated>2020-02-27T04:11:51.953Z</updated>
-    
-    <content type="html"><![CDATA[<p>夜来读书思量著。<br>帘外听雨，滴滴离人泪。<br>把镜忍叹华发生，搔首但觉愁丝长。</p><p>三十日我情我愿。<br>浮梦一场，柔肠寸寸断。<br>悔来此处伤情地，半夜难教人入眠。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;夜来读书思量著。&lt;br&gt;帘外听雨，滴滴离人泪。&lt;br&gt;把镜忍叹华发生，搔首但觉愁丝长。&lt;/p&gt;
-&lt;p&gt;三十日我情我愿。&lt;br&gt;浮梦一场，柔肠寸寸断。&lt;br&gt;悔来此处伤情地，半夜难教人入眠。&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://zengwu.com.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
