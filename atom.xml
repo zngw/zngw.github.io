@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-03-21T04:45:34.904Z</updated>
+  <updated>2020-03-23T05:06:09.496Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,64 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用阿里云Docker镜像仓库</title>
+    <link href="https://zengwu.com.cn/p/98baf83f.html"/>
+    <id>https://zengwu.com.cn/p/98baf83f.html</id>
+    <published>2020-03-23T04:54:55.000Z</published>
+    <updated>2020-03-23T05:06:09.496Z</updated>
+    
+    <content type="html"><![CDATA[<p>在部署服务器集群的时候，很多环境都是一样的，如果是用Docker搭建的环境，官网的太慢了，可以使用阿里云的Docker镜像仓库。先在一台服务上部署所有的环境，再push到阿里云的Docker镜像仓库，其他的服务器直接用这边pull取就快多了。</p><h2 id="1-进入阿里云镜像服务"><a href="#1-进入阿里云镜像服务" class="headerlink" title="1. 进入阿里云镜像服务"></a>1. 进入阿里云镜像服务</h2><p>登录阿里云账号，在产品与服务中找到<code>容器镜像服务</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-716579f118375292.png" alt></p><h2 id="2-创建Registry登录密码"><a href="#2-创建Registry登录密码" class="headerlink" title="2. 创建Registry登录密码"></a>2. 创建Registry登录密码</h2><p>第一次进入开通服务后会有一个<code>设置Registry登录密码</code>，点进去自己设置一个密码，后面登录登录的时候需要用到<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-b4b433790a334555.png" alt></p><h2 id="3-设置命名空间"><a href="#3-设置命名空间" class="headerlink" title="3. 设置命名空间"></a>3. 设置命名空间</h2><p>在左侧找到<code>命名空间</code>，创建一个<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-862ff8e723ef2ead.png" alt></p><h2 id="4-登录"><a href="#4-登录" class="headerlink" title="4. 登录"></a>4. 登录</h2><p>进入到服务器中，使用命令登录</p><pre><code class="line-numbers language-shell">$ docker login --username=[你的用户名] registry.cn-hangzhou.aliyuncs.com</code></pre><p>用于登录的用户名为阿里云账号全名，之后会让你输入第2步创建的密码。<br>登录成功后会有一个警告，意思你的密码以明文格式记录在<code>/root/.docker/config.json</code>，之生登录不需要密码了，如查要删了自己去找那个json文件就行</p><pre><code class="line-numbers language-txt">WARNING! Your password will be stored unencrypted in /root/.docker/config.json.Configure a credential helper to remove this warning. Seehttps://docs.docker.com/engine/reference/commandline/login/#credentials-store</code></pre><h2 id="5-将镜像推送到Registry"><a href="#5-将镜像推送到Registry" class="headerlink" title="5. 将镜像推送到Registry"></a>5. 将镜像推送到Registry</h2><p>命名空间是前面第4步创建的，repository是仓库名</p><pre><code class="line-numbers language-shell"># 先登录，如果已经登录过的就不用管$ docker login --username=xushichang012 registry.cn-hangzhou.aliyuncs.com$ docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]$ docker push registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]</code></pre><p>如我们要将nats 1.3.0版本推送到<code>zngw</code>命名空间中</p><pre><code class="line-numbers language-shell"># 查看镜像id$ docker imagesREPOSITORY           TAG                 IMAGE ID            CREATED             SIZEnats                              1.3.0               40a6f5ca1594        18 months ago       7.76MB$ docker login --username=xxx registry.cn-hangzhou.aliyuncs.com$ docker tag 40a6f5ca1594 registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0$ docker push registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0The push refers to repository [registry.cn-hangzhou.aliyuncs.com/zngw/nats]f4d1bc33a08d: Pushed 38e677270912: Pushed 1.3.0: digest: sha256:28eb780ab00a512b20c96eff87da342cd8f6319080846352372f461211092c8a size: 735</code></pre><h2 id="6-从Registry中拉取镜像"><a href="#6-从Registry中拉取镜像" class="headerlink" title="6. 从Registry中拉取镜像"></a>6. 从Registry中拉取镜像</h2><pre><code class="line-numbers language-shell">$ docker login --username=xushichang012 registry.cn-hangzhou.aliyuncs.com#外网拉取$ docker pull registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]# 专有网络拉取$ docker pull registry-vpc.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]# 经典网络拉取$ docker pull registry-internal.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]</code></pre><p>如果是同一账号下可以用专有网络或经曲网络，这样不仅不消耗外网流量还快的不要不要的</p><p>如果上面的nats镜像</p><pre><code class="line-numbers language-shell">$ docker login --username=xxx registry.cn-hangzhou.aliyuncs.com$  docker pull registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0</code></pre><h2 id="7-重命名"><a href="#7-重命名" class="headerlink" title="7. 重命名"></a>7. 重命名</h2><p>下载过来的名字都比较长如<code>registry.cn-hangzhou.aliyuncs.com/zngw/nats</code><br>使用<code>docker images</code>先找到<code>registry.cn-hangzhou.aliyuncs.com/zngw/nats</code>的镜像id，然后按下面操作就可以重命名为<code>nats</code>了</p><pre><code class="line-numbers language-bash">docker tag [images] nats:1.3.0docker rmi registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0</code></pre><h2 id="个人阿里云镜像（持续更新）"><a href="#个人阿里云镜像（持续更新）" class="headerlink" title="个人阿里云镜像（持续更新）"></a>个人阿里云镜像（持续更新）</h2><table><thead><tr><th>镜像名称</th><th>版本</th><th>地址</th></tr></thead><tbody><tr><td>dotnet</td><td>2.2.402</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/dotnet</td></tr><tr><td>java</td><td>8u92-jre-alpine</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/java</td></tr><tr><td>kafka</td><td>2.3.0</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/kafka</td></tr><tr><td>mongo</td><td>3.2.8</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/mongo</td></tr><tr><td>mysql</td><td>8.0.18</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/mysql</td></tr><tr><td>nats</td><td>1.3.0</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/nats</td></tr><tr><td>nginx</td><td>1.10.1-alpine</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/nginx</td></tr><tr><td>redis</td><td>5.0.6</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/redis</td></tr><tr><td>zookeeper</td><td>3.5.5</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/zookeeper</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在部署服务器集群的时候，很多环境都是一样的，如果是用Docker搭建的环境，官网的太慢了，可以使用阿里云的Docker镜像仓库。先在一台服务上部署所有的环境，再push到阿里云的Docker镜像仓库，其他的服务器直接用这边pull取就快多了。&lt;/p&gt;
+&lt;h2 id=&quot;1-进
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+      <category term="Docker" scheme="https://zengwu.com.cn/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker查看完整command</title>
+    <link href="https://zengwu.com.cn/p/f61d75f.html"/>
+    <id>https://zengwu.com.cn/p/f61d75f.html</id>
+    <published>2020-03-22T12:54:55.000Z</published>
+    <updated>2020-03-23T05:00:26.012Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code class="line-numbers language-shell">docker ps --no-trunc</code></pre><p>参考: <a href="https://stackoverflow.com/questions/27380641/see-full-command-of-running-stopped-container-in-docker" target="_blank" rel="noopener">https://stackoverflow.com/questions/27380641/see-full-command-of-running-stopped-container-in-docker</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;pre&gt;&lt;code class=&quot;line-numbers language-shell&quot;&gt;docker ps --no-trunc&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;参考: &lt;a href=&quot;https://stackoverflow.com/questions/2738064
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+      <category term="Docker" scheme="https://zengwu.com.cn/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Win10查看热键占用</title>
@@ -492,56 +550,6 @@ hexo: 4.2.0
       <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
     
       <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go中使用 SQLite 数据库</title>
-    <link href="https://zengwu.com.cn/p/86c3fe0e.html"/>
-    <id>https://zengwu.com.cn/p/86c3fe0e.html</id>
-    <published>2020-02-29T01:05:55.000Z</published>
-    <updated>2020-02-29T13:38:22.844Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>SQLite 是一个开源的嵌入式关系数据库，实现自包容、零配置、支持事务的 SQL 数据库引擎。其特点是高度便携、使用方便、结构紧凑、高效、可靠。 </p><a id="more"></a><p>与其他数据库管理系统不同，SQLite 的安装和运行非常简单，在大多数情况下，只要确保 SQLite 的二进制文件存在即可开始创建、连接和使用数据库。</p><h2 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h2><p>Go 支持 sqlite 的库也比较多，下面介绍<a href="https://github.com/mattn/go-sqlite3" target="_blank" rel="noopener">github.com/mattn/go-sqlite3</a>库来对SQLite3数库存</p><ul><li>mattn/go-sqlite3基于cgo，<a href="https://www.jianshu.com/p/9aefe801b5a9" target="_blank" rel="noopener">Windows中cgo环境安装</a></li></ul><h3 id="1-引用库"><a href="#1-引用库" class="headerlink" title="1. 引用库"></a>1. 引用库</h3><p>需要引用sqlite3时前面加个<code>_</code>，不然会编译出错。语法基本上和MySQL类似</p><pre><code class="line-numbers language-go">import (    &quot;database/sql&quot;    _ &quot;github.com/mattn/go-sqlite3&quot;)</code></pre><h3 id="2-打开-创建数据库"><a href="#2-打开-创建数据库" class="headerlink" title="2. 打开/创建数据库"></a>2. 打开/创建数据库</h3><p>在当前目录打开my.db数据库，如果不存在，则创建一个</p><pre><code class="line-numbers language-go">// 打开/创建db, err := sql.Open(&quot;sqlite3&quot;, &quot;./my.db&quot;)// 关闭db.Close()</code></pre><h3 id="3-创建表"><a href="#3-创建表" class="headerlink" title="3. 创建表"></a>3. 创建表</h3><pre><code class="line-numbers language-go">table := `    CREATE TABLE IF NOT EXISTS user (        uid INTEGER PRIMARY KEY AUTOINCREMENT,        name VARCHAR(128) NULL,        created DATE NULL    );    `_, err = db.Exec(table)</code></pre><ul><li>创建一个user表，</li><li>表中有一个自增长的uid，</li><li>一个128位字符串的name</li><li>日期类型的创建时间</li></ul><h3 id="4-插入数据"><a href="#4-插入数据" class="headerlink" title="4. 插入数据"></a>4. 插入数据</h3><pre><code class="line-numbers language-go">    stmt, err := db.Prepare(&quot;INSERT INTO user(name,  created) values(?,?)&quot;)    if err != nil {        panic(err)    }    // res 为返回结果    res, err := stmt.Exec(&quot;guoke&quot;, &quot;2012-12-09&quot;)    if err != nil {        panic(err)    }    // 可以通过res取自动生成的id    id, err := res.LastInsertId()    if err != nil {        panic(err)    }</code></pre><h3 id="5-删除数据"><a href="#5-删除数据" class="headerlink" title="5. 删除数据"></a>5. 删除数据</h3><pre><code class="line-numbers language-go">    stmt, err = db.Prepare(&quot;delete from user where uid=?&quot;)     if err != nil {        panic(err)    }    res, err = stmt.Exec(id)     if err != nil {        panic(err)    }</code></pre><h3 id="6-更新数据"><a href="#6-更新数据" class="headerlink" title="6. 更新数据"></a>6. 更新数据</h3><pre><code class="line-numbers language-go">     stmt, err := db.Prepare(&quot;update %s set name=? where uid=?&quot;)     if stmt == nil || err != nil {          panic(err)      }     _, err = stmt.Exec(&quot;guoke3915&quot;, 1)     if err != nil {          panic(err)     }</code></pre><h3 id="7-查询数据"><a href="#7-查询数据" class="headerlink" title="7.查询数据"></a>7.查询数据</h3><pre><code class="line-numbers language-go">    rows, err := db.Query(&quot;SELECT * FROM user&quot;)    if err != nil {          panic(err)     }    defer rows.Close()    for rows.Next() {        var uid int        var name string        var created time.Time        err = rows.Scan(&amp;uid, &amp;name,  &amp;created)        if err != nil {          panic(err)        }        fmt.Println(uid)        fmt.Println(name)        fmt.Println(created)    }</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h2&gt;&lt;p&gt;SQLite 是一个开源的嵌入式关系数据库，实现自包容、零配置、支持事务的 SQL 数据库引擎。其特点是高度便携、使用方便、结构紧凑、高效、可靠。 &lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go中使用sync.Map</title>
-    <link href="https://zengwu.com.cn/p/582b4054.html"/>
-    <id>https://zengwu.com.cn/p/582b4054.html</id>
-    <published>2020-02-28T05:50:55.000Z</published>
-    <updated>2020-02-27T14:48:17.426Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-前提"><a href="#1-前提" class="headerlink" title="1. 前提"></a>1. 前提</h2><p>Go语言中的 map 在并发情况下，只读是线程安全的，同时读写是线程不安全的。</p><h2 id="2-map并发读写测试"><a href="#2-map并发读写测试" class="headerlink" title="2. map并发读写测试"></a>2. map并发读写测试</h2><pre><code class="line-numbers language-go">package mainimport (    &quot;os/signal&quot;    &quot;runtime&quot;    &quot;syscall&quot;)func main()  {    // 创建一个int到int的映射    m := make(map[int]int)    // 开启一段并发代码    go func() {        // 不停地对map进行写入        for {            m[1] = 1        }    }()    // 开启一段并发代码    go func() {        // 不停地对map进行读取        for {            _ = m[1]        }    }()    signal.Ignore(syscall.SIGHUP)    runtime.Goexit()}</code></pre><p>运行时报错<br><code>fatal error: concurrent map read and map write</code></p><h2 id="3-接下来用并发安全的sync-Map来测试"><a href="#3-接下来用并发安全的sync-Map来测试" class="headerlink" title="3. 接下来用并发安全的sync.Map来测试"></a>3. 接下来用并发安全的sync.Map来测试</h2><pre><code class="line-numbers language-go">package mainimport (    &quot;fmt&quot;    &quot;os/signal&quot;    &quot;runtime&quot;    &quot;sync&quot;    &quot;syscall&quot;)func main()  {    // 创建一个int到int的映射    m := sync.Map{}    // 开启一段并发代码    go func() {        // 不停地对map进行写入        for {            m.Store(1,1)        }    }()    // 开启一段并发代码    go func() {        // 不停地对map进行读取        for {            if v, ok := m.Load(1); ok{                fmt.Println(v)            }        }    }()    signal.Ignore(syscall.SIGHUP)    runtime.Goexit()}</code></pre><p>运行时会一直输出1而不会报错</p><h2 id="4-sync-Map基本操作"><a href="#4-sync-Map基本操作" class="headerlink" title="4. sync.Map基本操作"></a>4. sync.Map基本操作</h2><h3 id="4-1-创建"><a href="#4-1-创建" class="headerlink" title="4.1 创建"></a>4.1 创建</h3><p>直接声明，不需要make<br><code>var m sync.Map</code></p><h3 id="4-2-插入、修改"><a href="#4-2-插入、修改" class="headerlink" title="4.2 插入、修改"></a>4.2 插入、修改</h3><ul><li>如果key不存在，插入value；</li><li>如果key存在则修改其值</li></ul><pre><code class="line-numbers language-go">m.Store(key,value)</code></pre><h3 id="4-3-插入或查找"><a href="#4-3-插入或查找" class="headerlink" title="4.3 插入或查找"></a>4.3 插入或查找</h3><ul><li>如果key不存在，插入value，返回插入value的值，ok为false</li><li>如果key存在，返回原map中value的值，ok为true</li></ul><pre><code class="line-numbers language-go">value,ok := m.LoadOrStore(key,value)</code></pre><h3 id="4-4-删除"><a href="#4-4-删除" class="headerlink" title="4.4 删除"></a>4.4 删除</h3><pre><code class="line-numbers language-go">m.Delete(key)</code></pre><h3 id="4-5-查找"><a href="#4-5-查找" class="headerlink" title="4.5 查找"></a>4.5 查找</h3><pre><code class="line-numbers language-go">v,ok := m.Load(key)</code></pre><h3 id="4-6-遍历"><a href="#4-6-遍历" class="headerlink" title="4.6 遍历"></a>4.6 遍历</h3><pre><code class="line-numbers language-go">m.Range(func(k, v interface{}) bool {  fmt.Println(&quot;interate:&quot;,k,v)  return true})</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;1-前提&quot;&gt;&lt;a href=&quot;#1-前提&quot; class=&quot;headerlink&quot; title=&quot;1. 前提&quot;&gt;&lt;/a&gt;1. 前提&lt;/h2&gt;&lt;p&gt;Go语言中的 map 在并发情况下，只读是线程安全的，同时读写是线程不安全的。&lt;/p&gt;
-&lt;h2 id=&quot;2-map并发读
-      
-    
-    </summary>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
     
   </entry>
   
