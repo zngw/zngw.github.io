@@ -3620,20 +3620,6 @@ public class SendQQMail {
       </tags>
   </entry>
   <entry>
-    <title>一片伤心画不成</title>
-    <url>/p/cb1d4911.html</url>
-    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
-<a id="more"></a>
-<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>最孤独的代码</title>
     <url>/p/3b6f45f6.html</url>
     <content><![CDATA[<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3b6f45f6/1581852769139.png" alt></p>
@@ -3647,6 +3633,20 @@ int main()
     printf(&quot;I miss you.\n&quot;);
 }</code></pre>
 <p>两个世界，<br>一封失信，<br>短暂相陪，<br>长久回忆。<br>唯留心头一句：“想你！”倏然打印。<br>进程却已抹去。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一片伤心画不成</title>
+    <url>/p/cb1d4911.html</url>
+    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
+<a id="more"></a>
+<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -4014,87 +4014,16 @@ tags:
 abbrlink: hexo-blog
 date: 2020-02-09 15:55:55</code></pre>
 <h1 id="四、本地图片"><a href="#四、本地图片" class="headerlink" title="四、本地图片"></a>四、本地图片</h1><h2 id="1-前提"><a href="#1-前提" class="headerlink" title="1. 前提"></a>1. 前提</h2><p>在Hexo插入本地图片的时候，生成静态页面的时候不会将图片复制到发布目录下，这样发布出去后就不会显示出图片了。</p>
-<h2 id="2-安装转换插件"><a href="#2-安装转换插件" class="headerlink" title="2. 安装转换插件"></a>2. 安装转换插件</h2><p>安装<code>hexo-asset-image</code>插件</p>
-<pre><code class="line-numbers language-bash">npm install https://github.com/CodeFalling/hexo-asset-image --save</code></pre>
-<h2 id="3-修改插件代码"><a href="#3-修改插件代码" class="headerlink" title="3. 修改插件代码"></a>3. 修改插件代码</h2><p>安装插件之后，需要调整一下插件的js配置，不然我们调整后的链接地址后会无效。<br>打开<code>/node_modules/hexo-asset-image/index.js</code>文件，用下面代码覆盖</p>
-<ul>
-<li>调整<code>.html</code>判断相关配置</li>
-<li>修改<code>config.root</code>为<code>config.imgroot</code>。当我们有第三方图床（如：OSS等）时，区别root根目录，图片配置第三方URL地址</li>
-</ul>
-<pre><code class="line-numbers language-JavaScript">&#39;use strict&#39;;
-var cheerio = require(&#39;cheerio&#39;);
-
-function getPosition(str, m, i) {
-    return str.split(m, i).join(m).length;
-}
-
-var version = String(hexo.version).split(&#39;.&#39;);
-hexo.extend.filter.register(&#39;after_post_render&#39;, function (data) {
-    var config = hexo.config;
-    if (config.post_asset_folder) {
-        var link = data.permalink;
-        if (version.length &gt; 0 &amp;&amp; Number(version[0]) == 3)
-            var beginPos = getPosition(link, &#39;/&#39;, 1) + 1;
-        else
-            var beginPos = getPosition(link, &#39;/&#39;, 3) + 1;
-        if (link.lastIndexOf(&#39;.html&#39;) == link.length - 5) {
-            // In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about.html&quot;.
-            var endPos = link.lastIndexOf(&#39;.&#39;);
-            link = link.substring(beginPos, endPos) + &#39;/&#39;;
-        } else {
-            // In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.
-            var endPos = link.lastIndexOf(&#39;/&#39;) + 1;
-            link = link.substring(beginPos, endPos);
-        }
-
-        var toprocess = [&#39;excerpt&#39;, &#39;more&#39;, &#39;content&#39;];
-        for (var i = 0; i &lt; toprocess.length; i++) {
-            var key = toprocess[i];
-
-            var $ = cheerio.load(data[key], {
-                ignoreWhitespace: false,
-                xmlMode: false,
-                lowerCaseTags: false,
-                decodeEntities: false
-            });
-
-            $(&#39;img&#39;).each(function () {
-                if ($(this).attr(&#39;src&#39;)) {
-                    // For windows style path, we replace &#39;\&#39; to &#39;/&#39;.
-                    var src = $(this).attr(&#39;src&#39;).replace(&#39;\\&#39;, &#39;/&#39;);
-                    if (!/http[s]*.*|\/\/.*/.test(src) &amp;&amp;
-                        !/^\s*\//.test(src)) {
-                        // For &quot;about&quot; page, the first part of &quot;src&quot; can&#39;t be removed.
-                        // In addition, to support multi-level local directory.
-                        var linkArray = link.split(&#39;/&#39;).filter(function (elem) {
-                            return elem != &#39;&#39;;
-                        });
-                        var srcArray = src.split(&#39;/&#39;).filter(function (elem) {
-                            return elem != &#39;&#39; &amp;&amp; elem != &#39;.&#39;;
-                        });
-                        if (srcArray.length &gt; 1)
-                            srcArray.shift();
-                        src = srcArray.join(&#39;/&#39;);
-                        $(this).attr(&#39;src&#39;, config.imgroot + link + src);
-                        console.info &amp;&amp; console.info(&quot;update link as:--&gt;&quot; + config.imgroot + link + src);
-                    }
-                } else {
-                    console.info &amp;&amp; console.info(&quot;no src attr, skipped...&quot;);
-                    console.info &amp;&amp; console.info($(this));
-                }
-            });
-            data[key] = $.html();
-        }
-    }
-});</code></pre>
-<h2 id="4-修改配置"><a href="#4-修改配置" class="headerlink" title="4. 修改配置"></a>4. 修改配置</h2><p>打开根目录下_config.yml配置文件，修改</p>
+<h2 id="2-安装转换插件"><a href="#2-安装转换插件" class="headerlink" title="2. 安装转换插件"></a>2. 安装转换插件</h2><p>安装<code>hexo-zngw-asset-image</code>插件</p>
+<pre><code class="line-numbers language-bash">npm install hexo-zngw-asset-image --save</code></pre>
+<h2 id="3-修改配置"><a href="#3-修改配置" class="headerlink" title="3. 修改配置"></a>3. 修改配置</h2><p>打开根目录下_config.yml配置文件，修改</p>
 <pre><code class="line-numbers language-yaml">post_asset_folder: true</code></pre>
 <p>添加</p>
 <pre><code class="line-numbers language-yaml">imgroot: /  #如查有第三方图片存储添写，如果用本地用`/`</code></pre>
-<h2 id="5-使用"><a href="#5-使用" class="headerlink" title="5. 使用"></a>5. 使用</h2><ul>
+<h2 id="4-使用"><a href="#4-使用" class="headerlink" title="4. 使用"></a>4. 使用</h2><ul>
 <li>在<code>*.md</code>文件所在的目录下，创建与<code>*.md</code>文件同名的文件夹。如 在<code>hello-world.md</code>文件新建<code>hello-world</code>目录</li>
 <li>然后将需要的图片放到<code>hello-world</code>目录中</li>
-<li>引用的时候使用<code>![](hello-world/19826068-331999cfa433e146.jpg)</code><h2 id="6-Typora-MarkDown编辑使用"><a href="#6-Typora-MarkDown编辑使用" class="headerlink" title="6. Typora MarkDown编辑使用"></a>6. Typora MarkDown编辑使用</h2>用Typora编辑文件时，可以调整一下图片插入配置，直接拖入本地图片或远程图片自动直接保存为<code>*.md</code>同名文件夹目录<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2fe3da/19826068-2d57fbc9de01ab45.png" alt></li>
+<li>引用的时候使用<code>![](hello-world/19826068-331999cfa433e146.jpg)</code><h2 id="5-Typora-MarkDown编辑使用"><a href="#5-Typora-MarkDown编辑使用" class="headerlink" title="5. Typora MarkDown编辑使用"></a>5. Typora MarkDown编辑使用</h2>用Typora编辑文件时，可以调整一下图片插入配置，直接拖入本地图片或远程图片自动直接保存为<code>*.md</code>同名文件夹目录<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2fe3da/19826068-2d57fbc9de01ab45.png" alt></li>
 </ul>
 <h1 id="五、使用next主题"><a href="#五、使用next主题" class="headerlink" title="五、使用next主题"></a>五、使用next主题</h1><h2 id="1-安装next主题"><a href="#1-安装next主题" class="headerlink" title="1. 安装next主题"></a>1. 安装next主题</h2><p>进入Blog目录文件下，通过git直接下载</p>
 <pre><code class="line-numbers language-bash">git clone https://github.com/iissnan/hexo-theme-next themes/next</code></pre>
@@ -4525,6 +4454,24 @@ top: 10
   &lt;span class=&quot;post-meta-divider&quot;&gt;|&lt;/span&gt;
 {% endif %}</code></pre>
 <h2 id="4-效果"><a href="#4-效果" class="headerlink" title="4. 效果"></a>4. 效果</h2><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2fe3da/19826068-4c468ac2abcbd189.png" alt></p>
+<h1 id="十二、发布时通过ssh使用远程服务器自动拉取"><a href="#十二、发布时通过ssh使用远程服务器自动拉取" class="headerlink" title="十二、发布时通过ssh使用远程服务器自动拉取"></a>十二、发布时通过ssh使用远程服务器自动拉取</h1><p>最近把服务器改成了阿里云的ECS，每次发布的时候还得手动去服务器上pull一下代码，感觉挺麻烦的，于是写了一个插件可以自己拉取。</p>
+<h2 id="1-安装插件-1"><a href="#1-安装插件-1" class="headerlink" title="1. 安装插件"></a>1. 安装插件</h2><pre><code class="line-numbers language-bash">npm install hexo-zngw-asset-image</code></pre>
+<h2 id="2-配置服务器信息"><a href="#2-配置服务器信息" class="headerlink" title="2. 配置服务器信息"></a>2. 配置服务器信息</h2><p>打开博客目录下的_config.yml配置添加：</p>
+<pre><code class="line-numbers language-yml">zngw_sshpull:
+    host: zengwu.com.cn   ## 需要更新的服务器地址，可以是ip也可以是域名 
+    port: 22              ## 服务器ssh连接端口
+    username: root        ## ssh连接用户名
+    # password:           ## ssh连接密码，如果填了密码，则私钥无效
+    key: ./zngw.pem          ## ssh私钥文件，相对博客根目录路径或绝对路径
+    dir: /data/web/blog   ## 博客在服务上的目录，不填写刚不进行目录移动
+    exec: git pull        ## 执行的更新命令，也可以在服务器上编写批处理用这个调用</code></pre>
+<h2 id="3-配置发布信息"><a href="#3-配置发布信息" class="headerlink" title="3. 配置发布信息"></a>3. 配置发布信息</h2><p>打开博客目录下的_config.yml配置在deploy提交git后添加</p>
+<pre><code class="line-numbers language-yml">deploy:
+- type: git
+  repo: git@github.com:zngw/zngw.github.io.git
+  branch: master
+- type: zngw-sshpull  # 添加上传配置</code></pre>
+<h2 id="4-发布"><a href="#4-发布" class="headerlink" title="4. 发布"></a>4. 发布</h2><p>先在服务器上下载并配置好git，使git记住密码可使用密钥。然后这边发布的时候直接<code>hexo d</code>就可以了，先会提交到git上，结束之后就会ssh连接到服务器执行git pull拉取操作。也可以在服务器上写个批处理，处理自己想要的。</p>
 <h1 id="遇到的一些问题"><a href="#遇到的一些问题" class="headerlink" title="遇到的一些问题"></a>遇到的一些问题</h1><h2 id="1-分页显示问题"><a href="#1-分页显示问题" class="headerlink" title="1. 分页显示问题"></a>1. 分页显示问题</h2><p>问题： 切换成next主题后，分页会显示乱码<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2fe3da/19826068-722437ec2532a722.png" alt><br>参考：<a href="https://github.com/hexojs/hexo/issues/3794" target="_blank" rel="noopener">https://github.com/hexojs/hexo/issues/3794</a><br>解决办法：<br>打开<code>themes/next/layout/_partials/pagination.swig</code>文件修改</p>
 <pre><code class="line-numbers language-swig">{%- if page.prev or page.next %}
  &lt;nav class=&quot;pagination&quot;&gt;
@@ -10250,64 +10197,6 @@ nvm alias default v10.16.3</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>MongoDB 忘记密码</title>
-    <url>/p/d9c741f4.html</url>
-    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
-<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
-<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
-<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>停止服务<code>kill 9564</code> 进程ID</li>
-<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
-use admin                      # 切换到系统帐户表
-db.system.users.find()         # 查看当前帐户（密码有加密过）
-db.system.users.remove({})     # 删除所有帐户
-db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
-</li>
-<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
-<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
-<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
-<li>注释掉<code>authorization:enabled</code></li>
-<li>重启MongoDB服务<code>service mongodb restart</code></li>
-<li>同上运行命令删除账户</li>
-<li>恢复 <code>authorization:enabled</code></li>
-<li>重启 mongodb 服务<code>service mongodb restart</code></li>
-</ul>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Win10 安装 MongoDB</title>
-    <url>/p/3172944f.html</url>
-    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
-<a id="more"></a>
-<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
-<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
-:: 创建MongoDB服务 
-:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
-:: 数据目录 D:\MongoDB\Server\4.2\data
-:: 外网可访问 --bind_ip_all
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
-:: 启动服务
-net start MongoDB</code></pre>
-<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
-<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>MongoDB</tag>
-        <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>将VS Code 添加到友键菜单</title>
     <url>/p/ab6cd228.html</url>
     <content><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p>
@@ -10346,6 +10235,64 @@ Windows Registry Editor Version 5.00
       <tags>
         <tag>软件使用</tag>
         <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10 安装 MongoDB</title>
+    <url>/p/3172944f.html</url>
+    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
+<a id="more"></a>
+<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
+<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
+:: 创建MongoDB服务 
+:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
+:: 数据目录 D:\MongoDB\Server\4.2\data
+:: 外网可访问 --bind_ip_all
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
+:: 启动服务
+net start MongoDB</code></pre>
+<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
+<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MongoDB 忘记密码</title>
+    <url>/p/d9c741f4.html</url>
+    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
+<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
+<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
+<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>停止服务<code>kill 9564</code> 进程ID</li>
+<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
+use admin                      # 切换到系统帐户表
+db.system.users.find()         # 查看当前帐户（密码有加密过）
+db.system.users.remove({})     # 删除所有帐户
+db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
+</li>
+<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
+<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
+<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
+<li>注释掉<code>authorization:enabled</code></li>
+<li>重启MongoDB服务<code>service mongodb restart</code></li>
+<li>同上运行命令删除账户</li>
+<li>恢复 <code>authorization:enabled</code></li>
+<li>重启 mongodb 服务<code>service mongodb restart</code></li>
+</ul>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
       </tags>
   </entry>
   <entry>
@@ -10506,9 +10453,12 @@ npm install babel-preset-react</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>SSH获取连接者IP</title>
-    <url>/p/8c986da4.html</url>
-    <content><![CDATA[<pre><code class="line-numbers language-bash">who am i | awk &#39;{print $5}&#39; | sed &#39;s/(//g&#39; | sed &#39;s/)//g&#39;</code></pre>
+    <title>CentOS 7 在线安装dotnet环境</title>
+    <url>/p/4b25257e.html</url>
+    <content><![CDATA[<pre><code class="line-numbers language-bash">rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm
+yum update
+yum install dotnet-sdk-2.2
+dotnet --version</code></pre>
 ]]></content>
       <categories>
         <category>CentOS</category>
@@ -10518,12 +10468,9 @@ npm install babel-preset-react</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>CentOS 7 在线安装dotnet环境</title>
-    <url>/p/4b25257e.html</url>
-    <content><![CDATA[<pre><code class="line-numbers language-bash">rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm
-yum update
-yum install dotnet-sdk-2.2
-dotnet --version</code></pre>
+    <title>SSH获取连接者IP</title>
+    <url>/p/8c986da4.html</url>
+    <content><![CDATA[<pre><code class="line-numbers language-bash">who am i | awk &#39;{print $5}&#39; | sed &#39;s/(//g&#39; | sed &#39;s/)//g&#39;</code></pre>
 ]]></content>
       <categories>
         <category>CentOS</category>
