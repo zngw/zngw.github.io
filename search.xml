@@ -2190,7 +2190,7 @@ console.log(diffDate(&quot;2020-02-02&quot;,&quot;2011-11-02&quot;));</code></pr
         var TypeWorldNow = 4;
         var showType = TypeChinaNew;
         var ChinaDataUrl = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5';
-        var WorldDataUrl = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_other';
+        var WorldDataUrl = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign';
         var ChinaData = null;
         var WorldData = null;
         //获取数据
