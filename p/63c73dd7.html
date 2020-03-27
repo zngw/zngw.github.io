@@ -124,7 +124,7 @@
 
 
 
-  <meta name="keywords" content="随笔," />
+  <meta name="keywords" content="Golang," />
 
 
 
@@ -139,20 +139,18 @@
 
 
 
+<meta name="description" content="刚接触go的时候，要排个序得重写Len()、Swap()、Less() 三个方法，好蛋疼的感觉。后现1.8版本后更新了sort库，排序用起来就简单多了。 1. 基本数据排序基本数据为int、float64、string。int和float64直接比大小，string则是安顺序比较字符的ASCII码的大小 1.1 升序直接使用sort.Ints()、sort.Float64s()、sort.Stri">
 <meta property="og:type" content="article">
-<meta property="og:title" content="新型冠状病毒传播途径和预防指南">
-<meta property="og:url" content="https://zengwu.com.cn/p/9b7f02ff.html">
+<meta property="og:title" content="Goland 中排序">
+<meta property="og:url" content="https://zengwu.com.cn/p/63c73dd7.html">
 <meta property="og:site_name" content="过愙">
+<meta property="og:description" content="刚接触go的时候，要排个序得重写Len()、Swap()、Less() 三个方法，好蛋疼的感觉。后现1.8版本后更新了sort库，排序用起来就简单多了。 1. 基本数据排序基本数据为int、float64、string。int和float64直接比大小，string则是安顺序比较字符的ASCII码的大小 1.1 升序直接使用sort.Ints()、sort.Float64s()、sort.Stri">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/9b7f02ff/19826068-a0a40bd34e09f312.jpg">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/9b7f02ff/19826068-ec07f2124ea6c64b.jpg">
-<meta property="og:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/9b7f02ff/19826068-9be167d75c334d11.jpg">
-<meta property="article:published_time" content="2020-01-28T10:17:55.000Z">
-<meta property="article:modified_time" content="2020-02-15T06:40:52.532Z">
+<meta property="article:published_time" content="2020-03-27T07:59:55.000Z">
+<meta property="article:modified_time" content="2020-03-27T11:54:25.185Z">
 <meta property="article:author" content="过客">
-<meta property="article:tag" content="随笔">
+<meta property="article:tag" content="Golang">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/9b7f02ff/19826068-a0a40bd34e09f312.jpg">
 
 
 
@@ -182,7 +180,7 @@
 
 
 
-  <link rel="canonical" href="https://zengwu.com.cn/p/9b7f02ff.html"/>
+  <link rel="canonical" href="https://zengwu.com.cn/p/63c73dd7.html"/>
 
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/zngw/cdn/prism.css">
@@ -192,7 +190,7 @@
 
 
 
-  <title>新型冠状病毒传播途径和预防指南 | 过愙</title>
+  <title>Goland 中排序 | 过愙</title>
   
 
 
@@ -383,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/9b7f02ff.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/63c73dd7.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -400,7 +398,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">新型冠状病毒传播途径和预防指南</h2>
+          <h2 class="post-title" itemprop="name headline">Goland 中排序</h2>
         
 
         <div class="post-meta">
@@ -413,8 +411,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-28T18:17:55+08:00">
-                2020-01-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-27T15:59:55+08:00">
+                2020-03-27
               </time>
             
 
@@ -429,7 +427,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2020-01-28</span>
+               <span class="post-meta-item-text"> 2020-03-27</span>
             
           </span>
 
@@ -446,8 +444,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
+                  <a href="/categories/Golang/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">Golang</span>
                   </a>
                 </span>
 
@@ -468,7 +466,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  546
                 </span>
               
 
@@ -484,7 +482,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             
@@ -498,7 +496,7 @@
 
             
             
-              <span id="/p/9b7f02ff.html" class="zngw_visitors" data-flag-title="新型冠状病毒传播途径和预防指南">
+              <span id="/p/63c73dd7.html" class="zngw_visitors" data-flag-title="Goland 中排序">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -529,9 +527,84 @@
       
 
       
-        <p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/9b7f02ff/19826068-a0a40bd34e09f312.jpg" alt></p>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/9b7f02ff/19826068-ec07f2124ea6c64b.jpg" alt></p>
-<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/9b7f02ff/19826068-9be167d75c334d11.jpg" alt></p>
+        <p>刚接触go的时候，要排个序得重写<code>Len()</code>、<code>Swap()</code>、<code>Less()</code> 三个方法，好蛋疼的感觉。后现1.8版本后更新了<code>sort</code>库，排序用起来就简单多了。</p>
+<h2 id="1-基本数据排序"><a href="#1-基本数据排序" class="headerlink" title="1. 基本数据排序"></a>1. 基本数据排序</h2><p>基本数据为int、float64、string。int和float64直接比大小，string则是安顺序比较字符的ASCII码的大小</p>
+<h3 id="1-1-升序"><a href="#1-1-升序" class="headerlink" title="1.1 升序"></a>1.1 升序</h3><p>直接使用<code>sort.Ints()</code>、<code>sort.Float64s()</code>、<code>sort.Strings()</code>方法就可以了，默认的排序就是升序的</p>
+<pre><code class="line-numbers language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;sort&quot;
+)
+
+func main() {
+    ints := [] int {5,6,9,8,7,1,2,5,4,6,3}
+    float64s := [] float64 {3.1,4.1,5.9,2.6,5.3,5.8,9.7,9}
+    strings := [] string {&quot;g&quot;,&quot;u&quot;,&quot;o&quot;,&quot;k&quot;,&quot;e&quot;,&quot;guo&quot;,&quot;ke&quot;}
+
+    sort.Ints(ints)
+    sort.Float64s(float64s)
+    sort.Strings(strings)
+
+    fmt.Printf(&quot;%v\n%v\n%v\n&quot;, ints, float64s, strings)
+}</code></pre>
+<p>运行结果</p>
+<pre><code class="line-numbers language-go">[1 2 3 4 5 5 6 6 7 8 9]
+[2.6 3.1 4.1 5.3 5.8 5.9 9 9.7]
+[e g guo k ke o u]</code></pre>
+<h3 id="1-2-降序"><a href="#1-2-降序" class="headerlink" title="1.2 降序"></a>1.2 降序</h3><p>使用 <code>sort.Reverse(slice)</code> 来调换就可以了</p>
+<pre><code class="line-numbers language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;sort&quot;
+)
+
+func main() {
+    ints := [] int {5,6,9,8,7,1,2,5,4,6,3}
+    float64s := [] float64 {3.1,4.1,5.9,2.6,5.3,5.8,9.7,9}
+    strings := [] string {&quot;g&quot;,&quot;u&quot;,&quot;o&quot;,&quot;k&quot;,&quot;e&quot;,&quot;guo&quot;,&quot;ke&quot;}
+
+    sort.Sort(sort.Reverse(sort.IntSlice(ints)))
+    sort.Sort(sort.Reverse(sort.Float64Slice(float64s)))
+    sort.Sort(sort.Reverse(sort.StringSlice(strings)))
+
+    fmt.Printf(&quot;%v\n%v\n%v\n&quot;, ints, float64s, strings)
+}</code></pre>
+<p>运行结果</p>
+<pre><code class="line-numbers language-go">[9 8 7 6 6 5 5 4 3 2 1]
+[9.7 9 5.9 5.8 5.3 4.1 3.1 2.6]
+[u o ke k guo g e]</code></pre>
+<h2 id="2-结构体排序"><a href="#2-结构体排序" class="headerlink" title="2. 结构体排序"></a>2. 结构体排序</h2><p>结构体直接使用<code>sort.Slice(slice interface{}, less func(i, j int) bool)</code>来排序。调整后面less函数的比较就可以得到升序或降序了</p>
+<pre><code class="line-numbers language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;sort&quot;
+)
+
+func main() {
+    people := []struct {
+        Name string
+        Age  int
+    }{
+        {&quot;Gopher&quot;, 7},
+        {&quot;Alice&quot;, 55},
+        {&quot;Vera&quot;, 24},
+        {&quot;Bob&quot;, 75},
+    }
+
+    // Name升序
+    sort.Slice(people, func(i, j int) bool { return people[i].Name &lt; people[j].Name })
+    fmt.Println(&quot;By name:&quot;, people)
+
+    // 年龄降序
+    sort.Slice(people, func(i, j int) bool { return people[i].Age &gt; people[j].Age })
+    fmt.Println(&quot;By age:&quot;, people)
+}</code></pre>
+<p>运行结果</p>
+<pre><code class="line-numbers language-go">By name: [{Alice 55} {Bob 75} {Gopher 7} {Vera 24}]
+By age: [{Bob 75} {Alice 55} {Vera 24} {Gopher 7}]</code></pre>
 
       
     </div>
@@ -547,7 +620,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://zengwu.com.cn/p/9b7f02ff.html" title="新型冠状病毒传播途径和预防指南">https://zengwu.com.cn/p/9b7f02ff.html</a>
+    <a href="https://zengwu.com.cn/p/63c73dd7.html" title="Goland 中排序">https://zengwu.com.cn/p/63c73dd7.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -561,7 +634,7 @@
     
       <div class="post-tags">
         
-          <a href="/tags/%E9%9A%8F%E7%AC%94/index.html" rel="tag"><i class="fa fa-tag"></i> 随笔</a>
+          <a href="/tags/Golang/index.html" rel="tag"><i class="fa fa-tag"></i> Golang</a>
         
       </div>
     
@@ -608,35 +681,35 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\whjy.html" rel="bookmark">全球新增疫情图</a></div>
+      <div class="popular-posts-title"><a href="\p\290a12.html" rel="bookmark">Go 计算两个日期之间相差几日、几月</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\d0d8c84b.html" rel="bookmark">懒or迟钝</a></div>
+      <div class="popular-posts-title"><a href="\p\7b5001f2.html" rel="bookmark">Hexo使用自定义排行阅读次数</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\2d4f36f7.html" rel="bookmark">凤栖梧</a></div>
+      <div class="popular-posts-title"><a href="\p\86c3fe0e.html" rel="bookmark">Go中使用 SQLite 数据库</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\7528df7e.html" rel="bookmark">只想静静的</a></div>
+      <div class="popular-posts-title"><a href="\p\582b4054.html" rel="bookmark">Go中使用sync.Map</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\db7fe348.html" rel="bookmark">何去何从</a></div>
+      <div class="popular-posts-title"><a href="\p\15f3dbb6.html" rel="bookmark">Goland 编译出现：exec: "gcc": executable file not found in %PATH%</a></div>
       
     </li>
   
@@ -655,8 +728,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/p/57c8a47b.html" rel="next" title="Intellij IDE 代码太长解决">
-                  <i class="fa fa-chevron-left"></i> Intellij IDE 代码太长解决
+                <a href="/p/f0e2fc72.html" rel="next" title="npm发布流程">
+                  <i class="fa fa-chevron-left"></i> npm发布流程
                 </a>
               
             </div>
@@ -664,10 +737,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/p/f9ba457.html" rel="prev" title="TortoiseSVN修改服务器地址">
-                  TortoiseSVN修改服务器地址 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -750,9 +819,20 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+              文章目录
+            </li>
+          
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
       
-        <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <section class="site-overview-wrap sidebar-panel">
       
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -896,6 +976,23 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本数据排序"><span class="nav-text">1. 基本数据排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-升序"><span class="nav-text">1.1 升序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-降序"><span class="nav-text">1.2 降序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-结构体排序"><span class="nav-text">2. 结构体排序</span></a></li></ol></div>
+              
+            
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

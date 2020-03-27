@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-03-23T19:10:38.186Z</updated>
+  <updated>2020-03-27T11:54:25.185Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Goland 中排序</title>
+    <link href="https://zengwu.com.cn/p/63c73dd7.html"/>
+    <id>https://zengwu.com.cn/p/63c73dd7.html</id>
+    <published>2020-03-27T07:59:55.000Z</published>
+    <updated>2020-03-27T11:54:25.185Z</updated>
+    
+    <content type="html"><![CDATA[<p>刚接触go的时候，要排个序得重写<code>Len()</code>、<code>Swap()</code>、<code>Less()</code> 三个方法，好蛋疼的感觉。后现1.8版本后更新了<code>sort</code>库，排序用起来就简单多了。</p><h2 id="1-基本数据排序"><a href="#1-基本数据排序" class="headerlink" title="1. 基本数据排序"></a>1. 基本数据排序</h2><p>基本数据为int、float64、string。int和float64直接比大小，string则是安顺序比较字符的ASCII码的大小</p><h3 id="1-1-升序"><a href="#1-1-升序" class="headerlink" title="1.1 升序"></a>1.1 升序</h3><p>直接使用<code>sort.Ints()</code>、<code>sort.Float64s()</code>、<code>sort.Strings()</code>方法就可以了，默认的排序就是升序的</p><pre><code class="line-numbers language-go">package mainimport (    &quot;fmt&quot;    &quot;sort&quot;)func main() {    ints := [] int {5,6,9,8,7,1,2,5,4,6,3}    float64s := [] float64 {3.1,4.1,5.9,2.6,5.3,5.8,9.7,9}    strings := [] string {&quot;g&quot;,&quot;u&quot;,&quot;o&quot;,&quot;k&quot;,&quot;e&quot;,&quot;guo&quot;,&quot;ke&quot;}    sort.Ints(ints)    sort.Float64s(float64s)    sort.Strings(strings)    fmt.Printf(&quot;%v\n%v\n%v\n&quot;, ints, float64s, strings)}</code></pre><p>运行结果</p><pre><code class="line-numbers language-go">[1 2 3 4 5 5 6 6 7 8 9][2.6 3.1 4.1 5.3 5.8 5.9 9 9.7][e g guo k ke o u]</code></pre><h3 id="1-2-降序"><a href="#1-2-降序" class="headerlink" title="1.2 降序"></a>1.2 降序</h3><p>使用 <code>sort.Reverse(slice)</code> 来调换就可以了</p><pre><code class="line-numbers language-go">package mainimport (    &quot;fmt&quot;    &quot;sort&quot;)func main() {    ints := [] int {5,6,9,8,7,1,2,5,4,6,3}    float64s := [] float64 {3.1,4.1,5.9,2.6,5.3,5.8,9.7,9}    strings := [] string {&quot;g&quot;,&quot;u&quot;,&quot;o&quot;,&quot;k&quot;,&quot;e&quot;,&quot;guo&quot;,&quot;ke&quot;}    sort.Sort(sort.Reverse(sort.IntSlice(ints)))    sort.Sort(sort.Reverse(sort.Float64Slice(float64s)))    sort.Sort(sort.Reverse(sort.StringSlice(strings)))    fmt.Printf(&quot;%v\n%v\n%v\n&quot;, ints, float64s, strings)}</code></pre><p>运行结果</p><pre><code class="line-numbers language-go">[9 8 7 6 6 5 5 4 3 2 1][9.7 9 5.9 5.8 5.3 4.1 3.1 2.6][u o ke k guo g e]</code></pre><h2 id="2-结构体排序"><a href="#2-结构体排序" class="headerlink" title="2. 结构体排序"></a>2. 结构体排序</h2><p>结构体直接使用<code>sort.Slice(slice interface{}, less func(i, j int) bool)</code>来排序。调整后面less函数的比较就可以得到升序或降序了</p><pre><code class="line-numbers language-go">package mainimport (    &quot;fmt&quot;    &quot;sort&quot;)func main() {    people := []struct {        Name string        Age  int    }{        {&quot;Gopher&quot;, 7},        {&quot;Alice&quot;, 55},        {&quot;Vera&quot;, 24},        {&quot;Bob&quot;, 75},    }    // Name升序    sort.Slice(people, func(i, j int) bool { return people[i].Name &lt; people[j].Name })    fmt.Println(&quot;By name:&quot;, people)    // 年龄降序    sort.Slice(people, func(i, j int) bool { return people[i].Age &gt; people[j].Age })    fmt.Println(&quot;By age:&quot;, people)}</code></pre><p>运行结果</p><pre><code class="line-numbers language-go">By name: [{Alice 55} {Bob 75} {Gopher 7} {Vera 24}]By age: [{Bob 75} {Alice 55} {Vera 24} {Gopher 7}]</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;刚接触go的时候，要排个序得重写&lt;code&gt;Len()&lt;/code&gt;、&lt;code&gt;Swap()&lt;/code&gt;、&lt;code&gt;Less()&lt;/code&gt; 三个方法，好蛋疼的感觉。后现1.8版本后更新了&lt;code&gt;sort&lt;/code&gt;库，排序用起来就简单多了。&lt;/p&gt;
+&lt;h2 
+      
+    
+    </summary>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
+    
+  </entry>
   
   <entry>
     <title>npm发布流程</title>
@@ -511,29 +538,6 @@
         &lt;p&gt;在自己的blog中实现复制文章内容加入版本信息时，在网上找了很多版本，结果在复制带html格式原代码的时候回出错。后来参考了一下csdn的代码自己写了一个版本&lt;/p&gt;
 &lt;h2 id=&quot;1-查看CSDN中的复制代码&quot;&gt;&lt;a href=&quot;#1-查看CSDN中的复制代码&quot; cla
       
-    
-    </summary>
-    
-    
-      <category term="JS" scheme="https://zengwu.com.cn/categories/JS/"/>
-    
-    
-      <category term="JS" scheme="https://zengwu.com.cn/tags/JS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>免费jsDeliver CDN使用</title>
-    <link href="https://zengwu.com.cn/p/2456a806.html"/>
-    <id>https://zengwu.com.cn/p/2456a806.html</id>
-    <published>2020-03-02T03:12:55.000Z</published>
-    <updated>2020-03-03T07:23:27.514Z</updated>
-    
-    <content type="html"><![CDATA[<p>很多时候，我们网站在引用 第三方js代码的时候加载比较慢，第一种办法是把js代码下载过来放到自己的慢站中加载，这样会消耗自己网站的带宽，还有一个就是可以使用jsDeliver的免费CDN。</p><a id="more"></a><h3 id="1-新建Github仓库"><a href="#1-新建Github仓库" class="headerlink" title="1. 新建Github仓库"></a>1. 新建Github仓库</h3><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2456a806/19826068-7957068d2d280118.png" alt></p><h3 id="2-上传资源"><a href="#2-上传资源" class="headerlink" title="2. 上传资源"></a>2. 上传资源</h3><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2456a806/19826068-9bec081813a9c888.png" alt></p><h3 id="3-点击release发布仓库"><a href="#3-点击release发布仓库" class="headerlink" title="3. 点击release发布仓库"></a>3. 点击release发布仓库</h3><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/2456a806/19826068-1bbbd99b96c467c2.png" alt></p><h3 id="4-通过jsDeliver引用资源"><a href="#4-通过jsDeliver引用资源" class="headerlink" title="4. 通过jsDeliver引用资源"></a>4. 通过jsDeliver引用资源</h3><p>直接引用使用方法：<a href="https://cdn.jsdelivr.net/gh/你的用户名/你的仓库名@发布的版本号/文件路径" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/你的用户名/你的仓库名@发布的版本号/文件路径</a><br>如：</p><pre><code class="line-numbers language-js">https://cdn.jsdelivr.net/gh/zngw/cdn@1.0/copyright.min.js</code></pre><h3 id="5-加载其他版本的"><a href="#5-加载其他版本的" class="headerlink" title="5. 加载其他版本的"></a>5. 加载其他版本的</h3><p>版本号不是必需的，是为了区分新旧资源，如果不使用版本号，将会直接引用最新资源，除此之外还可以使用某个范围内的版本，查看所有资源等，具体使用方法如下</p><pre><code>// 加载任何Github发布、提交或分支https://cdn.jsdelivr.net/gh/user/repo@version/file// 使用版本范围而不是特定版本https://cdn.jsdelivr.net/gh/zngw/cdn@1.0/copyright.js   // 完全省略该版本以获取最新版本https://cdn.jsdelivr.net/gh/zngw/cdn/copyright.js// 将“.min”添加到任何JS/CSS文件中以获取缩小版本，如果不存在，将为会自动生成https://cdn.jsdelivr.net/gh/zngw/cdn@1.0/copyright.min.js// 在末尾添加 / 以获取资源目录列表https://cdn.jsdelivr.net/gh/zngw/cdn/</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;很多时候，我们网站在引用 第三方js代码的时候加载比较慢，第一种办法是把js代码下载过来放到自己的慢站中加载，这样会消耗自己网站的带宽，还有一个就是可以使用jsDeliver的免费CDN。&lt;/p&gt;
     
     </summary>
     
