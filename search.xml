@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Linux下查看磁盘空间</title>
+    <url>/p/63ce0e80.html</url>
+    <content><![CDATA[<p>一觉醒来发现服务器磁盘满了，不知道什么情况，设置的报警没起作用。第一件事不是去查磁盘为什么会满，而是很扩容让线上服务正常运行，然后慢慢找原因。</p>
+<h2 id="df-命令"><a href="#df-命令" class="headerlink" title="df 命令"></a>df 命令</h2><p>df命令用于显示目前在Linux系统上的文件系统的磁盘使用情况统计，可以查看磁盘各分区大小、已用空间等信息.<br>语法为<code>df [OPTION]... [FILE]...</code>，可以不带参数直接使用，一般会使用<code>-h</code>参数，会显示总大小<code>Size</code></p>
+<pre><code class="line-numbers language-shell">$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        20G  2.6G   16G  14% /
+devtmpfs        214M     0  214M   0% /dev
+tmpfs           224M     0  224M   0% /dev/shm
+tmpfs           224M  436K  224M   1% /run
+tmpfs           224M     0  224M   0% /sys/fs/cgroup
+tmpfs            45M     0   45M   0% /run/user/0</code></pre>
+<h2 id="du命令"><a href="#du命令" class="headerlink" title="du命令"></a>du命令</h2><p>确定磁盘信息后，可以用du命令来显示目录或文件所占用的磁盘空间<br>语法为<code>du [OPTION]... [FILE]...</code> 或 <code>du [OPTION]... --files0-from=F</code>。一般会使用<code>-sh</code>参数，会更直观的显示目录或文件的大小。如查看<code>/</code>根目录下所有文件(夹)所占空间</p>
+<pre><code class="line-numbers language-shell">$ du -sh /*
+0    /bin
+132M    /boot
+164M    /data
+0    /dev
+34M    /etc
+25M    /home
+0    /lib
+0    /lib64
+8.0K    /logs
+16K    /lost+found
+4.0K    /media
+4.0K    /mnt
+4.0K    /opt
+du: cannot access ‘/proc/3497/task/3497/fd/4’: No such file or directory
+du: cannot access ‘/proc/3497/task/3497/fdinfo/4’: No such file or directory
+du: cannot access ‘/proc/3497/fd/4’: No such file or directory
+du: cannot access ‘/proc/3497/fdinfo/4’: No such file or directory
+0    /proc
+16M    /root
+436K    /run
+0    /sbin
+4.0K    /srv
+0    /sys
+32K    /tmp
+1.9G    /usr
+338M    /var</code></pre>
+<p>这样一级一级的查下去，就会发现哪个文件把磁盘占满了，再去找这个文件是哪生成的。</p>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js中window.location的url参数</title>
+    <url>/p/d26290b.html</url>
+    <content><![CDATA[<h2 id="1-设置或获取-href-属性中跟在问号后面的部分。"><a href="#1-设置或获取-href-属性中跟在问号后面的部分。" class="headerlink" title="1. 设置或获取 href 属性中跟在问号后面的部分。"></a>1. 设置或获取 href 属性中跟在问号后面的部分。</h2><p>以 <a href="https://zengwu.com.cn/p/whjy.html?name=guoke">https://zengwu.com.cn/p/whjy.html?name=guoke</a> 为例</p>
+<pre><code class="line-numbers language-js">// 输出: ?name=guoke
+console.log(window.location.search);</code></pre>
+<h2 id="2-设置或获取-href-属性中在井号“-”后面的分段。"><a href="#2-设置或获取-href-属性中在井号“-”后面的分段。" class="headerlink" title="2. 设置或获取 href 属性中在井号“#”后面的分段。"></a>2. 设置或获取 href 属性中在井号“#”后面的分段。</h2><p>以<a href="https://zengwu.com.cn/p/whjy.html#global-now为例">https://zengwu.com.cn/p/whjy.html#global-now为例</a></p>
+<pre><code class="line-numbers language-js">// 输出: #global-now
+console.log(window.location.hash);</code></pre>
+<h2 id="3-设置或获取对象指定的文件名或路径。"><a href="#3-设置或获取对象指定的文件名或路径。" class="headerlink" title="3. 设置或获取对象指定的文件名或路径。"></a>3. 设置或获取对象指定的文件名或路径。</h2><pre><code class="line-numbers language-js">// 输出: p/whjy.html
+console.log(window.location.pathname);</code></pre>
+<h2 id="4-设置或获取整个-URL-为字符串。"><a href="#4-设置或获取整个-URL-为字符串。" class="headerlink" title="4. 设置或获取整个 URL 为字符串。"></a>4. 设置或获取整个 URL 为字符串。</h2><pre><code class="line-numbers language-js">// 输出: https://zengwu.com.cn/p/whjy.html
+console.log(window.location.href);</code></pre>
+<h2 id="5-设置或获取与-URL-关联的端口号码。"><a href="#5-设置或获取与-URL-关联的端口号码。" class="headerlink" title="5. 设置或获取与 URL 关联的端口号码。"></a>5. 设置或获取与 URL 关联的端口号码。</h2><pre><code class="line-numbers language-js">// 输出: 443  默认https协议端口
+console.log(window.location.port);</code></pre>
+<h2 id="6-设置或获取-URL-的协议部分。"><a href="#6-设置或获取-URL-的协议部分。" class="headerlink" title="6. 设置或获取 URL 的协议部分。"></a>6. 设置或获取 URL 的协议部分。</h2><pre><code class="line-numbers language-js">// 输出: https
+console.log(window.location.protocol);</code></pre>
+<h2 id="7-设置或获取-location-或-URL-的-hostname-和-port-号"><a href="#7-设置或获取-location-或-URL-的-hostname-和-port-号" class="headerlink" title="7. 设置或获取 location 或 URL 的 hostname 和 port 号"></a>7. 设置或获取 location 或 URL 的 hostname 和 port 号</h2><pre><code class="line-numbers language-js">//输出: localhost:4000
+console.log(window.location.host);</code></pre>
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQLite基本操作</title>
     <url>/p/74b91d30.html</url>
     <content><![CDATA[<p>SQLite的基本语法和MySQL的类似。</p>
@@ -3896,6 +3973,20 @@ public class SendQQMail {
       </tags>
   </entry>
   <entry>
+    <title>一片伤心画不成</title>
+    <url>/p/cb1d4911.html</url>
+    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
+<a id="more"></a>
+<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>最孤独的代码</title>
     <url>/p/3b6f45f6.html</url>
     <content><![CDATA[<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3b6f45f6/1581852769139.png" alt></p>
@@ -3909,20 +4000,6 @@ int main()
     printf(&quot;I miss you.\n&quot;);
 }</code></pre>
 <p>两个世界，<br>一封失信，<br>短暂相陪，<br>长久回忆。<br>唯留心头一句：“想你！”倏然打印。<br>进程却已抹去。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一片伤心画不成</title>
-    <url>/p/cb1d4911.html</url>
-    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
-<a id="more"></a>
-<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -9803,6 +9880,44 @@ echo &quot;--------------------------------&quot;</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>CentOS7 安装Docker</title>
+    <url>/p/39d97234.html</url>
+    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
+sudo yum -y update
+
+## 卸载旧版本
+sudo yum remove docker  docker-common docker-selinux docker-engine
+&lt;!-- more --&gt;
+## 安装需要的软件包
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
+
+## 安装container-selinux
+yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
+
+## 设置yum源
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+## 安装
+sudo yum -y install docker-ce
+
+## 设置开机启动
+sudo systemctl enable docker
+
+## 启动docker
+sudo systemctl start docker
+
+## 显示版本
+docker version</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS 7 关闭selinux</title>
     <url>/p/c2b74a9a.html</url>
     <content><![CDATA[<ol>
@@ -9866,44 +9981,6 @@ SELINUXTYPE=targeted</code></pre>
       </categories>
       <tags>
         <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CentOS7 安装Docker</title>
-    <url>/p/39d97234.html</url>
-    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
-sudo yum -y update
-
-## 卸载旧版本
-sudo yum remove docker  docker-common docker-selinux docker-engine
-&lt;!-- more --&gt;
-## 安装需要的软件包
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
-
-## 安装container-selinux
-yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
-
-## 设置yum源
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-## 安装
-sudo yum -y install docker-ce
-
-## 设置开机启动
-sudo systemctl enable docker
-
-## 启动docker
-sudo systemctl start docker
-
-## 显示版本
-docker version</code></pre>
-]]></content>
-      <categories>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -10134,77 +10211,6 @@ sudo cp src/redis-cli /usr/local/bin/</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
-    <url>/p/355346b3.html</url>
-    <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
-<pre><code class="line-numbers language-bash">#!/bin/bash
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
-
-sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-
-cd /
-mkdir data
-cd data
-mkdir db
-mkdir log
-
-mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
-
-read -p &quot;Enter your account:&quot; account
-read -p &quot;Enter your password:&quot; password
-mongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;
-
-ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`
-for id in $ID
-do
-kill -9 $id
-done
-
-mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-<h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol>
-<li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre>
-</li>
-<li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre>
-</li>
-<li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre>
-</li>
-<li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre>
-</li>
-<li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /
-mkdir data
-cd data
-mkdir db
-mkdir log</code></pre>
-</li>
-<li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-</li>
-<li>创建帐号<pre><code class="line-numbers language-bash">mongo
-use admin
-db.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })
-db.auth(&quot;root&quot;,&quot;123456&quot;)
-exit</code></pre>
-</li>
-<li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo
-root      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
-root      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongo
-kill 11737</code></pre>
-</li>
-<li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-        <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CentOS-7中离线安装MongoDB</title>
     <url>/p/65eba897.html</url>
     <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
@@ -10358,6 +10364,77 @@ systemctl enable mongodb.service</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
+    <url>/p/355346b3.html</url>
+    <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
+<pre><code class="line-numbers language-bash">#!/bin/bash
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
+
+sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+
+cd /
+mkdir data
+cd data
+mkdir db
+mkdir log
+
+mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
+
+read -p &quot;Enter your account:&quot; account
+read -p &quot;Enter your password:&quot; password
+mongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;
+
+ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`
+for id in $ID
+do
+kill -9 $id
+done
+
+mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+<h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol>
+<li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre>
+</li>
+<li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre>
+</li>
+<li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre>
+</li>
+<li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre>
+</li>
+<li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /
+mkdir data
+cd data
+mkdir db
+mkdir log</code></pre>
+</li>
+<li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+</li>
+<li>创建帐号<pre><code class="line-numbers language-bash">mongo
+use admin
+db.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })
+db.auth(&quot;root&quot;,&quot;123456&quot;)
+exit</code></pre>
+</li>
+<li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo
+root      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
+root      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongo
+kill 11737</code></pre>
+</li>
+<li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>MongoDB</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu安装npm(nodejs)环境</title>
     <url>/p/b387666f.html</url>
     <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
@@ -10455,6 +10532,32 @@ nvm alias default v10.16.3</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Win10 安装 MongoDB</title>
+    <url>/p/3172944f.html</url>
+    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
+<a id="more"></a>
+<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
+<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
+:: 创建MongoDB服务 
+:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
+:: 数据目录 D:\MongoDB\Server\4.2\data
+:: 外网可访问 --bind_ip_all
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
+:: 启动服务
+net start MongoDB</code></pre>
+<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
+<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>将VS Code 添加到友键菜单</title>
     <url>/p/ab6cd228.html</url>
     <content><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p>
@@ -10496,6 +10599,33 @@ Windows Registry Editor Version 5.00
       </tags>
   </entry>
   <entry>
+    <title>WIN10远程连接报错：你的凭据不工作</title>
+    <url>/p/3296f49.html</url>
+    <content><![CDATA[<ol>
+<li><p>开始</p>
+</li>
+<li><p>运行</p>
+</li>
+<li><p>输入<code>gpedit.msc</code></p>
+<a id="more"></a></li>
+<li><p>进入<code>本地组策略编辑器</code></p>
+</li>
+<li><p>在左侧依次找到<code>计算机配置-&gt;Windows设置-&gt;安全设置-&gt;本地策略-&gt;安全选项</code></p>
+</li>
+<li><p>在右侧找到<code>网络访问:本地帐户的共享和安全模型</code></p>
+</li>
+<li><p>修改为<code>使用经典模式</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3296f49/19826068-6174ff340bb5f745.png" alt="clipboard.png"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MongoDB 忘记密码</title>
     <url>/p/d9c741f4.html</url>
     <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
@@ -10525,59 +10655,6 @@ db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
       </categories>
       <tags>
         <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Win10 安装 MongoDB</title>
-    <url>/p/3172944f.html</url>
-    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
-<a id="more"></a>
-<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
-<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
-:: 创建MongoDB服务 
-:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
-:: 数据目录 D:\MongoDB\Server\4.2\data
-:: 外网可访问 --bind_ip_all
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
-:: 启动服务
-net start MongoDB</code></pre>
-<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
-<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>MongoDB</tag>
-        <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>WIN10远程连接报错：你的凭据不工作</title>
-    <url>/p/3296f49.html</url>
-    <content><![CDATA[<ol>
-<li><p>开始</p>
-</li>
-<li><p>运行</p>
-</li>
-<li><p>输入<code>gpedit.msc</code></p>
-<a id="more"></a></li>
-<li><p>进入<code>本地组策略编辑器</code></p>
-</li>
-<li><p>在左侧依次找到<code>计算机配置-&gt;Windows设置-&gt;安全设置-&gt;本地策略-&gt;安全选项</code></p>
-</li>
-<li><p>在右侧找到<code>网络访问:本地帐户的共享和安全模型</code></p>
-</li>
-<li><p>修改为<code>使用经典模式</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3296f49/19826068-6174ff340bb5f745.png" alt="clipboard.png"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Window</tag>
       </tags>
   </entry>
   <entry>
