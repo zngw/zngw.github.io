@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-04-03T09:35:58.076Z</updated>
+  <updated>2020-04-03T14:04:48.801Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>公祭日网页灰色效果</title>
+    <link href="https://zengwu.com.cn/p/864686ac.html"/>
+    <id>https://zengwu.com.cn/p/864686ac.html</id>
+    <published>2020-04-03T15:59:59.000Z</published>
+    <updated>2020-04-03T14:04:48.801Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="默哀"><a href="#默哀" class="headerlink" title="默哀"></a>默哀</h2><p>向全国各族人民对坑新冠肺炎疫情斗争烈士和逝世同胞的深切哀悼，网络世界虽然是虚拟的，但却无碍我们寄托哀思，在此我们也呼吁亿万网友同心协力、携起手来，共同坑疫。</p><a id="more"></a><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>找到网站的css中html标签，在里面添加<code>filter</code>过滤器。如果css中没有html，就在css最顶端加入这段代码</p><pre><code class="line-numbers language-css">html {    filter: grayscale(100%);    -webkit-filter: grayscale(100%);    -moz-filter: grayscale(100%);    -ms-filter: grayscale(100%);    -o-filter: grayscale(100%);}</code></pre><h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/864686ac/19826068-8bac69e915f8ecb6.png" alt="image.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;默哀&quot;&gt;&lt;a href=&quot;#默哀&quot; class=&quot;headerlink&quot; title=&quot;默哀&quot;&gt;&lt;/a&gt;默哀&lt;/h2&gt;&lt;p&gt;向全国各族人民对坑新冠肺炎疫情斗争烈士和逝世同胞的深切哀悼，网络世界虽然是虚拟的，但却无碍我们寄托哀思，在此我们也呼吁亿万网友同心协力、携起手来，共同坑疫。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="JS" scheme="https://zengwu.com.cn/categories/JS/"/>
+    
+    
+      <category term="JS" scheme="https://zengwu.com.cn/tags/JS/"/>
+    
+  </entry>
   
   <entry>
     <title>Kafka日志清理相关设置</title>
@@ -192,29 +215,6 @@
     
     
       <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>公祭日网页灰色效果</title>
-    <link href="https://zengwu.com.cn/p/864686ac.html"/>
-    <id>https://zengwu.com.cn/p/864686ac.html</id>
-    <published>2020-03-24T15:59:59.000Z</published>
-    <updated>2020-04-03T14:02:16.669Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="默哀"><a href="#默哀" class="headerlink" title="默哀"></a>默哀</h2><p>向全国各族人民对坑新冠肺炎疫情斗争烈士和逝世同胞的深切哀悼，网络世界虽然是虚拟的，但却无碍我们寄托哀思，在此我们也呼吁亿万网友同心协力、携起手来，共同坑疫。</p><a id="more"></a><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>找到网站的css中html标签，在里面添加<code>filter</code>过滤器。如果css中没有html，就在css最顶端加入这段代码</p><pre><code class="line-numbers language-css">html {    filter: grayscale(100%);    -webkit-filter: grayscale(100%);    -moz-filter: grayscale(100%);    -ms-filter: grayscale(100%);    -o-filter: grayscale(100%);}</code></pre><h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/864686ac/19826068-8bac69e915f8ecb6.png" alt="image.png"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;默哀&quot;&gt;&lt;a href=&quot;#默哀&quot; class=&quot;headerlink&quot; title=&quot;默哀&quot;&gt;&lt;/a&gt;默哀&lt;/h2&gt;&lt;p&gt;向全国各族人民对坑新冠肺炎疫情斗争烈士和逝世同胞的深切哀悼，网络世界虽然是虚拟的，但却无碍我们寄托哀思，在此我们也呼吁亿万网友同心协力、携起手来，共同坑疫。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="JS" scheme="https://zengwu.com.cn/categories/JS/"/>
-    
-    
-      <category term="JS" scheme="https://zengwu.com.cn/tags/JS/"/>
     
   </entry>
   
