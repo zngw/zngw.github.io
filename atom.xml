@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-04-03T09:35:24.383Z</updated>
+  <updated>2020-04-03T09:35:58.076Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zengwu.com.cn/p/b81c8e33.html"/>
     <id>https://zengwu.com.cn/p/b81c8e33.html</id>
     <published>2020-04-03T06:15:55.000Z</published>
-    <updated>2020-04-03T09:35:24.383Z</updated>
+    <updated>2020-04-03T09:35:58.076Z</updated>
     
     <content type="html"><![CDATA[<p>前几天服务器磁盘被刷爆了（阿里云默认40G硬盘），后面查下来是kafka日志文件写的。</p><h2 id="清理策略"><a href="#清理策略" class="headerlink" title="清理策略"></a>清理策略</h2><ul><li>log.cleanup.policy=delete : kafka日志的清理策略，默认是<code>delete</code>，就是根据配置的时间空间来清理日志；还可以配置成<code>compact</code>，根据messages中的key，进行删除操作在active segment 被commit 后，会删除掉old duplicate keys无限制的时间与空间的日志保留</li></ul><h2 id="关于delete的相关配置"><a href="#关于delete的相关配置" class="headerlink" title="关于delete的相关配置"></a>关于delete的相关配置</h2><ul><li>log.retention.hours=168 :  日志保留的时间，默认是7天(7*24小时)，超过这个时间的日志都会被清理掉。</li><li>log.retention.bytes=1073741824 :  当个日志文件的最大字节数，默认1G。如果文件超出这个大小后，就像先进先出的队列一样，最先进来的数据会被删掉。</li><li>log.roll.hours = 3 : 创建日志文件的周期，默认值是3，就每3个小时会创建一个新的日志文件。</li></ul><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从上面的配置可以看出，如果你数据量大的话，按上面的配置，至少要准备56G（log.retention.hours/log.roll.hours*log.retention.bytes）的硬盘空间。这里还有一个问题，如果数据量大，3个小时内数据超过了1G，这样数据还是会有丢失的情况，这样前面设定的一周已经没什么意义了。所以数据量大时要调小log.roll.hours和调大log.retention.bytes。保证一个log.roll.hours周期内写数据库小于log.retention.bytes值。然后再根据想要预留的硬盘空间设定log.retention.hours时间，这样能保证log.retention.hours时间内的数据不会丢失。</p>]]></content>
     
