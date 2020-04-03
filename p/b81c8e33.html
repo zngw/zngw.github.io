@@ -124,7 +124,7 @@
 
 
 
-  <meta name="keywords" content="过客, guoke, guoke3915, zengwu" />
+  <meta name="keywords" content="软件使用," />
 
 
 
@@ -139,16 +139,17 @@
 
 
 
-<meta name="description" content="我是过客，不只是过客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="过愙">
-<meta property="og:url" content="https://zengwu.com.cn/categories/Golang/index.html">
+<meta name="description" content="前几天服务器磁盘被刷爆了（阿里云默认40G硬盘），后面查下来是kafka日志文件写的。 清理策略 log.cleanup.policy&#x3D;delete : kafka日志的清理策略，默认是delete，就是根据配置的时间空间来清理日志；还可以配置成compact，根据messages中的key，进行删除操作在active segment 被commit 后，会删除掉old duplicate key">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka日志清理相关设置">
+<meta property="og:url" content="https://zengwu.com.cn/p/b81c8e33.html">
 <meta property="og:site_name" content="过愙">
-<meta property="og:description" content="我是过客，不只是过客">
+<meta property="og:description" content="前几天服务器磁盘被刷爆了（阿里云默认40G硬盘），后面查下来是kafka日志文件写的。 清理策略 log.cleanup.policy&#x3D;delete : kafka日志的清理策略，默认是delete，就是根据配置的时间空间来清理日志；还可以配置成compact，根据messages中的key，进行删除操作在active segment 被commit 后，会删除掉old duplicate key">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-03T06:15:55.000Z">
+<meta property="article:modified_time" content="2020-04-03T09:35:24.383Z">
 <meta property="article:author" content="过客">
-<meta property="article:tag" content="guoke">
-<meta property="article:tag" content="过客">
+<meta property="article:tag" content="软件使用">
 <meta name="twitter:card" content="summary">
 
 
@@ -179,7 +180,7 @@
 
 
 
-  <link rel="canonical" href="https://zengwu.com.cn/categories/Golang/"/>
+  <link rel="canonical" href="https://zengwu.com.cn/p/b81c8e33.html"/>
 
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/zngw/cdn/prism.css">
@@ -189,7 +190,7 @@
 
 
 
-  <title>分类: Golang | 过愙</title>
+  <title>Kafka日志清理相关设置 | 过愙</title>
   
 
 
@@ -218,7 +219,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -366,309 +367,356 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>Golang<small>分类</small>
-        </h2>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/b81c8e33.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/p/5e4da61d.html" itemprop="url">
-              
-                <span itemprop="name">Go 命令行参数</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Kafka日志清理相关设置</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-03-28T18:59:55+08:00"
-              content="2020-03-28" >
-          03-28
-        </time>
-      </div>
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T14:15:55+08:00">
+                2020-04-03
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2020-04-03</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">软件使用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  421
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/b81c8e33.html" class="zngw_visitors" data-flag-title="Kafka日志清理相关设置">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/p/63c73dd7.html" itemprop="url">
-              
-                <span itemprop="name">Goland 中排序</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-03-27T15:59:55+08:00"
-              content="2020-03-27" >
-          03-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/p/86c3fe0e.html" itemprop="url">
-              
-                <span itemprop="name">Go中使用 SQLite 数据库</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-02-29T09:05:55+08:00"
-              content="2020-02-29" >
-          02-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/p/582b4054.html" itemprop="url">
-              
-                <span itemprop="name">Go中使用sync.Map</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-02-28T13:50:55+08:00"
-              content="2020-02-28" >
-          02-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/p/15f3dbb6.html" itemprop="url">
-              
-                <span itemprop="name">Goland 编译出现：exec: "gcc": executable file not found in %PATH%</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-02-02T15:59:55+08:00"
-              content="2020-02-02" >
-          02-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/p/a2ffae43.html" itemprop="url">
-              
-                <span itemprop="name">Go使用阿里云代理仓库</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-30T19:48:55+08:00"
-              content="2019-12-30" >
-          12-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/p/1392725d.html" itemprop="url">
-              
-                <span itemprop="name">CentOS7 中安装Go开发环境</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-30T19:42:55+08:00"
-              content="2019-12-30" >
-          12-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/p/1f779438.html" itemprop="url">
-              
-                <span itemprop="name">Go中for range的一个坑</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-03T00:23:55+08:00"
-              content="2019-12-03" >
-          12-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/p/c6a5e268.html" itemprop="url">
-              
-                <span itemprop="name">Go 中使用Kafka</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-02T01:09:55+08:00"
-              content="2019-12-02" >
-          12-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/p/446643ac.html" itemprop="url">
-              
-                <span itemprop="name">Go操作mongoDB GridFS增删查</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-11-30T23:56:55+08:00"
-              content="2019-11-30" >
-          11-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>前几天服务器磁盘被刷爆了（阿里云默认40G硬盘），后面查下来是kafka日志文件写的。</p>
+<h2 id="清理策略"><a href="#清理策略" class="headerlink" title="清理策略"></a>清理策略</h2><ul>
+<li>log.cleanup.policy=delete : kafka日志的清理策略，默认是<code>delete</code>，就是根据配置的时间空间来清理日志；还可以配置成<code>compact</code>，根据messages中的key，进行删除操作在active segment 被commit 后，会删除掉old duplicate keys无限制的时间与空间的日志保留</li>
+</ul>
+<h2 id="关于delete的相关配置"><a href="#关于delete的相关配置" class="headerlink" title="关于delete的相关配置"></a>关于delete的相关配置</h2><ul>
+<li>log.retention.hours=168 :  日志保留的时间，默认是7天(7*24小时)，超过这个时间的日志都会被清理掉。</li>
+<li>log.retention.bytes=1073741824 :  当个日志文件的最大字节数，默认1G。如果文件超出这个大小后，就像先进先出的队列一样，最先进来的数据会被删掉。</li>
+<li>log.roll.hours = 3 : 创建日志文件的周期，默认值是3，就每3个小时会创建一个新的日志文件。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从上面的配置可以看出，如果你数据量大的话，按上面的配置，至少要准备56G（log.retention.hours/log.roll.hours*log.retention.bytes）的硬盘空间。这里还有一个问题，如果数据量大，3个小时内数据超过了1G，这样数据还是会有丢失的情况，这样前面设定的一周已经没什么意义了。所以数据量大时要调小log.roll.hours和调大log.retention.bytes。保证一个log.roll.hours周期内写数据库小于log.retention.bytes值。然后再根据想要预留的硬盘空间设定log.retention.hours时间，这样能保证log.retention.hours时间内的数据不会丢失。</p>
 
       
     </div>
+    
+    
+    
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    过客
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zengwu.com.cn/p/b81c8e33.html" title="Kafka日志清理相关设置">https://zengwu.com.cn/p/b81c8e33.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC 4.0 BY-SA</a> 版权协议。转载请注明出处！
+  </li>
+</ul>
 
+      </div>
+    
+
+    
+      <div class="post-tags">
+        
+          <a href="/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" rel="tag"><i class="fa fa-tag"></i> 软件使用</a>
+        
+      </div>
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward-wepay.png" alt="过客 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward-alipay.png" alt="过客 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+        
+
+  <div class="popular-posts-header">相关推荐</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\f9ba457.html" rel="bookmark">TortoiseSVN修改服务器地址</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\463cccb2.html" rel="bookmark">VS Code大小写转换快捷键</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\bbed5435.html" rel="bookmark">自定义远程桌面连接名</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\57233631.html" rel="bookmark">Win 2012 远程卡在“正在加密远程连接”</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\2a7ceb64.html" rel="bookmark">Hexo中添加类QQ空间旅游相册</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/p/63ce0e80.html" rel="next" title="Linux下查看磁盘空间">
+                  <i class="fa fa-chevron-left"></i> Linux下查看磁盘空间
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+    
   </div>
   
   
   
+  </article>
 
-  
- <nav class="pagination">
-   <span class="page-number current">1</span><a class="page-number" href="/categories/Golang/page/2/index.html">2</a><a class="page-number" href="/categories/Golang/page/3/index.html">3</a><a class="extend next" rel="next" href="/categories/Golang/page/2/index.html"><i class="fa fa-angle-right" aria-label="accessibility.next_page"></i></a>
- </nav>
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "right",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src="/static/api/js/share.js?cdnversion="+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -676,6 +724,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments"></div>
+
+  
+
+
 
         </div>
         
@@ -696,9 +751,20 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+              文章目录
+            </li>
+          
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
       
-        <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <section class="site-overview-wrap sidebar-panel">
       
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -842,6 +908,23 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#清理策略"><span class="nav-text">清理策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于delete的相关配置"><span class="nav-text">关于delete的相关配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              
+            
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1234,6 +1317,13 @@
 
 
   
+  
+
+
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
