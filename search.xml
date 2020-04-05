@@ -4017,20 +4017,6 @@ public class SendQQMail {
       </tags>
   </entry>
   <entry>
-    <title>一片伤心画不成</title>
-    <url>/p/cb1d4911.html</url>
-    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
-<a id="more"></a>
-<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>最孤独的代码</title>
     <url>/p/3b6f45f6.html</url>
     <content><![CDATA[<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3b6f45f6/1581852769139.png" alt></p>
@@ -4044,6 +4030,20 @@ int main()
     printf(&quot;I miss you.\n&quot;);
 }</code></pre>
 <p>两个世界，<br>一封失信，<br>短暂相陪，<br>长久回忆。<br>唯留心头一句：“想你！”倏然打印。<br>进程却已抹去。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一片伤心画不成</title>
+    <url>/p/cb1d4911.html</url>
+    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
+<a id="more"></a>
+<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -10255,77 +10255,6 @@ sudo cp src/redis-cli /usr/local/bin/</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
-    <url>/p/355346b3.html</url>
-    <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
-<pre><code class="line-numbers language-bash">#!/bin/bash
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
-
-sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-
-cd /
-mkdir data
-cd data
-mkdir db
-mkdir log
-
-mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
-
-read -p &quot;Enter your account:&quot; account
-read -p &quot;Enter your password:&quot; password
-mongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;
-
-ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`
-for id in $ID
-do
-kill -9 $id
-done
-
-mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-<h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol>
-<li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre>
-</li>
-<li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre>
-</li>
-<li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre>
-</li>
-<li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre>
-</li>
-<li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /
-mkdir data
-cd data
-mkdir db
-mkdir log</code></pre>
-</li>
-<li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-</li>
-<li>创建帐号<pre><code class="line-numbers language-bash">mongo
-use admin
-db.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })
-db.auth(&quot;root&quot;,&quot;123456&quot;)
-exit</code></pre>
-</li>
-<li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo
-root      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
-root      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongo
-kill 11737</code></pre>
-</li>
-<li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-        <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CentOS-7中离线安装MongoDB</title>
     <url>/p/65eba897.html</url>
     <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
@@ -10479,6 +10408,77 @@ systemctl enable mongodb.service</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
+    <url>/p/355346b3.html</url>
+    <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
+<pre><code class="line-numbers language-bash">#!/bin/bash
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
+
+sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+
+cd /
+mkdir data
+cd data
+mkdir db
+mkdir log
+
+mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
+
+read -p &quot;Enter your account:&quot; account
+read -p &quot;Enter your password:&quot; password
+mongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;
+
+ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`
+for id in $ID
+do
+kill -9 $id
+done
+
+mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+<h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol>
+<li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre>
+</li>
+<li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre>
+</li>
+<li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre>
+</li>
+<li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre>
+</li>
+<li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /
+mkdir data
+cd data
+mkdir db
+mkdir log</code></pre>
+</li>
+<li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+</li>
+<li>创建帐号<pre><code class="line-numbers language-bash">mongo
+use admin
+db.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })
+db.auth(&quot;root&quot;,&quot;123456&quot;)
+exit</code></pre>
+</li>
+<li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo
+root      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
+root      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongo
+kill 11737</code></pre>
+</li>
+<li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>MongoDB</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu安装npm(nodejs)环境</title>
     <url>/p/b387666f.html</url>
     <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
@@ -10576,6 +10576,65 @@ nvm alias default v10.16.3</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>WIN10远程连接报错：你的凭据不工作</title>
+    <url>/p/3296f49.html</url>
+    <content><![CDATA[<ol>
+<li><p>开始</p>
+</li>
+<li><p>运行</p>
+</li>
+<li><p>输入<code>gpedit.msc</code></p>
+<a id="more"></a></li>
+<li><p>进入<code>本地组策略编辑器</code></p>
+</li>
+<li><p>在左侧依次找到<code>计算机配置-&gt;Windows设置-&gt;安全设置-&gt;本地策略-&gt;安全选项</code></p>
+</li>
+<li><p>在右侧找到<code>网络访问:本地帐户的共享和安全模型</code></p>
+</li>
+<li><p>修改为<code>使用经典模式</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3296f49/19826068-6174ff340bb5f745.png" alt="clipboard.png"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MongoDB 忘记密码</title>
+    <url>/p/d9c741f4.html</url>
+    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
+<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
+<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
+<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>停止服务<code>kill 9564</code> 进程ID</li>
+<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
+use admin                      # 切换到系统帐户表
+db.system.users.find()         # 查看当前帐户（密码有加密过）
+db.system.users.remove({})     # 删除所有帐户
+db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
+</li>
+<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
+<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
+<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
+<li>注释掉<code>authorization:enabled</code></li>
+<li>重启MongoDB服务<code>service mongodb restart</code></li>
+<li>同上运行命令删除账户</li>
+<li>恢复 <code>authorization:enabled</code></li>
+<li>重启 mongodb 服务<code>service mongodb restart</code></li>
+</ul>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>将VS Code 添加到友键菜单</title>
     <url>/p/ab6cd228.html</url>
     <content><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p>
@@ -10617,33 +10676,6 @@ Windows Registry Editor Version 5.00
       </tags>
   </entry>
   <entry>
-    <title>WIN10远程连接报错：你的凭据不工作</title>
-    <url>/p/3296f49.html</url>
-    <content><![CDATA[<ol>
-<li><p>开始</p>
-</li>
-<li><p>运行</p>
-</li>
-<li><p>输入<code>gpedit.msc</code></p>
-<a id="more"></a></li>
-<li><p>进入<code>本地组策略编辑器</code></p>
-</li>
-<li><p>在左侧依次找到<code>计算机配置-&gt;Windows设置-&gt;安全设置-&gt;本地策略-&gt;安全选项</code></p>
-</li>
-<li><p>在右侧找到<code>网络访问:本地帐户的共享和安全模型</code></p>
-</li>
-<li><p>修改为<code>使用经典模式</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3296f49/19826068-6174ff340bb5f745.png" alt="clipboard.png"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Win10 安装 MongoDB</title>
     <url>/p/3172944f.html</url>
     <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
@@ -10670,35 +10702,51 @@ net start MongoDB</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>MongoDB 忘记密码</title>
-    <url>/p/d9c741f4.html</url>
-    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
-<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
-<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
-<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>停止服务<code>kill 9564</code> 进程ID</li>
-<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
-use admin                      # 切换到系统帐户表
-db.system.users.find()         # 查看当前帐户（密码有加密过）
-db.system.users.remove({})     # 删除所有帐户
-db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
+    <title>Go文件名命名规则</title>
+    <url>/p/daf9791f.html</url>
+    <content><![CDATA[<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>在golang源代码中，经常看到各种文件名，比如： bolt_windows.go。<br>下面对文件名命令规则的说明：</p>
+<a id="more"></a>
+<ol>
+<li><p>平台区分</p>
+<p>文件名_平台。</p>
+<p>例： file_windows.go, file_unix.go</p>
+<p>可选为<code>windows, unix, posix, plan9, darwin, bsd, linux, freebsd, nacl, netbsd, openbsd, solaris, dragonfly, bsd, notbsd， android，stubs</code></p>
 </li>
-<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
-<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
-<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
-<li>注释掉<code>authorization:enabled</code></li>
-<li>重启MongoDB服务<code>service mongodb restart</code></li>
-<li>同上运行命令删除账户</li>
-<li>恢复 <code>authorization:enabled</code></li>
-<li>重启 mongodb 服务<code>service mongodb restart</code></li>
-</ul>
+<li><p>测试单远</p>
+<p>文件名_test.go或者 文件名_平台_test.go。</p>
+<p>例： path_test.go,  path_windows_test.go</p>
+</li>
+<li><p>版本区分（猜测）</p>
+<p>文件名_版本号等。</p>
+<p>例：trap_windows_1.4.go</p>
+</li>
+<li><p>CPU类型区分, 汇编用的多</p>
+<p>文件名_(平台:可选)_CPU类型.</p>
+<p>例：vdso_linux_amd64.go</p>
+<p>可选为<code>amd64, none, 386, arm, arm64, mips64, s390,mips64x,ppc64x, nonppc64x, s390x, x86,amd64p32</code></p>
+</li>
+</ol>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
+<li><p>golang的命名需要使用驼峰命名法，且不能出现下划线</p>
+</li>
+<li><p>golang中根据首字母的大小写来确定可以访问的权限。无论是方法名、常量、变量名还是结构体的名称，如果首字母大写，则可以被其他的包访问；如果首字母小写，则只能在本包中使用，可以简单的理解成，首字母大写是公有的，首字母小写是私有的</p>
+</li>
+<li><p>结构体中属性名的大写</p>
+<p>如果属性名小写则在数据解析（如json解析,或将结构体作为请求或访问参数）时无法解析</p>
+</li>
+</ol>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
+<li>go build 的时候会选择性地编译以系统名结尾的文件(linux、darwin、windows、freebsd)。例如Linux(Unix)系统下编译只会选择array_linux.go文件，其它系统命名后缀文件全部忽略。</li>
+<li>在xxx.go文件的文件头上添加 // + build !windows (tags)，可以选择在windows系统下面不编译 <pre><code class="line-numbers language-go">// +build !windows
+package main</code></pre>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>MongoDB</category>
+        <category>Golang</category>
       </categories>
       <tags>
-        <tag>MongoDB</tag>
+        <tag>Golang</tag>
       </tags>
   </entry>
   <entry>
@@ -10781,54 +10829,6 @@ npm install babel-preset-react</code></pre>
       </categories>
       <tags>
         <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Go文件名命名规则</title>
-    <url>/p/daf9791f.html</url>
-    <content><![CDATA[<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>在golang源代码中，经常看到各种文件名，比如： bolt_windows.go。<br>下面对文件名命令规则的说明：</p>
-<a id="more"></a>
-<ol>
-<li><p>平台区分</p>
-<p>文件名_平台。</p>
-<p>例： file_windows.go, file_unix.go</p>
-<p>可选为<code>windows, unix, posix, plan9, darwin, bsd, linux, freebsd, nacl, netbsd, openbsd, solaris, dragonfly, bsd, notbsd， android，stubs</code></p>
-</li>
-<li><p>测试单远</p>
-<p>文件名_test.go或者 文件名_平台_test.go。</p>
-<p>例： path_test.go,  path_windows_test.go</p>
-</li>
-<li><p>版本区分（猜测）</p>
-<p>文件名_版本号等。</p>
-<p>例：trap_windows_1.4.go</p>
-</li>
-<li><p>CPU类型区分, 汇编用的多</p>
-<p>文件名_(平台:可选)_CPU类型.</p>
-<p>例：vdso_linux_amd64.go</p>
-<p>可选为<code>amd64, none, 386, arm, arm64, mips64, s390,mips64x,ppc64x, nonppc64x, s390x, x86,amd64p32</code></p>
-</li>
-</ol>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
-<li><p>golang的命名需要使用驼峰命名法，且不能出现下划线</p>
-</li>
-<li><p>golang中根据首字母的大小写来确定可以访问的权限。无论是方法名、常量、变量名还是结构体的名称，如果首字母大写，则可以被其他的包访问；如果首字母小写，则只能在本包中使用，可以简单的理解成，首字母大写是公有的，首字母小写是私有的</p>
-</li>
-<li><p>结构体中属性名的大写</p>
-<p>如果属性名小写则在数据解析（如json解析,或将结构体作为请求或访问参数）时无法解析</p>
-</li>
-</ol>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
-<li>go build 的时候会选择性地编译以系统名结尾的文件(linux、darwin、windows、freebsd)。例如Linux(Unix)系统下编译只会选择array_linux.go文件，其它系统命名后缀文件全部忽略。</li>
-<li>在xxx.go文件的文件头上添加 // + build !windows (tags)，可以选择在windows系统下面不编译 <pre><code class="line-numbers language-go">// +build !windows
-package main</code></pre>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Golang</category>
-      </categories>
-      <tags>
-        <tag>Golang</tag>
       </tags>
   </entry>
   <entry>
