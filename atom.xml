@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-04-03T14:04:56.091Z</updated>
+  <updated>2020-04-06T08:23:36.963Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mongodb-driver中使用$cond</title>
+    <link href="https://zengwu.com.cn/p/f6719ae9.html"/>
+    <id>https://zengwu.com.cn/p/f6719ae9.html</id>
+    <published>2020-04-06T08:01:55.000Z</published>
+    <updated>2020-04-06T08:23:36.963Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>当在游戏金币变动日志中，金币有正有负，需要按玩家分别统计正值和负值的和时。可以使用<code>$cond</code>计算表达式</p><a id="more"></a><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><code>$cond</code> 计算 boolean 表达式以 return 两个指定的 return 表达式之一。mongodb语法：</p><pre><code class="line-numbers language-mongodb">{ $cond: [ &lt;boolean-expression&gt;, &lt;true-case&gt;, &lt;false-case&gt; ] }</code></pre><h2 id="mongodb-driver实现"><a href="#mongodb-driver实现" class="headerlink" title="mongodb-driver实现"></a>mongodb-driver实现</h2><h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><p> 如有玩家金币变动日志数据</p><pre><code class="line-numbers language-json">{ &quot;_id&quot; : 1, &quot;userId&quot; : &quot;12345&quot;, &quot;change&quot;: 300 }{ &quot;_id&quot; : 2, &quot;userId&quot; : &quot;12345&quot;, &quot;change&quot;: -200 }{ &quot;_id&quot; : 3, &quot;userId&quot; : &quot;12345&quot;, &quot;change&quot;: 150 }{ &quot;_id&quot; : 3, &quot;userId&quot; : &quot;12311&quot;, &quot;change&quot;: 250 }</code></pre><h3 id="mongodb实现"><a href="#mongodb实现" class="headerlink" title="mongodb实现"></a>mongodb实现</h3><pre><code class="line-numbers language-mongodb">db.getCollection(&#39;CoinLog&#39;).aggregate({$group: {    _id: &quot;$userId&quot;,    win: {            $sum: {                    $cond: [{                            $gt: [&quot;$change&quot;, 0]                        },&quot;$change&quot;,0]                }            }    },     lose: {            $sum: {                    $cond: [{                            $lt: [&quot;$change&quot;, 0]                        },&quot;$change&quot;,0]                }            }    }})</code></pre><h3 id="mongodb-driver实现-1"><a href="#mongodb-driver实现-1" class="headerlink" title="mongodb-driver实现"></a>mongodb-driver实现</h3><p>这里用的mongodb-driver版本为3.8.2</p><pre><code class="line-numbers language-java">BsonArray filter = new BsonArray();filter.add(new BsonString(&quot;$change&quot;));filter.add(new BsonInt64(0));BsonArray winCond = new BsonArray();winCond.add(new BsonDocument(&quot;$gt&quot;, filter));winCond.add(new BsonString(&quot;$change&quot;));winCond.add(new BsonInt64(0));BsonArray loseCond = new BsonArray();loseCond.add(new BsonDocument(&quot;$lt&quot;, filter));loseCond.add(new BsonString(&quot;$change&quot;));loseCond.add(new BsonInt64(0));db.getCollection(&#39;CoinLog&#39;)    .aggregate(Arrays.asList(        Aggregates.group($userId,                    sum(&quot;win&quot;,new BsonDocument(&quot;$cond&quot;,winCond)),                    sum(&quot;lose&quot;,new BsonDocument(&quot;$cond&quot;,loseCond)))            )).forEach(new Block&lt;Document&gt;() {            @Override            public void apply(Document doc) {                String userId = doc.getString(&quot;_id&quot;);                // 这里要注意一下的是，如果累加值过大，                // 需要先判断类是是int还是long，不然直接getInteger会出错                int win = doc.getInteger(&quot;win&quot;);                int lose = doc.getInteger(&quot;lose&quot;);                // TODO             });</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;需求&quot;&gt;&lt;a href=&quot;#需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求&lt;/h2&gt;&lt;p&gt;当在游戏金币变动日志中，金币有正有负，需要按玩家分别统计正值和负值的和时。可以使用&lt;code&gt;$cond&lt;/code&gt;计算表达式&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/categories/Java/"/>
+    
+    
+      <category term="MongoDB" scheme="https://zengwu.com.cn/tags/MongoDB/"/>
+    
+      <category term="Java" scheme="https://zengwu.com.cn/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>这一刻</title>
+    <link href="https://zengwu.com.cn/p/529a06cf.html"/>
+    <id>https://zengwu.com.cn/p/529a06cf.html</id>
+    <published>2020-04-05T05:52:55.000Z</published>
+    <updated>2020-04-06T08:23:09.047Z</updated>
+    
+    <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这一刻，回到这工作的城市已经一个月了，回到自己的小宇宙，感觉并不是很好。除了难得的自由，剩下的只有寂寞，少了父母的唠叨，多了丝牵挂和忧伤。</p><a id="more"></a><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我工作在离家五百公里的地方，虽然随着时间的推移，工作、生活的压力有时会让人麻木，但刚离开家的这一刻，想起父母的唠叨，想起曾经在父母身边那些快乐简单温暖如春的日子。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;小时候，父母常常唠叨我早睡早起，好好学习，听老师的话… 长大了，终于离开父母，不必在听父母的唠叨了，以为可以耳根清静了，但父母常常电话唠叨我要处处小心，吃好穿暖，好好和同事们相处，不要惦记他们。当然，也忘不了唠叨几句该找女朋友了，带个妹子回家之类的。有时候为了躲避父母的唠叨，没事不爱打电话回去，打电话也匆匆找借口挂断。我知道，他们爱我，可能比他们自己都重要，怕我冷，怕我饿，怕我受欺侮，怕我受委屈… 就是在这简单的重复的唠叨中播种着他们的爱护和温暖。一丝丝话语，一个个关爱，一份份责任都浸透着父母如天高比地博的爱护。即使我离开了他们的怀抱，但牵扯不断的是血脉亲情。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;春节过年回家，父亲在烧火，母亲在炒菜，我站在一旁静静的听母亲告父亲的状，父母亲一会便吵起来，那种说吵架，其时就是快乐的一些鸡毛蒜皮的小事，虽然互不相让，但那种几十年相濡以沫的亲情，其时好温暖。而我静静的听着，看着，五六十岁的父母此刻就好象两个小孩儿，我就如他们的老师，他们的调解员，一会两个人就和好如初了。父母头发多半已白，脸上的皱纹刻印着岁月的沧桑。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这一刻我懂了，其实，听父母唠叨也是一件幸福的事，唠叨里饱含着父母对儿女的浓浓亲情。我会好好珍惜和父母在一起的幸福时光，用心体会，用行动报答…</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这一刻，回到这工作的城市已经一个月了，回到自己的小宇宙，感觉并不是很好。除了难得的自由，剩下的只有寂寞，少了父母的唠叨，多了丝牵挂和忧伤。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://zengwu.com.cn/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
   
   <entry>
     <title>公祭日网页灰色效果</title>
@@ -487,59 +535,6 @@
     
     
       <category term="JS" scheme="https://zengwu.com.cn/tags/JS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB重复数据插入性能测试</title>
-    <link href="https://zengwu.com.cn/p/e929662a.html"/>
-    <id>https://zengwu.com.cn/p/e929662a.html</id>
-    <published>2020-03-09T17:45:55.000Z</published>
-    <updated>2020-03-09T18:03:43.317Z</updated>
-    
-    <content type="html"><![CDATA[<p>有些时候我们在多线程或多服务器处理的时候，难免会遇到写相同的数据到数据库中的情况。下面测试三种不同方式来插入数据的耗时。</p><a id="more"></a><h2 id="1-环境"><a href="#1-环境" class="headerlink" title="1. 环境"></a>1. 环境</h2><ul><li>硬件：阿里云 4 vCPU（Intel(R) Xeon(R) Platinum 8269CY CPU @ 2.50GHz） 16 GiB</li><li>系统：CentOS 7.6 64位</li><li>MongoDB：3.2.8版本，直接安装默认配置，未做任何优化</li><li>Java环境：JDB 8u92</li><li>MongoDB驱动： mongodb-driver 3.8.2<br>ps: 突然发现环境都好老了，不想更新不想折腾哈。</li></ul><h2 id="2-生成数据"><a href="#2-生成数据" class="headerlink" title="2. 生成数据"></a>2. 生成数据</h2><p>这里测试插入10万条数据，其中有1万条是重复的。数据包含一个_id、一个随机字符串、一个随机浮点数和一个时间戳。</p><pre><code class="line-numbers language-java">    final int count = 100000;   // 10万条 总数据量    final int repeat = 10000;   // 1万条 重复数据    // 生成 9万 条随机数据 列表    List&lt;Document&gt; list = new ArrayList&lt;&gt;();    for (int i = 0; i &lt; count-repeat; i++){        Document test = new Document(&quot;_id&quot;,&quot;&quot;+i)            .append(&quot;data1&quot;, UUID.randomUUID().toString())            .append(&quot;date2&quot;,Math.random())            .append(&quot;time&quot;,System.currentTimeMillis());        list.add(test);    }    // 随机抽取 1万 条数据随机插入列表    for (int i = 0; i &lt; repeat; i++){        list.add((int)(Math.random()*list.size()),list.get((int)(Math.random()*list.size())));    }</code></pre><h2 id="3-三种插入数据方式"><a href="#3-三种插入数据方式" class="headerlink" title="3. 三种插入数据方式"></a>3. 三种插入数据方式</h2><p>以循环单条插入数据做测试，db连接一次并不释放。</p><pre><code class="line-numbers language-java">    // 第一种使用update，直接插入并更新操作    long time0 = System.currentTimeMillis();    MongoCollection&lt;Document&gt; test1 = db.getCollection(&quot;test1&quot;);    for (Document data : list){        UpdateOptions updateOptions = new UpdateOptions();        updateOptions.upsert(true);        test1.replaceOne(eq(&quot;_id&quot;, data.get(&quot;_id&quot;)), data, updateOptions);    }    long time1 = System.currentTimeMillis();    Log.trace(&quot;test1 time=&quot;+(time1-time0));    // 第二种，先查找，不存在就插入    MongoCollection&lt;Document&gt; test2 = db.getCollection(&quot;test2&quot;);    for (Document data : list){        if(test2.find(eq(&quot;_id&quot;, data.get(&quot;_id&quot;))).first() == null){            test2.insertOne(data);        }    }    long time2 = System.currentTimeMillis();    Log.trace(&quot;test2 time=&quot;+(time2-time1));    // 第三种，直接插入，try catch异常不处理    MongoCollection&lt;Document&gt; test3 = db.getCollection(&quot;test3&quot;);    for (Document data : list){        try{            test3.insertOne(data);        }catch (Exception e){        }    }    long time3 = System.currentTimeMillis();    Log.trace(&quot;test3 time=&quot;+(time3-time2));</code></pre><h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h2><ul><li>10万条其中1万条重复得到耗时为</li></ul><pre><code class="line-numbers language-text">2020-03-10 01:29:33.046 [TRACE] - test1 time=200552020-03-10 01:30:01.720 [TRACE] - test2 time=286742020-03-10 01:30:16.502 [TRACE] - test3 time=14782</code></pre><ul><li><p>如果数据表中已经存在这10万条数据，再插入重复的10万条数据的耗时</p><pre><code class="line-numbers language-text">2020-03-10 01:36:17.880 [TRACE] - test1 time=210372020-03-10 01:36:32.812 [TRACE] - test2 time=149322020-03-10 01:36:50.868 [TRACE] - test3 time=18056</code></pre></li><li><p>数据理改到100万条数据，其中1万条重复测试</p><pre><code class="line-numbers language-text">2020-03-10 01:45:24.889 [TRACE] - test1 time=1754642020-03-10 01:50:16.116 [TRACE] - test2 time=2912262020-03-10 01:52:37.650 [TRACE] - test3 time=141535</code></pre></li></ul><h2 id="5-结论"><a href="#5-结论" class="headerlink" title="5. 结论"></a>5. 结论</h2><ul><li>第一种：使用update方式插入数据，这个耗时与是否存在当前数据相差不是很大，它是先查找到对应数据，如果存在修改，不存在就插入新数据。</li><li>第二种：先查找就更容易理解了，如果数据库里都有了，省了一步骤插入操作，所以会快很多。</li><li>第三种：如果数据库存在的量少，就直接插入了。如果存在的量大，多的消耗就是java处理insertOne抛出的异常上了。</li><li>综上所述：在确定数据重复存不超过一半的情况下，使用先查找的方法最耗时。而直接插入捕获异常的方式最省时。如果纯重复数据，建议用第三种方法来处理。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;有些时候我们在多线程或多服务器处理的时候，难免会遇到写相同的数据到数据库中的情况。下面测试三种不同方式来插入数据的耗时。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="MongoDB" scheme="https://zengwu.com.cn/categories/MongoDB/"/>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-      <category term="MongoDB" scheme="https://zengwu.com.cn/tags/MongoDB/"/>
-    
-      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo next自适应宽屏</title>
-    <link href="https://zengwu.com.cn/p/f008f066.html"/>
-    <id>https://zengwu.com.cn/p/f008f066.html</id>
-    <published>2020-03-08T15:55:55.000Z</published>
-    <updated>2020-03-08T15:34:11.693Z</updated>
-    
-    <content type="html"><![CDATA[<p>电脑屏幕都1920*1080了，用的next主题配置中只有960，文章只有可怜的700，这样看起来挺别扭的，特别是有代码块的时候，基本上都显示不完要滑动。可以通过修改next主题的文章页面宽度来解决。<br>打开<code>\themes\next\source/css/_schemes/Picses/_layout.styl</code>在文件末尾添加代码</p><pre><code class="line-numbers language-css">// 以下为新增代码！！修改post宽度header{ width: 80% !important; }header.post-header {  width: auto !important;}.container .main-inner { width: 80%; }.content-wrap { width: calc(100% - 260px); }.header {  +tablet() {    width: auto !important;  }  +mobile() {    width: auto !important;  }}.container .main-inner {  +tablet() {    width: auto !important;  }  +mobile() {    width: auto !important;  }}.content-wrap {  +tablet() {    width: 100% !important;  }  +mobile() {    width: 100% !important;  }}</code></pre><p>文章参考：<a href="https://ihaoming.top/archives/9a935f57.html" target="_blank" rel="noopener">https://ihaoming.top/archives/9a935f57.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;电脑屏幕都1920*1080了，用的next主题配置中只有960，文章只有可怜的700，这样看起来挺别扭的，特别是有代码块的时候，基本上都显示不完要滑动。可以通过修改next主题的文章页面宽度来解决。&lt;br&gt;打开&lt;code&gt;\themes\next\source/css/_
-      
-    
-    </summary>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
     
   </entry>
   
