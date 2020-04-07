@@ -2506,10 +2506,10 @@ console.log(diffDate(&quot;2020-02-02&quot;,&quot;2011-11-02&quot;));</code></pr
             visualMap: {
                 type: 'piecewise',
                 pieces: [
-                    { min: 1000, max: 1000000, label: '>=10000', color: '#FF0000' },
-                    { min: 100, max: 999, label: '1000-9999', color: '#ee7263' },
-                    { min: 10, max: 99, label: '100-999', color: '#f5bba7' },
-                    { min: 1, max: 9, label: '1-99', color: '#ffff00' },
+                    { min: 10000, max: 1000000, label: '>=10000', color: '#FF0000' },
+                    { min: 1000, max: 9999, label: '1000-9999', color: '#ee7263' },
+                    { min: 100, max: 999, label: '100-999', color: '#f5bba7' },
+                    { min: 1, max: 99, label: '1-99', color: '#ffff00' },
                     { min: -1, max: -1, label: '未更新', color: '#EEEEEE' },
                 ],
                 color: ['#E0022B', '#E09107', '#A3E00B']
@@ -2560,10 +2560,10 @@ console.log(diffDate(&quot;2020-02-02&quot;,&quot;2011-11-02&quot;));</code></pr
             visualMap: {
                 type: 'piecewise',
                 pieces: [
-                    { min: 10000, max: 10000000, label: '>=100000', color: '#550101' },
-                    { min: 1000, max: 9999, label: '10000-99999', color: '#a92919' },
-                    { min: 500, max: 999, label: '1000-9999', color: '#af4e41' },
-                    { min: 100, max: 499, label: '100-9999', color: '#ee7263' },
+                    { min: 100000, max: 10000000, label: '大于10万', color: '#550101' },
+                    { min: 1000, max: 99999, label: '10000-99999', color: '#a92919' },
+                    { min: 1000, max: 9999, label: '1000-9999', color: '#af4e41' },
+                    { min: 100, max: 999, label: '100-9999', color: '#ee7263' },
                     { min: 10, max: 99, label: '10-99', color: '#f5bba7' },
                     { min: 1, max: 9, label: '1-9', color: '#fdf2d5' },
                     { min: 0, max: 0, label: '无确证', color: '#fefefe' },
@@ -10020,6 +10020,44 @@ echo &quot;--------------------------------&quot;</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>CentOS7 安装Docker</title>
+    <url>/p/39d97234.html</url>
+    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
+sudo yum -y update
+
+## 卸载旧版本
+sudo yum remove docker  docker-common docker-selinux docker-engine
+&lt;!-- more --&gt;
+## 安装需要的软件包
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
+
+## 安装container-selinux
+yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
+
+## 设置yum源
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+## 安装
+sudo yum -y install docker-ce
+
+## 设置开机启动
+sudo systemctl enable docker
+
+## 启动docker
+sudo systemctl start docker
+
+## 显示版本
+docker version</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS 7 关闭selinux</title>
     <url>/p/c2b74a9a.html</url>
     <content><![CDATA[<ol>
@@ -10083,44 +10121,6 @@ SELINUXTYPE=targeted</code></pre>
       </categories>
       <tags>
         <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CentOS7 安装Docker</title>
-    <url>/p/39d97234.html</url>
-    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
-sudo yum -y update
-
-## 卸载旧版本
-sudo yum remove docker  docker-common docker-selinux docker-engine
-&lt;!-- more --&gt;
-## 安装需要的软件包
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
-
-## 安装container-selinux
-yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
-
-## 设置yum源
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-## 安装
-sudo yum -y install docker-ce
-
-## 设置开机启动
-sudo systemctl enable docker
-
-## 启动docker
-sudo systemctl start docker
-
-## 显示版本
-docker version</code></pre>
-]]></content>
-      <categories>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
