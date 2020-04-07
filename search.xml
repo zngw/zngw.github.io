@@ -2506,10 +2506,10 @@ console.log(diffDate(&quot;2020-02-02&quot;,&quot;2011-11-02&quot;));</code></pr
             visualMap: {
                 type: 'piecewise',
                 pieces: [
-                    { min: 1000, max: 1000000, label: '>=1000', color: '#FF0000' },
-                    { min: 100, max: 999, label: '100-999', color: '#ee7263' },
-                    { min: 10, max: 99, label: '10-99', color: '#f5bba7' },
-                    { min: 1, max: 9, label: '1-9', color: '#ffff00' },
+                    { min: 1000, max: 1000000, label: '>=10000', color: '#FF0000' },
+                    { min: 100, max: 999, label: '1000-9999', color: '#ee7263' },
+                    { min: 10, max: 99, label: '100-999', color: '#f5bba7' },
+                    { min: 1, max: 9, label: '1-99', color: '#ffff00' },
                     { min: -1, max: -1, label: '未更新', color: '#EEEEEE' },
                 ],
                 color: ['#E0022B', '#E09107', '#A3E00B']
@@ -2560,10 +2560,10 @@ console.log(diffDate(&quot;2020-02-02&quot;,&quot;2011-11-02&quot;));</code></pr
             visualMap: {
                 type: 'piecewise',
                 pieces: [
-                    { min: 10000, max: 1000000, label: '>=10000', color: '#550101' },
-                    { min: 1000, max: 9999, label: '1000-9999', color: '#a92919' },
-                    { min: 500, max: 999, label: '500-999', color: '#af4e41' },
-                    { min: 100, max: 499, label: '100-499', color: '#ee7263' },
+                    { min: 10000, max: 10000000, label: '>=100000', color: '#550101' },
+                    { min: 1000, max: 9999, label: '10000-99999', color: '#a92919' },
+                    { min: 500, max: 999, label: '1000-9999', color: '#af4e41' },
+                    { min: 100, max: 499, label: '100-9999', color: '#ee7263' },
                     { min: 10, max: 99, label: '10-99', color: '#f5bba7' },
                     { min: 1, max: 9, label: '1-9', color: '#fdf2d5' },
                     { min: 0, max: 0, label: '无确证', color: '#fefefe' },
@@ -2635,9 +2635,9 @@ console.log(diffDate(&quot;2020-02-02&quot;,&quot;2011-11-02&quot;));</code></pr
                     }
                 }
                 case TypeWorldNew:{
-                    if(num>=1000){
+                    if(num>=10000){
                         return '#ee0000'
-                    }else if(num>=500){
+                    }else if(num>=1000){
                         return '#a92919'
                     }else if(num>=100){
                         return '#af4e41'
@@ -2650,13 +2650,13 @@ console.log(diffDate(&quot;2020-02-02&quot;,&quot;2011-11-02&quot;));</code></pr
                     }
                 }
                 case TypeWorldNow:{
-                    if(num>=10000){
+                    if(num>=100000){
                         return '#550101'
-                    }else if(num>=1000){
+                    }else if(num>=10000){
                         return '#a92919'
-                    }else if(num>=100){
+                    }else if(num>=1000){
                         return '#af4e41'
-                    }else if(num>=10){
+                    }else if(num>=100){
                         return '#ee7263'
                     }else if(num>=1){
                         return '#f5bba7'
