@@ -147,7 +147,7 @@
 <meta property="og:description" content="最近每天在关注丁香园的疫情数据，但是上面没有当天新增，自己用腾讯的数据写一个">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-07T02:52:55.000Z">
-<meta property="article:modified_time" content="2020-04-02T15:24:38.626Z">
+<meta property="article:modified_time" content="2020-04-07T09:56:26.529Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
@@ -1063,7 +1063,8 @@
         var TypeWorldNow = 4;
         var showType = TypeChinaNew;
         var ChinaDataUrl = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5';
-        var WorldDataUrl = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign';
+        //var WorldDataUrl = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign';
+        var WorldDataUrl='https://api.inews.qq.com/newsqa/v1/automation/foreign/country/ranklist';
         var ChinaData = null;
         var WorldData = null;
         //获取数据
@@ -1216,17 +1217,18 @@
                         if(type == TypeWorldNew){
                             myChart.setOption(optionWorldNew);
                             var newList = []
+                            for (var i = 0; i < WorldData.length; i++) {
+                                let c = WorldData[i]
+                                var json = {
+                                    name: c.name,
+                                    value: c.confirmAdd 
+                                }
+                                newArr.push(json)
+                            }
                             if(ChinaData){
                                 var json = {
                                     name: '中国',
                                     value: ChinaData.chinaAdd.confirm
-                                }
-                            }
-                            for (var i = 0; i < WorldData.foreignList.length; i++) {
-                                let c = WorldData.foreignList[i]
-                                var json = {
-                                    name: c.name,
-                                    value: c.isUpdated ? c.confirmAdd : "-"
                                 }
                                 newArr.push(json)
                             }
@@ -1256,8 +1258,8 @@
                                 }
                                 newArr.push(json)
                             }
-                            for (var i = 0; i < WorldData.foreignList.length; i++) {
-                                let c = WorldData.foreignList[i]
+                            for (var i = 0; i < WorldData.length; i++) {
+                                let c = WorldData[i]
                                 var json = {
                                     name: c.name,
                                     value: c.nowConfirm,
@@ -1296,16 +1298,16 @@
                                 }
                                 newList.push(newData);
                             }
-                            for (var i = 0; i < WorldData.foreignList.length; i++) {
-                                let c = WorldData.foreignList[i]
+                            for (var i = 0; i < WorldData.length; i++) {
+                                let c = WorldData[i]
                                 var newData={
                                     date:c.date,
                                     name: c.name,
-                                    num: c.isUpdated?c.nowConfirm:(c.confirm-c.heal-c.dead),
+                                    num: c.nowConfirm,
                                     confirm: c.confirm,
                                     heal: c.heal,
                                     dead: c.dead,
-                                    add: c.isUpdated?c.confirmAdd:'-'
+                                    add: c.confirmAdd
                                 }
                                 newList.push(newData);
                             }
@@ -1358,14 +1360,22 @@
         if(param && param.length>1){
             param= decodeURIComponent(param.substring(1));
         }
-        getData(WorldDataUrl, function(data){
-            WorldData=data;
+       $.getJSON(WorldDataUrl,function(data){
+            WorldData=data.data;
             if(param=='global-new'){
                 showData(TypeWorldNew);
             }else if(param=='global-now'){
                 showData(TypeWorldNow);
             }
-        });      
+        });
+        // getData(WorldDataUrl, function(data){
+        //     WorldData=data;
+        //     if(param=='global-new'){
+        //         showData(TypeWorldNew);
+        //     }else if(param=='global-now'){
+        //         showData(TypeWorldNow);
+        //     }
+        // });      
         getData(ChinaDataUrl, function(data){
             ChinaData=data;
             if(param==null ){
