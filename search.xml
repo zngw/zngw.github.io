@@ -4221,6 +4221,20 @@ public class SendQQMail {
       </tags>
   </entry>
   <entry>
+    <title>一片伤心画不成</title>
+    <url>/p/cb1d4911.html</url>
+    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
+<a id="more"></a>
+<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>最孤独的代码</title>
     <url>/p/3b6f45f6.html</url>
     <content><![CDATA[<p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3b6f45f6/1581852769139.png" alt></p>
@@ -4234,20 +4248,6 @@ int main()
     printf(&quot;I miss you.\n&quot;);
 }</code></pre>
 <p>两个世界，<br>一封失信，<br>短暂相陪，<br>长久回忆。<br>唯留心头一句：“想你！”倏然打印。<br>进程却已抹去。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一片伤心画不成</title>
-    <url>/p/cb1d4911.html</url>
-    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
-<a id="more"></a>
-<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -10128,6 +10128,44 @@ echo &quot;--------------------------------&quot;</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>CentOS7 安装Docker</title>
+    <url>/p/39d97234.html</url>
+    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
+sudo yum -y update
+
+## 卸载旧版本
+sudo yum remove docker  docker-common docker-selinux docker-engine
+&lt;!-- more --&gt;
+## 安装需要的软件包
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
+
+## 安装container-selinux
+yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
+
+## 设置yum源
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+## 安装
+sudo yum -y install docker-ce
+
+## 设置开机启动
+sudo systemctl enable docker
+
+## 启动docker
+sudo systemctl start docker
+
+## 显示版本
+docker version</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS 7 关闭selinux</title>
     <url>/p/c2b74a9a.html</url>
     <content><![CDATA[<ol>
@@ -10191,44 +10229,6 @@ SELINUXTYPE=targeted</code></pre>
       </categories>
       <tags>
         <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CentOS7 安装Docker</title>
-    <url>/p/39d97234.html</url>
-    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
-sudo yum -y update
-
-## 卸载旧版本
-sudo yum remove docker  docker-common docker-selinux docker-engine
-&lt;!-- more --&gt;
-## 安装需要的软件包
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
-
-## 安装container-selinux
-yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
-
-## 设置yum源
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-## 安装
-sudo yum -y install docker-ce
-
-## 设置开机启动
-sudo systemctl enable docker
-
-## 启动docker
-sudo systemctl start docker
-
-## 显示版本
-docker version</code></pre>
-]]></content>
-      <categories>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -10780,91 +10780,6 @@ nvm alias default v10.16.3</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Win10 安装 MongoDB</title>
-    <url>/p/3172944f.html</url>
-    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
-<a id="more"></a>
-<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
-<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
-:: 创建MongoDB服务 
-:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
-:: 数据目录 D:\MongoDB\Server\4.2\data
-:: 外网可访问 --bind_ip_all
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
-:: 启动服务
-net start MongoDB</code></pre>
-<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
-<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>MongoDB</tag>
-        <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MongoDB 忘记密码</title>
-    <url>/p/d9c741f4.html</url>
-    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
-<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
-<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
-<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>停止服务<code>kill 9564</code> 进程ID</li>
-<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
-use admin                      # 切换到系统帐户表
-db.system.users.find()         # 查看当前帐户（密码有加密过）
-db.system.users.remove({})     # 删除所有帐户
-db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
-</li>
-<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
-<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
-<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
-<li>注释掉<code>authorization:enabled</code></li>
-<li>重启MongoDB服务<code>service mongodb restart</code></li>
-<li>同上运行命令删除账户</li>
-<li>恢复 <code>authorization:enabled</code></li>
-<li>重启 mongodb 服务<code>service mongodb restart</code></li>
-</ul>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>WIN10远程连接报错：你的凭据不工作</title>
-    <url>/p/3296f49.html</url>
-    <content><![CDATA[<ol>
-<li><p>开始</p>
-</li>
-<li><p>运行</p>
-</li>
-<li><p>输入<code>gpedit.msc</code></p>
-<a id="more"></a></li>
-<li><p>进入<code>本地组策略编辑器</code></p>
-</li>
-<li><p>在左侧依次找到<code>计算机配置-&gt;Windows设置-&gt;安全设置-&gt;本地策略-&gt;安全选项</code></p>
-</li>
-<li><p>在右侧找到<code>网络访问:本地帐户的共享和安全模型</code></p>
-</li>
-<li><p>修改为<code>使用经典模式</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3296f49/19826068-6174ff340bb5f745.png" alt="clipboard.png"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>将VS Code 添加到友键菜单</title>
     <url>/p/ab6cd228.html</url>
     <content><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p>
@@ -10906,22 +10821,49 @@ Windows Registry Editor Version 5.00
       </tags>
   </entry>
   <entry>
-    <title>React环境搭建</title>
-    <url>/p/28a0bfec.html</url>
-    <content><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a>
-<ol>
-<li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li>
-<li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li>
-<li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li>
-<li>命令行cd进入项目目录</li>
-<li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-cli
-npm install babel-preset-react</code></pre>
+    <title>Win10 安装 MongoDB</title>
+    <url>/p/3172944f.html</url>
+    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
+<a id="more"></a>
+<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
+<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
+:: 创建MongoDB服务 
+:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
+:: 数据目录 D:\MongoDB\Server\4.2\data
+:: 外网可访问 --bind_ip_all
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
+:: 启动服务
+net start MongoDB</code></pre>
+<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
+<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WIN10远程连接报错：你的凭据不工作</title>
+    <url>/p/3296f49.html</url>
+    <content><![CDATA[<ol>
+<li><p>开始</p>
 </li>
-<li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre>
+<li><p>运行</p>
 </li>
-<li>npm install （安装依赖）</li>
-<li>npm start （启动）</li>
-<li>打包可部署 npm run build （在dist目录下，部署的东西）</li>
+<li><p>输入<code>gpedit.msc</code></p>
+<a id="more"></a></li>
+<li><p>进入<code>本地组策略编辑器</code></p>
+</li>
+<li><p>在左侧依次找到<code>计算机配置-&gt;Windows设置-&gt;安全设置-&gt;本地策略-&gt;安全选项</code></p>
+</li>
+<li><p>在右侧找到<code>网络访问:本地帐户的共享和安全模型</code></p>
+</li>
+<li><p>修改为<code>使用经典模式</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3296f49/19826068-6174ff340bb5f745.png" alt="clipboard.png"></p>
+</li>
 </ol>
 ]]></content>
       <categories>
@@ -10929,6 +10871,38 @@ npm install babel-preset-react</code></pre>
       </categories>
       <tags>
         <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MongoDB 忘记密码</title>
+    <url>/p/d9c741f4.html</url>
+    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
+<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
+<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
+<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>停止服务<code>kill 9564</code> 进程ID</li>
+<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
+use admin                      # 切换到系统帐户表
+db.system.users.find()         # 查看当前帐户（密码有加密过）
+db.system.users.remove({})     # 删除所有帐户
+db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
+</li>
+<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
+<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
+<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
+<li>注释掉<code>authorization:enabled</code></li>
+<li>重启MongoDB服务<code>service mongodb restart</code></li>
+<li>同上运行命令删除账户</li>
+<li>恢复 <code>authorization:enabled</code></li>
+<li>重启 mongodb 服务<code>service mongodb restart</code></li>
+</ul>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
       </tags>
   </entry>
   <entry>
@@ -11033,6 +11007,32 @@ package main</code></pre>
       </categories>
       <tags>
         <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>React环境搭建</title>
+    <url>/p/28a0bfec.html</url>
+    <content><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a>
+<ol>
+<li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li>
+<li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li>
+<li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li>
+<li>命令行cd进入项目目录</li>
+<li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-cli
+npm install babel-preset-react</code></pre>
+</li>
+<li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre>
+</li>
+<li>npm install （安装依赖）</li>
+<li>npm start （启动）</li>
+<li>打包可部署 npm run build （在dist目录下，部署的东西）</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Window</tag>
       </tags>
   </entry>
   <entry>
