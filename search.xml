@@ -226,10 +226,10 @@ db.getCollection(&#39;CoinLog&#39;)
 </ul>
 <h2 id="关于delete的相关配置"><a href="#关于delete的相关配置" class="headerlink" title="关于delete的相关配置"></a>关于delete的相关配置</h2><ul>
 <li>log.retention.hours=168 :  日志保留的时间，默认是7天(7*24小时)，超过这个时间的日志都会被清理掉。</li>
-<li>log.retention.bytes=1073741824 :  当个日志文件的最大字节数，默认1G。如果文件超出这个大小后，就像先进先出的队列一样，最先进来的数据会被删掉。</li>
-<li>log.roll.hours = 3 : 创建日志文件的周期，默认值是3，就每3个小时会创建一个新的日志文件。</li>
+<li>log.retention.bytes=1073741824 :  当个日志文件的最大字节数，默认1G。如果文件超出这个大小后，就会新建一个日志文件。</li>
+<li>log.roll.hours = 3 : 创建日志文件的周期，默认值是3，如果日志文件大小没有超过1G，就每3个小时会创建一个新的日志文件。</li>
 </ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从上面的配置可以看出，如果你数据量大的话，按上面的配置，至少要准备56G（log.retention.hours/log.roll.hours*log.retention.bytes）的硬盘空间。这里还有一个问题，如果数据量大，3个小时内数据超过了1G，这样数据还是会有丢失的情况，这样前面设定的一周已经没什么意义了。所以数据量大时要调小log.roll.hours和调大log.retention.bytes。保证一个log.roll.hours周期内写数据库小于log.retention.bytes值。然后再根据想要预留的硬盘空间设定log.retention.hours时间，这样能保证log.retention.hours时间内的数据不会丢失。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从上面的配置可以看出，如果你数据量不大，按上面的配置，会存在56个日志文件（log.retention.hours/log.roll.hours），且日志总量不会大于56G的硬盘空间。但是如果数据量大，3个小时内数据超过了1G，就会创建很多的日志文件，这个时候的空间就没法预估了，只能通过log.retention.hours来控制日志保留时间来控制日志所占磁盘的大小。</p>
 ]]></content>
       <categories>
         <category>软件使用</category>
