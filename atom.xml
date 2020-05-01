@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-04-26T03:06:57.657Z</updated>
+  <updated>2020-05-01T15:52:09.694Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android Studio调试夜神模拟器</title>
+    <link href="https://zengwu.com.cn/p/f2ceba3a.html"/>
+    <id>https://zengwu.com.cn/p/f2ceba3a.html</id>
+    <published>2020-05-01T14:15:55.000Z</published>
+    <updated>2020-05-01T15:52:09.694Z</updated>
+    
+    <content type="html"><![CDATA[<p>Android开发中，真机调试还是没有模拟上来的方便，当然，有些还是得需要真机测的。下面介绍一下用Android Studio调试夜神模拟器。</p><h2 id="一、运行模拟器"><a href="#一、运行模拟器" class="headerlink" title="一、运行模拟器"></a>一、运行模拟器</h2><h2 id="二、在文件资源管理器中进入夜神模拟器的安装目录（默认安装路径为-C-Program-Files-Nox-bin-）"><a href="#二、在文件资源管理器中进入夜神模拟器的安装目录（默认安装路径为-C-Program-Files-Nox-bin-）" class="headerlink" title="二、在文件资源管理器中进入夜神模拟器的安装目录（默认安装路径为: C:\Program Files\Nox\bin\）"></a>二、在文件资源管理器中进入夜神模拟器的安装目录（默认安装路径为: C:\Program Files\Nox\bin\）</h2><h2 id="三、在资源管理器的地址栏输入cmd并回车，打开命令行窗口。并自动进入到安装目录"><a href="#三、在资源管理器的地址栏输入cmd并回车，打开命令行窗口。并自动进入到安装目录" class="headerlink" title="三、在资源管理器的地址栏输入cmd并回车，打开命令行窗口。并自动进入到安装目录"></a>三、在资源管理器的地址栏输入cmd并回车，打开命令行窗口。并自动进入到安装目录</h2><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/f2ceba3a/19826068-8a7ff37f3be6646e.png" alt></p><h2 id="四、执行nox-adb的连接命令，连接模拟器"><a href="#四、执行nox-adb的连接命令，连接模拟器" class="headerlink" title="四、执行nox_adb的连接命令，连接模拟器"></a>四、执行nox_adb的连接命令，连接模拟器</h2><pre><code class="line-numbers language-bat">C:\Program Files\Nox\bin&gt;nox_adb connect 127.0.0.1:62001already connected to 127.0.0.1:62001</code></pre><h2 id="五、Android-Studio调试时选择就可以了"><a href="#五、Android-Studio调试时选择就可以了" class="headerlink" title="五、Android Studio调试时选择就可以了"></a>五、Android Studio调试时选择就可以了</h2><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/f2ceba3a/19826068-f239196271f26247.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Android开发中，真机调试还是没有模拟上来的方便，当然，有些还是得需要真机测的。下面介绍一下用Android Studio调试夜神模拟器。&lt;/p&gt;
+&lt;h2 id=&quot;一、运行模拟器&quot;&gt;&lt;a href=&quot;#一、运行模拟器&quot; class=&quot;headerlink&quot; title=
+      
+    
+    </summary>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>以茶代酒，借酒消愁</title>
@@ -498,35 +525,6 @@
     
     
       <category term="JS" scheme="https://zengwu.com.cn/tags/JS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用阿里云Docker镜像仓库</title>
-    <link href="https://zengwu.com.cn/p/98baf83f.html"/>
-    <id>https://zengwu.com.cn/p/98baf83f.html</id>
-    <published>2020-03-23T04:54:55.000Z</published>
-    <updated>2020-03-23T05:06:09.496Z</updated>
-    
-    <content type="html"><![CDATA[<p>在部署服务器集群的时候，很多环境都是一样的，如果是用Docker搭建的环境，官网的太慢了，可以使用阿里云的Docker镜像仓库。先在一台服务上部署所有的环境，再push到阿里云的Docker镜像仓库，其他的服务器直接用这边pull取就快多了。</p><h2 id="1-进入阿里云镜像服务"><a href="#1-进入阿里云镜像服务" class="headerlink" title="1. 进入阿里云镜像服务"></a>1. 进入阿里云镜像服务</h2><p>登录阿里云账号，在产品与服务中找到<code>容器镜像服务</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-716579f118375292.png" alt></p><h2 id="2-创建Registry登录密码"><a href="#2-创建Registry登录密码" class="headerlink" title="2. 创建Registry登录密码"></a>2. 创建Registry登录密码</h2><p>第一次进入开通服务后会有一个<code>设置Registry登录密码</code>，点进去自己设置一个密码，后面登录登录的时候需要用到<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-b4b433790a334555.png" alt></p><h2 id="3-设置命名空间"><a href="#3-设置命名空间" class="headerlink" title="3. 设置命名空间"></a>3. 设置命名空间</h2><p>在左侧找到<code>命名空间</code>，创建一个<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-862ff8e723ef2ead.png" alt></p><h2 id="4-登录"><a href="#4-登录" class="headerlink" title="4. 登录"></a>4. 登录</h2><p>进入到服务器中，使用命令登录</p><pre><code class="line-numbers language-shell">$ docker login --username=[你的用户名] registry.cn-hangzhou.aliyuncs.com</code></pre><p>用于登录的用户名为阿里云账号全名，之后会让你输入第2步创建的密码。<br>登录成功后会有一个警告，意思你的密码以明文格式记录在<code>/root/.docker/config.json</code>，之生登录不需要密码了，如查要删了自己去找那个json文件就行</p><pre><code class="line-numbers language-txt">WARNING! Your password will be stored unencrypted in /root/.docker/config.json.Configure a credential helper to remove this warning. Seehttps://docs.docker.com/engine/reference/commandline/login/#credentials-store</code></pre><h2 id="5-将镜像推送到Registry"><a href="#5-将镜像推送到Registry" class="headerlink" title="5. 将镜像推送到Registry"></a>5. 将镜像推送到Registry</h2><p>命名空间是前面第4步创建的，repository是仓库名</p><pre><code class="line-numbers language-shell"># 先登录，如果已经登录过的就不用管$ docker login --username=xushichang012 registry.cn-hangzhou.aliyuncs.com$ docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]$ docker push registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]</code></pre><p>如我们要将nats 1.3.0版本推送到<code>zngw</code>命名空间中</p><pre><code class="line-numbers language-shell"># 查看镜像id$ docker imagesREPOSITORY           TAG                 IMAGE ID            CREATED             SIZEnats                              1.3.0               40a6f5ca1594        18 months ago       7.76MB$ docker login --username=xxx registry.cn-hangzhou.aliyuncs.com$ docker tag 40a6f5ca1594 registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0$ docker push registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0The push refers to repository [registry.cn-hangzhou.aliyuncs.com/zngw/nats]f4d1bc33a08d: Pushed 38e677270912: Pushed 1.3.0: digest: sha256:28eb780ab00a512b20c96eff87da342cd8f6319080846352372f461211092c8a size: 735</code></pre><h2 id="6-从Registry中拉取镜像"><a href="#6-从Registry中拉取镜像" class="headerlink" title="6. 从Registry中拉取镜像"></a>6. 从Registry中拉取镜像</h2><pre><code class="line-numbers language-shell">$ docker login --username=xushichang012 registry.cn-hangzhou.aliyuncs.com#外网拉取$ docker pull registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]# 专有网络拉取$ docker pull registry-vpc.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]# 经典网络拉取$ docker pull registry-internal.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]</code></pre><p>如果是同一账号下可以用专有网络或经曲网络，这样不仅不消耗外网流量还快的不要不要的</p><p>如果上面的nats镜像</p><pre><code class="line-numbers language-shell">$ docker login --username=xxx registry.cn-hangzhou.aliyuncs.com$  docker pull registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0</code></pre><h2 id="7-重命名"><a href="#7-重命名" class="headerlink" title="7. 重命名"></a>7. 重命名</h2><p>下载过来的名字都比较长如<code>registry.cn-hangzhou.aliyuncs.com/zngw/nats</code><br>使用<code>docker images</code>先找到<code>registry.cn-hangzhou.aliyuncs.com/zngw/nats</code>的镜像id，然后按下面操作就可以重命名为<code>nats</code>了</p><pre><code class="line-numbers language-bash">docker tag [images] nats:1.3.0docker rmi registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0</code></pre><h2 id="个人阿里云镜像（持续更新）"><a href="#个人阿里云镜像（持续更新）" class="headerlink" title="个人阿里云镜像（持续更新）"></a>个人阿里云镜像（持续更新）</h2><table><thead><tr><th>镜像名称</th><th>版本</th><th>地址</th></tr></thead><tbody><tr><td>dotnet</td><td>2.2.402</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/dotnet</td></tr><tr><td>java</td><td>8u92-jre-alpine</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/java</td></tr><tr><td>kafka</td><td>2.3.0</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/kafka</td></tr><tr><td>mongo</td><td>3.2.8</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/mongo</td></tr><tr><td>mysql</td><td>8.0.18</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/mysql</td></tr><tr><td>nats</td><td>1.3.0</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/nats</td></tr><tr><td>nginx</td><td>1.10.1-alpine</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/nginx</td></tr><tr><td>redis</td><td>5.0.6</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/redis</td></tr><tr><td>zookeeper</td><td>3.5.5</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/zookeeper</td></tr></tbody></table>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在部署服务器集群的时候，很多环境都是一样的，如果是用Docker搭建的环境，官网的太慢了，可以使用阿里云的Docker镜像仓库。先在一台服务上部署所有的环境，再push到阿里云的Docker镜像仓库，其他的服务器直接用这边pull取就快多了。&lt;/p&gt;
-&lt;h2 id=&quot;1-进
-      
-    
-    </summary>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-      <category term="Docker" scheme="https://zengwu.com.cn/tags/Docker/"/>
     
   </entry>
   
