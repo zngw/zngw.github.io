@@ -247,9 +247,9 @@
       
         <tags>
             
-            <tag> MongoDB </tag>
-            
             <tag> Java </tag>
+            
+            <tag> MongoDB </tag>
             
         </tags>
       
@@ -763,9 +763,9 @@
             
             <tag> CentOS </tag>
             
-            <tag> MongoDB </tag>
-            
             <tag> Window </tag>
+            
+            <tag> MongoDB </tag>
             
         </tags>
       
@@ -2989,7 +2989,7 @@
       <link href="/p/7368e5c6.html"/>
       <url>/p/7368e5c6.html</url>
       
-        <content type="html"><![CDATA[<p>有时候我们从数据库导出来的时间为时间戳格式，可以用简单的公式用WPS（或Office）直接显示为日期格式</p><a id="more"></a><ol><li>打开表格，选择一个空表格<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/7368e5c6/19826068-a0e482ba96773d34.png" alt></li><li>右击选择<code>设置单元格格式</code>为日期格式<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/7368e5c6/19826068-29d0fbb18329e9bc.png" alt></li><li>输入公式<pre><code class="line-numbers language-none">=(B2+8*3600)/86400+70*365+19</code></pre>这里的B2为时间戳表格的位置，这里是秒为单位，如果是毫秒，则需要将<code>B2/1000</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/7368e5c6/19826068-cf534d6c9e8bdd1f.png" alt></li></ol>]]></content>
+        <content type="html"><![CDATA[<p>有时候我们从数据库导出来的时间为时间戳格式，可以用简单的公式用WPS（或Office）直接显示为日期格式</p><a id="more"></a><ol><li>打开表格，选择一个空表格<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/7368e5c6/19826068-a0e482ba96773d34.png" alt></li><li>右击选择<code>设置单元格格式</code>为日期格式<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/7368e5c6/19826068-29d0fbb18329e9bc.png" alt></li><li>输入公式</li></ol><pre><code class="line-numbers language-txt">=(B2+8*3600)/86400+70*365+19</code></pre><p>这里的B2为时间戳表格的位置，这里是秒为单位，如果是毫秒，则需要将<code>B2/1000</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/7368e5c6/19826068-cf534d6c9e8bdd1f.png" alt></p><ol start="4"><li>时间戳转年月日时分秒<br>修改一下公式就可以了</li></ol><pre><code class="line-numbers language-txt">=TEXT((B2/1000+8*3600)/86400+70*365+19,&quot;yyyy-mm-dd hh:mm:ss&quot;)</code></pre>]]></content>
       
       
       <categories>
@@ -3243,6 +3243,31 @@
     
     
     <entry>
+      <title>CentOS 7 关闭selinux</title>
+      <link href="/p/c2b74a9a.html"/>
+      <url>/p/c2b74a9a.html</url>
+      
+        <content type="html"><![CDATA[<ol><li>要关掉selinux，首先要查看它是否运行。输入<code>/usr/sbin/sestatus -v</code>查看状态<a id="more"></a></li></ol><pre><code class="line-numbers language-bash">[root@localhost ~]# /usr/sbin/sestatus -vSELinux status:                 enabledSELinuxfs mount:                /sys/fs/selinuxSELinux root directory:         /etc/selinuxLoaded policy name:             targetedCurrent mode:                   enforcingMode from config file:          enforcingPolicy MLS status:              enabledPolicy deny_unknown status:     allowedMax kernel policy version:      31Process contexts:Current context:                unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023Init context:                   system_u:system_r:init_t:s0/usr/sbin/sshd                  system_u:system_r:sshd_t:s0-s0:c0.c1023File contexts:Controlling terminal:           unconfined_u:object_r:user_devpts_t:s0/etc/passwd                     system_u:object_r:passwd_file_t:s0/etc/shadow                     system_u:object_r:shadow_t:s0/bin/bash                       system_u:object_r:shell_exec_t:s0/bin/login                      system_u:object_r:login_exec_t:s0/bin/sh                         system_u:object_r:bin_t:s0 -&gt; system_u:object_r:shell_exec_t:s0/sbin/agetty                    system_u:object_r:getty_exec_t:s0/sbin/init                      system_u:object_r:bin_t:s0 -&gt; system_u:object_r:init_exec_t:s0/usr/sbin/sshd                  system_u:object_r:sshd_exec_t:s0</code></pre><p>SELinux status:<br>    * enabled就是开启的;<br>    * disabled就是关闭</p><ol start="2"><li>开启的时候我们还需要看它的模式(Current mode),它有三种模式<ul><li>enforcing：强制模式，代表 SELinux 运作中，且已经正确的开始限制 domain/type 了； </li><li>permissive：宽容模式：代表 SELinux 运作中，不过仅会有警告讯息并不会实际限制 domain/type 的存取。 </li><li>disabled：关闭，SELinux 并没有实际运作。<br>在不重系统的情况下就是将模式改为<code>permissive</code></li></ul></li></ol><pre><code class="line-numbers language-bash">setenforce 0</code></pre><p>但是，这样关掉会有一个问题，就是系统重起后，会恢复为enforcing模式，所以还需要修改配置文件<br>3. 修改配置文件重启系统关闭selinux<br>修改<code>/etc/selinux/config</code> 文件。将<code>SELINUX=enforcing</code> 改为<code>SELINUX=disable</code> </p><pre><code class="line-numbers language-bash">vim /etc/selinux/config# This file controls the state of SELinux on the system.# SELINUX= can take one of these three values:#     enforcing - SELinux security policy is enforced.#     permissive - SELinux prints warnings instead of enforcing.#     disabled - No SELinux policy is loaded.SELINUX=disable# SELINUXTYPE= can take one of three values:#     targeted - Targeted processes are protected,#     minimum - Modification of targeted policy. Only selected processes are protected. #     mls - Multi Level Security protection.SELINUXTYPE=targeted</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> CentOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CentOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CentOS7 安装Docker</title>
       <link href="/p/39d97234.html"/>
       <url>/p/39d97234.html</url>
@@ -3262,31 +3287,6 @@
             <tag> CentOS </tag>
             
             <tag> Docker </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>CentOS 7 关闭selinux</title>
-      <link href="/p/c2b74a9a.html"/>
-      <url>/p/c2b74a9a.html</url>
-      
-        <content type="html"><![CDATA[<ol><li>要关掉selinux，首先要查看它是否运行。输入<code>/usr/sbin/sestatus -v</code>查看状态<a id="more"></a></li></ol><pre><code class="line-numbers language-bash">[root@localhost ~]# /usr/sbin/sestatus -vSELinux status:                 enabledSELinuxfs mount:                /sys/fs/selinuxSELinux root directory:         /etc/selinuxLoaded policy name:             targetedCurrent mode:                   enforcingMode from config file:          enforcingPolicy MLS status:              enabledPolicy deny_unknown status:     allowedMax kernel policy version:      31Process contexts:Current context:                unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023Init context:                   system_u:system_r:init_t:s0/usr/sbin/sshd                  system_u:system_r:sshd_t:s0-s0:c0.c1023File contexts:Controlling terminal:           unconfined_u:object_r:user_devpts_t:s0/etc/passwd                     system_u:object_r:passwd_file_t:s0/etc/shadow                     system_u:object_r:shadow_t:s0/bin/bash                       system_u:object_r:shell_exec_t:s0/bin/login                      system_u:object_r:login_exec_t:s0/bin/sh                         system_u:object_r:bin_t:s0 -&gt; system_u:object_r:shell_exec_t:s0/sbin/agetty                    system_u:object_r:getty_exec_t:s0/sbin/init                      system_u:object_r:bin_t:s0 -&gt; system_u:object_r:init_exec_t:s0/usr/sbin/sshd                  system_u:object_r:sshd_exec_t:s0</code></pre><p>SELinux status:<br>    * enabled就是开启的;<br>    * disabled就是关闭</p><ol start="2"><li>开启的时候我们还需要看它的模式(Current mode),它有三种模式<ul><li>enforcing：强制模式，代表 SELinux 运作中，且已经正确的开始限制 domain/type 了； </li><li>permissive：宽容模式：代表 SELinux 运作中，不过仅会有警告讯息并不会实际限制 domain/type 的存取。 </li><li>disabled：关闭，SELinux 并没有实际运作。<br>在不重系统的情况下就是将模式改为<code>permissive</code></li></ul></li></ol><pre><code class="line-numbers language-bash">setenforce 0</code></pre><p>但是，这样关掉会有一个问题，就是系统重起后，会恢复为enforcing模式，所以还需要修改配置文件<br>3. 修改配置文件重启系统关闭selinux<br>修改<code>/etc/selinux/config</code> 文件。将<code>SELINUX=enforcing</code> 改为<code>SELINUX=disable</code> </p><pre><code class="line-numbers language-bash">vim /etc/selinux/config# This file controls the state of SELinux on the system.# SELINUX= can take one of these three values:#     enforcing - SELinux security policy is enforced.#     permissive - SELinux prints warnings instead of enforcing.#     disabled - No SELinux policy is loaded.SELINUX=disable# SELINUXTYPE= can take one of three values:#     targeted - Targeted processes are protected,#     minimum - Modification of targeted policy. Only selected processes are protected. #     mls - Multi Level Security protection.SELINUXTYPE=targeted</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> CentOS </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> CentOS </tag>
             
         </tags>
       
@@ -3447,33 +3447,6 @@
     
     
     <entry>
-      <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
-      <link href="/p/355346b3.html"/>
-      <url>/p/355346b3.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a><pre><code class="line-numbers language-bash">#!/bin/bashsudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.listsudo apt-get updatesudo apt-get install -y mongodb-orgcd /mkdir datacd datamkdir dbmkdir logmongod --dbpath /data/db --fork --logpath /data/log/mongodb.logread -p &quot;Enter your account:&quot; accountread -p &quot;Enter your password:&quot; passwordmongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`for id in $IDdokill -9 $iddonemongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre><h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol><li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre></li><li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre></li><li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre></li><li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre></li><li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /mkdir datacd datamkdir dbmkdir log</code></pre></li><li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre></li><li>创建帐号<pre><code class="line-numbers language-bash">mongouse admindb.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })db.auth(&quot;root&quot;,&quot;123456&quot;)exit</code></pre></li><li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongoroot      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.logroot      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongokill 11737</code></pre></li><li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre></li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> MongoDB </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Ubuntu </tag>
-            
-            <tag> MongoDB </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>CentOS-7中离线安装MongoDB</title>
       <link href="/p/65eba897.html"/>
       <url>/p/65eba897.html</url>
@@ -3493,6 +3466,33 @@
             <tag> CentOS </tag>
             
             <tag> Ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
+      <link href="/p/355346b3.html"/>
+      <url>/p/355346b3.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a><pre><code class="line-numbers language-bash">#!/bin/bashsudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.listsudo apt-get updatesudo apt-get install -y mongodb-orgcd /mkdir datacd datamkdir dbmkdir logmongod --dbpath /data/db --fork --logpath /data/log/mongodb.logread -p &quot;Enter your account:&quot; accountread -p &quot;Enter your password:&quot; passwordmongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`for id in $IDdokill -9 $iddonemongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre><h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol><li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre></li><li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre></li><li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre></li><li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre></li><li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /mkdir datacd datamkdir dbmkdir log</code></pre></li><li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre></li><li>创建帐号<pre><code class="line-numbers language-bash">mongouse admindb.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })db.auth(&quot;root&quot;,&quot;123456&quot;)exit</code></pre></li><li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongoroot      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.logroot      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongokill 11737</code></pre></li><li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> MongoDB </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Ubuntu </tag>
+            
+            <tag> MongoDB </tag>
             
         </tags>
       
@@ -3576,58 +3576,6 @@
     
     
     <entry>
-      <title>将VS Code 添加到友键菜单</title>
-      <link href="/p/ab6cd228.html"/>
-      <url>/p/ab6cd228.html</url>
-      
-        <content type="html"><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p><a id="more"></a><p>vs code 程序为：”C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\Code.exe”</p><pre><code class="line-numbers language-regex">Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\*\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\*\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%1\&quot;&quot;Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\Directory\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\Directory\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Windows </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 软件使用 </tag>
-            
-            <tag> Window </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>WIN10远程连接报错：你的凭据不工作</title>
-      <link href="/p/3296f49.html"/>
-      <url>/p/3296f49.html</url>
-      
-        <content type="html"><![CDATA[<ol><li><p>开始</p></li><li><p>运行</p></li><li><p>输入<code>gpedit.msc</code></p><a id="more"></a></li><li><p>进入<code>本地组策略编辑器</code></p></li><li><p>在左侧依次找到<code>计算机配置-&gt;Windows设置-&gt;安全设置-&gt;本地策略-&gt;安全选项</code></p></li><li><p>在右侧找到<code>网络访问:本地帐户的共享和安全模型</code></p></li><li><p>修改为<code>使用经典模式</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3296f49/19826068-6174ff340bb5f745.png" alt="clipboard.png"></p></li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> Windows </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Window </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>MongoDB 忘记密码</title>
       <link href="/p/d9c741f4.html"/>
       <url>/p/d9c741f4.html</url>
@@ -3669,7 +3617,59 @@
       
         <tags>
             
+            <tag> Window </tag>
+            
             <tag> MongoDB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>WIN10远程连接报错：你的凭据不工作</title>
+      <link href="/p/3296f49.html"/>
+      <url>/p/3296f49.html</url>
+      
+        <content type="html"><![CDATA[<ol><li><p>开始</p></li><li><p>运行</p></li><li><p>输入<code>gpedit.msc</code></p><a id="more"></a></li><li><p>进入<code>本地组策略编辑器</code></p></li><li><p>在左侧依次找到<code>计算机配置-&gt;Windows设置-&gt;安全设置-&gt;本地策略-&gt;安全选项</code></p></li><li><p>在右侧找到<code>网络访问:本地帐户的共享和安全模型</code></p></li><li><p>修改为<code>使用经典模式</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3296f49/19826068-6174ff340bb5f745.png" alt="clipboard.png"></p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Window </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>将VS Code 添加到友键菜单</title>
+      <link href="/p/ab6cd228.html"/>
+      <url>/p/ab6cd228.html</url>
+      
+        <content type="html"><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p><a id="more"></a><p>vs code 程序为：”C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\Code.exe”</p><pre><code class="line-numbers language-regex">Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\*\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\*\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%1\&quot;&quot;Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\Directory\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\Directory\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件使用 </tag>
             
             <tag> Window </tag>
             
@@ -3705,31 +3705,6 @@
     
     
     <entry>
-      <title>IOS ipa包企业证书签名手动替换</title>
-      <link href="/p/d4109bd2.html"/>
-      <url>/p/d4109bd2.html</url>
-      
-        <content type="html"><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>IOS安装包企业签名ipa包里面包含的是payload文件夹，文件夹中包含了资源文件和_CodeSignature签名文件夹以及embedded.mobileprovision证书配置文件，而其中关于ios授权签名的就是_CodeSignature签名文件夹和embedded.mobileprovision证书配置文件 只要替换这两个文件就搞定。<br>_CodeSignature签名文件夹 需要用 *.plist 授权文件去自动生成。</p><a id="more"></a><p>*.plist文件配置如下：</p><pre><code class="line-numbers language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;    &lt;key&gt;application-identifier&lt;/key&gt;    &lt;string&gt;${application-identifier}&lt;/string&gt;    &lt;key&gt;com.apple.developer.team-identifier&lt;/key&gt;    &lt;string&gt;${com.apple.developer.team-identifier}&lt;/string&gt;    &lt;key&gt;get-task-allow&lt;/key&gt;    &lt;false/&gt;    &lt;key&gt;keychain-access-groups&lt;/key&gt;    &lt;array&gt;        &lt;string&gt;${application-identifier}&lt;/string&gt;    &lt;/array&gt;&lt;/dict&gt;&lt;/plist&gt;</code></pre><p>其中 ${application-identifier} 和 ${com.apple.developer.team-identifier} 在 企业证书文件中 *.mobileprovision 中拷贝</p><h1 id="实施步骤"><a href="#实施步骤" class="headerlink" title="实施步骤"></a>实施步骤</h1><ul><li>你的有原始的ios安装包，*.ipa</li><li>你得有在有效期内的的企业证书，如下文件：</li></ul><ol><li>*.mobileprovision</li><li>distribution.cer</li><li>distribution.p12</li></ol><ul><li>将cer证书输入密码安装在当前的mac机器上</li><li>命名*.mobileprovision 为embedded.mobileprovision</li><li>解压ipa包<pre><code class="line-numbers language-bash">unzip *.ipa</code></pre></li><li>删除_CodeSignature签名文件夹<pre><code class="line-numbers language-bash">rm -rf Payload/*.app/_CodeSignature</code></pre></li><li>替换*app中的embedded.mobileprovision<pre><code class="line-numbers language-bash">cp embedded.mobileprovision Payload/*.app/ </code></pre></li><li>创建*.plist文件并用该文件签名<pre><code class="line-numbers language-bash">/usr/bin/codesign -f -s &quot;iPhone Distribution: ${cerName}&quot; --entitlements *.plist Payload/*.app</code></pre>其中 ${cerName}是证书名称，可以在钥匙串证书中看到</li><li>修改Payload/*.app中Info(info).plist中bundleIdentifier的值为你自己的bundleIdentifier实际值</li><li>打包ipa<pre><code class="line-numbers language-bash">zip -r xxx.ipa Payload</code></pre></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> iOS </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> iOS </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>React环境搭建</title>
       <link href="/p/28a0bfec.html"/>
       <url>/p/28a0bfec.html</url>
@@ -3755,11 +3730,36 @@
     
     
     <entry>
-      <title>CentOS 7 在线安装dotnet环境</title>
-      <link href="/p/4b25257e.html"/>
-      <url>/p/4b25257e.html</url>
+      <title>IOS ipa包企业证书签名手动替换</title>
+      <link href="/p/d4109bd2.html"/>
+      <url>/p/d4109bd2.html</url>
       
-        <content type="html"><![CDATA[<pre><code class="line-numbers language-bash">rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpmyum updateyum install dotnet-sdk-2.2dotnet --version</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>IOS安装包企业签名ipa包里面包含的是payload文件夹，文件夹中包含了资源文件和_CodeSignature签名文件夹以及embedded.mobileprovision证书配置文件，而其中关于ios授权签名的就是_CodeSignature签名文件夹和embedded.mobileprovision证书配置文件 只要替换这两个文件就搞定。<br>_CodeSignature签名文件夹 需要用 *.plist 授权文件去自动生成。</p><a id="more"></a><p>*.plist文件配置如下：</p><pre><code class="line-numbers language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;    &lt;key&gt;application-identifier&lt;/key&gt;    &lt;string&gt;${application-identifier}&lt;/string&gt;    &lt;key&gt;com.apple.developer.team-identifier&lt;/key&gt;    &lt;string&gt;${com.apple.developer.team-identifier}&lt;/string&gt;    &lt;key&gt;get-task-allow&lt;/key&gt;    &lt;false/&gt;    &lt;key&gt;keychain-access-groups&lt;/key&gt;    &lt;array&gt;        &lt;string&gt;${application-identifier}&lt;/string&gt;    &lt;/array&gt;&lt;/dict&gt;&lt;/plist&gt;</code></pre><p>其中 ${application-identifier} 和 ${com.apple.developer.team-identifier} 在 企业证书文件中 *.mobileprovision 中拷贝</p><h1 id="实施步骤"><a href="#实施步骤" class="headerlink" title="实施步骤"></a>实施步骤</h1><ul><li>你的有原始的ios安装包，*.ipa</li><li>你得有在有效期内的的企业证书，如下文件：</li></ul><ol><li>*.mobileprovision</li><li>distribution.cer</li><li>distribution.p12</li></ol><ul><li>将cer证书输入密码安装在当前的mac机器上</li><li>命名*.mobileprovision 为embedded.mobileprovision</li><li>解压ipa包<pre><code class="line-numbers language-bash">unzip *.ipa</code></pre></li><li>删除_CodeSignature签名文件夹<pre><code class="line-numbers language-bash">rm -rf Payload/*.app/_CodeSignature</code></pre></li><li>替换*app中的embedded.mobileprovision<pre><code class="line-numbers language-bash">cp embedded.mobileprovision Payload/*.app/ </code></pre></li><li>创建*.plist文件并用该文件签名<pre><code class="line-numbers language-bash">/usr/bin/codesign -f -s &quot;iPhone Distribution: ${cerName}&quot; --entitlements *.plist Payload/*.app</code></pre>其中 ${cerName}是证书名称，可以在钥匙串证书中看到</li><li>修改Payload/*.app中Info(info).plist中bundleIdentifier的值为你自己的bundleIdentifier实际值</li><li>打包ipa<pre><code class="line-numbers language-bash">zip -r xxx.ipa Payload</code></pre></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SSH获取连接者IP</title>
+      <link href="/p/8c986da4.html"/>
+      <url>/p/8c986da4.html</url>
+      
+        <content type="html"><![CDATA[<pre><code class="line-numbers language-bash">who am i | awk &#39;{print $5}&#39; | sed &#39;s/(//g&#39; | sed &#39;s/)//g&#39;</code></pre>]]></content>
       
       
       <categories>
@@ -3780,11 +3780,11 @@
     
     
     <entry>
-      <title>SSH获取连接者IP</title>
-      <link href="/p/8c986da4.html"/>
-      <url>/p/8c986da4.html</url>
+      <title>CentOS 7 在线安装dotnet环境</title>
+      <link href="/p/4b25257e.html"/>
+      <url>/p/4b25257e.html</url>
       
-        <content type="html"><![CDATA[<pre><code class="line-numbers language-bash">who am i | awk &#39;{print $5}&#39; | sed &#39;s/(//g&#39; | sed &#39;s/)//g&#39;</code></pre>]]></content>
+        <content type="html"><![CDATA[<pre><code class="line-numbers language-bash">rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpmyum updateyum install dotnet-sdk-2.2dotnet --version</code></pre>]]></content>
       
       
       <categories>
