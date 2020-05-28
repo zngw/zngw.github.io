@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-05-01T15:52:56.605Z</updated>
+  <updated>2020-05-28T05:47:56.498Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mac下安装Maven</title>
+    <link href="https://zengwu.com.cn/p/3a3101a2.html"/>
+    <id>https://zengwu.com.cn/p/3a3101a2.html</id>
+    <published>2020-05-26T07:56:55.000Z</published>
+    <updated>2020-05-28T05:47:56.498Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、-下载。"><a href="#一、-下载。" class="headerlink" title="一、 下载。"></a>一、 下载。</h2><p>先去<a href="(https://maven.apache.org/download.cgi">Maven官网</a><br>上下载需要的版本，Mac下<code>tar.gz</code>的包。这里下载的是<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</a><br>并解压到你喜欢的位置。这里解压到<code>/Users/admin/software/apache-maven-3.6.3</code></p><h2 id="二、-设置环境变量"><a href="#二、-设置环境变量" class="headerlink" title="二、 设置环境变量"></a>二、 设置环境变量</h2><p>MAC OS X环境配置的加载顺序</p><pre><code class="line-numbers language-bash"># 系统级别/etc/profile/etc/paths # 新系统版本使用了zsh～/.zshrc# 旧系统版本用户级别~/.bash_profile ~/.bash_login ~/.profile ~/.bashrc</code></pre><p>这里我们配置用户级别的<code>~/.bash_profile</code>就可以了</p><pre><code class="line-numbers language-bash">vi ~/.bash_profile</code></pre><p>添加</p><pre><code class="line-numbers language-ini">export MVN_HOME=/Users/admin/software/apache-maven-3.6.3export PATH=$PATH:$MVN_HOME/bin</code></pre><p>重新加载配置</p><pre><code class="line-numbers language-bash">source ~/.bash_profile</code></pre><p>为了兼容新的zsh，需要在<code>~/.zshrc</code>中加一行配置，如果<code>~/.zshrc</code>文件不存在创建就好</p><pre><code class="line-numbers language-bash">vim ~/.zshrc# 在.zshrc最后添加source ~/.bash_profile </code></pre><h2 id="三、-测试"><a href="#三、-测试" class="headerlink" title="三、 测试"></a>三、 测试</h2><pre><code class="line-numbers language-bash">mvn -v</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、-下载。&quot;&gt;&lt;a href=&quot;#一、-下载。&quot; class=&quot;headerlink&quot; title=&quot;一、 下载。&quot;&gt;&lt;/a&gt;一、 下载。&lt;/h2&gt;&lt;p&gt;先去&lt;a href=&quot;(https://maven.apache.org/download.cgi&quot;&gt;Mav
+      
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac中使用frp客户端</title>
+    <link href="https://zengwu.com.cn/p/a02d24c0.html"/>
+    <id>https://zengwu.com.cn/p/a02d24c0.html</id>
+    <published>2020-05-25T08:01:55.000Z</published>
+    <updated>2020-05-28T05:46:43.878Z</updated>
+    
+    <content type="html"><![CDATA[<p>前面写过在win下和linux下的<a href="/p/8426a0a1.html">frp内网穿透搭建远程桌面</a>。今天来讲一下在Mac上使用frp使用vnc和ssh吧，服务端的配置参考之前的吧。</p><h2 id="一、下载mac版frp客户端"><a href="#一、下载mac版frp客户端" class="headerlink" title="一、下载mac版frp客户端"></a>一、下载mac版frp客户端</h2><p>进入<a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a>下载与服务器对应的版本，mac下用的是<code>darwin_amd64.tar.gz</code>的。这里服务器用的是v0.31.1，所以mac也直接下对应的版本就行<a href="https://github.com/fatedier/frp/releases/download/v0.31.1/frp_0.31.1_darwin_amd64.tar.gz" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases/download/v0.31.1/frp_0.31.1_darwin_amd64.tar.gz</a></p><h2 id="二、配置frp客户端配置"><a href="#二、配置frp客户端配置" class="headerlink" title="二、配置frp客户端配置"></a>二、配置frp客户端配置</h2><p>解压压缩文件到你喜欢的目录。这里解压到<code>/Users/admin/software/frp_0.31.1_darwin_amd64</code>，并修改目录下的<code>frpc.ini</code>文件</p><pre><code class="line-numbers language-ini">[common]server_addr=frp.zengwu.com.cnserver_port = 5000[Mac VNC]type = tcplocal_ip = 0.0.0.0local_port = 5900remote_port = 5900[Mac SSH]type = tcplocal_ip = 0.0.0.0local_port = 22remote_port = 5922</code></pre><p>这里的配置和win下的差不多，注意一下端口就行了，ssh是默认是22，vnc默认是5900，都是tcp协议。</p><h2 id="三、-配置开机启动"><a href="#三、-配置开机启动" class="headerlink" title="三、 配置开机启动"></a>三、 配置开机启动</h2><ol><li>新建<code>frpc.plist</code>文件</li></ol><pre><code class="line-numbers language-bash">sudo vim ~/Library/LaunchAgents/frpc.plist</code></pre><ol start="2"><li>写入frpc.plist配置</li></ol><pre><code class="line-numbers language-plist">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE plist PUBLIC -//Apple Computer//DTD PLIST 1.0//ENhttp://www.apple.com/DTDs/PropertyList-1.0.dtd &gt;&lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;    &lt;key&gt;Label&lt;/key&gt;    &lt;string&gt;frpc&lt;/string&gt;    &lt;key&gt;ProgramArguments&lt;/key&gt;    &lt;array&gt;         &lt;string&gt;/Users/admin/software/frp_0.31.1_darwin_amd64/frpc&lt;/string&gt;         &lt;string&gt;-c&lt;/string&gt;         &lt;string&gt;/Users/admin/software/frp_0.31.1_darwin_amd64/frpc.ini&lt;/string&gt;    &lt;/array&gt;    &lt;key&gt;KeepAlive&lt;/key&gt;    &lt;true/&gt;    &lt;key&gt;RunAtLoad&lt;/key&gt;    &lt;true/&gt;&lt;/dict&gt;&lt;/plist&gt;</code></pre><p>注意修改一下frpc所在的目录和配置文件的地址。</p><ol start="3"><li>加载配置</li></ol><pre><code class="line-numbers language-bash">sudo chown root ~/Library/LaunchAgents/frpc.plistsudo launchctl load -w ~/Library/LaunchAgents/frpc.plist</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;前面写过在win下和linux下的&lt;a href=&quot;/p/8426a0a1.html&quot;&gt;frp内网穿透搭建远程桌面&lt;/a&gt;。今天来讲一下在Mac上使用frp使用vnc和ssh吧，服务端的配置参考之前的吧。&lt;/p&gt;
+&lt;h2 id=&quot;一、下载mac版frp客户端&quot;&gt;&lt;a hre
+      
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title>Android Studio调试夜神模拟器</title>
@@ -475,56 +528,6 @@
     
     
       <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Goland 中排序</title>
-    <link href="https://zengwu.com.cn/p/63c73dd7.html"/>
-    <id>https://zengwu.com.cn/p/63c73dd7.html</id>
-    <published>2020-03-27T07:59:55.000Z</published>
-    <updated>2020-03-27T11:54:25.185Z</updated>
-    
-    <content type="html"><![CDATA[<p>刚接触go的时候，要排个序得重写<code>Len()</code>、<code>Swap()</code>、<code>Less()</code> 三个方法，好蛋疼的感觉。后现1.8版本后更新了<code>sort</code>库，排序用起来就简单多了。</p><h2 id="1-基本数据排序"><a href="#1-基本数据排序" class="headerlink" title="1. 基本数据排序"></a>1. 基本数据排序</h2><p>基本数据为int、float64、string。int和float64直接比大小，string则是安顺序比较字符的ASCII码的大小</p><h3 id="1-1-升序"><a href="#1-1-升序" class="headerlink" title="1.1 升序"></a>1.1 升序</h3><p>直接使用<code>sort.Ints()</code>、<code>sort.Float64s()</code>、<code>sort.Strings()</code>方法就可以了，默认的排序就是升序的</p><pre><code class="line-numbers language-go">package mainimport (    &quot;fmt&quot;    &quot;sort&quot;)func main() {    ints := [] int {5,6,9,8,7,1,2,5,4,6,3}    float64s := [] float64 {3.1,4.1,5.9,2.6,5.3,5.8,9.7,9}    strings := [] string {&quot;g&quot;,&quot;u&quot;,&quot;o&quot;,&quot;k&quot;,&quot;e&quot;,&quot;guo&quot;,&quot;ke&quot;}    sort.Ints(ints)    sort.Float64s(float64s)    sort.Strings(strings)    fmt.Printf(&quot;%v\n%v\n%v\n&quot;, ints, float64s, strings)}</code></pre><p>运行结果</p><pre><code class="line-numbers language-go">[1 2 3 4 5 5 6 6 7 8 9][2.6 3.1 4.1 5.3 5.8 5.9 9 9.7][e g guo k ke o u]</code></pre><h3 id="1-2-降序"><a href="#1-2-降序" class="headerlink" title="1.2 降序"></a>1.2 降序</h3><p>使用 <code>sort.Reverse(slice)</code> 来调换就可以了</p><pre><code class="line-numbers language-go">package mainimport (    &quot;fmt&quot;    &quot;sort&quot;)func main() {    ints := [] int {5,6,9,8,7,1,2,5,4,6,3}    float64s := [] float64 {3.1,4.1,5.9,2.6,5.3,5.8,9.7,9}    strings := [] string {&quot;g&quot;,&quot;u&quot;,&quot;o&quot;,&quot;k&quot;,&quot;e&quot;,&quot;guo&quot;,&quot;ke&quot;}    sort.Sort(sort.Reverse(sort.IntSlice(ints)))    sort.Sort(sort.Reverse(sort.Float64Slice(float64s)))    sort.Sort(sort.Reverse(sort.StringSlice(strings)))    fmt.Printf(&quot;%v\n%v\n%v\n&quot;, ints, float64s, strings)}</code></pre><p>运行结果</p><pre><code class="line-numbers language-go">[9 8 7 6 6 5 5 4 3 2 1][9.7 9 5.9 5.8 5.3 4.1 3.1 2.6][u o ke k guo g e]</code></pre><h2 id="2-结构体排序"><a href="#2-结构体排序" class="headerlink" title="2. 结构体排序"></a>2. 结构体排序</h2><p>结构体直接使用<code>sort.Slice(slice interface{}, less func(i, j int) bool)</code>来排序。调整后面less函数的比较就可以得到升序或降序了</p><pre><code class="line-numbers language-go">package mainimport (    &quot;fmt&quot;    &quot;sort&quot;)func main() {    people := []struct {        Name string        Age  int    }{        {&quot;Gopher&quot;, 7},        {&quot;Alice&quot;, 55},        {&quot;Vera&quot;, 24},        {&quot;Bob&quot;, 75},    }    // Name升序    sort.Slice(people, func(i, j int) bool { return people[i].Name &lt; people[j].Name })    fmt.Println(&quot;By name:&quot;, people)    // 年龄降序    sort.Slice(people, func(i, j int) bool { return people[i].Age &gt; people[j].Age })    fmt.Println(&quot;By age:&quot;, people)}</code></pre><p>运行结果</p><pre><code class="line-numbers language-go">By name: [{Alice 55} {Bob 75} {Gopher 7} {Vera 24}]By age: [{Bob 75} {Alice 55} {Vera 24} {Gopher 7}]</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;刚接触go的时候，要排个序得重写&lt;code&gt;Len()&lt;/code&gt;、&lt;code&gt;Swap()&lt;/code&gt;、&lt;code&gt;Less()&lt;/code&gt; 三个方法，好蛋疼的感觉。后现1.8版本后更新了&lt;code&gt;sort&lt;/code&gt;库，排序用起来就简单多了。&lt;/p&gt;
-&lt;h2 
-      
-    
-    </summary>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>npm发布流程</title>
-    <link href="https://zengwu.com.cn/p/f0e2fc72.html"/>
-    <id>https://zengwu.com.cn/p/f0e2fc72.html</id>
-    <published>2020-03-23T19:12:55.000Z</published>
-    <updated>2020-03-23T19:10:38.186Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近在玩hexo，自己写了一个hexo d提交版本库后，ssh连接远程服务器拉取的js包，自己手动放到node_modules的话更新就没有了，于是就想到了发布到npm上。</p><a id="more"></a><h2 id="1-创建-GitHub-项目"><a href="#1-创建-GitHub-项目" class="headerlink" title="1. 创建 GitHub 项目"></a>1. 创建 GitHub 项目</h2><p>npm创建时依赖于一个git仓库，所以我们先在github上创建一个项目，并克隆到本地<br>如: <a href="https://github.com/zngw/hexo-zngw-sshpull" target="_blank" rel="noopener">https://github.com/zngw/hexo-zngw-sshpull</a></p><h2 id="2-npm-初始化"><a href="#2-npm-初始化" class="headerlink" title="2. npm 初始化"></a>2. npm 初始化</h2><p>打开命令行窗口，进入git仓库项目目录</p><pre><code class="line-numbers language-powershell">npm init</code></pre><p>按照提示完成类似以下内容的输入：</p><pre><code class="line-numbers language-powershell">Press ^C at any time to quit.package name: (hexo-zngw-sshpull)version: (1.0.0)description: hexo发布时，通过ssh连接远程服务器自动git pullentry point: (index.js)test command: hexo发布时，通过ssh连接远程服务器自动git pullgit repository: (https://github.com/zngw/hexo-zngw-sshpull.git)keywords: hexo发布时，通过ssh连接远程服务器自动git pullauthor: zngwlicense: (ISC)</code></pre><p>说明：</p><table><thead><tr><th>配置项</th><th>功能</th></tr></thead><tbody><tr><td>package name</td><td>项目名称（要求在npm官网具有唯一性，不允许有大写字母，通常由字母，中横线，@符号组成）</td></tr><tr><td>version</td><td>版本号（要求每次npm publish前修改，必须大于之前的版本）</td></tr><tr><td>description</td><td>项目描述信息（这个可以随便写点关于项目的介绍信息）</td></tr><tr><td>entry point</td><td>入口文件，通常用index.js</td></tr><tr><td>test command</td><td>测试命令，执行npm run test命令时的输出信息或命令</td></tr><tr><td>git repository</td><td>项目的GitHub地址，会在npm官网添加该项目的GitHub链接</td></tr><tr><td>keywords</td><td>关键词（在npm官网搜索专用关键词，能够增加搜索效率）</td></tr><tr><td>author</td><td>作者（请写上您的大名，让别人认识你）</td></tr><tr><td>license</td><td>版权，权限（默认ISO就行）</td></tr></tbody></table><h2 id="3-注册npm账号"><a href="#3-注册npm账号" class="headerlink" title="3. 注册npm账号"></a>3. 注册npm账号</h2><p>用浏览器打开<code>npm</code>官网<a href="https://www.npmjs.com/" target="_blank" rel="noopener">https://www.npmjs.com/</a>，点击<a href="https://www.npmjs.com/signup" target="_blank" rel="noopener">sign up</a>注册，点击<a href="https://www.npmjs.com/login" target="_blank" rel="noopener">log in</a>登录<br><strong>注意：</strong> 想要发布<code>npm</code>包需要上述注册信息，务必牢记注册名称，密码及邮箱（例如账号：zngw，密码：xxxxxx，邮箱：<a href="mailto:55@mail.zengwu.com.cn">55@mail.zengwu.com.cn</a>）。</p><p><strong>PS：</strong> 注册后记得去邮箱里验证一下，不然后面提交的时候会报错的</p><pre><code>npm ERR! code E403npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/hexo-zngw-sshpull - you must verify your email before publishing a new package: https://www.npmjs.com/email-editnpm ERR! A complete log of this run can be found in:npm ERR!     C:\Users\Administrator\AppData\Roaming\npm-cache\_logs\2020-03-23T17_56_28_029Z-debug.log</code></pre><h2 id="4-命令行登录npm账号"><a href="#4-命令行登录npm账号" class="headerlink" title="4. 命令行登录npm账号"></a>4. 命令行登录npm账号</h2><p>在前面初始化npm的命令窗口中登录</p><pre><code class="line-numbers language-powershell">F:\work\MyGithub\hexo-zngw-sshpull&gt;npm loginUsername: zngwPassword:Email: (this IS public) 55@mail.zengwu.com.cnLogged in as zngw on https://registry.npmjs.org/.</code></pre><h2 id="5-准备发布包"><a href="#5-准备发布包" class="headerlink" title="5. 准备发布包"></a>5. 准备发布包</h2><p>这里就是编写你的程序和代码，如果有依赖别的包，可以直接在<code>package.json</code>中添加,如</p><pre><code class="line-numbers language-json">  &quot;dependencies&quot;: {    &quot;ssh2&quot;: &quot;^0.8.9&quot;  },</code></pre><h2 id="6-发布npm包"><a href="#6-发布npm包" class="headerlink" title="6. 发布npm包"></a>6. 发布npm包</h2><p>首次发布命令：</p><pre><code class="line-numbers language-powershell">npm publish --access=public</code></pre><p>如果项目重名会发不成功，这时候修改<code>package.json</code>里的<code>name</code>保证唯一就可以了</p><pre><code class="line-numbers language-powershell">F:\work\MyGithub\hexo-zngw-sshpull&gt;npm publish --access=publicnpm noticenpm notice package: hexo-zngw-sshpull@1.0.0npm notice === Tarball Contents ===npm notice 639B  package.jsonnpm notice 72B   index.jsnpm notice 83B   README.mdnpm notice 1.5kB lib/sshpull.jsnpm notice === Tarball Details ===npm notice name:          hexo-zngw-sshpullnpm notice version:       1.0.0npm notice package size:  1.1 kBnpm notice unpacked size: 2.3 kBnpm notice shasum:        7d402750ecae49460f4614aff53fb1b215d436b6npm notice integrity:     sha512-QtFZ3cUjVrGN+[...]+JDMfYySE83wA==npm notice total files:   4npm notice+ hexo-zngw-sshpull@1.0.0</code></pre><h2 id="7-npm包版本更新"><a href="#7-npm包版本更新" class="headerlink" title="7. npm包版本更新"></a>7. npm包版本更新</h2><p>需要修改<code>package.json</code>文件中的<code>version</code>信息，只要增加就行了，中间随便怎么跳版本<br>然后<code>npm publish</code>发布</p><pre><code class="line-numbers language-powershell">F:\work\MyGithub\hexo-zngw-sshpull&gt;npm publishnpm noticenpm notice package: hexo-zngw-sshpull@1.0.2npm notice === Tarball Contents ===npm notice 685B  package.jsonnpm notice 72B   index.jsnpm notice 908B  README.mdnpm notice 1.5kB lib/sshpull.jsnpm notice === Tarball Details ===npm notice name:          hexo-zngw-sshpullnpm notice version:       1.0.2npm notice package size:  1.5 kBnpm notice unpacked size: 3.2 kBnpm notice shasum:        9626b75d94d0422696a00ab2b72277a259e75cc6npm notice integrity:     sha512-NmT/0Ag13AWcy[...]i8yQ44fPW2AVA==npm notice total files:   4npm notice+ hexo-zngw-sshpull@1.0.2</code></pre><h2 id="8-删除包"><a href="#8-删除包" class="headerlink" title="8. 删除包"></a>8. 删除包</h2><pre><code class="line-numbers language-powershell">npm unpublish 依赖包名称 --force</code></pre><p>本文参考：<a href="https://github.com/loushengyue/test-projects" target="_blank" rel="noopener">https://github.com/loushengyue/test-projects</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近在玩hexo，自己写了一个hexo d提交版本库后，ssh连接远程服务器拉取的js包，自己手动放到node_modules的话更新就没有了，于是就想到了发布到npm上。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="JS" scheme="https://zengwu.com.cn/categories/JS/"/>
-    
-    
-      <category term="JS" scheme="https://zengwu.com.cn/tags/JS/"/>
     
   </entry>
   

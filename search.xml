@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>Mac下安装Maven</title>
+      <link href="/p/3a3101a2.html"/>
+      <url>/p/3a3101a2.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、-下载。"><a href="#一、-下载。" class="headerlink" title="一、 下载。"></a>一、 下载。</h2><p>先去<a href="(https://maven.apache.org/download.cgi">Maven官网</a><br>上下载需要的版本，Mac下<code>tar.gz</code>的包。这里下载的是<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</a><br>并解压到你喜欢的位置。这里解压到<code>/Users/admin/software/apache-maven-3.6.3</code></p><h2 id="二、-设置环境变量"><a href="#二、-设置环境变量" class="headerlink" title="二、 设置环境变量"></a>二、 设置环境变量</h2><p>MAC OS X环境配置的加载顺序</p><pre><code class="line-numbers language-bash"># 系统级别/etc/profile/etc/paths # 新系统版本使用了zsh～/.zshrc# 旧系统版本用户级别~/.bash_profile ~/.bash_login ~/.profile ~/.bashrc</code></pre><p>这里我们配置用户级别的<code>~/.bash_profile</code>就可以了</p><pre><code class="line-numbers language-bash">vi ~/.bash_profile</code></pre><p>添加</p><pre><code class="line-numbers language-ini">export MVN_HOME=/Users/admin/software/apache-maven-3.6.3export PATH=$PATH:$MVN_HOME/bin</code></pre><p>重新加载配置</p><pre><code class="line-numbers language-bash">source ~/.bash_profile</code></pre><p>为了兼容新的zsh，需要在<code>~/.zshrc</code>中加一行配置，如果<code>~/.zshrc</code>文件不存在创建就好</p><pre><code class="line-numbers language-bash">vim ~/.zshrc# 在.zshrc最后添加source ~/.bash_profile </code></pre><h2 id="三、-测试"><a href="#三、-测试" class="headerlink" title="三、 测试"></a>三、 测试</h2><pre><code class="line-numbers language-bash">mvn -v</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Mac中使用frp客户端</title>
+      <link href="/p/a02d24c0.html"/>
+      <url>/p/a02d24c0.html</url>
+      
+        <content type="html"><![CDATA[<p>前面写过在win下和linux下的<a href="/p/8426a0a1.html">frp内网穿透搭建远程桌面</a>。今天来讲一下在Mac上使用frp使用vnc和ssh吧，服务端的配置参考之前的吧。</p><h2 id="一、下载mac版frp客户端"><a href="#一、下载mac版frp客户端" class="headerlink" title="一、下载mac版frp客户端"></a>一、下载mac版frp客户端</h2><p>进入<a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a>下载与服务器对应的版本，mac下用的是<code>darwin_amd64.tar.gz</code>的。这里服务器用的是v0.31.1，所以mac也直接下对应的版本就行<a href="https://github.com/fatedier/frp/releases/download/v0.31.1/frp_0.31.1_darwin_amd64.tar.gz" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases/download/v0.31.1/frp_0.31.1_darwin_amd64.tar.gz</a></p><h2 id="二、配置frp客户端配置"><a href="#二、配置frp客户端配置" class="headerlink" title="二、配置frp客户端配置"></a>二、配置frp客户端配置</h2><p>解压压缩文件到你喜欢的目录。这里解压到<code>/Users/admin/software/frp_0.31.1_darwin_amd64</code>，并修改目录下的<code>frpc.ini</code>文件</p><pre><code class="line-numbers language-ini">[common]server_addr=frp.zengwu.com.cnserver_port = 5000[Mac VNC]type = tcplocal_ip = 0.0.0.0local_port = 5900remote_port = 5900[Mac SSH]type = tcplocal_ip = 0.0.0.0local_port = 22remote_port = 5922</code></pre><p>这里的配置和win下的差不多，注意一下端口就行了，ssh是默认是22，vnc默认是5900，都是tcp协议。</p><h2 id="三、-配置开机启动"><a href="#三、-配置开机启动" class="headerlink" title="三、 配置开机启动"></a>三、 配置开机启动</h2><ol><li>新建<code>frpc.plist</code>文件</li></ol><pre><code class="line-numbers language-bash">sudo vim ~/Library/LaunchAgents/frpc.plist</code></pre><ol start="2"><li>写入frpc.plist配置</li></ol><pre><code class="line-numbers language-plist">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE plist PUBLIC -//Apple Computer//DTD PLIST 1.0//ENhttp://www.apple.com/DTDs/PropertyList-1.0.dtd &gt;&lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;    &lt;key&gt;Label&lt;/key&gt;    &lt;string&gt;frpc&lt;/string&gt;    &lt;key&gt;ProgramArguments&lt;/key&gt;    &lt;array&gt;         &lt;string&gt;/Users/admin/software/frp_0.31.1_darwin_amd64/frpc&lt;/string&gt;         &lt;string&gt;-c&lt;/string&gt;         &lt;string&gt;/Users/admin/software/frp_0.31.1_darwin_amd64/frpc.ini&lt;/string&gt;    &lt;/array&gt;    &lt;key&gt;KeepAlive&lt;/key&gt;    &lt;true/&gt;    &lt;key&gt;RunAtLoad&lt;/key&gt;    &lt;true/&gt;&lt;/dict&gt;&lt;/plist&gt;</code></pre><p>注意修改一下frpc所在的目录和配置文件的地址。</p><ol start="3"><li>加载配置</li></ol><pre><code class="line-numbers language-bash">sudo chown root ~/Library/LaunchAgents/frpc.plistsudo launchctl load -w ~/Library/LaunchAgents/frpc.plist</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Android Studio调试夜神模拟器</title>
       <link href="/p/f2ceba3a.html"/>
       <url>/p/f2ceba3a.html</url>
@@ -514,7 +564,7 @@
       <link href="/p/98baf83f.html"/>
       <url>/p/98baf83f.html</url>
       
-        <content type="html"><![CDATA[<p>在部署服务器集群的时候，很多环境都是一样的，如果是用Docker搭建的环境，官网的太慢了，可以使用阿里云的Docker镜像仓库。先在一台服务上部署所有的环境，再push到阿里云的Docker镜像仓库，其他的服务器直接用这边pull取就快多了。</p><h2 id="1-进入阿里云镜像服务"><a href="#1-进入阿里云镜像服务" class="headerlink" title="1. 进入阿里云镜像服务"></a>1. 进入阿里云镜像服务</h2><p>登录阿里云账号，在产品与服务中找到<code>容器镜像服务</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-716579f118375292.png" alt></p><h2 id="2-创建Registry登录密码"><a href="#2-创建Registry登录密码" class="headerlink" title="2. 创建Registry登录密码"></a>2. 创建Registry登录密码</h2><p>第一次进入开通服务后会有一个<code>设置Registry登录密码</code>，点进去自己设置一个密码，后面登录登录的时候需要用到<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-b4b433790a334555.png" alt></p><h2 id="3-设置命名空间"><a href="#3-设置命名空间" class="headerlink" title="3. 设置命名空间"></a>3. 设置命名空间</h2><p>在左侧找到<code>命名空间</code>，创建一个<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-862ff8e723ef2ead.png" alt></p><h2 id="4-登录"><a href="#4-登录" class="headerlink" title="4. 登录"></a>4. 登录</h2><p>进入到服务器中，使用命令登录</p><pre><code class="line-numbers language-shell">$ docker login --username=[你的用户名] registry.cn-hangzhou.aliyuncs.com</code></pre><p>用于登录的用户名为阿里云账号全名，之后会让你输入第2步创建的密码。<br>登录成功后会有一个警告，意思你的密码以明文格式记录在<code>/root/.docker/config.json</code>，之生登录不需要密码了，如查要删了自己去找那个json文件就行</p><pre><code class="line-numbers language-txt">WARNING! Your password will be stored unencrypted in /root/.docker/config.json.Configure a credential helper to remove this warning. Seehttps://docs.docker.com/engine/reference/commandline/login/#credentials-store</code></pre><h2 id="5-将镜像推送到Registry"><a href="#5-将镜像推送到Registry" class="headerlink" title="5. 将镜像推送到Registry"></a>5. 将镜像推送到Registry</h2><p>命名空间是前面第4步创建的，repository是仓库名</p><pre><code class="line-numbers language-shell"># 先登录，如果已经登录过的就不用管$ docker login --username=xushichang012 registry.cn-hangzhou.aliyuncs.com$ docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]$ docker push registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]</code></pre><p>如我们要将nats 1.3.0版本推送到<code>zngw</code>命名空间中</p><pre><code class="line-numbers language-shell"># 查看镜像id$ docker imagesREPOSITORY           TAG                 IMAGE ID            CREATED             SIZEnats                              1.3.0               40a6f5ca1594        18 months ago       7.76MB$ docker login --username=xxx registry.cn-hangzhou.aliyuncs.com$ docker tag 40a6f5ca1594 registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0$ docker push registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0The push refers to repository [registry.cn-hangzhou.aliyuncs.com/zngw/nats]f4d1bc33a08d: Pushed 38e677270912: Pushed 1.3.0: digest: sha256:28eb780ab00a512b20c96eff87da342cd8f6319080846352372f461211092c8a size: 735</code></pre><h2 id="6-从Registry中拉取镜像"><a href="#6-从Registry中拉取镜像" class="headerlink" title="6. 从Registry中拉取镜像"></a>6. 从Registry中拉取镜像</h2><pre><code class="line-numbers language-shell">$ docker login --username=xushichang012 registry.cn-hangzhou.aliyuncs.com#外网拉取$ docker pull registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]# 专有网络拉取$ docker pull registry-vpc.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]# 经典网络拉取$ docker pull registry-internal.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]</code></pre><p>如果是同一账号下可以用专有网络或经曲网络，这样不仅不消耗外网流量还快的不要不要的</p><p>如果上面的nats镜像</p><pre><code class="line-numbers language-shell">$ docker login --username=xxx registry.cn-hangzhou.aliyuncs.com$  docker pull registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0</code></pre><h2 id="7-重命名"><a href="#7-重命名" class="headerlink" title="7. 重命名"></a>7. 重命名</h2><p>下载过来的名字都比较长如<code>registry.cn-hangzhou.aliyuncs.com/zngw/nats</code><br>使用<code>docker images</code>先找到<code>registry.cn-hangzhou.aliyuncs.com/zngw/nats</code>的镜像id，然后按下面操作就可以重命名为<code>nats</code>了</p><pre><code class="line-numbers language-bash">docker tag [images] nats:1.3.0docker rmi registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0</code></pre><h2 id="个人阿里云镜像（持续更新）"><a href="#个人阿里云镜像（持续更新）" class="headerlink" title="个人阿里云镜像（持续更新）"></a>个人阿里云镜像（持续更新）</h2><table><thead><tr><th>镜像名称</th><th>版本</th><th>地址</th></tr></thead><tbody><tr><td>dotnet</td><td>2.2.402</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/dotnet</td></tr><tr><td>java</td><td>8u92-jre-alpine</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/java</td></tr><tr><td>kafka</td><td>2.3.0</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/kafka</td></tr><tr><td>mongo</td><td>3.2.8</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/mongo</td></tr><tr><td>mysql</td><td>8.0.18</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/mysql</td></tr><tr><td>nats</td><td>1.3.0</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/nats</td></tr><tr><td>nginx</td><td>1.10.1-alpine</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/nginx</td></tr><tr><td>redis</td><td>5.0.6</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/redis</td></tr><tr><td>zookeeper</td><td>3.5.5</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/zookeeper</td></tr></tbody></table>]]></content>
+        <content type="html"><![CDATA[<p>在部署服务器集群的时候，很多环境都是一样的，如果是用Docker搭建的环境，官网的太慢了，可以使用阿里云的Docker镜像仓库。先在一台服务上部署所有的环境，再push到阿里云的Docker镜像仓库，其他的服务器直接用这边pull取就快多了。</p><h2 id="1-进入阿里云镜像服务"><a href="#1-进入阿里云镜像服务" class="headerlink" title="1. 进入阿里云镜像服务"></a>1. 进入阿里云镜像服务</h2><p>登录阿里云账号，在产品与服务中找到<code>容器镜像服务</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-716579f118375292.png" alt></p><h2 id="2-创建Registry登录密码"><a href="#2-创建Registry登录密码" class="headerlink" title="2. 创建Registry登录密码"></a>2. 创建Registry登录密码</h2><p>第一次进入开通服务后会有一个<code>设置Registry登录密码</code>，点进去自己设置一个密码，后面登录登录的时候需要用到<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-b4b433790a334555.png" alt></p><h2 id="3-设置命名空间"><a href="#3-设置命名空间" class="headerlink" title="3. 设置命名空间"></a>3. 设置命名空间</h2><p>在左侧找到<code>命名空间</code>，创建一个<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/98baf83f/19826068-862ff8e723ef2ead.png" alt></p><h2 id="4-登录"><a href="#4-登录" class="headerlink" title="4. 登录"></a>4. 登录</h2><p>进入到服务器中，使用命令登录</p><pre><code class="line-numbers language-shell">$ docker login --username=[你的用户名] registry.cn-hangzhou.aliyuncs.com</code></pre><p>用于登录的用户名为阿里云账号全名，之后会让你输入第2步创建的密码。<br>登录成功后会有一个警告，意思你的密码以明文格式记录在<code>/root/.docker/config.json</code>，之生登录不需要密码了，如查要删了自己去找那个json文件就行</p><pre><code class="line-numbers language-txt">WARNING! Your password will be stored unencrypted in /root/.docker/config.json.Configure a credential helper to remove this warning. Seehttps://docs.docker.com/engine/reference/commandline/login/#credentials-store</code></pre><h2 id="5-将镜像推送到Registry"><a href="#5-将镜像推送到Registry" class="headerlink" title="5. 将镜像推送到Registry"></a>5. 将镜像推送到Registry</h2><p>命名空间是前面第4步创建的，repository是仓库名</p><pre><code class="line-numbers language-shell"># 先登录，如果已经登录过的就不用管$ docker login --username=xushichang012 registry.cn-hangzhou.aliyuncs.com$ docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]$ docker push registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]</code></pre><p>如我们要将nats 1.3.0版本推送到<code>zngw</code>命名空间中</p><pre><code class="line-numbers language-shell"># 查看镜像id$ docker imagesREPOSITORY           TAG                 IMAGE ID            CREATED             SIZEnats                              1.3.0               40a6f5ca1594        18 months ago       7.76MB$ docker login --username=xxx registry.cn-hangzhou.aliyuncs.com$ docker tag 40a6f5ca1594 registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0$ docker push registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0The push refers to repository [registry.cn-hangzhou.aliyuncs.com/zngw/nats]f4d1bc33a08d: Pushed 38e677270912: Pushed 1.3.0: digest: sha256:28eb780ab00a512b20c96eff87da342cd8f6319080846352372f461211092c8a size: 735</code></pre><h2 id="6-从Registry中拉取镜像"><a href="#6-从Registry中拉取镜像" class="headerlink" title="6. 从Registry中拉取镜像"></a>6. 从Registry中拉取镜像</h2><pre><code class="line-numbers language-shell">$ docker login --username=xushichang012 registry.cn-hangzhou.aliyuncs.com#外网拉取$ docker pull registry.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]# 专有网络拉取$ docker pull registry-vpc.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]# 经典网络拉取$ docker pull registry-internal.cn-hangzhou.aliyuncs.com/[命名空间]/[repository]:[镜像版本号]</code></pre><p>如果是同一账号下可以用专有网络或经曲网络，这样不仅不消耗外网流量还快的不要不要的</p><p>如果上面的nats镜像</p><pre><code class="line-numbers language-shell">$ docker login --username=xxx registry.cn-hangzhou.aliyuncs.com$  docker pull registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0</code></pre><h2 id="7-重命名"><a href="#7-重命名" class="headerlink" title="7. 重命名"></a>7. 重命名</h2><p>下载过来的名字都比较长如<code>registry.cn-hangzhou.aliyuncs.com/zngw/nats</code><br>使用<code>docker images</code>先找到<code>registry.cn-hangzhou.aliyuncs.com/zngw/nats</code>的镜像id，然后按下面操作就可以重命名为<code>nats</code>了</p><pre><code class="line-numbers language-bash">docker tag [images] nats:1.3.0docker rmi registry.cn-hangzhou.aliyuncs.com/zngw/nats:1.3.0</code></pre><h2 id="个人阿里云镜像（持续更新）"><a href="#个人阿里云镜像（持续更新）" class="headerlink" title="个人阿里云镜像（持续更新）"></a>个人阿里云镜像（持续更新）</h2><table><thead><tr><th>镜像名称</th><th>版本</th><th>地址</th></tr></thead><tbody><tr><td>dotnet</td><td>2.2.402</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/dotnet</td></tr><tr><td>java</td><td>8u92-jre-alpine</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/java</td></tr><tr><td>kafka</td><td>2.3.0</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/kafka</td></tr><tr><td>mongo</td><td>3.2.8、4.2.5</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/mongo</td></tr><tr><td>mysql</td><td>8.0.18</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/mysql</td></tr><tr><td>nats</td><td>1.3.0</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/nats</td></tr><tr><td>nginx</td><td>1.10.1-alpine</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/nginx</td></tr><tr><td>redis</td><td>5.0.6</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/redis</td></tr><tr><td>zookeeper</td><td>3.5.5</td><td>registry.cn-hangzhou.aliyuncs.com/zngw/zookeeper</td></tr></tbody></table>]]></content>
       
       
       <categories>
@@ -3243,31 +3293,6 @@
     
     
     <entry>
-      <title>CentOS 7 关闭selinux</title>
-      <link href="/p/c2b74a9a.html"/>
-      <url>/p/c2b74a9a.html</url>
-      
-        <content type="html"><![CDATA[<ol><li>要关掉selinux，首先要查看它是否运行。输入<code>/usr/sbin/sestatus -v</code>查看状态<a id="more"></a></li></ol><pre><code class="line-numbers language-bash">[root@localhost ~]# /usr/sbin/sestatus -vSELinux status:                 enabledSELinuxfs mount:                /sys/fs/selinuxSELinux root directory:         /etc/selinuxLoaded policy name:             targetedCurrent mode:                   enforcingMode from config file:          enforcingPolicy MLS status:              enabledPolicy deny_unknown status:     allowedMax kernel policy version:      31Process contexts:Current context:                unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023Init context:                   system_u:system_r:init_t:s0/usr/sbin/sshd                  system_u:system_r:sshd_t:s0-s0:c0.c1023File contexts:Controlling terminal:           unconfined_u:object_r:user_devpts_t:s0/etc/passwd                     system_u:object_r:passwd_file_t:s0/etc/shadow                     system_u:object_r:shadow_t:s0/bin/bash                       system_u:object_r:shell_exec_t:s0/bin/login                      system_u:object_r:login_exec_t:s0/bin/sh                         system_u:object_r:bin_t:s0 -&gt; system_u:object_r:shell_exec_t:s0/sbin/agetty                    system_u:object_r:getty_exec_t:s0/sbin/init                      system_u:object_r:bin_t:s0 -&gt; system_u:object_r:init_exec_t:s0/usr/sbin/sshd                  system_u:object_r:sshd_exec_t:s0</code></pre><p>SELinux status:<br>    * enabled就是开启的;<br>    * disabled就是关闭</p><ol start="2"><li>开启的时候我们还需要看它的模式(Current mode),它有三种模式<ul><li>enforcing：强制模式，代表 SELinux 运作中，且已经正确的开始限制 domain/type 了； </li><li>permissive：宽容模式：代表 SELinux 运作中，不过仅会有警告讯息并不会实际限制 domain/type 的存取。 </li><li>disabled：关闭，SELinux 并没有实际运作。<br>在不重系统的情况下就是将模式改为<code>permissive</code></li></ul></li></ol><pre><code class="line-numbers language-bash">setenforce 0</code></pre><p>但是，这样关掉会有一个问题，就是系统重起后，会恢复为enforcing模式，所以还需要修改配置文件<br>3. 修改配置文件重启系统关闭selinux<br>修改<code>/etc/selinux/config</code> 文件。将<code>SELINUX=enforcing</code> 改为<code>SELINUX=disable</code> </p><pre><code class="line-numbers language-bash">vim /etc/selinux/config# This file controls the state of SELinux on the system.# SELINUX= can take one of these three values:#     enforcing - SELinux security policy is enforced.#     permissive - SELinux prints warnings instead of enforcing.#     disabled - No SELinux policy is loaded.SELINUX=disable# SELINUXTYPE= can take one of three values:#     targeted - Targeted processes are protected,#     minimum - Modification of targeted policy. Only selected processes are protected. #     mls - Multi Level Security protection.SELINUXTYPE=targeted</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> CentOS </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> CentOS </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>CentOS7 安装Docker</title>
       <link href="/p/39d97234.html"/>
       <url>/p/39d97234.html</url>
@@ -3287,6 +3312,31 @@
             <tag> CentOS </tag>
             
             <tag> Docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CentOS 7 关闭selinux</title>
+      <link href="/p/c2b74a9a.html"/>
+      <url>/p/c2b74a9a.html</url>
+      
+        <content type="html"><![CDATA[<ol><li>要关掉selinux，首先要查看它是否运行。输入<code>/usr/sbin/sestatus -v</code>查看状态<a id="more"></a></li></ol><pre><code class="line-numbers language-bash">[root@localhost ~]# /usr/sbin/sestatus -vSELinux status:                 enabledSELinuxfs mount:                /sys/fs/selinuxSELinux root directory:         /etc/selinuxLoaded policy name:             targetedCurrent mode:                   enforcingMode from config file:          enforcingPolicy MLS status:              enabledPolicy deny_unknown status:     allowedMax kernel policy version:      31Process contexts:Current context:                unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023Init context:                   system_u:system_r:init_t:s0/usr/sbin/sshd                  system_u:system_r:sshd_t:s0-s0:c0.c1023File contexts:Controlling terminal:           unconfined_u:object_r:user_devpts_t:s0/etc/passwd                     system_u:object_r:passwd_file_t:s0/etc/shadow                     system_u:object_r:shadow_t:s0/bin/bash                       system_u:object_r:shell_exec_t:s0/bin/login                      system_u:object_r:login_exec_t:s0/bin/sh                         system_u:object_r:bin_t:s0 -&gt; system_u:object_r:shell_exec_t:s0/sbin/agetty                    system_u:object_r:getty_exec_t:s0/sbin/init                      system_u:object_r:bin_t:s0 -&gt; system_u:object_r:init_exec_t:s0/usr/sbin/sshd                  system_u:object_r:sshd_exec_t:s0</code></pre><p>SELinux status:<br>    * enabled就是开启的;<br>    * disabled就是关闭</p><ol start="2"><li>开启的时候我们还需要看它的模式(Current mode),它有三种模式<ul><li>enforcing：强制模式，代表 SELinux 运作中，且已经正确的开始限制 domain/type 了； </li><li>permissive：宽容模式：代表 SELinux 运作中，不过仅会有警告讯息并不会实际限制 domain/type 的存取。 </li><li>disabled：关闭，SELinux 并没有实际运作。<br>在不重系统的情况下就是将模式改为<code>permissive</code></li></ul></li></ol><pre><code class="line-numbers language-bash">setenforce 0</code></pre><p>但是，这样关掉会有一个问题，就是系统重起后，会恢复为enforcing模式，所以还需要修改配置文件<br>3. 修改配置文件重启系统关闭selinux<br>修改<code>/etc/selinux/config</code> 文件。将<code>SELINUX=enforcing</code> 改为<code>SELINUX=disable</code> </p><pre><code class="line-numbers language-bash">vim /etc/selinux/config# This file controls the state of SELinux on the system.# SELINUX= can take one of these three values:#     enforcing - SELinux security policy is enforced.#     permissive - SELinux prints warnings instead of enforcing.#     disabled - No SELinux policy is loaded.SELINUX=disable# SELINUXTYPE= can take one of three values:#     targeted - Targeted processes are protected,#     minimum - Modification of targeted policy. Only selected processes are protected. #     mls - Multi Level Security protection.SELINUXTYPE=targeted</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> CentOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CentOS </tag>
             
         </tags>
       
@@ -3447,33 +3497,6 @@
     
     
     <entry>
-      <title>CentOS-7中离线安装MongoDB</title>
-      <link href="/p/65eba897.html"/>
-      <url>/p/65eba897.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a><pre><code class="line-numbers language-bash">#!/bin/bash# 下载mongdb# wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.13.tgz## 解压tar zxf mongodb-linux-x86_64-4.0.13.tgzmv ./mongodb-linux-x86_64-4.0.13/ /usr/local/mongodb## 创建全局链接ln -s /usr/local/mongodb/bin/mongo /usr/local/bin/mongoln -s /usr/local/mongodb/bin/mongod /usr/local/bin/mongod## mongodb 数据库配置mkdir -p /data/dbmkdir -p /data/log## 创建mongod.conf配置echo &quot;systemLog:  destination: file  logAppend: true  path: /data/log/mongodb.log # 日志文件storage:  dbPath: /data/db  # 数据目录  journal:    enabled: trueprocessManagement:  fork: true  # fork and run in background  timeZoneInfo: /usr/share/zoneinfonet:  port: 27017      # 端口  bindIp: 0.0.0.0 # 绑定IP&quot; &gt; /usr/local/mongodb/bin/mongod.conf## 创建mongodb服务echo &quot;[Unit]Description=mongodb After=network.target remote-fs.target nss-lookup.target[Service]Type=forkingExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/mongodb/bin/mongod.confExecReload=/bin/kill -s HUP $MAINPIDExecStop=/usr/local/mongodb/bin/mongod --shutdown --config /usr/local/mongodb/bin/mongod.confPrivateTmp=true[Install]WantedBy=multi-user.target&quot; &gt; /lib/systemd/system/mongodb.service## 启动服务mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log## 创建帐号read -p &quot;输入root账号密码:&quot; passwordmongo admin --eval &quot;db.createUser({ user: &#39;root&#39;, pwd: &#39;$password&#39;, roles: [ { role: &#39;root&#39;, db: &#39;admin&#39; } , &#39;readWriteAnyDatabase&#39;] })&quot;## 关闭 mongodb 服务ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`for id in $IDdo    if [ &quot;$BASHPID&quot; -ne &quot;$id&quot; ]    then        kill -9 $id  &amp;&gt;/dev/null    fidone## 服务启动systemctl start mongodb.servicesystemctl enable mongodb.service</code></pre><h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol><li>去<a href="https://www.mongodb.com/download-center/community" target="_blank" rel="noopener">MongoDB官网</a>下载适合的版本，这里下的是<pre><code class="line-numbers language-bash">https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.13.tgz</code></pre></li><li>上传到CentOS服务器上。</li><li>解压<pre><code class="line-numbers language-bash">tar zxf mongodb-linux-x86_64-4.0.13.tgzmv ./mongodb-linux-x86_64-4.0.13/ /usr/local/mongodb</code></pre></li><li>创建全局链接<pre><code class="line-numbers language-bash">cd /usr/local/mongodb/ln -s /usr/local/mongodb/bin/mongo /usr/local/bin/mongoln -s /usr/local/mongodb/bin/mongod /usr/local/bin/mongod</code></pre></li><li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">mkdir -p /data/dbmkdir -p /data/log</code></pre></li><li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre></li><li>创建帐号<pre><code class="line-numbers language-bash">mongo admin --eval &quot;db.createUser({ user: &#39;root&#39;, pwd: &#39;123456&#39;, roles: [ { role: &#39;root&#39;, db: &#39;admin&#39; } , &#39;readWriteAnyDatabase&#39;] })&quot;</code></pre></li><li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo root 11737 1 0 09:25 ? 00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log root 11771 3220 0 09:29 pts/1 00:00:00 grep --color=auto mongokill 11737</code></pre></li><li>创建mongod.conf配置</li></ol><pre><code class="line-numbers language-bash">vi /usr/local/mongodb/bin/mongod.conf</code></pre><p>写入内容</p><pre><code class="line-numbers language-yaml">systemLog:  destination: file  logAppend: true  path: /data/log/mongodb.log # 日志文件storage:  dbPath: /data/db  # 数据目录  journal:    enabled: trueprocessManagement:  fork: true  # fork and run in background  timeZoneInfo: /usr/share/zoneinfonet:  port: 27017      # 端口  bindIp: 0.0.0.0 # 绑定IP</code></pre><ol start="10"><li>创建mongodb服务</li></ol><pre><code class="line-numbers language-bash">vi /lib/systemd/system/mongodb.service</code></pre><p>输入以下内容并保存</p><pre><code class="line-numbers language-ini">[Unit]Description=mongodb After=network.target remote-fs.target nss-lookup.target[Service]Type=forkingExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/mongodb/bin/mongod.confExecReload=/bin/kill -s HUP $MAINPIDExecStop=/usr/local/mongodb/bin/mongod --shutdown --config /usr/local/mongodb/bin/mongod.confPrivateTmp=true[Install]WantedBy=multi-user.target</code></pre><ol start="11"><li>服务启动</li></ol><pre><code class="line-numbers language-bash"># 启动服务：systemctl start mongodb.service#停止服务：systemctl stop mongodb.service#开机启动：systemctl enable mongodb.service</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> MongoDB </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> CentOS </tag>
-            
-            <tag> Ubuntu </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
       <link href="/p/355346b3.html"/>
       <url>/p/355346b3.html</url>
@@ -3493,6 +3516,33 @@
             <tag> Ubuntu </tag>
             
             <tag> MongoDB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CentOS-7中离线安装MongoDB</title>
+      <link href="/p/65eba897.html"/>
+      <url>/p/65eba897.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a><pre><code class="line-numbers language-bash">#!/bin/bash# 下载mongdb# wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.13.tgz## 解压tar zxf mongodb-linux-x86_64-4.0.13.tgzmv ./mongodb-linux-x86_64-4.0.13/ /usr/local/mongodb## 创建全局链接ln -s /usr/local/mongodb/bin/mongo /usr/local/bin/mongoln -s /usr/local/mongodb/bin/mongod /usr/local/bin/mongod## mongodb 数据库配置mkdir -p /data/dbmkdir -p /data/log## 创建mongod.conf配置echo &quot;systemLog:  destination: file  logAppend: true  path: /data/log/mongodb.log # 日志文件storage:  dbPath: /data/db  # 数据目录  journal:    enabled: trueprocessManagement:  fork: true  # fork and run in background  timeZoneInfo: /usr/share/zoneinfonet:  port: 27017      # 端口  bindIp: 0.0.0.0 # 绑定IP&quot; &gt; /usr/local/mongodb/bin/mongod.conf## 创建mongodb服务echo &quot;[Unit]Description=mongodb After=network.target remote-fs.target nss-lookup.target[Service]Type=forkingExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/mongodb/bin/mongod.confExecReload=/bin/kill -s HUP $MAINPIDExecStop=/usr/local/mongodb/bin/mongod --shutdown --config /usr/local/mongodb/bin/mongod.confPrivateTmp=true[Install]WantedBy=multi-user.target&quot; &gt; /lib/systemd/system/mongodb.service## 启动服务mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log## 创建帐号read -p &quot;输入root账号密码:&quot; passwordmongo admin --eval &quot;db.createUser({ user: &#39;root&#39;, pwd: &#39;$password&#39;, roles: [ { role: &#39;root&#39;, db: &#39;admin&#39; } , &#39;readWriteAnyDatabase&#39;] })&quot;## 关闭 mongodb 服务ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`for id in $IDdo    if [ &quot;$BASHPID&quot; -ne &quot;$id&quot; ]    then        kill -9 $id  &amp;&gt;/dev/null    fidone## 服务启动systemctl start mongodb.servicesystemctl enable mongodb.service</code></pre><h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol><li>去<a href="https://www.mongodb.com/download-center/community" target="_blank" rel="noopener">MongoDB官网</a>下载适合的版本，这里下的是<pre><code class="line-numbers language-bash">https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.13.tgz</code></pre></li><li>上传到CentOS服务器上。</li><li>解压<pre><code class="line-numbers language-bash">tar zxf mongodb-linux-x86_64-4.0.13.tgzmv ./mongodb-linux-x86_64-4.0.13/ /usr/local/mongodb</code></pre></li><li>创建全局链接<pre><code class="line-numbers language-bash">cd /usr/local/mongodb/ln -s /usr/local/mongodb/bin/mongo /usr/local/bin/mongoln -s /usr/local/mongodb/bin/mongod /usr/local/bin/mongod</code></pre></li><li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">mkdir -p /data/dbmkdir -p /data/log</code></pre></li><li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre></li><li>创建帐号<pre><code class="line-numbers language-bash">mongo admin --eval &quot;db.createUser({ user: &#39;root&#39;, pwd: &#39;123456&#39;, roles: [ { role: &#39;root&#39;, db: &#39;admin&#39; } , &#39;readWriteAnyDatabase&#39;] })&quot;</code></pre></li><li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo root 11737 1 0 09:25 ? 00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log root 11771 3220 0 09:29 pts/1 00:00:00 grep --color=auto mongokill 11737</code></pre></li><li>创建mongod.conf配置</li></ol><pre><code class="line-numbers language-bash">vi /usr/local/mongodb/bin/mongod.conf</code></pre><p>写入内容</p><pre><code class="line-numbers language-yaml">systemLog:  destination: file  logAppend: true  path: /data/log/mongodb.log # 日志文件storage:  dbPath: /data/db  # 数据目录  journal:    enabled: trueprocessManagement:  fork: true  # fork and run in background  timeZoneInfo: /usr/share/zoneinfonet:  port: 27017      # 端口  bindIp: 0.0.0.0 # 绑定IP</code></pre><ol start="10"><li>创建mongodb服务</li></ol><pre><code class="line-numbers language-bash">vi /lib/systemd/system/mongodb.service</code></pre><p>输入以下内容并保存</p><pre><code class="line-numbers language-ini">[Unit]Description=mongodb After=network.target remote-fs.target nss-lookup.target[Service]Type=forkingExecStart=/usr/local/mongodb/bin/mongod --config /usr/local/mongodb/bin/mongod.confExecReload=/bin/kill -s HUP $MAINPIDExecStop=/usr/local/mongodb/bin/mongod --shutdown --config /usr/local/mongodb/bin/mongod.confPrivateTmp=true[Install]WantedBy=multi-user.target</code></pre><ol start="11"><li>服务启动</li></ol><pre><code class="line-numbers language-bash"># 启动服务：systemctl start mongodb.service#停止服务：systemctl stop mongodb.service#开机启动：systemctl enable mongodb.service</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> MongoDB </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CentOS </tag>
+            
+            <tag> Ubuntu </tag>
             
         </tags>
       
@@ -3628,6 +3678,33 @@
     
     
     <entry>
+      <title>将VS Code 添加到友键菜单</title>
+      <link href="/p/ab6cd228.html"/>
+      <url>/p/ab6cd228.html</url>
+      
+        <content type="html"><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p><a id="more"></a><p>vs code 程序为：”C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\Code.exe”</p><pre><code class="line-numbers language-regex">Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\*\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\*\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%1\&quot;&quot;Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\Directory\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\Directory\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件使用 </tag>
+            
+            <tag> Window </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>WIN10远程连接报错：你的凭据不工作</title>
       <link href="/p/3296f49.html"/>
       <url>/p/3296f49.html</url>
@@ -3653,11 +3730,11 @@
     
     
     <entry>
-      <title>将VS Code 添加到友键菜单</title>
-      <link href="/p/ab6cd228.html"/>
-      <url>/p/ab6cd228.html</url>
+      <title>React环境搭建</title>
+      <link href="/p/28a0bfec.html"/>
+      <url>/p/28a0bfec.html</url>
       
-        <content type="html"><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p><a id="more"></a><p>vs code 程序为：”C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\Code.exe”</p><pre><code class="line-numbers language-regex">Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\*\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\*\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%1\&quot;&quot;Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\Directory\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\Directory\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;Windows Registry Editor Version 5.00[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode]@=&quot;Open with VS Code&quot;&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode\command]@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a><ol><li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li><li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li><li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li><li>命令行cd进入项目目录</li><li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-clinpm install babel-preset-react</code></pre></li><li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre></li><li>npm install （安装依赖）</li><li>npm start （启动）</li><li>打包可部署 npm run build （在dist目录下，部署的东西）</li></ol>]]></content>
       
       
       <categories>
@@ -3668,8 +3745,6 @@
       
       
         <tags>
-            
-            <tag> 软件使用 </tag>
             
             <tag> Window </tag>
             
@@ -3705,31 +3780,6 @@
     
     
     <entry>
-      <title>React环境搭建</title>
-      <link href="/p/28a0bfec.html"/>
-      <url>/p/28a0bfec.html</url>
-      
-        <content type="html"><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a><ol><li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li><li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li><li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li><li>命令行cd进入项目目录</li><li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-clinpm install babel-preset-react</code></pre></li><li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre></li><li>npm install （安装依赖）</li><li>npm start （启动）</li><li>打包可部署 npm run build （在dist目录下，部署的东西）</li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> Windows </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Window </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>IOS ipa包企业证书签名手动替换</title>
       <link href="/p/d4109bd2.html"/>
       <url>/p/d4109bd2.html</url>
@@ -3755,11 +3805,11 @@
     
     
     <entry>
-      <title>SSH获取连接者IP</title>
-      <link href="/p/8c986da4.html"/>
-      <url>/p/8c986da4.html</url>
+      <title>CentOS 7 在线安装dotnet环境</title>
+      <link href="/p/4b25257e.html"/>
+      <url>/p/4b25257e.html</url>
       
-        <content type="html"><![CDATA[<pre><code class="line-numbers language-bash">who am i | awk &#39;{print $5}&#39; | sed &#39;s/(//g&#39; | sed &#39;s/)//g&#39;</code></pre>]]></content>
+        <content type="html"><![CDATA[<pre><code class="line-numbers language-bash">rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpmyum updateyum install dotnet-sdk-2.2dotnet --version</code></pre>]]></content>
       
       
       <categories>
@@ -3780,11 +3830,11 @@
     
     
     <entry>
-      <title>CentOS 7 在线安装dotnet环境</title>
-      <link href="/p/4b25257e.html"/>
-      <url>/p/4b25257e.html</url>
+      <title>SSH获取连接者IP</title>
+      <link href="/p/8c986da4.html"/>
+      <url>/p/8c986da4.html</url>
       
-        <content type="html"><![CDATA[<pre><code class="line-numbers language-bash">rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpmyum updateyum install dotnet-sdk-2.2dotnet --version</code></pre>]]></content>
+        <content type="html"><![CDATA[<pre><code class="line-numbers language-bash">who am i | awk &#39;{print $5}&#39; | sed &#39;s/(//g&#39; | sed &#39;s/)//g&#39;</code></pre>]]></content>
       
       
       <categories>
