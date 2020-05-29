@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-05-28T05:47:56.498Z</updated>
+  <updated>2020-05-28T05:48:50.646Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zengwu.com.cn/p/3a3101a2.html"/>
     <id>https://zengwu.com.cn/p/3a3101a2.html</id>
     <published>2020-05-26T07:56:55.000Z</published>
-    <updated>2020-05-28T05:47:56.498Z</updated>
+    <updated>2020-05-28T05:48:50.646Z</updated>
     
     <content type="html"><![CDATA[<h2 id="一、-下载。"><a href="#一、-下载。" class="headerlink" title="一、 下载。"></a>一、 下载。</h2><p>先去<a href="(https://maven.apache.org/download.cgi">Maven官网</a><br>上下载需要的版本，Mac下<code>tar.gz</code>的包。这里下载的是<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</a><br>并解压到你喜欢的位置。这里解压到<code>/Users/admin/software/apache-maven-3.6.3</code></p><h2 id="二、-设置环境变量"><a href="#二、-设置环境变量" class="headerlink" title="二、 设置环境变量"></a>二、 设置环境变量</h2><p>MAC OS X环境配置的加载顺序</p><pre><code class="line-numbers language-bash"># 系统级别/etc/profile/etc/paths # 新系统版本使用了zsh～/.zshrc# 旧系统版本用户级别~/.bash_profile ~/.bash_login ~/.profile ~/.bashrc</code></pre><p>这里我们配置用户级别的<code>~/.bash_profile</code>就可以了</p><pre><code class="line-numbers language-bash">vi ~/.bash_profile</code></pre><p>添加</p><pre><code class="line-numbers language-ini">export MVN_HOME=/Users/admin/software/apache-maven-3.6.3export PATH=$PATH:$MVN_HOME/bin</code></pre><p>重新加载配置</p><pre><code class="line-numbers language-bash">source ~/.bash_profile</code></pre><p>为了兼容新的zsh，需要在<code>~/.zshrc</code>中加一行配置，如果<code>~/.zshrc</code>文件不存在创建就好</p><pre><code class="line-numbers language-bash">vim ~/.zshrc# 在.zshrc最后添加source ~/.bash_profile </code></pre><h2 id="三、-测试"><a href="#三、-测试" class="headerlink" title="三、 测试"></a>三、 测试</h2><pre><code class="line-numbers language-bash">mvn -v</code></pre>]]></content>
     
@@ -47,7 +47,7 @@
     <link href="https://zengwu.com.cn/p/a02d24c0.html"/>
     <id>https://zengwu.com.cn/p/a02d24c0.html</id>
     <published>2020-05-25T08:01:55.000Z</published>
-    <updated>2020-05-28T05:46:43.878Z</updated>
+    <updated>2020-05-28T05:48:50.652Z</updated>
     
     <content type="html"><![CDATA[<p>前面写过在win下和linux下的<a href="/p/8426a0a1.html">frp内网穿透搭建远程桌面</a>。今天来讲一下在Mac上使用frp使用vnc和ssh吧，服务端的配置参考之前的吧。</p><h2 id="一、下载mac版frp客户端"><a href="#一、下载mac版frp客户端" class="headerlink" title="一、下载mac版frp客户端"></a>一、下载mac版frp客户端</h2><p>进入<a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a>下载与服务器对应的版本，mac下用的是<code>darwin_amd64.tar.gz</code>的。这里服务器用的是v0.31.1，所以mac也直接下对应的版本就行<a href="https://github.com/fatedier/frp/releases/download/v0.31.1/frp_0.31.1_darwin_amd64.tar.gz" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases/download/v0.31.1/frp_0.31.1_darwin_amd64.tar.gz</a></p><h2 id="二、配置frp客户端配置"><a href="#二、配置frp客户端配置" class="headerlink" title="二、配置frp客户端配置"></a>二、配置frp客户端配置</h2><p>解压压缩文件到你喜欢的目录。这里解压到<code>/Users/admin/software/frp_0.31.1_darwin_amd64</code>，并修改目录下的<code>frpc.ini</code>文件</p><pre><code class="line-numbers language-ini">[common]server_addr=frp.zengwu.com.cnserver_port = 5000[Mac VNC]type = tcplocal_ip = 0.0.0.0local_port = 5900remote_port = 5900[Mac SSH]type = tcplocal_ip = 0.0.0.0local_port = 22remote_port = 5922</code></pre><p>这里的配置和win下的差不多，注意一下端口就行了，ssh是默认是22，vnc默认是5900，都是tcp协议。</p><h2 id="三、-配置开机启动"><a href="#三、-配置开机启动" class="headerlink" title="三、 配置开机启动"></a>三、 配置开机启动</h2><ol><li>新建<code>frpc.plist</code>文件</li></ol><pre><code class="line-numbers language-bash">sudo vim ~/Library/LaunchAgents/frpc.plist</code></pre><ol start="2"><li>写入frpc.plist配置</li></ol><pre><code class="line-numbers language-plist">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE plist PUBLIC -//Apple Computer//DTD PLIST 1.0//ENhttp://www.apple.com/DTDs/PropertyList-1.0.dtd &gt;&lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;    &lt;key&gt;Label&lt;/key&gt;    &lt;string&gt;frpc&lt;/string&gt;    &lt;key&gt;ProgramArguments&lt;/key&gt;    &lt;array&gt;         &lt;string&gt;/Users/admin/software/frp_0.31.1_darwin_amd64/frpc&lt;/string&gt;         &lt;string&gt;-c&lt;/string&gt;         &lt;string&gt;/Users/admin/software/frp_0.31.1_darwin_amd64/frpc.ini&lt;/string&gt;    &lt;/array&gt;    &lt;key&gt;KeepAlive&lt;/key&gt;    &lt;true/&gt;    &lt;key&gt;RunAtLoad&lt;/key&gt;    &lt;true/&gt;&lt;/dict&gt;&lt;/plist&gt;</code></pre><p>注意修改一下frpc所在的目录和配置文件的地址。</p><ol start="3"><li>加载配置</li></ol><pre><code class="line-numbers language-bash">sudo chown root ~/Library/LaunchAgents/frpc.plistsudo launchctl load -w ~/Library/LaunchAgents/frpc.plist</code></pre>]]></content>
     
