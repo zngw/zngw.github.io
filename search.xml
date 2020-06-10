@@ -1,6 +1,433 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Nginx Too many open files</title>
+    <url>/p/ca55ae36.html</url>
+    <content><![CDATA[<p>在使用Nginx做转发时遇到了连接不上的情况，查看error日志发现一堆的<code>Too many open files</code>报错</p>
+<pre><code class="line-numbers language-txt">2020/06/10 12:47:49 [crit] 21453#21453: *77340 open() &quot;/usr/share/nginx/html/50x.html&quot; failed (24: Too many open files), client: 58.244.114.249, server: _, request: &quot;POST /rest/user/version/ HTTP/1.1&quot;, upstream: &quot;http://localhost:6088/rest/version/&quot;, host: &quot;xxx.cn&quot;</code></pre>
+<h2 id="一、文件的限制"><a href="#一、文件的限制" class="headerlink" title="一、文件的限制"></a>一、文件的限制</h2><p>首先想到的是linux中的文件限制，因为nginx配置中用的是<code>user nginx</code>，所以需要切换到<code>nginx</code>账号下查看限制</p>
+<h3 id="1-切换账号"><a href="#1-切换账号" class="headerlink" title="1. 切换账号"></a>1. 切换账号</h3><pre><code class="line-numbers language-bash">su - nginx</code></pre>
+<p>如果出现<code>This account is currently not available</code>错误，是nginx账号不允许登录，使用<code>usermod -s /bin/bash nginx</code>设置一下就行了，详见<a href="/p/3a7c0670.html">This account is currently not available</a></p>
+<h3 id="2-查看文件限制"><a href="#2-查看文件限制" class="headerlink" title="2. 查看文件限制"></a>2. 查看文件限制</h3><pre><code class="line-numbers language-bash">ulimit -Hn   # 硬
+ulimit -Sn    # 软</code></pre>
+<p>结果发现ulimit值都是65535，感觉问题不在这。<br>如果ulimit值不够大时，可以用修改<code>/etc/security/limits.conf</code>配置文件，修改或添加</p>
+<pre><code class="line-numbers language-conf"># 配置nginx用户文件限制
+nginx soft nofile 65535
+nginx hard nofile 65535
+
+# 配置所有用户文件限制
+* soft nofile 65535
+* hard nofile 65535</code></pre>
+<p>这里需要重启nginx才会生效</p>
+<h2 id="二、Nginx配置限制"><a href="#二、Nginx配置限制" class="headerlink" title="二、Nginx配置限制"></a>二、Nginx配置限制</h2><p>排除了系统的文件限制，可能就是Nginx自身配置导致的了。</p>
+<pre><code class="line-numbers language-conf"># vim /etc/nginx/nginx.conf  这里为nginx配置文件
+
+worker_rlimit_nofile 65535;       //添加  
+
+events {  
+    worker_connections 20480;   //修改  
+}  </code></pre>
+<p>重启nginx或reload重新加载配置就可以了。</p>
+<p>参与文章：<a href="https://www.cyberciti.biz/faq/linux-unix-nginx-too-many-open-files/" target="_blank" rel="noopener">https://www.cyberciti.biz/faq/linux-unix-nginx-too-many-open-files/</a></p>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>This account is currently not available</title>
+    <url>/p/3a7c0670.html</url>
+    <content><![CDATA[<p>在linux中使用su切换到nginx账号的时候出现了<code>This account is currently not available</code>的错误提示。</p>
+<p>使用<code>grep nginx /etc/passwd</code>查看用户权限</p>
+<pre><code class="line-numbers language-bash">$ grep nginx /etc/passwd
+nginx:x:997:995:nginx user:/var/cache/nginx:/sbin/nologin</code></pre>
+<p>这里可以看出，nginx是<code>/sbin/nologin</code>禁止登录的。只要修改这个模式就可以了</p>
+<pre><code class="line-numbers language-bash">$ usermod -s /bin/bash nginx
+
+# 再次查看状态
+$ grep nginx /etc/passwd
+nginx:x:997:995:nginx user:/var/cache/nginx:/bin/bash</code></pre>
+<p>然后就可以用<code>su - nginx</code>切换了</p>
+<p>恢复的话改为<code>/sbin/nologin</code>即可</p>
+<pre><code class="line-numbers language-bash">$ usermod -s /sbin/nologin nginx</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS7 中安装semanage来设置selinux</title>
+    <url>/p/cb8e2633.html</url>
+    <content><![CDATA[<p>semanage可以查看和配置selinux，但是，semanage在CentOS上是默认不安装的</p>
+<p>直接使用<code>yum install -y  semanage</code>来安装</p>
+<pre><code class="line-numbers language-bash">$ yum install semanage
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+No package semanage available.
+Error: Nothing to do</code></pre>
+<p>如果出现<code>No package semanage available.</code>说明源中没有这个包，可以用<code>yum provides semanage</code>安装</p>
+<pre><code class="line-numbers language-bash">$ yum provides semanage
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+base/7/x86_64/filelists_db                                                                                                                                                                                  | 7.1 MB  00:00:00     
+docker-ce-stable/x86_64/filelists_db                                                                                                                                                                        |  20 kB  00:00:00     
+epel/x86_64/filelists_db                                                                                                                                                                                    |  12 MB  00:00:00     
+extras/7/x86_64/filelists_db                                                                                                                                                                                | 205 kB  00:00:00     
+packages-microsoft-com-prod/filelists_db                                                                                                                                                                    | 3.1 MB  00:00:00     
+updates/7/x86_64/filelists_db                                                                                                                                                                               | 1.3 MB  00:00:00     
+policycoreutils-python-2.5-34.el7.x86_64 : SELinux policy core python utilities
+Repo        : base
+Matched from:
+Filename    : /usr/sbin/semanage
+</code></pre>
+<p>如果还不能使用semanage，刚再输入</p>
+<pre><code class="line-numbers language-bash">yum -y install policycoreutils-python.x86_64</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS firewall防火墙配置</title>
+    <url>/p/9e67033a.html</url>
+    <content><![CDATA[<p>CentOS7之后默认使用了firewall防火墙。</p>
+<h2 id="一、基本操作"><a href="#一、基本操作" class="headerlink" title="一、基本操作"></a>一、基本操作</h2><pre><code class="line-numbers language-bash"># 查看是否开启
+firewall-cmd --state
+
+# 启动
+systemctl start firewalld
+
+# 停止
+systemctl stop firewalld
+
+# 重启
+systemctl restart firewalld.service
+
+# 开机启动
+systemctl enable firewalld.service
+
+# 开机禁用
+systemctl disable firewalld
+
+# 重新加载防火墙配置
+firewall-cmd --reload
+
+# 查看所有状态
+firewall-cmd --list-all
+
+# 查看public区域所有打开的端口
+firewall-cmd --zone=public --list-ports</code></pre>
+<h2 id="二、开放、禁用端口"><a href="#二、开放、禁用端口" class="headerlink" title="二、开放、禁用端口"></a>二、开放、禁用端口</h2><h3 id="1-开放端口"><a href="#1-开放端口" class="headerlink" title="1. 开放端口"></a>1. 开放端口</h3><pre><code class="line-numbers language-bash">firewall-cmd --zone=public --add-port=80/tcp --permanent</code></pre>
+<p>80-端口号<br>tcp-协议<br>–permanent -使设置永久生效，不加的话机器重启之后失效</p>
+<h3 id="2-禁用端口"><a href="#2-禁用端口" class="headerlink" title="2. 禁用端口"></a>2. 禁用端口</h3><p>防火墙相当于白名单，从列表里删除就可以禁用对应的端口了</p>
+<pre><code class="line-numbers language-bash">firewall-cmd --zone=public --remove-port=80/tcp --permanent</code></pre>
+<h3 id="3-批量开放或限制端口"><a href="#3-批量开放或限制端口" class="headerlink" title="3. 批量开放或限制端口"></a>3. 批量开放或限制端口</h3><pre><code class="line-numbers language-bash">firewall-cmd --zone=public --add-port=6000-7000/tcp --permanent
+firewall-cmd --zone=public --remove-port=6000-7000/tcp --permanent</code></pre>
+<h2 id="三、开放或限制IP"><a href="#三、开放或限制IP" class="headerlink" title="三、开放或限制IP"></a>三、开放或限制IP</h2><p>可以针对IP操作，可以指定某ip访问某端口，也能禁用某ip访问某端口。</p>
+<h3 id="1-端口针对某ip开放"><a href="#1-端口针对某ip开放" class="headerlink" title="1. 端口针对某ip开放"></a>1. 端口针对某ip开放</h3><pre><code class="line-numbers language-bash">firewall-cmd --permanent --add-rich-rule=&quot;rule family=&quot;ipv4&quot; source address=&quot;192.168.0.55&quot; port protocol=&quot;tcp&quot; port=&quot;80&quot; accept&quot;</code></pre>
+<h3 id="2-限制ip访问端口"><a href="#2-限制ip访问端口" class="headerlink" title="2. 限制ip访问端口"></a>2. 限制ip访问端口</h3><pre><code class="line-numbers language-bash">firewall-cmd --permanent --add-rich-rule=&quot;rule family=&quot;ipv4&quot; source address=&quot;192.168.0.55&quot; port protocol=&quot;tcp&quot; port=&quot;80&quot; reject&quot;</code></pre>
+<h3 id="3-开放或限制IP地址段"><a href="#3-开放或限制IP地址段" class="headerlink" title="3. 开放或限制IP地址段"></a>3. 开放或限制IP地址段</h3><p>这里用子网掩码的表格来表示。如：192.168.0.0~192.168.0.255 用 192.168.0.0/24表示</p>
+<pre><code class="line-numbers language-bash"># 允许访问
+firewall-cmd --permanent --add-rich-rule=&quot;rule family=&quot;ipv4&quot; source address=&quot;192.168.0.0/24&quot; port protocol=&quot;tcp&quot; port=&quot;80&quot; accept&quot;
+
+# 限制访问
+firewall-cmd --permanent --add-rich-rule=&quot;rule family=&quot;ipv4&quot; source address=&quot;192.168.0.0/24&quot; port protocol=&quot;tcp&quot; port=&quot;80&quot; reject&quot;</code></pre>
+<h2 id="四、配置文件"><a href="#四、配置文件" class="headerlink" title="四、配置文件"></a>四、配置文件</h2><p>firewalld防火墙配置是<code>/etc/firewalld/zones/public.xml</code>，我们也可以通过修改配置文件来设置防火墙</p>
+<pre><code class="line-numbers language-bash">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;zone&gt;
+  &lt;short&gt;Public&lt;/short&gt;
+  &lt;description&gt;For use in public areas. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.&lt;/description&gt;
+  &lt;service name=&quot;ssh&quot;/&gt;
+  &lt;service name=&quot;dhcpv6-client&quot;/&gt;
+  &lt;port protocol=&quot;tcp&quot; port=&quot;8080&quot;/&gt;
+  &lt;rule family=&quot;ipv4&quot;&gt;
+    &lt;source address=&quot;192.168.0.55&quot;/&gt;
+    &lt;port protocol=&quot;tcp&quot; port=&quot;80&quot;/&gt;
+    &lt;accept/&gt;
+  &lt;/rule&gt;
+  &lt;rule family=&quot;ipv4&quot;&gt;
+    &lt;source address=&quot;192.168.0.0/24&quot;/&gt;
+    &lt;port protocol=&quot;tcp&quot; port=&quot;21&quot;/&gt;
+    &lt;reject/&gt;
+  &lt;/rule&gt;
+&lt;/zone&gt;</code></pre>
+<h2 id="五、设置区域"><a href="#五、设置区域" class="headerlink" title="五、设置区域"></a>五、设置区域</h2><h3 id="1-常用的区域名称及策略规则"><a href="#1-常用的区域名称及策略规则" class="headerlink" title="1. 常用的区域名称及策略规则"></a>1. 常用的区域名称及策略规则</h3><table>
+<thead>
+<tr>
+<th>区域（noze）</th>
+<th>默认策略规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>trusted</td>
+<td>允许所有的数据包进出</td>
+</tr>
+<tr>
+<td>home</td>
+<td>拒绝进入的流量，除非与出去的流量相关；而如果流量与ssh、mdns、ipp-client、amba-client与dhcpv6-client服务相关，则允许进入</td>
+</tr>
+<tr>
+<td>Internal</td>
+<td>等同于home区域</td>
+</tr>
+<tr>
+<td>work</td>
+<td>拒绝进入的流量，除非与出去的流量相关；而如果流量与ssh、ipp-client与dhcpv6-client服务相关，则允许进入</td>
+</tr>
+<tr>
+<td>public</td>
+<td>拒绝进入的流量，除非与出去的流量相关；而如果流量与ssh、dhcpv6-client服务相关，则允许进入</td>
+</tr>
+<tr>
+<td>external</td>
+<td>拒绝进入的流量，除非与出去的流量相关；而如果流量与ssh服务相关，则允许进入</td>
+</tr>
+<tr>
+<td>dmz</td>
+<td>拒绝进入的流量，除非与出去的流量相关；而如果流量与ssh服务相关，则允许进入</td>
+</tr>
+<tr>
+<td>block</td>
+<td>拒绝进入的流量，除非与出去的流量相关</td>
+</tr>
+<tr>
+<td>drop</td>
+<td>拒绝进入的流量，除非与出去的流量相关</td>
+</tr>
+</tbody></table>
+<h3 id="2-查看网卡及所在区域"><a href="#2-查看网卡及所在区域" class="headerlink" title="2. 查看网卡及所在区域"></a>2. 查看网卡及所在区域</h3><pre><code class="line-numbers language-bash">$ firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: eno1
+  sources: 
+  services: ssh dhcpv6-client
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: </code></pre>
+<p>target：目标<br>icmp-block-inversion：ICMP协议类型黑白名单开关（yes/no）<br>interfaces：关联的网卡接口<br>sources：来源，可以是IP地址，也可以是mac地址<br>services：允许的服务<br>ports：允许的目标端口，即本地开放的端口<br>protocols：允许通过的协议<br>masquerade：是否允许伪装（yes/no），可改写来源IP地址及mac地址<br>forward-ports：允许转发的端口<br>source-ports：允许的来源端口<br>icmp-blocks：可添加ICMP类型，当icmp-block-inversion为no时，这些ICMP类型被拒绝；当icmp-block-inversion为yes时，这些ICMP类型被允许。<br>rich rules：富规则，即更细致、更详细的防火墙规则策略，它的优先级在所有的防火墙策略中也是最高的。</p>
+<p>可以看到当前激活(active)区域是public，区域下关联的网卡有<code>eno1</code></p>
+<h3 id="3-设置区域相关操作"><a href="#3-设置区域相关操作" class="headerlink" title="3. 设置区域相关操作"></a>3. 设置区域相关操作</h3><pre><code class="line-numbers language-bash"># 查看默认当前使用的区域
+firewall-cmd --get-default-zone
+
+#查看系统默认活动区域名称、来源地址和关联的网卡
+firewall-cmd --get-active-zones
+
+#查看所有可用区域
+firewall-cmd --get-zones
+
+#查看指定网卡所在的区域
+firewall-cmd --get-zone-of-interface=eno1
+
+# 设置默认区域
+firewall-cmd --set-default-zone=public
+
+# 设置区域关联网卡
+firewall-cmd --permanent --zone=drop --change-interface=eno1
+
+# 区域中添加关联网卡
+firewall-cmd --zone=drop -add-interface=eno1
+
+# 区域中移除关联网卡
+firewall-cmd --zone=drop -remove-interface=eno1</code></pre>
+<h2 id="六、注意注意！！"><a href="#六、注意注意！！" class="headerlink" title="六、注意注意！！"></a>六、注意注意！！</h2><ol>
+<li><p>修改之后记得使用<code>firewall-cmd --reload</code>重新加载配置使之生效。</p>
+</li>
+<li><p>如果你是用ssh连接上去修改的防火墙，如果之前防火墙未启用，你在启用之前先查看一下配置文件，是否有<code>&lt;service name=&quot;ssh&quot;/&gt;</code>或开放了ssh对应的22端口。否则，当你启动防火墙之后，你将无法再用ssh连接服务器了。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>win查看远程登录信息</title>
+    <url>/p/583848dd.html</url>
+    <content><![CDATA[<p>在Windows中当我们使用远程桌面登录时会留下登录日志，里面会记录登录者的ip等一些信息</p>
+<h2 id="查询远程登录信息"><a href="#查询远程登录信息" class="headerlink" title="查询远程登录信息"></a>查询远程登录信息</h2><ol>
+<li>按<code>Win+R</code>打开运行窗口，在里面输入<code>eventvwr.msc</code>回车，打开事件查看器</li>
+<li>在事件查看器左侧选择<code>Windows 日志</code> -&gt; <code>安全</code></li>
+<li>在右侧选择<code>筛选当前日志</code></li>
+<li>在<code>事件ID</code>栏输入<code>4648</code>并确定<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/583848dd/19826068-3f37a509dfd54019.png" alt></li>
+<li>在中间窗口查看对应时间的<code>审核成功</code>的详细信息，里面就会有登录ip等信息了<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/583848dd/19826068-8daa9f00b87100a5.png" alt></li>
+</ol>
+<h2 id="常用的日志ID"><a href="#常用的日志ID" class="headerlink" title="常用的日志ID"></a>常用的日志ID</h2><h3 id="审计目录服务访问"><a href="#审计目录服务访问" class="headerlink" title="审计目录服务访问"></a>审计目录服务访问</h3><p>　　4934 - Active Directory 对象的属性被复制<br>　　4935 -复制失败开始<br>　　4936 -复制失败结束<br>　　5136 -目录服务对象已修改<br>　　5137 -目录服务对象已创建<br>　　5138 -目录服务对象已删除<br>　　5139 -目录服务对象已经移动<br>　　5141 -目录服务对象已删除<br>　　4932 -命名上下文的AD的副本同步已经开始<br>　　4933 -命名上下文的AD的副本同步已经结束</p>
+<h3 id="审计登录事件"><a href="#审计登录事件" class="headerlink" title="审计登录事件"></a>审计登录事件</h3><p>　　4634 - 帐户被注销<br>　　4647 - 用户发起注销<br>　　4624 - 帐户已成功登录<br>　　4625 - 帐户登录失败<br>　　4648 - 试图使用明确的凭证登录<br>　　4675 - SID被过滤<br>　　4649 - 发现重放攻击<br>　　4778 -会话被重新连接到Window Station<br>　　4779 -会话断开连接到Window Station<br>　　4800 – 工作站被锁定<br>　　4801 - 工作站被解锁<br>　　4802 - 屏幕保护程序启用<br>　　4803 -屏幕保护程序被禁用<br>　　5378 所要求的凭证代表是政策所不允许的<br>　　5632 要求对无线网络进行验证<br>　　5633 要求对有线网络进行验证</p>
+<h3 id="审计对象访问"><a href="#审计对象访问" class="headerlink" title="审计对象访问"></a>审计对象访问</h3><p>　　5140 - 网络共享对象被访问<br>　　4664 - 试图创建一个硬链接<br>　　4985 - 交易状态已经改变<br>　　5051 - 文件已被虚拟化<br>　　5031 - Windows防火墙服务阻止一个应用程序接收网络中的入站连接<br>　　4698 -计划任务已创建<br>　　4699 -计划任务已删除<br>　　4700 -计划任务已启用<br>　　4701 -计划任务已停用<br>　　4702 -计划任务已更新<br>　　4657 -注册表值被修改<br>　　5039 -注册表项被虚拟化<br>　　4660 -对象已删除<br>　　4663 -试图访问一个对象</p>
+<h3 id="审计政策变化"><a href="#审计政策变化" class="headerlink" title="审计政策变化"></a>审计政策变化</h3><p>　　4715 - 对象上的审计政策(SACL)已经更改<br>　　4719 - 系统审计政策已经更改<br>　　4902 - Per-user审核政策表已经创建<br>　　4906 - CrashOnAuditFail值已经变化<br>　　4907 - 对象的审计设置已经更改<br>　　4706 - 创建到域的新信任<br>　　4707 - 到域的信任已经删除<br>　　4713 - Kerberos政策已更改<br>　　4716 - 信任域信息已经修改<br>　　4717 - 系统安全访问授予帐户<br>　　4718 - 系统安全访问从帐户移除<br>　　4864 - 名字空间碰撞被删除<br>　　4865 - 信任森林信息条目已添加<br>　　4866 - 信任森林信息条目已删除<br>　　4867 - 信任森林信息条目已取消<br>　　4704 - 用户权限已分配<br>　　4705 - 用户权限已移除<br>　　4714 - 加密数据复原政策已取消<br>　　4944 - 当开启Windows Firewall时下列政策启用<br>　　4945 - 当开启Windows Firewall时列入一个规则<br>　　4946 - 对Windows防火墙例外列表进行了修改，添加规则<br>　　4947 - 对Windows防火墙例外列表进行了修改，规则已修改<br>　　4948 - 对Windows防火墙例外列表进行了修改，规则已删除<br>　　4949 - Windows防火墙设置已恢复到默认值<br>　　4950 - Windows防火墙设置已更改<br>　　4951 - 因为主要版本号码不被Windows防火墙承认，规则已被忽视<br>　　4952 - 因为主要版本号码不被Windows防火墙承认，部分规则已被忽视，将执行规则的其余部分<br>　　4953 - 因为Windows防火墙不能解析规则，规则被忽略<br>　　4954 - Windows防火墙组政策设置已经更改，将使用新设置<br>　　4956 - Windows防火墙已经更改主动资料<br>　　4957 - Windows防火墙不适用于以下规则<br>　　4958 - 因为该规则涉及的条目没有被配置，Windows防火墙将不适用以下规则：<br>　　6144 - 组策略对象中的安全政策已经成功运用<br>　　6145 - 当处理组策略对象中的安全政策时发生一个或者多个错误<br>　　4670 - 对象的权限已更改</p>
+<h3 id="审计特权使用"><a href="#审计特权使用" class="headerlink" title="审计特权使用"></a>审计特权使用</h3><p>　　4672 - 给新登录分配特权<br>　　4673 - 要求特权服务<br>　　4674 - 试图对特权对象尝试操作</p>
+<h3 id="审计系统事件"><a href="#审计系统事件" class="headerlink" title="审计系统事件"></a>审计系统事件</h3><p>　　5024 - Windows防火墙服务已成功启动<br>　　5025 - Windows防火墙服务已经被停止<br>　　5027 - Windows防火墙服务无法从本地存储检索安全政策，该服务将继续执行目前的政策<br>　　5028 - Windows防火墙服务无法解析的新的安全政策，这项服务将继续执行目前的政策<br>　　5029 - Windows防火墙服务无法初始化的驱动程序，这项服务将继续执行目前的政策<br>　　5030 - Windows防火墙服务无法启动<br>　　5032 - Windows防火墙无法通知用户它阻止了接收入站连接的应用程序<br>　　5033 - Windows防火墙驱动程序已成功启动<br>　　5034 - Windows防火墙驱动程序已经停止<br>　　5035 - Windows防火墙驱动程序未能启动<br>　　5037 - Windows防火墙驱动程序检测到关键运行错误，终止。<br>　　4608 -Windows正在启动<br>　　4609 - Windows正在关机<br>　　4616 - 系统时间被改变<br>　　4621 - 管理员从CrashOnAuditFail回收系统，非管理员的用户现在可以登录，有些审计活动可能没有被记录<br>　　4697 - 系统中安装服务器<br>　　4618 - 监测安全事件样式已经发生</p>
+<h2 id="日志清理"><a href="#日志清理" class="headerlink" title="日志清理"></a>日志清理</h2><h3 id="手动清理"><a href="#手动清理" class="headerlink" title="手动清理"></a>手动清理</h3><p>直接在右侧选择<code>清除日志</code>就可以了<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/583848dd/19826068-0c1a77808fd08619.png" alt></p>
+<h3 id="自动清理"><a href="#自动清理" class="headerlink" title="自动清理"></a>自动清理</h3><p>为了防止日志过大，这里可以设定日志文件超过多少时会自动清理<br>在右侧选择<code>属性</code>，在弹窗中，可以设置日志文件的大小<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/583848dd/19826068-2b5f343ff0e1a332.png" alt></p>
+<p>参与文章：<a href="https://blog.csdn.net/C_chuxin/article/details/84974207" target="_blank" rel="noopener">https://blog.csdn.net/C_chuxin/article/details/84974207</a></p>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx: [emerg] bind() to 0.0.0.0:xxxx failed (13: Permission denied)</title>
+    <url>/p/546ba9a6.html</url>
+    <content><![CDATA[<p>在CentOS7环境中安装了nginx后，启动的时候报错<code>nginx: [emerg] bind() to 0.0.0.0:6080 failed (13: Permission denied)</code>。从字面意思上来说，这是权限不足。但出现这种错误可能有多种原因导致的。</p>
+<h2 id="1-端口小于1024时"><a href="#1-端口小于1024时" class="headerlink" title="1. 端口小于1024时"></a>1. 端口小于1024时</h2><p>当端口小于1024时，且运行的账号不是<code>root</code>就会报这个错误。<br>解决办法是修改nginx的配置文件，以<code>user root;</code>启动</p>
+<h2 id="2-端口大于1024时"><a href="#2-端口大于1024时" class="headerlink" title="2. 端口大于1024时"></a>2. 端口大于1024时</h2><p>检查一下<code>selinux</code>是否开启了。如果开启了关闭<code>selinux</code>试试</p>
+<pre><code class="line-numbers language-bash">setenforce 0</code></pre>
+<p>如果关了<code>selinux</code>能正常说明端口可能与<code>selinux</code>的端口冲突了或<code>http_port_t</code>中没有开放对应的端口</p>
+<pre><code class="line-numbers language-bash">[root@ptr ~]# semanage port -l | grep 6080
+geneve_port_t                  tcp      6080</code></pre>
+<p>发现6080是<code>geneve_port_t</code> 的端口，要么修改自己的端口，要么修改<code>geneve_port_t</code> 的端口，然后再把6080添加到<code>http_port_t</code>。附senamage 端口操作命令</p>
+<pre><code class="line-numbers language-bash">senamage 端口 删除 类型 [] 协议 TCP/UDP 端口
+semanage port -d -t geneve_port_t  -p tcp 6081
+
+senamage 端口 增加 类型 [] 协议 TCP/UDP 端口
+semanage port -a -t http_port_t -p tcp 6080
+
+senamage 端口 修改 类型 [] 协议 TCP/UDP 端口
+semanage port -m -t geneve_port_t  -p tcp 6081</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>yum-config-manager:command not found</title>
+    <url>/p/2908add4.html</url>
+    <content><![CDATA[<p>在新装的CentOS 7 中，安装Docker时设置yum源的时候报错了<code>yum-config-manager:command not found</code><br>这个是因为系统默认没有安装这个命令，这个命令在<code>yum-utils</code>包里，可以通过命令<code>yum -y install yum-utils</code>安装就可以了。</p>
+<pre><code class="line-numbers language-bash">yum -y install yum-utils</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux中Cache内存占用过高清理</title>
+    <url>/p/9bdd6de0.html</url>
+    <content><![CDATA[<p>在Linux中每次用free查看的时候，发现free的空间都只有500M左右。同样的环境32G只剩下这点，64G的也只剩下这么一点。后来发现都被Cache占用了，因为服务器上运行了Kafka环境，每周的日志文件都有一二百G的，估计就是他占用了page cache吧。</p>
+<p>Free中的buffer和cache：（它们都是占用内存）：<br>　　buffer : 作为buffer cache的内存，是块设备的读写缓冲区<br>　　cache: 作为page cache的内存, 文件系统的cache<br>　　如果 cache 的值很大，说明cache住的文件数很多。如果频繁访问到的文件都能被cache住，那么磁盘的读IO bi会非常小。</p>
+<p>Linux内核会在内存将要耗尽的时候，触发内存回收的工作，以便释放出内存给急需内存的进程使用。也可以用动释放，释放的时候需要对cache中的数据跟对应文件中的数据一致。</p>
+<p>释放的方式有下以几种</p>
+<pre><code class="line-numbers language-bash">echo 1 &gt; /proc/sys/vm/drop_caches  # 表示清除pagecache
+echo 2 &gt; /proc/sys/vm/drop_caches # 表示清除回收slab分配器中的对象（包括目录项缓存和inode缓存）。slab分配器是内核中管理内存的一种机制，其中很多缓存数据实现都是用的pagecache。
+echo 3 &gt; /proc/sys/vm/drop_caches  # 表示清除pagecache和slab分配器中的缓存对象。</code></pre>
+<p>一般情况下释放pagecache就可以了。这样可以写一个sh脚本来在服务器空闲的时候定时执行</p>
+<pre><code class="line-numbers language-bash">#!/bin/bash
+echo  &quot;Clean Begin...&quot;
+
+#写入硬盘，防止数据丢失
+sync;sync;sync
+
+#延迟10秒,等待磁盘写入
+sleep 10
+
+# 开始清理
+echo 1 &gt; /proc/sys/vm/drop_caches
+
+echo &quot;Clean Finish !&quot;</code></pre>
+<p>使用crontab来设置定时任务，如每天4点开始清理</p>
+<pre><code class="line-numbers language-bash">crontab -e
+
+0 0 4 * * ? /root/cleanbuff.sh</code></pre>
+<p>本文参考：<a href="https://www.jianshu.com/p/9b9f4917fb2e" target="_blank" rel="noopener">https://www.jianshu.com/p/9b9f4917fb2e</a></p>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>让iOS App通过iTunes共享文件</title>
+    <url>/p/5688691.html</url>
+    <content><![CDATA[<p>有一些App需要通过使用iTunes让用户上传和下载文档。要让iOS程序支持iTunes文件交换其实很简单，只需要在程序的Info.plist里增加一个键。</p>
+<h2 id="一、直接用xcode打开Info-plist文件"><a href="#一、直接用xcode打开Info-plist文件" class="headerlink" title="一、直接用xcode打开Info.plist文件"></a>一、直接用xcode打开Info.plist文件</h2><p>添加<code>Application supports iTunes file sharing</code>键值，并设置为<code>Yes</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/5688691/19826068-e651876dfbd86fc1.png" alt="image.png"></p>
+<h2 id="二、用文本编辑器打开Info-plist文件"><a href="#二、用文本编辑器打开Info-plist文件" class="headerlink" title="二、用文本编辑器打开Info.plist文件"></a>二、用文本编辑器打开Info.plist文件</h2><p>添加<code>UIFileSharingEnabled</code>键值并设定为<code>true</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/5688691/19826068-b811699eab6acc28.png" alt="image.png"></p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac下安装Go</title>
+    <url>/p/62364687.html</url>
+    <content><![CDATA[<h2 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h2><p>去<a href="https://golang.org/dl/" target="_blank" rel="noopener">Golang官网</a><br>)下载需要的版本，这里直接下载苹果版的pkg<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/62364687/19826068-7ba0e4bf4c0228ff.png" alt></p>
+<h2 id="二、-安装"><a href="#二、-安装" class="headerlink" title="二、 安装"></a>二、 安装</h2><p>直接双击运行pkg，在弹出的安装页面直接安装就行了。</p>
+<h2 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h2><p>输入<code>go version</code>测试go版本。用<code>go env</code>可以查看go环境的变量<br>默认安装的<br>GOROOT=”/usr/local/go”<br>GOPATH=”/Users/admin/go”</p>
+<pre><code class="line-numbers language-shell">&gt; go version
+go version go1.14.3 darwin/amd64
+
+&gt;go env
+GO111MODULE=&quot;&quot;
+GOARCH=&quot;amd64&quot;
+GOBIN=&quot;&quot;
+GOCACHE=&quot;/Users/admin/Library/Caches/go-build&quot;
+GOENV=&quot;/Users/admin/Library/Application Support/go/env&quot;
+GOEXE=&quot;&quot;
+GOFLAGS=&quot;&quot;
+GOHOSTARCH=&quot;amd64&quot;
+GOHOSTOS=&quot;darwin&quot;
+GOINSECURE=&quot;&quot;
+GONOPROXY=&quot;&quot;
+GONOSUMDB=&quot;&quot;
+GOOS=&quot;darwin&quot;
+GOPATH=&quot;/Users/admin/go&quot;
+GOPRIVATE=&quot;&quot;
+GOPROXY=&quot;https://proxy.golang.org,direct&quot;
+GOROOT=&quot;/usr/local/go&quot;
+GOSUMDB=&quot;sum.golang.org&quot;
+GOTMPDIR=&quot;&quot;
+GOTOOLDIR=&quot;/usr/local/go/pkg/tool/darwin_amd64&quot;
+GCCGO=&quot;gccgo&quot;
+AR=&quot;ar&quot;
+CC=&quot;clang&quot;
+CXX=&quot;clang++&quot;
+CGO_ENABLED=&quot;1&quot;
+GOMOD=&quot;&quot;
+CGO_CFLAGS=&quot;-g -O2&quot;
+CGO_CPPFLAGS=&quot;&quot;
+CGO_CXXFLAGS=&quot;-g -O2&quot;
+CGO_FFLAGS=&quot;-g -O2&quot;
+CGO_LDFLAGS=&quot;-g -O2&quot;
+PKG_CONFIG=&quot;pkg-config&quot;
+GOGCCFLAGS=&quot;-fPIC -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fdebug-prefix-map=/var/folders/f0/hzbq_2x975d0fq612z4tgy8c0000gn/T/go-build027263215=/tmp/go-build -gno-record-gcc-switches -fno-common&quot;</code></pre>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac下安装Maven</title>
     <url>/p/3a3101a2.html</url>
     <content><![CDATA[<h2 id="一、-下载。"><a href="#一、-下载。" class="headerlink" title="一、 下载。"></a>一、 下载。</h2><p>先去<a href="(https://maven.apache.org/download.cgi">Maven官网</a><br>上下载需要的版本，Mac下<code>tar.gz</code>的包。这里下载的是<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</a><br>并解压到你喜欢的位置。这里解压到<code>/Users/admin/software/apache-maven-3.6.3</code></p>
@@ -10251,44 +10678,6 @@ echo &quot;--------------------------------&quot;</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>CentOS7 安装Docker</title>
-    <url>/p/39d97234.html</url>
-    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
-sudo yum -y update
-
-## 卸载旧版本
-sudo yum remove docker  docker-common docker-selinux docker-engine
-&lt;!-- more --&gt;
-## 安装需要的软件包
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
-
-## 安装container-selinux
-yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
-
-## 设置yum源
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-## 安装
-sudo yum -y install docker-ce
-
-## 设置开机启动
-sudo systemctl enable docker
-
-## 启动docker
-sudo systemctl start docker
-
-## 显示版本
-docker version</code></pre>
-]]></content>
-      <categories>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-        <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CentOS 7 关闭selinux</title>
     <url>/p/c2b74a9a.html</url>
     <content><![CDATA[<ol>
@@ -10352,6 +10741,44 @@ SELINUXTYPE=targeted</code></pre>
       </categories>
       <tags>
         <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS7 安装Docker</title>
+    <url>/p/39d97234.html</url>
+    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
+sudo yum -y update
+
+## 卸载旧版本
+sudo yum remove docker  docker-common docker-selinux docker-engine
+&lt;!-- more --&gt;
+## 安装需要的软件包
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
+
+## 安装container-selinux
+yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
+
+## 设置yum源
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+## 安装
+sudo yum -y install docker-ce
+
+## 设置开机启动
+sudo systemctl enable docker
+
+## 启动docker
+sudo systemctl start docker
+
+## 显示版本
+docker version</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -10935,6 +11362,33 @@ db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>WIN10远程连接报错：你的凭据不工作</title>
+    <url>/p/3296f49.html</url>
+    <content><![CDATA[<ol>
+<li><p>开始</p>
+</li>
+<li><p>运行</p>
+</li>
+<li><p>输入<code>gpedit.msc</code></p>
+<a id="more"></a></li>
+<li><p>进入<code>本地组策略编辑器</code></p>
+</li>
+<li><p>在左侧依次找到<code>计算机配置-&gt;Windows设置-&gt;安全设置-&gt;本地策略-&gt;安全选项</code></p>
+</li>
+<li><p>在右侧找到<code>网络访问:本地帐户的共享和安全模型</code></p>
+</li>
+<li><p>修改为<code>使用经典模式</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3296f49/19826068-6174ff340bb5f745.png" alt="clipboard.png"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Win10 安装 MongoDB</title>
     <url>/p/3172944f.html</url>
     <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
@@ -11002,59 +11456,6 @@ Windows Registry Editor Version 5.00
       </tags>
   </entry>
   <entry>
-    <title>WIN10远程连接报错：你的凭据不工作</title>
-    <url>/p/3296f49.html</url>
-    <content><![CDATA[<ol>
-<li><p>开始</p>
-</li>
-<li><p>运行</p>
-</li>
-<li><p>输入<code>gpedit.msc</code></p>
-<a id="more"></a></li>
-<li><p>进入<code>本地组策略编辑器</code></p>
-</li>
-<li><p>在左侧依次找到<code>计算机配置-&gt;Windows设置-&gt;安全设置-&gt;本地策略-&gt;安全选项</code></p>
-</li>
-<li><p>在右侧找到<code>网络访问:本地帐户的共享和安全模型</code></p>
-</li>
-<li><p>修改为<code>使用经典模式</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/3296f49/19826068-6174ff340bb5f745.png" alt="clipboard.png"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>React环境搭建</title>
-    <url>/p/28a0bfec.html</url>
-    <content><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a>
-<ol>
-<li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li>
-<li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li>
-<li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li>
-<li>命令行cd进入项目目录</li>
-<li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-cli
-npm install babel-preset-react</code></pre>
-</li>
-<li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre>
-</li>
-<li>npm install （安装依赖）</li>
-<li>npm start （启动）</li>
-<li>打包可部署 npm run build （在dist目录下，部署的东西）</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Go文件名命名规则</title>
     <url>/p/daf9791f.html</url>
     <content><![CDATA[<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>在golang源代码中，经常看到各种文件名，比如： bolt_windows.go。<br>下面对文件名命令规则的说明：</p>
@@ -11100,6 +11501,32 @@ package main</code></pre>
       </categories>
       <tags>
         <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>React环境搭建</title>
+    <url>/p/28a0bfec.html</url>
+    <content><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a>
+<ol>
+<li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li>
+<li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li>
+<li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li>
+<li>命令行cd进入项目目录</li>
+<li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-cli
+npm install babel-preset-react</code></pre>
+</li>
+<li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre>
+</li>
+<li>npm install （安装依赖）</li>
+<li>npm start （启动）</li>
+<li>打包可部署 npm run build （在dist目录下，部署的东西）</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Window</tag>
       </tags>
   </entry>
   <entry>
@@ -11159,12 +11586,9 @@ package main</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>CentOS 7 在线安装dotnet环境</title>
-    <url>/p/4b25257e.html</url>
-    <content><![CDATA[<pre><code class="line-numbers language-bash">rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm
-yum update
-yum install dotnet-sdk-2.2
-dotnet --version</code></pre>
+    <title>SSH获取连接者IP</title>
+    <url>/p/8c986da4.html</url>
+    <content><![CDATA[<pre><code class="line-numbers language-bash">who am i | awk &#39;{print $5}&#39; | sed &#39;s/(//g&#39; | sed &#39;s/)//g&#39;</code></pre>
 ]]></content>
       <categories>
         <category>CentOS</category>
@@ -11174,9 +11598,12 @@ dotnet --version</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>SSH获取连接者IP</title>
-    <url>/p/8c986da4.html</url>
-    <content><![CDATA[<pre><code class="line-numbers language-bash">who am i | awk &#39;{print $5}&#39; | sed &#39;s/(//g&#39; | sed &#39;s/)//g&#39;</code></pre>
+    <title>CentOS 7 在线安装dotnet环境</title>
+    <url>/p/4b25257e.html</url>
+    <content><![CDATA[<pre><code class="line-numbers language-bash">rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm
+yum update
+yum install dotnet-sdk-2.2
+dotnet --version</code></pre>
 ]]></content>
       <categories>
         <category>CentOS</category>

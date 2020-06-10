@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-05-28T05:48:50.646Z</updated>
+  <updated>2020-06-10T13:58:08.025Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,275 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Nginx Too many open files</title>
+    <link href="https://zengwu.com.cn/p/ca55ae36.html"/>
+    <id>https://zengwu.com.cn/p/ca55ae36.html</id>
+    <published>2020-06-10T12:37:05.000Z</published>
+    <updated>2020-06-10T13:58:08.025Z</updated>
+    
+    <content type="html"><![CDATA[<p>在使用Nginx做转发时遇到了连接不上的情况，查看error日志发现一堆的<code>Too many open files</code>报错</p><pre><code class="line-numbers language-txt">2020/06/10 12:47:49 [crit] 21453#21453: *77340 open() &quot;/usr/share/nginx/html/50x.html&quot; failed (24: Too many open files), client: 58.244.114.249, server: _, request: &quot;POST /rest/user/version/ HTTP/1.1&quot;, upstream: &quot;http://localhost:6088/rest/version/&quot;, host: &quot;xxx.cn&quot;</code></pre><h2 id="一、文件的限制"><a href="#一、文件的限制" class="headerlink" title="一、文件的限制"></a>一、文件的限制</h2><p>首先想到的是linux中的文件限制，因为nginx配置中用的是<code>user nginx</code>，所以需要切换到<code>nginx</code>账号下查看限制</p><h3 id="1-切换账号"><a href="#1-切换账号" class="headerlink" title="1. 切换账号"></a>1. 切换账号</h3><pre><code class="line-numbers language-bash">su - nginx</code></pre><p>如果出现<code>This account is currently not available</code>错误，是nginx账号不允许登录，使用<code>usermod -s /bin/bash nginx</code>设置一下就行了，详见<a href="/p/3a7c0670.html">This account is currently not available</a></p><h3 id="2-查看文件限制"><a href="#2-查看文件限制" class="headerlink" title="2. 查看文件限制"></a>2. 查看文件限制</h3><pre><code class="line-numbers language-bash">ulimit -Hn   # 硬ulimit -Sn    # 软</code></pre><p>结果发现ulimit值都是65535，感觉问题不在这。<br>如果ulimit值不够大时，可以用修改<code>/etc/security/limits.conf</code>配置文件，修改或添加</p><pre><code class="line-numbers language-conf"># 配置nginx用户文件限制nginx soft nofile 65535nginx hard nofile 65535# 配置所有用户文件限制* soft nofile 65535* hard nofile 65535</code></pre><p>这里需要重启nginx才会生效</p><h2 id="二、Nginx配置限制"><a href="#二、Nginx配置限制" class="headerlink" title="二、Nginx配置限制"></a>二、Nginx配置限制</h2><p>排除了系统的文件限制，可能就是Nginx自身配置导致的了。</p><pre><code class="line-numbers language-conf"># vim /etc/nginx/nginx.conf  这里为nginx配置文件worker_rlimit_nofile 65535;       //添加  events {      worker_connections 20480;   //修改  }  </code></pre><p>重启nginx或reload重新加载配置就可以了。</p><p>参与文章：<a href="https://www.cyberciti.biz/faq/linux-unix-nginx-too-many-open-files/" target="_blank" rel="noopener">https://www.cyberciti.biz/faq/linux-unix-nginx-too-many-open-files/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在使用Nginx做转发时遇到了连接不上的情况，查看error日志发现一堆的&lt;code&gt;Too many open files&lt;/code&gt;报错&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;line-numbers language-txt&quot;&gt;2020/06/10 12:47
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>This account is currently not available</title>
+    <link href="https://zengwu.com.cn/p/3a7c0670.html"/>
+    <id>https://zengwu.com.cn/p/3a7c0670.html</id>
+    <published>2020-06-09T12:37:05.000Z</published>
+    <updated>2020-06-10T13:53:31.713Z</updated>
+    
+    <content type="html"><![CDATA[<p>在linux中使用su切换到nginx账号的时候出现了<code>This account is currently not available</code>的错误提示。</p><p>使用<code>grep nginx /etc/passwd</code>查看用户权限</p><pre><code class="line-numbers language-bash">$ grep nginx /etc/passwdnginx:x:997:995:nginx user:/var/cache/nginx:/sbin/nologin</code></pre><p>这里可以看出，nginx是<code>/sbin/nologin</code>禁止登录的。只要修改这个模式就可以了</p><pre><code class="line-numbers language-bash">$ usermod -s /bin/bash nginx# 再次查看状态$ grep nginx /etc/passwdnginx:x:997:995:nginx user:/var/cache/nginx:/bin/bash</code></pre><p>然后就可以用<code>su - nginx</code>切换了</p><p>恢复的话改为<code>/sbin/nologin</code>即可</p><pre><code class="line-numbers language-bash">$ usermod -s /sbin/nologin nginx</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在linux中使用su切换到nginx账号的时候出现了&lt;code&gt;This account is currently not available&lt;/code&gt;的错误提示。&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;grep nginx /etc/passwd&lt;/code&gt;查看用户权限&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7 中安装semanage来设置selinux</title>
+    <link href="https://zengwu.com.cn/p/cb8e2633.html"/>
+    <id>https://zengwu.com.cn/p/cb8e2633.html</id>
+    <published>2020-06-05T05:49:55.000Z</published>
+    <updated>2020-06-10T13:53:31.711Z</updated>
+    
+    <content type="html"><![CDATA[<p>semanage可以查看和配置selinux，但是，semanage在CentOS上是默认不安装的</p><p>直接使用<code>yum install -y  semanage</code>来安装</p><pre><code class="line-numbers language-bash">$ yum install semanageLoaded plugins: fastestmirrorLoading mirror speeds from cached hostfileNo package semanage available.Error: Nothing to do</code></pre><p>如果出现<code>No package semanage available.</code>说明源中没有这个包，可以用<code>yum provides semanage</code>安装</p><pre><code class="line-numbers language-bash">$ yum provides semanageLoaded plugins: fastestmirrorLoading mirror speeds from cached hostfilebase/7/x86_64/filelists_db                                                                                                                                                                                  | 7.1 MB  00:00:00     docker-ce-stable/x86_64/filelists_db                                                                                                                                                                        |  20 kB  00:00:00     epel/x86_64/filelists_db                                                                                                                                                                                    |  12 MB  00:00:00     extras/7/x86_64/filelists_db                                                                                                                                                                                | 205 kB  00:00:00     packages-microsoft-com-prod/filelists_db                                                                                                                                                                    | 3.1 MB  00:00:00     updates/7/x86_64/filelists_db                                                                                                                                                                               | 1.3 MB  00:00:00     policycoreutils-python-2.5-34.el7.x86_64 : SELinux policy core python utilitiesRepo        : baseMatched from:Filename    : /usr/sbin/semanage</code></pre><p>如果还不能使用semanage，刚再输入</p><pre><code class="line-numbers language-bash">yum -y install policycoreutils-python.x86_64</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;semanage可以查看和配置selinux，但是，semanage在CentOS上是默认不安装的&lt;/p&gt;
+&lt;p&gt;直接使用&lt;code&gt;yum install -y  semanage&lt;/code&gt;来安装&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;line-numbers 
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS firewall防火墙配置</title>
+    <link href="https://zengwu.com.cn/p/9e67033a.html"/>
+    <id>https://zengwu.com.cn/p/9e67033a.html</id>
+    <published>2020-06-04T15:36:55.000Z</published>
+    <updated>2020-06-10T13:53:31.710Z</updated>
+    
+    <content type="html"><![CDATA[<p>CentOS7之后默认使用了firewall防火墙。</p><h2 id="一、基本操作"><a href="#一、基本操作" class="headerlink" title="一、基本操作"></a>一、基本操作</h2><pre><code class="line-numbers language-bash"># 查看是否开启firewall-cmd --state# 启动systemctl start firewalld# 停止systemctl stop firewalld# 重启systemctl restart firewalld.service# 开机启动systemctl enable firewalld.service# 开机禁用systemctl disable firewalld# 重新加载防火墙配置firewall-cmd --reload# 查看所有状态firewall-cmd --list-all# 查看public区域所有打开的端口firewall-cmd --zone=public --list-ports</code></pre><h2 id="二、开放、禁用端口"><a href="#二、开放、禁用端口" class="headerlink" title="二、开放、禁用端口"></a>二、开放、禁用端口</h2><h3 id="1-开放端口"><a href="#1-开放端口" class="headerlink" title="1. 开放端口"></a>1. 开放端口</h3><pre><code class="line-numbers language-bash">firewall-cmd --zone=public --add-port=80/tcp --permanent</code></pre><p>80-端口号<br>tcp-协议<br>–permanent -使设置永久生效，不加的话机器重启之后失效</p><h3 id="2-禁用端口"><a href="#2-禁用端口" class="headerlink" title="2. 禁用端口"></a>2. 禁用端口</h3><p>防火墙相当于白名单，从列表里删除就可以禁用对应的端口了</p><pre><code class="line-numbers language-bash">firewall-cmd --zone=public --remove-port=80/tcp --permanent</code></pre><h3 id="3-批量开放或限制端口"><a href="#3-批量开放或限制端口" class="headerlink" title="3. 批量开放或限制端口"></a>3. 批量开放或限制端口</h3><pre><code class="line-numbers language-bash">firewall-cmd --zone=public --add-port=6000-7000/tcp --permanentfirewall-cmd --zone=public --remove-port=6000-7000/tcp --permanent</code></pre><h2 id="三、开放或限制IP"><a href="#三、开放或限制IP" class="headerlink" title="三、开放或限制IP"></a>三、开放或限制IP</h2><p>可以针对IP操作，可以指定某ip访问某端口，也能禁用某ip访问某端口。</p><h3 id="1-端口针对某ip开放"><a href="#1-端口针对某ip开放" class="headerlink" title="1. 端口针对某ip开放"></a>1. 端口针对某ip开放</h3><pre><code class="line-numbers language-bash">firewall-cmd --permanent --add-rich-rule=&quot;rule family=&quot;ipv4&quot; source address=&quot;192.168.0.55&quot; port protocol=&quot;tcp&quot; port=&quot;80&quot; accept&quot;</code></pre><h3 id="2-限制ip访问端口"><a href="#2-限制ip访问端口" class="headerlink" title="2. 限制ip访问端口"></a>2. 限制ip访问端口</h3><pre><code class="line-numbers language-bash">firewall-cmd --permanent --add-rich-rule=&quot;rule family=&quot;ipv4&quot; source address=&quot;192.168.0.55&quot; port protocol=&quot;tcp&quot; port=&quot;80&quot; reject&quot;</code></pre><h3 id="3-开放或限制IP地址段"><a href="#3-开放或限制IP地址段" class="headerlink" title="3. 开放或限制IP地址段"></a>3. 开放或限制IP地址段</h3><p>这里用子网掩码的表格来表示。如：192.168.0.0~192.168.0.255 用 192.168.0.0/24表示</p><pre><code class="line-numbers language-bash"># 允许访问firewall-cmd --permanent --add-rich-rule=&quot;rule family=&quot;ipv4&quot; source address=&quot;192.168.0.0/24&quot; port protocol=&quot;tcp&quot; port=&quot;80&quot; accept&quot;# 限制访问firewall-cmd --permanent --add-rich-rule=&quot;rule family=&quot;ipv4&quot; source address=&quot;192.168.0.0/24&quot; port protocol=&quot;tcp&quot; port=&quot;80&quot; reject&quot;</code></pre><h2 id="四、配置文件"><a href="#四、配置文件" class="headerlink" title="四、配置文件"></a>四、配置文件</h2><p>firewalld防火墙配置是<code>/etc/firewalld/zones/public.xml</code>，我们也可以通过修改配置文件来设置防火墙</p><pre><code class="line-numbers language-bash">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;zone&gt;  &lt;short&gt;Public&lt;/short&gt;  &lt;description&gt;For use in public areas. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.&lt;/description&gt;  &lt;service name=&quot;ssh&quot;/&gt;  &lt;service name=&quot;dhcpv6-client&quot;/&gt;  &lt;port protocol=&quot;tcp&quot; port=&quot;8080&quot;/&gt;  &lt;rule family=&quot;ipv4&quot;&gt;    &lt;source address=&quot;192.168.0.55&quot;/&gt;    &lt;port protocol=&quot;tcp&quot; port=&quot;80&quot;/&gt;    &lt;accept/&gt;  &lt;/rule&gt;  &lt;rule family=&quot;ipv4&quot;&gt;    &lt;source address=&quot;192.168.0.0/24&quot;/&gt;    &lt;port protocol=&quot;tcp&quot; port=&quot;21&quot;/&gt;    &lt;reject/&gt;  &lt;/rule&gt;&lt;/zone&gt;</code></pre><h2 id="五、设置区域"><a href="#五、设置区域" class="headerlink" title="五、设置区域"></a>五、设置区域</h2><h3 id="1-常用的区域名称及策略规则"><a href="#1-常用的区域名称及策略规则" class="headerlink" title="1. 常用的区域名称及策略规则"></a>1. 常用的区域名称及策略规则</h3><table><thead><tr><th>区域（noze）</th><th>默认策略规则</th></tr></thead><tbody><tr><td>trusted</td><td>允许所有的数据包进出</td></tr><tr><td>home</td><td>拒绝进入的流量，除非与出去的流量相关；而如果流量与ssh、mdns、ipp-client、amba-client与dhcpv6-client服务相关，则允许进入</td></tr><tr><td>Internal</td><td>等同于home区域</td></tr><tr><td>work</td><td>拒绝进入的流量，除非与出去的流量相关；而如果流量与ssh、ipp-client与dhcpv6-client服务相关，则允许进入</td></tr><tr><td>public</td><td>拒绝进入的流量，除非与出去的流量相关；而如果流量与ssh、dhcpv6-client服务相关，则允许进入</td></tr><tr><td>external</td><td>拒绝进入的流量，除非与出去的流量相关；而如果流量与ssh服务相关，则允许进入</td></tr><tr><td>dmz</td><td>拒绝进入的流量，除非与出去的流量相关；而如果流量与ssh服务相关，则允许进入</td></tr><tr><td>block</td><td>拒绝进入的流量，除非与出去的流量相关</td></tr><tr><td>drop</td><td>拒绝进入的流量，除非与出去的流量相关</td></tr></tbody></table><h3 id="2-查看网卡及所在区域"><a href="#2-查看网卡及所在区域" class="headerlink" title="2. 查看网卡及所在区域"></a>2. 查看网卡及所在区域</h3><pre><code class="line-numbers language-bash">$ firewall-cmd --list-allpublic (active)  target: default  icmp-block-inversion: no  interfaces: eno1  sources:   services: ssh dhcpv6-client  ports:   protocols:   masquerade: no  forward-ports:   source-ports:   icmp-blocks: </code></pre><p>target：目标<br>icmp-block-inversion：ICMP协议类型黑白名单开关（yes/no）<br>interfaces：关联的网卡接口<br>sources：来源，可以是IP地址，也可以是mac地址<br>services：允许的服务<br>ports：允许的目标端口，即本地开放的端口<br>protocols：允许通过的协议<br>masquerade：是否允许伪装（yes/no），可改写来源IP地址及mac地址<br>forward-ports：允许转发的端口<br>source-ports：允许的来源端口<br>icmp-blocks：可添加ICMP类型，当icmp-block-inversion为no时，这些ICMP类型被拒绝；当icmp-block-inversion为yes时，这些ICMP类型被允许。<br>rich rules：富规则，即更细致、更详细的防火墙规则策略，它的优先级在所有的防火墙策略中也是最高的。</p><p>可以看到当前激活(active)区域是public，区域下关联的网卡有<code>eno1</code></p><h3 id="3-设置区域相关操作"><a href="#3-设置区域相关操作" class="headerlink" title="3. 设置区域相关操作"></a>3. 设置区域相关操作</h3><pre><code class="line-numbers language-bash"># 查看默认当前使用的区域firewall-cmd --get-default-zone#查看系统默认活动区域名称、来源地址和关联的网卡firewall-cmd --get-active-zones#查看所有可用区域firewall-cmd --get-zones#查看指定网卡所在的区域firewall-cmd --get-zone-of-interface=eno1# 设置默认区域firewall-cmd --set-default-zone=public# 设置区域关联网卡firewall-cmd --permanent --zone=drop --change-interface=eno1# 区域中添加关联网卡firewall-cmd --zone=drop -add-interface=eno1# 区域中移除关联网卡firewall-cmd --zone=drop -remove-interface=eno1</code></pre><h2 id="六、注意注意！！"><a href="#六、注意注意！！" class="headerlink" title="六、注意注意！！"></a>六、注意注意！！</h2><ol><li><p>修改之后记得使用<code>firewall-cmd --reload</code>重新加载配置使之生效。</p></li><li><p>如果你是用ssh连接上去修改的防火墙，如果之前防火墙未启用，你在启用之前先查看一下配置文件，是否有<code>&lt;service name=&quot;ssh&quot;/&gt;</code>或开放了ssh对应的22端口。否则，当你启动防火墙之后，你将无法再用ssh连接服务器了。</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CentOS7之后默认使用了firewall防火墙。&lt;/p&gt;
+&lt;h2 id=&quot;一、基本操作&quot;&gt;&lt;a href=&quot;#一、基本操作&quot; class=&quot;headerlink&quot; title=&quot;一、基本操作&quot;&gt;&lt;/a&gt;一、基本操作&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;line-
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>win查看远程登录信息</title>
+    <link href="https://zengwu.com.cn/p/583848dd.html"/>
+    <id>https://zengwu.com.cn/p/583848dd.html</id>
+    <published>2020-06-04T14:59:55.000Z</published>
+    <updated>2020-06-10T13:53:31.718Z</updated>
+    
+    <content type="html"><![CDATA[<p>在Windows中当我们使用远程桌面登录时会留下登录日志，里面会记录登录者的ip等一些信息</p><h2 id="查询远程登录信息"><a href="#查询远程登录信息" class="headerlink" title="查询远程登录信息"></a>查询远程登录信息</h2><ol><li>按<code>Win+R</code>打开运行窗口，在里面输入<code>eventvwr.msc</code>回车，打开事件查看器</li><li>在事件查看器左侧选择<code>Windows 日志</code> -&gt; <code>安全</code></li><li>在右侧选择<code>筛选当前日志</code></li><li>在<code>事件ID</code>栏输入<code>4648</code>并确定<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/583848dd/19826068-3f37a509dfd54019.png" alt></li><li>在中间窗口查看对应时间的<code>审核成功</code>的详细信息，里面就会有登录ip等信息了<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/583848dd/19826068-8daa9f00b87100a5.png" alt></li></ol><h2 id="常用的日志ID"><a href="#常用的日志ID" class="headerlink" title="常用的日志ID"></a>常用的日志ID</h2><h3 id="审计目录服务访问"><a href="#审计目录服务访问" class="headerlink" title="审计目录服务访问"></a>审计目录服务访问</h3><p>　　4934 - Active Directory 对象的属性被复制<br>　　4935 -复制失败开始<br>　　4936 -复制失败结束<br>　　5136 -目录服务对象已修改<br>　　5137 -目录服务对象已创建<br>　　5138 -目录服务对象已删除<br>　　5139 -目录服务对象已经移动<br>　　5141 -目录服务对象已删除<br>　　4932 -命名上下文的AD的副本同步已经开始<br>　　4933 -命名上下文的AD的副本同步已经结束</p><h3 id="审计登录事件"><a href="#审计登录事件" class="headerlink" title="审计登录事件"></a>审计登录事件</h3><p>　　4634 - 帐户被注销<br>　　4647 - 用户发起注销<br>　　4624 - 帐户已成功登录<br>　　4625 - 帐户登录失败<br>　　4648 - 试图使用明确的凭证登录<br>　　4675 - SID被过滤<br>　　4649 - 发现重放攻击<br>　　4778 -会话被重新连接到Window Station<br>　　4779 -会话断开连接到Window Station<br>　　4800 – 工作站被锁定<br>　　4801 - 工作站被解锁<br>　　4802 - 屏幕保护程序启用<br>　　4803 -屏幕保护程序被禁用<br>　　5378 所要求的凭证代表是政策所不允许的<br>　　5632 要求对无线网络进行验证<br>　　5633 要求对有线网络进行验证</p><h3 id="审计对象访问"><a href="#审计对象访问" class="headerlink" title="审计对象访问"></a>审计对象访问</h3><p>　　5140 - 网络共享对象被访问<br>　　4664 - 试图创建一个硬链接<br>　　4985 - 交易状态已经改变<br>　　5051 - 文件已被虚拟化<br>　　5031 - Windows防火墙服务阻止一个应用程序接收网络中的入站连接<br>　　4698 -计划任务已创建<br>　　4699 -计划任务已删除<br>　　4700 -计划任务已启用<br>　　4701 -计划任务已停用<br>　　4702 -计划任务已更新<br>　　4657 -注册表值被修改<br>　　5039 -注册表项被虚拟化<br>　　4660 -对象已删除<br>　　4663 -试图访问一个对象</p><h3 id="审计政策变化"><a href="#审计政策变化" class="headerlink" title="审计政策变化"></a>审计政策变化</h3><p>　　4715 - 对象上的审计政策(SACL)已经更改<br>　　4719 - 系统审计政策已经更改<br>　　4902 - Per-user审核政策表已经创建<br>　　4906 - CrashOnAuditFail值已经变化<br>　　4907 - 对象的审计设置已经更改<br>　　4706 - 创建到域的新信任<br>　　4707 - 到域的信任已经删除<br>　　4713 - Kerberos政策已更改<br>　　4716 - 信任域信息已经修改<br>　　4717 - 系统安全访问授予帐户<br>　　4718 - 系统安全访问从帐户移除<br>　　4864 - 名字空间碰撞被删除<br>　　4865 - 信任森林信息条目已添加<br>　　4866 - 信任森林信息条目已删除<br>　　4867 - 信任森林信息条目已取消<br>　　4704 - 用户权限已分配<br>　　4705 - 用户权限已移除<br>　　4714 - 加密数据复原政策已取消<br>　　4944 - 当开启Windows Firewall时下列政策启用<br>　　4945 - 当开启Windows Firewall时列入一个规则<br>　　4946 - 对Windows防火墙例外列表进行了修改，添加规则<br>　　4947 - 对Windows防火墙例外列表进行了修改，规则已修改<br>　　4948 - 对Windows防火墙例外列表进行了修改，规则已删除<br>　　4949 - Windows防火墙设置已恢复到默认值<br>　　4950 - Windows防火墙设置已更改<br>　　4951 - 因为主要版本号码不被Windows防火墙承认，规则已被忽视<br>　　4952 - 因为主要版本号码不被Windows防火墙承认，部分规则已被忽视，将执行规则的其余部分<br>　　4953 - 因为Windows防火墙不能解析规则，规则被忽略<br>　　4954 - Windows防火墙组政策设置已经更改，将使用新设置<br>　　4956 - Windows防火墙已经更改主动资料<br>　　4957 - Windows防火墙不适用于以下规则<br>　　4958 - 因为该规则涉及的条目没有被配置，Windows防火墙将不适用以下规则：<br>　　6144 - 组策略对象中的安全政策已经成功运用<br>　　6145 - 当处理组策略对象中的安全政策时发生一个或者多个错误<br>　　4670 - 对象的权限已更改</p><h3 id="审计特权使用"><a href="#审计特权使用" class="headerlink" title="审计特权使用"></a>审计特权使用</h3><p>　　4672 - 给新登录分配特权<br>　　4673 - 要求特权服务<br>　　4674 - 试图对特权对象尝试操作</p><h3 id="审计系统事件"><a href="#审计系统事件" class="headerlink" title="审计系统事件"></a>审计系统事件</h3><p>　　5024 - Windows防火墙服务已成功启动<br>　　5025 - Windows防火墙服务已经被停止<br>　　5027 - Windows防火墙服务无法从本地存储检索安全政策，该服务将继续执行目前的政策<br>　　5028 - Windows防火墙服务无法解析的新的安全政策，这项服务将继续执行目前的政策<br>　　5029 - Windows防火墙服务无法初始化的驱动程序，这项服务将继续执行目前的政策<br>　　5030 - Windows防火墙服务无法启动<br>　　5032 - Windows防火墙无法通知用户它阻止了接收入站连接的应用程序<br>　　5033 - Windows防火墙驱动程序已成功启动<br>　　5034 - Windows防火墙驱动程序已经停止<br>　　5035 - Windows防火墙驱动程序未能启动<br>　　5037 - Windows防火墙驱动程序检测到关键运行错误，终止。<br>　　4608 -Windows正在启动<br>　　4609 - Windows正在关机<br>　　4616 - 系统时间被改变<br>　　4621 - 管理员从CrashOnAuditFail回收系统，非管理员的用户现在可以登录，有些审计活动可能没有被记录<br>　　4697 - 系统中安装服务器<br>　　4618 - 监测安全事件样式已经发生</p><h2 id="日志清理"><a href="#日志清理" class="headerlink" title="日志清理"></a>日志清理</h2><h3 id="手动清理"><a href="#手动清理" class="headerlink" title="手动清理"></a>手动清理</h3><p>直接在右侧选择<code>清除日志</code>就可以了<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/583848dd/19826068-0c1a77808fd08619.png" alt></p><h3 id="自动清理"><a href="#自动清理" class="headerlink" title="自动清理"></a>自动清理</h3><p>为了防止日志过大，这里可以设定日志文件超过多少时会自动清理<br>在右侧选择<code>属性</code>，在弹窗中，可以设置日志文件的大小<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/583848dd/19826068-2b5f343ff0e1a332.png" alt></p><p>参与文章：<a href="https://blog.csdn.net/C_chuxin/article/details/84974207" target="_blank" rel="noopener">https://blog.csdn.net/C_chuxin/article/details/84974207</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在Windows中当我们使用远程桌面登录时会留下登录日志，里面会记录登录者的ip等一些信息&lt;/p&gt;
+&lt;h2 id=&quot;查询远程登录信息&quot;&gt;&lt;a href=&quot;#查询远程登录信息&quot; class=&quot;headerlink&quot; title=&quot;查询远程登录信息&quot;&gt;&lt;/a&gt;查询远程登录信息&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="Windows" scheme="https://zengwu.com.cn/categories/Windows/"/>
+    
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx: [emerg] bind() to 0.0.0.0:xxxx failed (13: Permission denied)</title>
+    <link href="https://zengwu.com.cn/p/546ba9a6.html"/>
+    <id>https://zengwu.com.cn/p/546ba9a6.html</id>
+    <published>2020-06-03T17:06:05.000Z</published>
+    <updated>2020-06-10T13:55:54.046Z</updated>
+    
+    <content type="html"><![CDATA[<p>在CentOS7环境中安装了nginx后，启动的时候报错<code>nginx: [emerg] bind() to 0.0.0.0:6080 failed (13: Permission denied)</code>。从字面意思上来说，这是权限不足。但出现这种错误可能有多种原因导致的。</p><h2 id="1-端口小于1024时"><a href="#1-端口小于1024时" class="headerlink" title="1. 端口小于1024时"></a>1. 端口小于1024时</h2><p>当端口小于1024时，且运行的账号不是<code>root</code>就会报这个错误。<br>解决办法是修改nginx的配置文件，以<code>user root;</code>启动</p><h2 id="2-端口大于1024时"><a href="#2-端口大于1024时" class="headerlink" title="2. 端口大于1024时"></a>2. 端口大于1024时</h2><p>检查一下<code>selinux</code>是否开启了。如果开启了关闭<code>selinux</code>试试</p><pre><code class="line-numbers language-bash">setenforce 0</code></pre><p>如果关了<code>selinux</code>能正常说明端口可能与<code>selinux</code>的端口冲突了或<code>http_port_t</code>中没有开放对应的端口</p><pre><code class="line-numbers language-bash">[root@ptr ~]# semanage port -l | grep 6080geneve_port_t                  tcp      6080</code></pre><p>发现6080是<code>geneve_port_t</code> 的端口，要么修改自己的端口，要么修改<code>geneve_port_t</code> 的端口，然后再把6080添加到<code>http_port_t</code>。附senamage 端口操作命令</p><pre><code class="line-numbers language-bash">senamage 端口 删除 类型 [] 协议 TCP/UDP 端口semanage port -d -t geneve_port_t  -p tcp 6081senamage 端口 增加 类型 [] 协议 TCP/UDP 端口semanage port -a -t http_port_t -p tcp 6080senamage 端口 修改 类型 [] 协议 TCP/UDP 端口semanage port -m -t geneve_port_t  -p tcp 6081</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在CentOS7环境中安装了nginx后，启动的时候报错&lt;code&gt;nginx: [emerg] bind() to 0.0.0.0:6080 failed (13: Permission denied)&lt;/code&gt;。从字面意思上来说，这是权限不足。但出现这种错误可能有多
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>yum-config-manager:command not found</title>
+    <link href="https://zengwu.com.cn/p/2908add4.html"/>
+    <id>https://zengwu.com.cn/p/2908add4.html</id>
+    <published>2020-06-03T12:37:05.000Z</published>
+    <updated>2020-06-10T13:53:31.717Z</updated>
+    
+    <content type="html"><![CDATA[<p>在新装的CentOS 7 中，安装Docker时设置yum源的时候报错了<code>yum-config-manager:command not found</code><br>这个是因为系统默认没有安装这个命令，这个命令在<code>yum-utils</code>包里，可以通过命令<code>yum -y install yum-utils</code>安装就可以了。</p><pre><code class="line-numbers language-bash">yum -y install yum-utils</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在新装的CentOS 7 中，安装Docker时设置yum源的时候报错了&lt;code&gt;yum-config-manager:command not found&lt;/code&gt;&lt;br&gt;这个是因为系统默认没有安装这个命令，这个命令在&lt;code&gt;yum-utils&lt;/code&gt;包里，
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux中Cache内存占用过高清理</title>
+    <link href="https://zengwu.com.cn/p/9bdd6de0.html"/>
+    <id>https://zengwu.com.cn/p/9bdd6de0.html</id>
+    <published>2020-06-02T09:25:05.000Z</published>
+    <updated>2020-06-10T13:53:31.714Z</updated>
+    
+    <content type="html"><![CDATA[<p>在Linux中每次用free查看的时候，发现free的空间都只有500M左右。同样的环境32G只剩下这点，64G的也只剩下这么一点。后来发现都被Cache占用了，因为服务器上运行了Kafka环境，每周的日志文件都有一二百G的，估计就是他占用了page cache吧。</p><p>Free中的buffer和cache：（它们都是占用内存）：<br>　　buffer : 作为buffer cache的内存，是块设备的读写缓冲区<br>　　cache: 作为page cache的内存, 文件系统的cache<br>　　如果 cache 的值很大，说明cache住的文件数很多。如果频繁访问到的文件都能被cache住，那么磁盘的读IO bi会非常小。</p><p>Linux内核会在内存将要耗尽的时候，触发内存回收的工作，以便释放出内存给急需内存的进程使用。也可以用动释放，释放的时候需要对cache中的数据跟对应文件中的数据一致。</p><p>释放的方式有下以几种</p><pre><code class="line-numbers language-bash">echo 1 &gt; /proc/sys/vm/drop_caches  # 表示清除pagecacheecho 2 &gt; /proc/sys/vm/drop_caches # 表示清除回收slab分配器中的对象（包括目录项缓存和inode缓存）。slab分配器是内核中管理内存的一种机制，其中很多缓存数据实现都是用的pagecache。echo 3 &gt; /proc/sys/vm/drop_caches  # 表示清除pagecache和slab分配器中的缓存对象。</code></pre><p>一般情况下释放pagecache就可以了。这样可以写一个sh脚本来在服务器空闲的时候定时执行</p><pre><code class="line-numbers language-bash">#!/bin/bashecho  &quot;Clean Begin...&quot;#写入硬盘，防止数据丢失sync;sync;sync#延迟10秒,等待磁盘写入sleep 10# 开始清理echo 1 &gt; /proc/sys/vm/drop_cachesecho &quot;Clean Finish !&quot;</code></pre><p>使用crontab来设置定时任务，如每天4点开始清理</p><pre><code class="line-numbers language-bash">crontab -e0 0 4 * * ? /root/cleanbuff.sh</code></pre><p>本文参考：<a href="https://www.jianshu.com/p/9b9f4917fb2e" target="_blank" rel="noopener">https://www.jianshu.com/p/9b9f4917fb2e</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在Linux中每次用free查看的时候，发现free的空间都只有500M左右。同样的环境32G只剩下这点，64G的也只剩下这么一点。后来发现都被Cache占用了，因为服务器上运行了Kafka环境，每周的日志文件都有一二百G的，估计就是他占用了page cache吧。&lt;/p&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>让iOS App通过iTunes共享文件</title>
+    <link href="https://zengwu.com.cn/p/5688691.html"/>
+    <id>https://zengwu.com.cn/p/5688691.html</id>
+    <published>2020-05-31T08:50:33.000Z</published>
+    <updated>2020-06-10T13:53:31.721Z</updated>
+    
+    <content type="html"><![CDATA[<p>有一些App需要通过使用iTunes让用户上传和下载文档。要让iOS程序支持iTunes文件交换其实很简单，只需要在程序的Info.plist里增加一个键。</p><h2 id="一、直接用xcode打开Info-plist文件"><a href="#一、直接用xcode打开Info-plist文件" class="headerlink" title="一、直接用xcode打开Info.plist文件"></a>一、直接用xcode打开Info.plist文件</h2><p>添加<code>Application supports iTunes file sharing</code>键值，并设置为<code>Yes</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/5688691/19826068-e651876dfbd86fc1.png" alt="image.png"></p><h2 id="二、用文本编辑器打开Info-plist文件"><a href="#二、用文本编辑器打开Info-plist文件" class="headerlink" title="二、用文本编辑器打开Info.plist文件"></a>二、用文本编辑器打开Info.plist文件</h2><p>添加<code>UIFileSharingEnabled</code>键值并设定为<code>true</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/5688691/19826068-b811699eab6acc28.png" alt="image.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;有一些App需要通过使用iTunes让用户上传和下载文档。要让iOS程序支持iTunes文件交换其实很简单，只需要在程序的Info.plist里增加一个键。&lt;/p&gt;
+&lt;h2 id=&quot;一、直接用xcode打开Info-plist文件&quot;&gt;&lt;a href=&quot;#一、直接用xcode
+      
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac下安装Go</title>
+    <link href="https://zengwu.com.cn/p/62364687.html"/>
+    <id>https://zengwu.com.cn/p/62364687.html</id>
+    <published>2020-05-28T16:03:30.000Z</published>
+    <updated>2020-06-10T13:53:31.720Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h2><p>去<a href="https://golang.org/dl/" target="_blank" rel="noopener">Golang官网</a><br>)下载需要的版本，这里直接下载苹果版的pkg<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/62364687/19826068-7ba0e4bf4c0228ff.png" alt></p><h2 id="二、-安装"><a href="#二、-安装" class="headerlink" title="二、 安装"></a>二、 安装</h2><p>直接双击运行pkg，在弹出的安装页面直接安装就行了。</p><h2 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h2><p>输入<code>go version</code>测试go版本。用<code>go env</code>可以查看go环境的变量<br>默认安装的<br>GOROOT=”/usr/local/go”<br>GOPATH=”/Users/admin/go”</p><pre><code class="line-numbers language-shell">&gt; go versiongo version go1.14.3 darwin/amd64&gt;go envGO111MODULE=&quot;&quot;GOARCH=&quot;amd64&quot;GOBIN=&quot;&quot;GOCACHE=&quot;/Users/admin/Library/Caches/go-build&quot;GOENV=&quot;/Users/admin/Library/Application Support/go/env&quot;GOEXE=&quot;&quot;GOFLAGS=&quot;&quot;GOHOSTARCH=&quot;amd64&quot;GOHOSTOS=&quot;darwin&quot;GOINSECURE=&quot;&quot;GONOPROXY=&quot;&quot;GONOSUMDB=&quot;&quot;GOOS=&quot;darwin&quot;GOPATH=&quot;/Users/admin/go&quot;GOPRIVATE=&quot;&quot;GOPROXY=&quot;https://proxy.golang.org,direct&quot;GOROOT=&quot;/usr/local/go&quot;GOSUMDB=&quot;sum.golang.org&quot;GOTMPDIR=&quot;&quot;GOTOOLDIR=&quot;/usr/local/go/pkg/tool/darwin_amd64&quot;GCCGO=&quot;gccgo&quot;AR=&quot;ar&quot;CC=&quot;clang&quot;CXX=&quot;clang++&quot;CGO_ENABLED=&quot;1&quot;GOMOD=&quot;&quot;CGO_CFLAGS=&quot;-g -O2&quot;CGO_CPPFLAGS=&quot;&quot;CGO_CXXFLAGS=&quot;-g -O2&quot;CGO_FFLAGS=&quot;-g -O2&quot;CGO_LDFLAGS=&quot;-g -O2&quot;PKG_CONFIG=&quot;pkg-config&quot;GOGCCFLAGS=&quot;-fPIC -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fdebug-prefix-map=/var/folders/f0/hzbq_2x975d0fq612z4tgy8c0000gn/T/go-build027263215=/tmp/go-build -gno-record-gcc-switches -fno-common&quot;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、下载&quot;&gt;&lt;a href=&quot;#一、下载&quot; class=&quot;headerlink&quot; title=&quot;一、下载&quot;&gt;&lt;/a&gt;一、下载&lt;/h2&gt;&lt;p&gt;去&lt;a href=&quot;https://golang.org/dl/&quot; target=&quot;_blank&quot; rel=&quot;noopene
+      
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title>Mac下安装Maven</title>
@@ -279,255 +548,6 @@
     
     
       <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>电脑，已成习惯</title>
-    <link href="https://zengwu.com.cn/p/e2f6f777.html"/>
-    <id>https://zengwu.com.cn/p/e2f6f777.html</id>
-    <published>2020-04-07T04:53:31.000Z</published>
-    <updated>2020-04-26T03:06:57.664Z</updated>
-    
-    <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上大学时买电脑到现在已有十个年头了，电脑成了生活中的一部分。有她时并不觉得有什么不一样，有时也只是开在那，放放歌。在家时用电脑学习工作的时间少只又少，也没太多的时候去玩游戏。多是用电脑看看网页，聊聊天看看电视。即使电脑用的不是很多，但她已成为一种习惯。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一开始没电脑时不觉得她会怎么，有无都无所谓，但有她并习惯十多年，习惯后，突然失去她，日子还是这样的过，虽然上网，聊天，看电视这些手机都可以，但还是感觉怪怪的，感觉生活中少了些什么，很不习惯。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;感觉现在不是有无电脑的问题，而是一种习惯的问题。电脑坏了不是买不买电脑，而是改不改拥有电脑这个习惯。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;上大学时买电脑到现在已有十个年头了，电脑成了生活中的一部分。有她时并不觉得有什么不一样，有时也只是开在那，放放歌。在家时用电脑学习工作的时间少只又少，也没太多的时候去玩游戏。多是
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://zengwu.com.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mongodb-driver中使用$cond</title>
-    <link href="https://zengwu.com.cn/p/f6719ae9.html"/>
-    <id>https://zengwu.com.cn/p/f6719ae9.html</id>
-    <published>2020-04-06T08:01:55.000Z</published>
-    <updated>2020-04-06T08:23:36.963Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>当在游戏金币变动日志中，金币有正有负，需要按玩家分别统计正值和负值的和时。可以使用<code>$cond</code>计算表达式</p><a id="more"></a><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><code>$cond</code> 计算 boolean 表达式以 return 两个指定的 return 表达式之一。mongodb语法：</p><pre><code class="line-numbers language-mongodb">{ $cond: [ &lt;boolean-expression&gt;, &lt;true-case&gt;, &lt;false-case&gt; ] }</code></pre><h2 id="mongodb-driver实现"><a href="#mongodb-driver实现" class="headerlink" title="mongodb-driver实现"></a>mongodb-driver实现</h2><h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><p> 如有玩家金币变动日志数据</p><pre><code class="line-numbers language-json">{ &quot;_id&quot; : 1, &quot;userId&quot; : &quot;12345&quot;, &quot;change&quot;: 300 }{ &quot;_id&quot; : 2, &quot;userId&quot; : &quot;12345&quot;, &quot;change&quot;: -200 }{ &quot;_id&quot; : 3, &quot;userId&quot; : &quot;12345&quot;, &quot;change&quot;: 150 }{ &quot;_id&quot; : 3, &quot;userId&quot; : &quot;12311&quot;, &quot;change&quot;: 250 }</code></pre><h3 id="mongodb实现"><a href="#mongodb实现" class="headerlink" title="mongodb实现"></a>mongodb实现</h3><pre><code class="line-numbers language-mongodb">db.getCollection(&#39;CoinLog&#39;).aggregate({$group: {    _id: &quot;$userId&quot;,    win: {            $sum: {                    $cond: [{                            $gt: [&quot;$change&quot;, 0]                        },&quot;$change&quot;,0]                }            }    },     lose: {            $sum: {                    $cond: [{                            $lt: [&quot;$change&quot;, 0]                        },&quot;$change&quot;,0]                }            }    }})</code></pre><h3 id="mongodb-driver实现-1"><a href="#mongodb-driver实现-1" class="headerlink" title="mongodb-driver实现"></a>mongodb-driver实现</h3><p>这里用的mongodb-driver版本为3.8.2</p><pre><code class="line-numbers language-java">BsonArray filter = new BsonArray();filter.add(new BsonString(&quot;$change&quot;));filter.add(new BsonInt64(0));BsonArray winCond = new BsonArray();winCond.add(new BsonDocument(&quot;$gt&quot;, filter));winCond.add(new BsonString(&quot;$change&quot;));winCond.add(new BsonInt64(0));BsonArray loseCond = new BsonArray();loseCond.add(new BsonDocument(&quot;$lt&quot;, filter));loseCond.add(new BsonString(&quot;$change&quot;));loseCond.add(new BsonInt64(0));db.getCollection(&#39;CoinLog&#39;)    .aggregate(Arrays.asList(        Aggregates.group($userId,                    sum(&quot;win&quot;,new BsonDocument(&quot;$cond&quot;,winCond)),                    sum(&quot;lose&quot;,new BsonDocument(&quot;$cond&quot;,loseCond)))            )).forEach(new Block&lt;Document&gt;() {            @Override            public void apply(Document doc) {                String userId = doc.getString(&quot;_id&quot;);                // 这里要注意一下的是，如果累加值过大，                // 需要先判断类是是int还是long，不然直接getInteger会出错                int win = doc.getInteger(&quot;win&quot;);                int lose = doc.getInteger(&quot;lose&quot;);                // TODO             });</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;需求&quot;&gt;&lt;a href=&quot;#需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求&lt;/h2&gt;&lt;p&gt;当在游戏金币变动日志中，金币有正有负，需要按玩家分别统计正值和负值的和时。可以使用&lt;code&gt;$cond&lt;/code&gt;计算表达式&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://zengwu.com.cn/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="https://zengwu.com.cn/tags/Java/"/>
-    
-      <category term="MongoDB" scheme="https://zengwu.com.cn/tags/MongoDB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>这一刻</title>
-    <link href="https://zengwu.com.cn/p/529a06cf.html"/>
-    <id>https://zengwu.com.cn/p/529a06cf.html</id>
-    <published>2020-04-05T05:52:55.000Z</published>
-    <updated>2020-04-06T08:23:09.047Z</updated>
-    
-    <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这一刻，回到这工作的城市已经一个月了，回到自己的小宇宙，感觉并不是很好。除了难得的自由，剩下的只有寂寞，少了父母的唠叨，多了丝牵挂和忧伤。</p><a id="more"></a><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我工作在离家五百公里的地方，虽然随着时间的推移，工作、生活的压力有时会让人麻木，但刚离开家的这一刻，想起父母的唠叨，想起曾经在父母身边那些快乐简单温暖如春的日子。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;小时候，父母常常唠叨我早睡早起，好好学习，听老师的话… 长大了，终于离开父母，不必在听父母的唠叨了，以为可以耳根清静了，但父母常常电话唠叨我要处处小心，吃好穿暖，好好和同事们相处，不要惦记他们。当然，也忘不了唠叨几句该找女朋友了，带个妹子回家之类的。有时候为了躲避父母的唠叨，没事不爱打电话回去，打电话也匆匆找借口挂断。我知道，他们爱我，可能比他们自己都重要，怕我冷，怕我饿，怕我受欺侮，怕我受委屈… 就是在这简单的重复的唠叨中播种着他们的爱护和温暖。一丝丝话语，一个个关爱，一份份责任都浸透着父母如天高比地博的爱护。即使我离开了他们的怀抱，但牵扯不断的是血脉亲情。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;春节过年回家，父亲在烧火，母亲在炒菜，我站在一旁静静的听母亲告父亲的状，父母亲一会便吵起来，那种说吵架，其时就是快乐的一些鸡毛蒜皮的小事，虽然互不相让，但那种几十年相濡以沫的亲情，其时好温暖。而我静静的听着，看着，五六十岁的父母此刻就好象两个小孩儿，我就如他们的老师，他们的调解员，一会两个人就和好如初了。父母头发多半已白，脸上的皱纹刻印着岁月的沧桑。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这一刻我懂了，其实，听父母唠叨也是一件幸福的事，唠叨里饱含着父母对儿女的浓浓亲情。我会好好珍惜和父母在一起的幸福时光，用心体会，用行动报答…</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这一刻，回到这工作的城市已经一个月了，回到自己的小宇宙，感觉并不是很好。除了难得的自由，剩下的只有寂寞，少了父母的唠叨，多了丝牵挂和忧伤。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://zengwu.com.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>公祭日网页灰色效果</title>
-    <link href="https://zengwu.com.cn/p/864686ac.html"/>
-    <id>https://zengwu.com.cn/p/864686ac.html</id>
-    <published>2020-04-03T15:59:59.000Z</published>
-    <updated>2020-04-03T14:04:56.091Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="默哀"><a href="#默哀" class="headerlink" title="默哀"></a>默哀</h2><p>向全国各族人民对坑新冠肺炎疫情斗争烈士和逝世同胞的深切哀悼，网络世界虽然是虚拟的，但却无碍我们寄托哀思，在此我们也呼吁亿万网友同心协力、携起手来，共同坑疫。</p><a id="more"></a><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>找到网站的css中html标签，在里面添加<code>filter</code>过滤器。如果css中没有html，就在css最顶端加入这段代码</p><pre><code class="line-numbers language-css">html {    filter: grayscale(100%);    -webkit-filter: grayscale(100%);    -moz-filter: grayscale(100%);    -ms-filter: grayscale(100%);    -o-filter: grayscale(100%);}</code></pre><h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/864686ac/19826068-8bac69e915f8ecb6.png" alt="image.png"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;默哀&quot;&gt;&lt;a href=&quot;#默哀&quot; class=&quot;headerlink&quot; title=&quot;默哀&quot;&gt;&lt;/a&gt;默哀&lt;/h2&gt;&lt;p&gt;向全国各族人民对坑新冠肺炎疫情斗争烈士和逝世同胞的深切哀悼，网络世界虽然是虚拟的，但却无碍我们寄托哀思，在此我们也呼吁亿万网友同心协力、携起手来，共同坑疫。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="JS" scheme="https://zengwu.com.cn/categories/JS/"/>
-    
-    
-      <category term="JS" scheme="https://zengwu.com.cn/tags/JS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka日志清理相关设置</title>
-    <link href="https://zengwu.com.cn/p/b81c8e33.html"/>
-    <id>https://zengwu.com.cn/p/b81c8e33.html</id>
-    <published>2020-04-03T06:15:55.000Z</published>
-    <updated>2020-04-26T03:14:37.049Z</updated>
-    
-    <content type="html"><![CDATA[<p>前几天服务器磁盘被刷爆了（阿里云默认40G硬盘），后面查下来是kafka日志文件写的。</p><h2 id="清理策略"><a href="#清理策略" class="headerlink" title="清理策略"></a>清理策略</h2><ul><li>log.cleanup.policy=delete : kafka日志的清理策略，默认是<code>delete</code>，就是根据配置的时间空间来清理日志；还可以配置成<code>compact</code>，根据messages中的key，进行删除操作在active segment 被commit 后，会删除掉old duplicate keys无限制的时间与空间的日志保留</li></ul><h2 id="关于delete的相关配置"><a href="#关于delete的相关配置" class="headerlink" title="关于delete的相关配置"></a>关于delete的相关配置</h2><ul><li>log.retention.hours=168 :  日志保留的时间，默认是7天(7*24小时)，超过这个时间的日志都会被清理掉。</li><li>log.retention.bytes=1073741824 :  当个日志文件的最大字节数，默认1G。如果文件超出这个大小后，就会新建一个日志文件。</li><li>log.roll.hours = 3 : 创建日志文件的周期，默认值是3，如果日志文件大小没有超过1G，就每3个小时会创建一个新的日志文件。</li></ul><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从上面的配置可以看出，如果你数据量不大，按上面的配置，会存在56个日志文件（log.retention.hours/log.roll.hours），且日志总量不会大于56G的硬盘空间。但是如果数据量大，3个小时内数据超过了1G，就会创建很多的日志文件，这个时候的空间就没法预估了，只能通过log.retention.hours来控制日志保留时间来控制日志所占磁盘的大小。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;前几天服务器磁盘被刷爆了（阿里云默认40G硬盘），后面查下来是kafka日志文件写的。&lt;/p&gt;
-&lt;h2 id=&quot;清理策略&quot;&gt;&lt;a href=&quot;#清理策略&quot; class=&quot;headerlink&quot; title=&quot;清理策略&quot;&gt;&lt;/a&gt;清理策略&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;log.c
-      
-    
-    </summary>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux下查看磁盘空间</title>
-    <link href="https://zengwu.com.cn/p/63ce0e80.html"/>
-    <id>https://zengwu.com.cn/p/63ce0e80.html</id>
-    <published>2020-04-02T00:04:55.000Z</published>
-    <updated>2020-04-01T15:28:42.239Z</updated>
-    
-    <content type="html"><![CDATA[<p>一觉醒来发现服务器磁盘满了，不知道什么情况，设置的报警没起作用。第一件事不是去查磁盘为什么会满，而是很扩容让线上服务正常运行，然后慢慢找原因。</p><h2 id="df-命令"><a href="#df-命令" class="headerlink" title="df 命令"></a>df 命令</h2><p>df命令用于显示目前在Linux系统上的文件系统的磁盘使用情况统计，可以查看磁盘各分区大小、已用空间等信息.<br>语法为<code>df [OPTION]... [FILE]...</code>，可以不带参数直接使用，一般会使用<code>-h</code>参数，会显示总大小<code>Size</code></p><pre><code class="line-numbers language-shell">$ df -hFilesystem      Size  Used Avail Use% Mounted on/dev/vda1        20G  2.6G   16G  14% /devtmpfs        214M     0  214M   0% /devtmpfs           224M     0  224M   0% /dev/shmtmpfs           224M  436K  224M   1% /runtmpfs           224M     0  224M   0% /sys/fs/cgrouptmpfs            45M     0   45M   0% /run/user/0</code></pre><h2 id="du命令"><a href="#du命令" class="headerlink" title="du命令"></a>du命令</h2><p>确定磁盘信息后，可以用du命令来显示目录或文件所占用的磁盘空间<br>语法为<code>du [OPTION]... [FILE]...</code> 或 <code>du [OPTION]... --files0-from=F</code>。一般会使用<code>-sh</code>参数，会更直观的显示目录或文件的大小。如查看<code>/</code>根目录下所有文件(夹)所占空间</p><pre><code class="line-numbers language-shell">$ du -sh /*0    /bin132M    /boot164M    /data0    /dev34M    /etc25M    /home0    /lib0    /lib648.0K    /logs16K    /lost+found4.0K    /media4.0K    /mnt4.0K    /optdu: cannot access ‘/proc/3497/task/3497/fd/4’: No such file or directorydu: cannot access ‘/proc/3497/task/3497/fdinfo/4’: No such file or directorydu: cannot access ‘/proc/3497/fd/4’: No such file or directorydu: cannot access ‘/proc/3497/fdinfo/4’: No such file or directory0    /proc16M    /root436K    /run0    /sbin4.0K    /srv0    /sys32K    /tmp1.9G    /usr338M    /var</code></pre><p>这样一级一级的查下去，就会发现哪个文件把磁盘占满了，再去找这个文件是哪生成的。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;一觉醒来发现服务器磁盘满了，不知道什么情况，设置的报警没起作用。第一件事不是去查磁盘为什么会满，而是很扩容让线上服务正常运行，然后慢慢找原因。&lt;/p&gt;
-&lt;h2 id=&quot;df-命令&quot;&gt;&lt;a href=&quot;#df-命令&quot; class=&quot;headerlink&quot; title=&quot;df 
-      
-    
-    </summary>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>js中window.location的url参数</title>
-    <link href="https://zengwu.com.cn/p/d26290b.html"/>
-    <id>https://zengwu.com.cn/p/d26290b.html</id>
-    <published>2020-03-30T05:12:55.000Z</published>
-    <updated>2020-04-01T15:28:42.241Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-设置或获取-href-属性中跟在问号后面的部分。"><a href="#1-设置或获取-href-属性中跟在问号后面的部分。" class="headerlink" title="1. 设置或获取 href 属性中跟在问号后面的部分。"></a>1. 设置或获取 href 属性中跟在问号后面的部分。</h2><p>以 <a href="https://zengwu.com.cn/p/whjy.html?name=guoke">https://zengwu.com.cn/p/whjy.html?name=guoke</a> 为例</p><pre><code class="line-numbers language-js">// 输出: ?name=guokeconsole.log(window.location.search);</code></pre><h2 id="2-设置或获取-href-属性中在井号“-”后面的分段。"><a href="#2-设置或获取-href-属性中在井号“-”后面的分段。" class="headerlink" title="2. 设置或获取 href 属性中在井号“#”后面的分段。"></a>2. 设置或获取 href 属性中在井号“#”后面的分段。</h2><p>以<a href="https://zengwu.com.cn/p/whjy.html#global-now为例">https://zengwu.com.cn/p/whjy.html#global-now为例</a></p><pre><code class="line-numbers language-js">// 输出: #global-nowconsole.log(window.location.hash);</code></pre><h2 id="3-设置或获取对象指定的文件名或路径。"><a href="#3-设置或获取对象指定的文件名或路径。" class="headerlink" title="3. 设置或获取对象指定的文件名或路径。"></a>3. 设置或获取对象指定的文件名或路径。</h2><pre><code class="line-numbers language-js">// 输出: p/whjy.htmlconsole.log(window.location.pathname);</code></pre><h2 id="4-设置或获取整个-URL-为字符串。"><a href="#4-设置或获取整个-URL-为字符串。" class="headerlink" title="4. 设置或获取整个 URL 为字符串。"></a>4. 设置或获取整个 URL 为字符串。</h2><pre><code class="line-numbers language-js">// 输出: https://zengwu.com.cn/p/whjy.htmlconsole.log(window.location.href);</code></pre><h2 id="5-设置或获取与-URL-关联的端口号码。"><a href="#5-设置或获取与-URL-关联的端口号码。" class="headerlink" title="5. 设置或获取与 URL 关联的端口号码。"></a>5. 设置或获取与 URL 关联的端口号码。</h2><pre><code class="line-numbers language-js">// 输出: 443  默认https协议端口console.log(window.location.port);</code></pre><h2 id="6-设置或获取-URL-的协议部分。"><a href="#6-设置或获取-URL-的协议部分。" class="headerlink" title="6. 设置或获取 URL 的协议部分。"></a>6. 设置或获取 URL 的协议部分。</h2><pre><code class="line-numbers language-js">// 输出: httpsconsole.log(window.location.protocol);</code></pre><h2 id="7-设置或获取-location-或-URL-的-hostname-和-port-号"><a href="#7-设置或获取-location-或-URL-的-hostname-和-port-号" class="headerlink" title="7. 设置或获取 location 或 URL 的 hostname 和 port 号"></a>7. 设置或获取 location 或 URL 的 hostname 和 port 号</h2><pre><code class="line-numbers language-js">//输出: localhost:4000console.log(window.location.host);</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;1-设置或获取-href-属性中跟在问号后面的部分。&quot;&gt;&lt;a href=&quot;#1-设置或获取-href-属性中跟在问号后面的部分。&quot; class=&quot;headerlink&quot; title=&quot;1. 设置或获取 href 属性中跟在问号后面的部分。&quot;&gt;&lt;/a&gt;1. 设置或获
-      
-    
-    </summary>
-    
-    
-      <category term="JS" scheme="https://zengwu.com.cn/categories/JS/"/>
-    
-    
-      <category term="JS" scheme="https://zengwu.com.cn/tags/JS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SQLite基本操作</title>
-    <link href="https://zengwu.com.cn/p/74b91d30.html"/>
-    <id>https://zengwu.com.cn/p/74b91d30.html</id>
-    <published>2020-03-29T10:04:55.000Z</published>
-    <updated>2020-03-28T16:53:06.939Z</updated>
-    
-    <content type="html"><![CDATA[<p>SQLite的基本语法和MySQL的类似。</p><a id="more"></a><h2 id="1-数据库操作"><a href="#1-数据库操作" class="headerlink" title="1.数据库操作"></a>1.数据库操作</h2><h3 id="1-1-创建-打开数据库"><a href="#1-1-创建-打开数据库" class="headerlink" title="1.1 创建/打开数据库"></a>1.1 创建/打开数据库</h3><p>直接使用<code>sqlite3 DatabaseName.db</code>就可以打开数据库了，如果数据库不存在，则创建。</p><ul><li><code>.help</code>：查看帮助</li><li><code>.databases</code>：显示数据库列表</li><li><code>.exit/.quit</code>：退出</li><li><code>.header on</code>: 显示表头</li><li><code>.mode column</code>: 左对齐的列,长太时会被忽略</li></ul><p>如例：</p><pre><code class="line-numbers language-sql">[root@guoke3915 ~]# sqlite3 guoke.dbSQLite version 3.7.17 2013-05-20 00:56:22Enter &quot;.help&quot; for instructionsEnter SQL statements terminated with a &quot;;&quot;</code></pre><h3 id="1-2-附加数据库"><a href="#1-2-附加数据库" class="headerlink" title="1.2 附加数据库"></a>1.2 附加数据库</h3><p>用时需要用到多库操作的时候，需要附加数据库了。</p><pre><code class="line-numbers language-sql">attach database &#39;file_name&#39; as &#39;database_name&#39;;</code></pre><p>例如</p><pre><code class="line-numbers language-sql">sqlite&gt; attach database &#39;test.db&#39; as &#39;test&#39;;sqlite&gt; .databaseseq  name             file                                                      ---  ---------------  ----------------------------------------------------------0    main             /root/guoke.db                                            2    test             /root/test.db    </code></pre><h3 id="1-3-分离数据库"><a href="#1-3-分离数据库" class="headerlink" title="1.3 分离数据库"></a>1.3 分离数据库</h3><p>只能分离<code>attach</code>添加的数据库，不能分离<code>main</code>。</p><pre><code class="line-numbers language-sql">detach database &#39;name&#39;;</code></pre><ul><li>name为<code>.satabase</code>时显示的name</li></ul><p>例如</p><pre><code class="line-numbers language-sql">sqlite&gt; detach database &#39;test&#39;;sqlite&gt; .databaseseq  name             file                                                      ---  ---------------  ----------------------------------------------------------0    main             /root/guoke.db                                            </code></pre><h2 id="2-表操作"><a href="#2-表操作" class="headerlink" title="2. 表操作"></a>2. 表操作</h2><h3 id="2-1-创建表"><a href="#2-1-创建表" class="headerlink" title="2.1 创建表"></a>2.1 创建表</h3><p><code>create table</code> 语句用于在任何给定的数据库创建一个新表。创建基本表，涉及到命名表、定义列及每一列的数据类型。</p><pre><code class="line-numbers language-sql">create table database_name.table_name(   column1 datatype  primary key(one or more columns),   column2 datatype,   column3 datatype,   .....   columnN datatype,);</code></pre><ul><li>如果只有一个db时，<code>database_name</code>可以不写，多可以时为<code>.satabase</code>时显示的name</li></ul><p>例如：</p><pre><code class="line-numbers language-sql">sqlite&gt; create table test(   ...&gt; id int primary key not null,   ...&gt; name text not null,   ...&gt; age int not null   ...&gt; );sqlite&gt; .tablestest</code></pre><h3 id="2-2-删除表"><a href="#2-2-删除表" class="headerlink" title="2.2 删除表"></a>2.2 删除表</h3><p><code>drop table</code> 语句用来删除表定义及其所有相关数据、索引、触发器、约束和该表的权限规范</p><pre><code class="line-numbers language-sql">drop table database_name.table_name;</code></pre><p>例如：</p><pre><code class="line-numbers language-sql">sqlite&gt; drop table test;sqlite&gt; .tables</code></pre><h3 id="2-3-增"><a href="#2-3-增" class="headerlink" title="2.3 增"></a>2.3 增</h3><p><code>insert into</code> 语句用于向数据库的某个表中添加新的数据行。</p><pre><code class="line-numbers language-sql">insert into table_name [(column1, column2, column3,...columnn)]  values (value1, value2, value3,...valuen);</code></pre><p>如果是全值添加可以简单化为</p><pre><code class="line-numbers language-sql">insert into table_name values (value1,value2,value3,...valueN);</code></pre><p>例如：</p><pre><code class="line-numbers language-sql">sqlite&gt; insert into test values(1,&#39;guoke&#39;,30);sqlite&gt; insert into test values(2,&#39;abc&#39;,25);</code></pre><h3 id="2-4-查"><a href="#2-4-查" class="headerlink" title="2.4 查"></a>2.4 查</h3><p><code>select</code> 语句用于从 SQLite 数据库表中获取数据，以结果表的形式返回数据。这些结果表也被称为结果集</p><pre><code class="line-numbers language-sql">select column1, column2, columnn from table_name;</code></pre><p>如果查所有的可以用</p><pre><code class="line-numbers language-sql">select * from table_name;</code></pre><p>可以在后面使用<code>where</code>显示查询的过滤条件</p><p>例如：</p><pre><code class="line-numbers language-sql">sqlite&gt; .header onsqlite&gt; .mode columnsqlite&gt; select * from test;id          name        age       ----------  ----------  ----------1           guoke       30        2           abc         25        sqlite&gt; select * from test where age&gt;28;id          name        age       ----------  ----------  ----------1           guoke       30        </code></pre><h3 id="2-5-改"><a href="#2-5-改" class="headerlink" title="2.5 改"></a>2.5 改</h3><p><code>update</code> 查询用于修改表中已有的记录。可以使用带有 <code>where</code> 子句的 <code>update</code> 查询来更新选定行，否则所有的行都会被更新。</p><pre><code class="line-numbers language-sql">update table_nameset column1 = value1, column2 = value2...., columnn = valueNwhere [condition];</code></pre><p>例如:</p><pre><code class="line-numbers language-sql">sqlite&gt; update test set age=31 where name=&#39;guoke&#39;;sqlite&gt; select * from test;id          name        age       ----------  ----------  ----------1           guoke       31        2           abc         25  </code></pre><h3 id="2-6-删"><a href="#2-6-删" class="headerlink" title="2.6 删"></a>2.6 删</h3><p><code>delete</code> 查询用于删除表中已有的记录。可以使用带有 <code>where</code> 子句的 <code>delete</code> 查询来删除选定行，否则所有的记录都会被删除。</p><pre><code class="line-numbers language-sql">delete from table_name where [condition];</code></pre><p>例如：</p><pre><code class="line-numbers language-sql">sqlite&gt; delete from test where name=&#39;abc&#39;;sqlite&gt; select * from test;id          name        age       ----------  ----------  ----------1           guoke       31   </code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;SQLite的基本语法和MySQL的类似。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VS Code大小写转换快捷键</title>
-    <link href="https://zengwu.com.cn/p/463cccb2.html"/>
-    <id>https://zengwu.com.cn/p/463cccb2.html</id>
-    <published>2020-03-29T02:42:55.000Z</published>
-    <updated>2020-03-28T16:52:46.531Z</updated>
-    
-    <content type="html"><![CDATA[<p>VS Code貌似好像没有大小写转换的快捷键，但是可以自已添加</p><a id="more"></a><h2 id="1-进入快捷键设置页面"><a href="#1-进入快捷键设置页面" class="headerlink" title="1. 进入快捷键设置页面"></a>1. 进入快捷键设置页面</h2><p><strong>文件</strong>-&gt;<strong>首选项</strong>-&gt;<strong>键盘快捷方式</strong> 或直接按<code>ctrl+k</code>+<code>ctrl+s</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/463cccb2/19826068-49684cfb3cf7455e.png" alt></p><h2 id="2-搜索命令"><a href="#2-搜索命令" class="headerlink" title="2. 搜索命令"></a>2. 搜索命令</h2><p>在上面的搜索栏中，输入<code>转换</code>就可以看到有<strong>转换为大写</strong>和<strong>转换为小写</strong>的命令<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/463cccb2/19826068-ce8d66d7cd2ea267.png" alt></p><h2 id="3-设置快捷键"><a href="#3-设置快捷键" class="headerlink" title="3. 设置快捷键"></a>3. 设置快捷键</h2><p>点<strong>转换为大写</strong>前面的<strong>+</strong>就会弹出设置快捷键页面，直接输入自己想要设定的快捷键，如：<code>ctrl+shift+u</code>。如果提示输入的快捷键被绑定了，可以换一个，也可以把原来绑定的给删了<br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/463cccb2/19826068-7f8c7e73ff2b1ce6.png" alt></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;VS Code貌似好像没有大小写转换的快捷键，但是可以自已添加&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go 命令行参数</title>
-    <link href="https://zengwu.com.cn/p/5e4da61d.html"/>
-    <id>https://zengwu.com.cn/p/5e4da61d.html</id>
-    <published>2020-03-28T10:59:55.000Z</published>
-    <updated>2020-03-28T12:43:58.198Z</updated>
-    
-    <content type="html"><![CDATA[<p>在linux中，很多都程序都习惯用命令行传参。</p><a id="more"></a><p>如：</p><pre><code class="line-numbers language-bash">/usr/local/frp/frps -c /usr/local/frp/frps.ini</code></pre><h2 id="1-os-Args"><a href="#1-os-Args" class="headerlink" title="1. os.Args"></a>1. os.Args</h2><p>对于Go，命令行参数是用os.Args这个string的切片来存储的。启动的时候，各参数以空格分割。os.Args的长度到少为1，第一个值就是应用自身的绝对路径，如上面的<code>os.Args</code>为<code>/usr/local/frp/frps</code>, 第二个值是<code>-c</code>,第三个值是<code>/usr/local/frp/frps.ini</code>依次类推。<br>可以根据自己的需求来解析需要的参数。</p><h2 id="2-Flag包"><a href="#2-Flag包" class="headerlink" title="2. Flag包"></a>2. Flag包</h2><p>Go 有flag包来解析参数，可以省掉很多麻烦。</p><h3 id="2-1-支持参数形式"><a href="#2-1-支持参数形式" class="headerlink" title="2.1 支持参数形式"></a>2.1 支持参数形式</h3><p>flag支持3种格式的参数</p><pre><code class="line-numbers language-ini">-flag-flag=x-flag x // x不能是bool值</code></pre><h3 id="2-1"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</h3><p>提供的接口有：</p><pre><code class="line-numbers language-go">func Bool(name string, value bool, usage string) *boolfunc Int(name string, value int, usage string) *intfunc Int64(name string, value int64, usage string) *int64func Uint(name string, value uint, usage string) *uintfunc Uint64(name string, value uint64, usage string) *uint64func Float64(name string, value float64, usage string) *float64func String(name string, value string, usage string) *string</code></pre><ul><li>name: 获取参数的名字，如：<code>-c</code>中的<code>c</code></li><li>value: 默认值，没有对应名字参数时值</li><li>usage:  帮助提示值，输入 –help时显示</li><li>返回值: 返回值都是指针。</li></ul><h3 id="2-2-例子"><a href="#2-2-例子" class="headerlink" title="2.2 例子"></a>2.2 例子</h3><p>以前面<code>test -c /usr/local/frp/frps.ini</code>参数为例</p><pre><code class="line-numbers language-go">package mainimport (    &quot;flag&quot;    &quot;fmt&quot;)func main() {    cfgfile := flag.Bool(&quot;c&quot;, &quot;frps.ini&quot;, &quot;输入frps配置文件路径&quot;)    flag.Parse() //解析输入的参数    fmt.Println(&quot;配置文件c:&quot;, *cfgfile)}</code></pre><p>输出</p><pre><code>配置文件c: /usr/local/frp/frps.ini</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在linux中，很多都程序都习惯用命令行传参。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
     
   </entry>
   
