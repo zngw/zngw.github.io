@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-07-16T09:44:02.119Z</updated>
+  <updated>2020-07-16T10:06:08.566Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zengwu.com.cn/p/8bdd650d.html"/>
     <id>https://zengwu.com.cn/p/8bdd650d.html</id>
     <published>2020-07-13T07:22:55.000Z</published>
-    <updated>2020-07-16T09:44:02.119Z</updated>
+    <updated>2020-07-16T10:06:08.566Z</updated>
     
     <content type="html"><![CDATA[<p>VS Code 运行时会弹出<code>unins000.exe 尝试在目标目录创建文件时出错</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8bdd650d/19826068-811e2a4ee0abf6e9.png" alt></p><p>解决办法是，装VS Code 目录权限添加 Everyone 用户完全控制就可以了</p><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8bdd650d/19826068-21b0e87738ff6c34.png" alt></p>]]></content>
     
@@ -49,7 +49,7 @@
     <link href="https://zengwu.com.cn/p/b2665535.html"/>
     <id>https://zengwu.com.cn/p/b2665535.html</id>
     <published>2020-07-08T09:12:55.000Z</published>
-    <updated>2020-07-16T09:41:58.016Z</updated>
+    <updated>2020-07-16T09:57:38.745Z</updated>
     
     <content type="html"><![CDATA[<p>使用Navicat 12连接MySQL 8.0时，出现了2059的错误<code>2059 - authentication plugin &#39;caching_sha2_password&#39; cannot be loaded:</code>。原因是加密规则不同导致的</p><h1 id="1-用命令行登录数据库"><a href="#1-用命令行登录数据库" class="headerlink" title="1. 用命令行登录数据库"></a>1. 用命令行登录数据库</h1><pre><code class="line-numbers language-sql">mysql -u root -p</code></pre><h1 id="2-进入mysql数据库"><a href="#2-进入mysql数据库" class="headerlink" title="2. 进入mysql数据库"></a>2. 进入mysql数据库</h1><pre><code class="line-numbers language-sql">mysql &gt; use mysql;</code></pre><h1 id="3-查看账号加密规则"><a href="#3-查看账号加密规则" class="headerlink" title="3. 查看账号加密规则"></a>3. 查看账号加密规则</h1><pre><code class="line-numbers language-sql">mysql &gt; select Host,User,plugin from mysql.user;+-----------+------------------+-----------------------+| Host      | User             | plugin                |+-----------+------------------+-----------------------+| %         | root             | caching_sha2_password || localhost | mysql.infoschema | caching_sha2_password || localhost | mysql.session    | caching_sha2_password || localhost | mysql.sys        | caching_sha2_password || localhost | root             | caching_sha2_password |+-----------+------------------+-----------------------+</code></pre><h1 id="4-修改加密规则"><a href="#4-修改加密规则" class="headerlink" title="4. 修改加密规则"></a>4. 修改加密规则</h1><pre><code class="line-numbers language-sql">#更改加密方式ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;password&#39; PASSWORD EXPIRE NEVER; #更新用户密码ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;password&#39;; #刷新权限FLUSH PRIVILEGES;</code></pre><p>这里可以根据自己的账号来判定</p><ul><li>root: 连接的账号</li><li>localhost: 本地连接，如果是外网连接，修改为 ‘%’</li><li>password: 账号对应的密码</li></ul>]]></content>
     
