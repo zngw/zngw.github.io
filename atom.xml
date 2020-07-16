@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-07-04T03:07:44.358Z</updated>
+  <updated>2020-07-16T09:44:02.119Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>VS Code unins000尝试在目标目录创建文件时出错</title>
+    <link href="https://zengwu.com.cn/p/8bdd650d.html"/>
+    <id>https://zengwu.com.cn/p/8bdd650d.html</id>
+    <published>2020-07-13T07:22:55.000Z</published>
+    <updated>2020-07-16T09:44:02.119Z</updated>
+    
+    <content type="html"><![CDATA[<p>VS Code 运行时会弹出<code>unins000.exe 尝试在目标目录创建文件时出错</code><br><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8bdd650d/19826068-811e2a4ee0abf6e9.png" alt></p><p>解决办法是，装VS Code 目录权限添加 Everyone 用户完全控制就可以了</p><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8bdd650d/19826068-21b0e87738ff6c34.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;VS Code 运行时会弹出&lt;code&gt;unins000.exe 尝试在目标目录创建文件时出错&lt;/code&gt;&lt;br&gt;&lt;img src=&quot;//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/8bdd6
+      
+    
+    </summary>
+    
+    
+      <category term="Windows" scheme="https://zengwu.com.cn/categories/Windows/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Navicat连接MySQL报错2059</title>
+    <link href="https://zengwu.com.cn/p/b2665535.html"/>
+    <id>https://zengwu.com.cn/p/b2665535.html</id>
+    <published>2020-07-08T09:12:55.000Z</published>
+    <updated>2020-07-16T09:41:58.016Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用Navicat 12连接MySQL 8.0时，出现了2059的错误<code>2059 - authentication plugin &#39;caching_sha2_password&#39; cannot be loaded:</code>。原因是加密规则不同导致的</p><h1 id="1-用命令行登录数据库"><a href="#1-用命令行登录数据库" class="headerlink" title="1. 用命令行登录数据库"></a>1. 用命令行登录数据库</h1><pre><code class="line-numbers language-sql">mysql -u root -p</code></pre><h1 id="2-进入mysql数据库"><a href="#2-进入mysql数据库" class="headerlink" title="2. 进入mysql数据库"></a>2. 进入mysql数据库</h1><pre><code class="line-numbers language-sql">mysql &gt; use mysql;</code></pre><h1 id="3-查看账号加密规则"><a href="#3-查看账号加密规则" class="headerlink" title="3. 查看账号加密规则"></a>3. 查看账号加密规则</h1><pre><code class="line-numbers language-sql">mysql &gt; select Host,User,plugin from mysql.user;+-----------+------------------+-----------------------+| Host      | User             | plugin                |+-----------+------------------+-----------------------+| %         | root             | caching_sha2_password || localhost | mysql.infoschema | caching_sha2_password || localhost | mysql.session    | caching_sha2_password || localhost | mysql.sys        | caching_sha2_password || localhost | root             | caching_sha2_password |+-----------+------------------+-----------------------+</code></pre><h1 id="4-修改加密规则"><a href="#4-修改加密规则" class="headerlink" title="4. 修改加密规则"></a>4. 修改加密规则</h1><pre><code class="line-numbers language-sql">#更改加密方式ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;password&#39; PASSWORD EXPIRE NEVER; #更新用户密码ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;password&#39;; #刷新权限FLUSH PRIVILEGES;</code></pre><p>这里可以根据自己的账号来判定</p><ul><li>root: 连接的账号</li><li>localhost: 本地连接，如果是外网连接，修改为 ‘%’</li><li>password: 账号对应的密码</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;使用Navicat 12连接MySQL 8.0时，出现了2059的错误&lt;code&gt;2059 - authentication plugin &amp;#39;caching_sha2_password&amp;#39; cannot be loaded:&lt;/code&gt;。原因是加密规则不同导
+      
+    
+    </summary>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
   
   <entry>
     <title>nginx 负载均衡策略</title>
@@ -491,58 +547,6 @@
       
       
         &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;有一种心情，叫喜怒哀乐；有一种味道，叫酸甜苦辣咸；有一种智慧，叫深谋远虑；有一种缘份，叫天长地久；有一个群体，叫烟火人间，人生如梦，岁月无情，蓦然回首，才发现人活着是一种心情，穷
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://zengwu.com.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>失去的总是最好的</title>
-    <link href="https://zengwu.com.cn/p/aea29f30.html"/>
-    <id>https://zengwu.com.cn/p/aea29f30.html</id>
-    <published>2020-04-11T04:05:31.000Z</published>
-    <updated>2020-04-26T03:06:57.661Z</updated>
-    
-    <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人常常沉醉于曾经拥有的美好,而不珍惜现在拥有的幸福.然而失去的,也就永远不会回来了,你也无须期待什么,心碎也是枉然.也许,它在你心中会留下永恒的美丽,让你难以割舍,可是它已经不再属于你,它有了自己的归属.生活就这样,当你意识到应该珍惜的时候,幸福已经悄悄的溜走,留下的只是丝丝无奈和肆无忌惮的泪水.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;明明知道已无法追悔,可又为何仍要执迷不悟.为了一份曾经拥有而执意要走的感情过分的伤感值得吗?为什么不让那份最美好的记忆停留在我们心中最美好的角落?<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;失去的永远是最美好的,可拥有的也有它美丽的一面,为何仍要凭吊着曾经的空影而不感受现在的幸福呢?也许当你义无返顾追求曾经的美好时,拥有的幸福又将成为你梦里的相思,你又将错过最美好的…</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;人常常沉醉于曾经拥有的美好,而不珍惜现在拥有的幸福.然而失去的,也就永远不会回来了,你也无须期待什么,心碎也是枉然.也许,它在你心中会留下永恒的美丽,让你难以割舍,可是它已经不再
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://zengwu.com.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>忆初</title>
-    <link href="https://zengwu.com.cn/p/7f23b241.html"/>
-    <id>https://zengwu.com.cn/p/7f23b241.html</id>
-    <published>2020-04-09T18:25:31.000Z</published>
-    <updated>2020-04-26T03:06:57.659Z</updated>
-    
-    <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;夜深了，一切都静下来了，静的让人可怕。无声的夜最容易让人陷入无限的回忆中，看着近几年自己写下的日志，写下的那些话语，写下的心情，写下的点点滴滴。只言片语中，总能感觉到自己对于现实不如意的抱怨或是些许的感伤。想想自己的现状，混混沌沌，突然有一些莫名的忧伤涌上心头。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总喜欢在一个人静下来无聊的时候，去翻翻曾经写下的日志，如同放电影般回忆一些事情，把大大小小的事情在脑子里过一遍，想到开心的事时，会再度体验那种快乐的感觉，所胃没事偷着乐也不过如此吧；但若想到辛酸处，整个人就像掉进了水坑里去了，怎么爬都爬不上来，越想越纠结，沉于其中。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或许，忘记是一件好事，没事别乱回忆，别把自己停留在过去。最初的记忆是美好的，但现在不是回忆的时候，记忆多了也会溢出。。。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;夜深了，一切都静下来了，静的让人可怕。无声的夜最容易让人陷入无限的回忆中，看着近几年自己写下的日志，写下的那些话语，写下的心情，写下的点点滴滴。只言片语中，总能感觉到自己对于现实
       
     
     </summary>
