@@ -4,7 +4,7 @@
     <title>C++实现AES加解密算法</title>
     <url>/p/81e6531e.html</url>
     <content><![CDATA[<h1 id="AES-头文件"><a href="#AES-头文件" class="headerlink" title="AES 头文件"></a>AES 头文件</h1><p>CAES.h</p>
-<pre><code class="line-numbers language-h">#pragma once
+<pre><code class="line-numbers language-cpp">#pragma once
 
 class CAES
 {
