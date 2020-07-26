@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-07-25T07:30:03.925Z</updated>
+  <updated>2020-07-26T08:18:02.934Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iPhone中添加163邮件</title>
+    <link href="https://zengwu.com.cn/p/e523d0a.html"/>
+    <id>https://zengwu.com.cn/p/e523d0a.html</id>
+    <published>2020-07-26T08:01:55.000Z</published>
+    <updated>2020-07-26T08:18:02.934Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>开通 <code>IMAP/SMTP服务</code><br>进入163邮箱设置页面，选择<code>POP3/SMTP/IMAP</code>，开通<code>IMAP/SMTP服务</code></li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-90272c73e64ebcfe.png" alt></p><ol start="2"><li>短信验证</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-3537e40effcd69f2.png" alt></p><ol start="3"><li>开通授权码</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-524adf0edf186d2a.png" alt></p><ol start="4"><li>进入手机设置-&gt;密码与账户</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-660e28d39162e85d.png" alt></p><ol start="5"><li>添加账户</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-a3fc63203759fc14.png" alt></p><ol start="6"><li>选择163邮件</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-73a2c2f15eecb584.png" alt></p><ol start="7"><li>添加账号密码，这里的密码为前面设置页面中的授权码</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-a38ef139c3cc0fe7.png" alt></p><ol start="8"><li>存储完成</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-e9a44ab52d3a583d.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;开通 &lt;code&gt;IMAP/SMTP服务&lt;/code&gt;&lt;br&gt;进入163邮箱设置页面，选择&lt;code&gt;POP3/SMTP/IMAP&lt;/code&gt;，开通&lt;code&gt;IMAP/SMTP服务&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;//guoke
+      
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title>C++实现AES加解密算法</title>
@@ -532,33 +561,6 @@
     
     
       <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android Studio调试夜神模拟器</title>
-    <link href="https://zengwu.com.cn/p/f2ceba3a.html"/>
-    <id>https://zengwu.com.cn/p/f2ceba3a.html</id>
-    <published>2020-05-01T14:15:55.000Z</published>
-    <updated>2020-05-01T15:52:56.605Z</updated>
-    
-    <content type="html"><![CDATA[<p>Android开发中，真机调试还是没有模拟上来的方便，当然，有些还是得需要真机测的。下面介绍一下用Android Studio调试夜神模拟器。</p><h2 id="一、运行模拟器"><a href="#一、运行模拟器" class="headerlink" title="一、运行模拟器"></a>一、运行模拟器</h2><h2 id="二、在文件资源管理器中进入夜神模拟器的安装目录（默认安装路径为-C-Program-Files-Nox-bin-）"><a href="#二、在文件资源管理器中进入夜神模拟器的安装目录（默认安装路径为-C-Program-Files-Nox-bin-）" class="headerlink" title="二、在文件资源管理器中进入夜神模拟器的安装目录（默认安装路径为: C:\Program Files\Nox\bin\）"></a>二、在文件资源管理器中进入夜神模拟器的安装目录（默认安装路径为: C:\Program Files\Nox\bin\）</h2><h2 id="三、在资源管理器的地址栏输入cmd并回车，打开命令行窗口。并自动进入到安装目录"><a href="#三、在资源管理器的地址栏输入cmd并回车，打开命令行窗口。并自动进入到安装目录" class="headerlink" title="三、在资源管理器的地址栏输入cmd并回车，打开命令行窗口。并自动进入到安装目录"></a>三、在资源管理器的地址栏输入cmd并回车，打开命令行窗口。并自动进入到安装目录</h2><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/f2ceba3a/19826068-8a7ff37f3be6646e.png" alt></p><h2 id="四、执行nox-adb的连接命令，连接模拟器"><a href="#四、执行nox-adb的连接命令，连接模拟器" class="headerlink" title="四、执行nox_adb的连接命令，连接模拟器"></a>四、执行nox_adb的连接命令，连接模拟器</h2><pre><code class="line-numbers language-bat">C:\Program Files\Nox\bin&gt;nox_adb connect 127.0.0.1:62001already connected to 127.0.0.1:62001</code></pre><h2 id="五、Android-Studio调试时选择就可以了"><a href="#五、Android-Studio调试时选择就可以了" class="headerlink" title="五、Android Studio调试时选择就可以了"></a>五、Android Studio调试时选择就可以了</h2><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/f2ceba3a/19826068-f239196271f26247.png" alt></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Android开发中，真机调试还是没有模拟上来的方便，当然，有些还是得需要真机测的。下面介绍一下用Android Studio调试夜神模拟器。&lt;/p&gt;
-&lt;h2 id=&quot;一、运行模拟器&quot;&gt;&lt;a href=&quot;#一、运行模拟器&quot; class=&quot;headerlink&quot; title=
-      
-    
-    </summary>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
     
   </entry>
   
