@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2020-07-26T08:18:02.934Z</updated>
+  <updated>2020-07-26T08:18:52.653Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://zengwu.com.cn/p/e523d0a.html"/>
     <id>https://zengwu.com.cn/p/e523d0a.html</id>
     <published>2020-07-26T08:01:55.000Z</published>
-    <updated>2020-07-26T08:18:02.934Z</updated>
+    <updated>2020-07-26T08:18:52.653Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>开通 <code>IMAP/SMTP服务</code><br>进入163邮箱设置页面，选择<code>POP3/SMTP/IMAP</code>，开通<code>IMAP/SMTP服务</code></li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-90272c73e64ebcfe.png" alt></p><ol start="2"><li>短信验证</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-3537e40effcd69f2.png" alt></p><ol start="3"><li>开通授权码</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-524adf0edf186d2a.png" alt></p><ol start="4"><li>进入手机设置-&gt;密码与账户</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-660e28d39162e85d.png" alt></p><ol start="5"><li>添加账户</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-a3fc63203759fc14.png" alt></p><ol start="6"><li>选择163邮件</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-73a2c2f15eecb584.png" alt></p><ol start="7"><li>添加账号密码，这里的密码为前面设置页面中的授权码</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-a38ef139c3cc0fe7.png" alt></p><ol start="8"><li>存储完成</li></ol><p><img src="//guoke3915.coding.net/p/guoke3915/d/guoke3915/git/raw/master/p/e523d0a/19826068-e9a44ab52d3a583d.png" alt></p>]]></content>
+    <content type="html"><![CDATA[<ol><li>开通 <code>IMAP/SMTP服务</code><br>进入163邮箱设置页面，选择<code>POP3/SMTP/IMAP</code>，开通<code>IMAP/SMTP服务</code></li></ol><p><img src="//gitee.com/guoke3915/zw/raw/master/p/e523d0a/19826068-90272c73e64ebcfe.png" alt></p><ol start="2"><li>短信验证</li></ol><p><img src="//gitee.com/guoke3915/zw/raw/master/p/e523d0a/19826068-3537e40effcd69f2.png" alt></p><ol start="3"><li>开通授权码</li></ol><p><img src="//gitee.com/guoke3915/zw/raw/master/p/e523d0a/19826068-524adf0edf186d2a.png" alt></p><ol start="4"><li>进入手机设置-&gt;密码与账户</li></ol><p><img src="//gitee.com/guoke3915/zw/raw/master/p/e523d0a/19826068-660e28d39162e85d.png" alt></p><ol start="5"><li>添加账户</li></ol><p><img src="//gitee.com/guoke3915/zw/raw/master/p/e523d0a/19826068-a3fc63203759fc14.png" alt></p><ol start="6"><li>选择163邮件</li></ol><p><img src="//gitee.com/guoke3915/zw/raw/master/p/e523d0a/19826068-73a2c2f15eecb584.png" alt></p><ol start="7"><li>添加账号密码，这里的密码为前面设置页面中的授权码</li></ol><p><img src="//gitee.com/guoke3915/zw/raw/master/p/e523d0a/19826068-a38ef139c3cc0fe7.png" alt></p><ol start="8"><li>存储完成</li></ol><p><img src="//gitee.com/guoke3915/zw/raw/master/p/e523d0a/19826068-e9a44ab52d3a583d.png" alt></p>]]></content>
     
     <summary type="html">
     
@@ -32,7 +32,7 @@
         &lt;ol&gt;
 &lt;li&gt;开通 &lt;code&gt;IMAP/SMTP服务&lt;/code&gt;&lt;br&gt;进入163邮箱设置页面，选择&lt;code&gt;POP3/SMTP/IMAP&lt;/code&gt;，开通&lt;code&gt;IMAP/SMTP服务&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&quot;//guoke
+&lt;p&gt;&lt;img src=&quot;//gitee
       
     
     </summary>
