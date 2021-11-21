@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2021-11-02T14:25:46.253Z</updated>
+  <updated>2021-11-21T09:19:51.716Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,252 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>curl发送POST请求</title>
+    <link href="https://zengwu.com.cn/p/e334394.html"/>
+    <id>https://zengwu.com.cn/p/e334394.html</id>
+    <published>2021-11-19T03:40:55.000Z</published>
+    <updated>2021-11-21T09:19:51.716Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>curl 是常用的命令行工具，用来请求 Web 服务器。它的名字就是客户端（client）的 URL 工具的意思。它的功能非常强大，命令行参数多达几十种。如果熟练的话，完全可以取代 Postman 这一类的图形界面工具。</p><h1 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h1><p>curl默认协议就是GET，直接使用 <code>curl url</code>相当于直接用浏览器打开。</p><h1 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h1><p>curl 使用 -X POST 可以发送POST消息。如果要post json数据，如：</p><pre><code class="line-numbers language-bash">curl -H &quot;Content-Type:application/json&quot; -X POST -d &#39;{&quot;uid&quot;:&quot;123&quot;}&#39; http://127.0.0.1:3000/rest/test</code></pre><p>参数解析：</p><ul><li>-H 请求头。post json需要添加 <code>-H &quot;Content-Type: application/json&quot;</code></li><li>-X 请求协议。</li><li>-d post的body内容，如果是json数据，外层再加一个<code>&#39;</code>包含</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h1&gt;&lt;p&gt;curl 是常用的命令行工具，用来请求 Web 服务器。它的名字就是客户端（client）的 URL 工具的意思。它的功能非常强大，命令行参
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://zengwu.com.cn/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+      <category term="Linux" scheme="https://zengwu.com.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java中byte数组和String字符串相互转换</title>
+    <link href="https://zengwu.com.cn/p/334d5fc9.html"/>
+    <id>https://zengwu.com.cn/p/334d5fc9.html</id>
+    <published>2021-11-18T04:31:55.000Z</published>
+    <updated>2021-11-21T09:30:24.551Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、简单的转换"><a href="#一、简单的转换" class="headerlink" title="一、简单的转换"></a>一、简单的转换</h2><p>Java中String提供了byte数组和String字符串相互转换的方法。</p><pre><code class="line-numbers language-java">        String str = &quot;Hello World&quot;;        // String 转 byte数组        byte [] strByte = str.getBytes();        // byte数组转 String        String strString = new String(strByte);</code></pre><h2 id="二、带编码方式转换"><a href="#二、带编码方式转换" class="headerlink" title="二、带编码方式转换"></a>二、带编码方式转换</h2><p>带编码方式有二种方式</p><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><pre><code class="line-numbers language-java">        try{            String str = &quot;Hello World&quot;;            // String 转 byte数组            byte [] strByte = str.getBytes(&quot;utf-8&quot;);            // byte数组转 String            String strString = new String(strByte,&quot;utf-8&quot;);        } catch (UnsupportedEncodingException e){            e.printStackTrace();        }</code></pre><h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><pre><code class="line-numbers language-java">        String str = &quot;Hello World&quot;;        // String 转 byte数组        byte [] strByte = str.getBytes(StandardCharsets.UTF_8);        // byte数组转 String        String strString = new String(strByte, StandardCharsets.UTF_8);</code></pre><p>方法一和方法二的区别是，方法一的转换方法会抛出<code>UnsupportedEncodingException</code>异常， 使用时需要加<code>try catch</code>。而方法二不会抛出异常，平时使用方法二比会比较方便哈。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、简单的转换&quot;&gt;&lt;a href=&quot;#一、简单的转换&quot; class=&quot;headerlink&quot; title=&quot;一、简单的转换&quot;&gt;&lt;/a&gt;一、简单的转换&lt;/h2&gt;&lt;p&gt;Java中String提供了byte数组和String字符串相互转换的方法。&lt;/p&gt;
+&lt;pre&gt;&lt;c
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Excel公式中创建包含双引号字符串</title>
+    <link href="https://zengwu.com.cn/p/38171cdb.html"/>
+    <id>https://zengwu.com.cn/p/38171cdb.html</id>
+    <published>2021-11-16T05:52:59.000Z</published>
+    <updated>2021-11-21T09:19:51.720Z</updated>
+    
+    <content type="html"><![CDATA[<p>在Excel公式中，如果要用到字符串，一般会用双引号将字符串引起来。如：</p><pre><code class="line-numbers language-excel">=IF(A1&gt;0,&quot;真&quot;,&quot;假&quot;)</code></pre><p>如果<code>A1</code>大于0显示字符串<code>真</code>，否则显示为<code>假</code>字符串</p><p>但是，如果要显示的结果字符串中包含双引号呢，如A1大于0时要显示为 <code>&quot;A1&gt;0&quot;为真</code>，直接使用会报公式语法错误。这时我们可以用<code>CHAR(34)</code>来表示比引号<code>&quot;</code>，然后使用<code>&amp;</code>来连接字符串。此时公式为：</p><pre><code class="line-numbers language-excel">=IF(A1&gt;0,CHAR(34)&amp;&quot;A1&gt;0&quot;&amp;CHAR(34)&amp;&quot;为真&quot;,&quot;假&quot;)</code></pre><p><img src="//gitee.com/guoke3915/zw/raw/master/p/38171cdb/19826068-9b83e8f6654fd466.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在Excel公式中，如果要用到字符串，一般会用双引号将字符串引起来。如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;line-numbers language-excel&quot;&gt;=IF(A1&amp;gt;0,&amp;quot;真&amp;quot;,&amp;quot;假&amp;quot;)&lt;/code&gt;&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Win10双蓝牙音频同步输出</title>
+    <link href="https://zengwu.com.cn/p/c77f34b0.html"/>
+    <id>https://zengwu.com.cn/p/c77f34b0.html</id>
+    <published>2021-11-13T17:50:55.000Z</published>
+    <updated>2021-11-21T09:19:51.717Z</updated>
+    
+    <content type="html"><![CDATA[<p>　　有些蓝牙音箱可以相互配对再连接电脑可以实现多蓝牙同步输出的效果，但是大多不同品牌的蓝牙音箱还是不能相互配对的，要实现双蓝牙音频同步输出则需要借助软件了。<br>　　这里推荐<a href="https://www.vb-audio.com" target="_blank" rel="noopener">voice meeter</a>，官网上有三个版本提供下载，分别是 voicemeeter、voicemeeter banana 和 voicemeeter potato，除了potato 其他两个版本完全免费，可以实现音频多轨道输出了。</p><h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>　　这里使用<a href="https://vb-audio.com/Voicemeeter/banana.htm" target="_blank" rel="noopener">banana</a>版本，先去官网下载最新版本</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-32d6b285660afab4.png" alt></p><p>　　下载后直接运行exe，点右下角的Install就可以安装，安装好后可能需要重启电脑。</p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>1、 设置系统音频输出为 VoiceMeeter Input(VB-Audio VoiceMeeter VAIO)</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-d3602d33d5cd75e5.png" alt></p><p>2、打开 <code>voicemeeterpro</code>默认安装路径在<code>C:\Program Files (x86)\VB\Voicemeeter\</code>。<br><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-9c64700ecadf563e.png" alt></p><p>3、 voicemeeterpro默认支持3个硬件音轨输出。点击可以选择输出的硬件设备，选择对应的蓝牙音箱。</p><ul><li>A1：天猫精灵X1</li><li>A2：华为AM08蓝牙音箱</li><li>A3：HDMI显示器外接有线音箱</li></ul><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-97ac445eac9e64e5.png" alt></p><p>4、调整延迟</p><p>前面设置好后电脑播发的声音会在选项的三个设备上同时播放了，但是由于蓝牙设备的不同以及距离等问题，会出现不同的延迟，这里我们可以去设置里调整每个设备的延迟时间，这个根据个人听边自己调整了，调到一个自己听起来比较舒服的同步就行了。</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-5cf564d8d193b0bc.png" alt></p><p>5、开机启动Banana并且常驻状态栏</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-c0fd4e92e799c234.png" alt></p><p>额外分享一个<a href="https://www.bilibili.com/read/cv5380467" target="_blank" rel="noopener">voice meeter 详细教程</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;　　有些蓝牙音箱可以相互配对再连接电脑可以实现多蓝牙同步输出的效果，但是大多不同品牌的蓝牙音箱还是不能相互配对的，要实现双蓝牙音频同步输出则需要借助软件了。&lt;br&gt;　　这里推荐&lt;a href=&quot;https://www.vb-audio.com&quot; target=&quot;_blank
+      
+    
+    </summary>
+    
+    
+      <category term="Windows" scheme="https://zengwu.com.cn/categories/Windows/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>程序猿的情书</title>
+    <link href="https://zengwu.com.cn/p/13fa19f4.html"/>
+    <id>https://zengwu.com.cn/p/13fa19f4.html</id>
+    <published>2021-11-11T03:11:11.000Z</published>
+    <updated>2021-11-21T09:19:51.721Z</updated>
+    
+    <content type="html"><![CDATA[<p>亲爱的“对象”<br>　　我能抽象出整个世界，但是我不能抽象出你，因为你在我心中是那么的具体，所以我的世界并不完整。<br>　　我可以重载甚至覆盖这个世界里的任何一种方法，但是我却不能重载对你的思念，也许命中注定了，你在我的世界里永远的烙上了静态的属性。<br>　　而我不慎调用了爱你这个方法，当我义无返顾的把自己作为参数传进这个方法时，我才发现爱上你是一个死循环。。。<br>　　它不停的返回对你的思念压入我心里的堆栈，在这无尽的黑夜中，我的内存里已经再也装不下别人。。。<br>　　我不停的向系统申请空间，但却捕获一个异常：我爱的人不爱我。<br>　　为了解决这个异常，我愿意虚拟出最后一点内存，把所有我能实现的方法地址压入堆栈，并且在栈尾压入最后一个方法：将字符串“我爱你，你爱我吗？”传递给你。。。<br>　　如果返回值为真，我将用尽一生去爱你，否则，我将释放掉所有系统资源。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;亲爱的“对象”&lt;br&gt;　　我能抽象出整个世界，但是我不能抽象出你，因为你在我心中是那么的具体，所以我的世界并不完整。&lt;br&gt;　　我可以重载甚至覆盖这个世界里的任何一种方法，但是我却不能重载对你的思念，也许命中注定了，你在我的世界里永远的烙上了静态的属性。&lt;br&gt;　　而我不慎
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://zengwu.com.cn/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ssh端口映射</title>
+    <link href="https://zengwu.com.cn/p/f5ce4608.html"/>
+    <id>https://zengwu.com.cn/p/f5ce4608.html</id>
+    <published>2021-11-08T00:55:55.000Z</published>
+    <updated>2021-11-21T09:19:51.715Z</updated>
+    
+    <content type="html"><![CDATA[<p>考虑到在程序中使用ssh认证连接MongoDB数据库的问题，还折腾了<a href="https://www.jianshu.com/p/8a5a1f581f04" target="_blank" rel="noopener">《Java使用SSH连接MongoDB》</a>、<a href="https://www.jianshu.com/p/ac98c90833d0" target="_blank" rel="noopener">《C#使用SSH认证连接MongoDB》</a>、<a href="https://www.jianshu.com/p/e3617a2883ea" target="_blank" rel="noopener">《go中使用SSH认证连接MongoDB》</a>。后面发现，在linux中<code>ssh -L</code>命令的可以直接完成ssh认证并将远程端口映射成本地端口。然后再然程序连接本地对应的端口就可以了。</p><pre><code class="line-numbers language-bash">ssh -CfNgL bind_port:host:hostport  user@ip -o TCPKeepAlive=yes</code></pre><p>解析：</p><ul><li>-C        压缩传输数据</li><li>-f        建立SSH连接后放置后台，静默模式</li><li>-N        不要执行远程命令。 这对于仅转发端口很有用（仅限协议版本2）</li><li>-g        允许远程主机连接本地端口转发</li><li>-L        指定本地（客户端）主机上的给定端口要转发到远程端的给定主机和端口。</li><li>bind_port： 本地监听端口</li><li>host:hostport： 远程映射地址和端口</li><li>user@ip: ssh服务器ip和登录用户</li><li>-o TCPKeepAlive=yes：tcp连接保持</li></ul><p>例如：</p><pre><code class="line-numbers language-bash">ssh -CfNgL 3717:127.0.0.1:27017 192.168.0.105 -o TCPKeepAlive=yes# 使用可以查看ssh进程ps -ef | grep sshroot     27059     1  0 20:10 ?        00:00:00 ssh -CfNgL 3717:127.0.0.1:27017 192.168.0.105 -o TCPKeepAlive=yes</code></pre><p>然后，用mongodb连接 127.0.0.1:3717就可以了</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;考虑到在程序中使用ssh认证连接MongoDB数据库的问题，还折腾了&lt;a href=&quot;https://www.jianshu.com/p/8a5a1f581f04&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;《Java使用SSH连接MongoDB》&lt;/a
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://zengwu.com.cn/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+      <category term="Linux" scheme="https://zengwu.com.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go中使用SSH认证连接MongoDB</title>
+    <link href="https://zengwu.com.cn/p/f0aeed1a.html"/>
+    <id>https://zengwu.com.cn/p/f0aeed1a.html</id>
+    <published>2021-11-07T11:25:55.000Z</published>
+    <updated>2021-11-21T09:19:51.718Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一、说明"><a href="#一、说明" class="headerlink" title="一、说明"></a>一、说明</h1><p>go连接MongoDB驱动库<code>mongo-driver</code>和<code>mgo.v2</code>库中都不支持ssh认证连接的。但是我们可以使用net库先与MongoDB数据库服务器建立ssh连接，然后再将MongoDB数据库所在服务器端口映射到本地连接中转发就可以了。</p><h1 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h1><p>下面以<code>mongo-driver</code>数据库驱动为例。</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="line-numbers language-bash">go get -u github.com/zngw/sshtunnel</code></pre><p>实现代码</p><pre><code class="line-numbers language-bash">// @Title // @Description $// @Author  55// @Date  2021/11/7package mainimport (    &quot;context&quot;    &quot;github.com/zngw/log&quot;    &quot;github.com/zngw/sshtunnel/ssht&quot;    &quot;go.mongodb.org/mongo-driver/bson&quot;    &quot;go.mongodb.org/mongo-driver/mongo&quot;    &quot;go.mongodb.org/mongo-driver/mongo/options&quot;    &quot;go.mongodb.org/mongo-driver/mongo/readpref&quot;    &quot;net/url&quot;    &quot;strings&quot;    &quot;time&quot;)func main() {    sshUri := &quot;ssh://root:123456@192.168.1.55:22&quot;    mdbUri := &quot;mongodb://root:123456@127.0.0.1:27017/admin&quot;    u, err := url.Parse(mdbUri)    if err != nil {        log.Error(&quot;test&quot;, &quot;解析数据库连接信息失败 %v&quot;, err)        return    }    listen, err := ssht.TunnelUri(sshUri, u.Host, &quot;:3717&quot;)    if err != nil {        log.Error(&quot;test&quot;, &quot;启用ssh端口映射失败 %v&quot;, err)    } else {        log.Info(&quot;test&quot;, &quot;启用ssh端口映射成功 %s&quot;, listen)    }    // 替换数据库地址端口    mdbUri = strings.Replace(mdbUri, u.Host, listen, -1)    // 下面按正常逻辑连接mongodb    name := &quot;Test&quot;    maxTime := time.Duration(2)     // 链接超时时间    table := &quot;test&quot;                 // 表名    // 连接数据库    db, err := ConnectToDB(mdbUri, name, maxTime)    if err != nil {        log.Error(&quot;test&quot;,&quot;链接数据库有误!&quot;)    }    // 获取test表数据数量    collection := db.Collection(table)    count, err := collection.CountDocuments(context.Background(), bson.D{})    if err != nil {        log.Error(&quot;test&quot;, err.Error())        return    }    log.Info(&quot;test&quot;,&quot;collection.CountDocuments: %v&quot;, count)}func ConnectToDB(uri, name string, timeout time.Duration) (*mongo.Database, error)  {    // 设置连接超时时间    ctx, cancel := context.WithTimeout(context.Background(), timeout)    defer cancel()    // 通过传进来的uri连接相关的配置    o := options.Client().ApplyURI(uri)    // 发起链接    client, err := mongo.Connect(ctx, o)    if err != nil {        log.Error(&quot;test&quot;,err.Error())        return nil, err    }    // 判断服务是不是可用    if err = client.Ping(context.Background(), readpref.Primary()); err != nil {        log.Error(&quot;test&quot;,err.Error())        return nil, err    }    // 返回 client    return client.Database(name), nil}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;一、说明&quot;&gt;&lt;a href=&quot;#一、说明&quot; class=&quot;headerlink&quot; title=&quot;一、说明&quot;&gt;&lt;/a&gt;一、说明&lt;/h1&gt;&lt;p&gt;go连接MongoDB驱动库&lt;code&gt;mongo-driver&lt;/code&gt;和&lt;code&gt;mgo.v2&lt;/code&gt;库中都
+      
+    
+    </summary>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C#使用SSH认证连接MongoDB</title>
+    <link href="https://zengwu.com.cn/p/9c31a311.html"/>
+    <id>https://zengwu.com.cn/p/9c31a311.html</id>
+    <published>2021-11-05T13:42:57.000Z</published>
+    <updated>2021-11-21T09:19:51.711Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>在C#中可以使用<code>Renci.SshNet</code>和<code>MongoDB.Driver</code>通过SSH认证连接MongoDB数据库。</p><p>先去NuGet程序包管理页面中，下载<code>Renci.SshNet</code>和<code>MongoDB.Driver</code>库</p><p><img src="https://upload-images.jianshu.io/upload_images/19826068-fad2048930d348b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p><h1 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h1><p>可以先通过SshNet库使用SSH认证连接MongoDB所在的服务器，再用MongoDB.Driver连接本地SshNet达到通过SSH认证连接MongoDB的目的。</p><p>实现代码</p><pre><code class="line-numbers language-C#">using System;using System.Collections.Generic;using MongoDB.Driver;using Renci.SshNet;public class MongoAdmin{    // 数据库连接参数    private const string MONGODB_URI = &quot;mongodb://root:123456@127.0.0.1:3717/admin&quot;;    private const string SSH_USER = &quot;root&quot;;          // ssh账号    private const string SSH_PASSWORD = &quot;.&quot;;         // ssh密码，若使用密钥且没密码时填空    private const string SSH_PRVKEY = &quot;./ssh.pem&quot;;   // ssh密钥，若使用密码登录时为空    private const string SSH_HOST = &quot;192.168.0.105&quot;; // ssh服务器    private const int    SSH_PORT = 22;              // ssh端口    public static void Test()    {        try        {            var uri = new Uri(MONGODB_URI);            // 存在密钥文件使用密钥登录，不存在密钥文件使用密码登录            ConnectionInfo conn = null;            if (string.IsNullOrEmpty(SSH_PRVKEY))            {                conn = new ConnectionInfo(SSH_HOST, SSH_PORT, SSH_USER, new PasswordAuthenticationMethod(SSH_USER, SSH_PASSWORD));            }            else            {                conn = new ConnectionInfo(SSH_HOST, SSH_PORT, SSH_USER, new PrivateKeyAuthenticationMethod(SSH_USER, new PrivateKeyFile(SSH_PRVKEY)));            }            // 连接SSH            var cli = new SshClient(conn);            cli.Connect();            var port = new ForwardedPortLocal(&quot;127.0.0.1&quot;, SSH_HOST, (uint)uri.Port);            cli.AddForwardedPort(port);            port.Start();            // 用本地端口替换mongodb uri中配置端口            var mUri = MONGODB_URI.Replace($&quot;:{uri.Port}&quot;, $&quot;:{port.BoundPort}&quot;);            var mCli = new MongoClient(mUri);            var mdb = mCli.GetDatabase(&quot;test&quot;);            foreach ( var name in mdb.ListCollectionNames().ToList())            {                Console.WriteLine(name);            }        }        catch(Exception e)        {            Console.WriteLine(e.ToString());        }    }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;一、环境&quot;&gt;&lt;a href=&quot;#一、环境&quot; class=&quot;headerlink&quot; title=&quot;一、环境&quot;&gt;&lt;/a&gt;一、环境&lt;/h1&gt;&lt;p&gt;在C#中可以使用&lt;code&gt;Renci.SshNet&lt;/code&gt;和&lt;code&gt;MongoDB.Driver&lt;/code&gt;通
+      
+    
+    </summary>
+    
+    
+      <category term="CSharp(C#)" scheme="https://zengwu.com.cn/categories/CSharp-C/"/>
+    
+    
+      <category term="CSharp(C#)" scheme="https://zengwu.com.cn/tags/CSharp-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java使用SSH连接MongoDB</title>
+    <link href="https://zengwu.com.cn/p/a6b55fd5.html"/>
+    <id>https://zengwu.com.cn/p/a6b55fd5.html</id>
+    <published>2021-11-03T15:21:55.000Z</published>
+    <updated>2021-11-21T09:19:51.714Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>在Java中可以使用<code>mongodb-driver</code>和<code>com.jcraft</code>来实现Java中使用SSH连接MongoDB。</p><p>maven配置</p><pre><code class="line-numbers language-xml">&lt;dependency&gt;    &lt;groupId&gt;org.mongodb&lt;/groupId&gt;    &lt;artifactId&gt;mongodb-driver&lt;/artifactId&gt;    &lt;version&gt;3.12.10&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt;    &lt;groupId&gt;com.jcraft&lt;/groupId&gt;    &lt;artifactId&gt;jsch&lt;/artifactId&gt;    &lt;version&gt;0.1.55&lt;/version&gt;&lt;/dependency&gt;</code></pre><h1 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h1><p>可以先通过JSch库使用SSH连接到MongoDB所有的服务器，再设置经JSch从本地端口到远程MongoDB端口的转发，最后使用mongodb-driver连接本地的转发端口就可以连接服务器了。</p><p>实现代码</p><pre><code class="line-numbers language-java">package com.application;import com.jcraft.jsch.JSch;import com.jcraft.jsch.Session;import com.mongodb.*;import com.mongodb.client.MongoDatabase;import org.bson.codecs.configuration.CodecRegistries;import org.bson.codecs.configuration.CodecRegistry;import org.bson.codecs.pojo.PojoCodecProvider;import java.net.URI;public class MongoAdmin {    // 数据库连接参数    private static final String MONGODB_URI = &quot;mongodb://root:123456@127.0.0.1:3717/admin&quot;;    private static final String SSH_USER = &quot;root&quot;;          // ssh账号    private static final String SSH_PASSWORD = &quot;.&quot;;         // ssh密码，若使用密钥且没密码时填空    private static final String SSH_PRVKEY = &quot;./ssh.pem&quot;;   // ssh密钥，若使用密码登录时为空    private static final String SSH_HOST = &quot;192.168.0.105&quot;; // ssh服务器    private static final Integer SSH_PORT = 22;             // ssh端口    public static void test() {        try {            URI uri = new URI(MONGODB_URI);            java.util.Properties config = new java.util.Properties();            // 设置ssh自动接受新的公钥            config.put(&quot;StrictHostKeyChecking&quot;,&quot;no&quot;);            JSch jsch = new JSch();            // 设置ssh密钥            if (!&quot;&quot;.equals(SSH_PRVKEY)){                jsch.addIdentity(SSH_PRVKEY);            }            Session sshSession = jsch.getSession(SSH_USER, SSH_HOST, SSH_PORT);            if (!&quot;&quot;.equals(SSH_PASSWORD)){                sshSession.setPassword(SSH_PASSWORD);            }            sshSession.setConfig(config);            sshSession.connect();            // 设置端口转发，将远程MongoDB端口转发为本地MongoDB对应端口            sshSession.setPortForwardingL(uri.getPort(), uri.getHost(), uri.getPort());            // 创建MongoDB连接            PojoCodecProvider pojoCodecProvider =  PojoCodecProvider.builder().automatic(true).build();            CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClient.getDefaultCodecRegistry(),                    CodecRegistries.fromProviders(pojoCodecProvider));            MongoClientOptions.Builder optionsBuilder = MongoClientOptions.builder()                    .codecRegistry(codecRegistry).serverSelectionTimeout(1000);            MongoClientURI clientUri = new MongoClientURI(MONGODB_URI, optionsBuilder);            MongoClient mongoClient = new MongoClient(clientUri);            // 测试打印test库所有列表            MongoDatabase mdb = mongoClient.getDatabase(&quot;test&quot;);            for ( String name : mdb.listCollectionNames()){                System.out.println(name);            }        } catch (Exception e) {            System.out.println(e.toString());        }    }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;一、环境&quot;&gt;&lt;a href=&quot;#一、环境&quot; class=&quot;headerlink&quot; title=&quot;一、环境&quot;&gt;&lt;/a&gt;一、环境&lt;/h1&gt;&lt;p&gt;在Java中可以使用&lt;code&gt;mongodb-driver&lt;/code&gt;和&lt;code&gt;com.jcraft&lt;/code&gt;来
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>也谈“过客”</title>
@@ -309,253 +555,6 @@
     
     
       <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>安装Ubuntu Server版</title>
-    <link href="https://zengwu.com.cn/p/c1e67b27.html"/>
-    <id>https://zengwu.com.cn/p/c1e67b27.html</id>
-    <published>2021-10-18T16:31:55.000Z</published>
-    <updated>2021-11-02T14:25:46.251Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h2><p>先去<a href="https://cn.ubuntu.com/download" target="_blank" rel="noopener">Ubuntu中国站</a>下载最新长期支持版本：<a href="https://releases.ubuntu.com/20.04/ubuntu-20.04.3-live-server-amd64.iso" target="_blank" rel="noopener">Ubuntu Server 20.04.3 LTS</a>。</p><h2 id="2、启动安装程序"><a href="#2、启动安装程序" class="headerlink" title="2、启动安装程序"></a>2、启动安装程序</h2><p>将ios文件刻录成光盘或者制作成u盘镜像启动，设置电脑启动项，以Ubuntu安装程序启动电脑。</p><p>U盘可以使用<a href="https://rufus.ie/" target="_blank" rel="noopener">rufus</a>，很简单的制作U盘镜像</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-1620ccfe8864ad43.png" alt></p><h2 id="3、选择语言"><a href="#3、选择语言" class="headerlink" title="3、选择语言"></a>3、选择语言</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-d237416f7eabbf86.png" alt></p><h2 id="4、选择键盘布局"><a href="#4、选择键盘布局" class="headerlink" title="4、选择键盘布局"></a>4、选择键盘布局</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-01ce2bf329240be9.png" alt></p><h2 id="5、配置网络"><a href="#5、配置网络" class="headerlink" title="5、配置网络"></a>5、配置网络</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-d389b9202aebe33f.png" alt></p><h2 id="6、设置代理"><a href="#6、设置代理" class="headerlink" title="6、设置代理"></a>6、设置代理</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-5e768570c52bf8ca.png" alt></p><h2 id="7、配置-ubuntu-归档镜像"><a href="#7、配置-ubuntu-归档镜像" class="headerlink" title="7、配置 ubuntu 归档镜像"></a>7、配置 ubuntu 归档镜像</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-7f8de6c558dde676.png" alt></p><h2 id="8、磁盘设置"><a href="#8、磁盘设置" class="headerlink" title="8、磁盘设置"></a>8、磁盘设置</h2><p>默认是<code>Use an entire disk</code>使用整个磁盘，也可以选择<code>Custom storgage layout</code>手动分区。</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-1ffc6748ef19937a.png" alt></p><h2 id="9、配置分区"><a href="#9、配置分区" class="headerlink" title="9、配置分区"></a>9、配置分区</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-eb5be2bfc5acbf6a.png" alt></p><h2 id="10、设置用户秘密"><a href="#10、设置用户秘密" class="headerlink" title="10、设置用户秘密"></a>10、设置用户秘密</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-37bf58c8df267c9c.png" alt></p><h2 id="11、选择软件包"><a href="#11、选择软件包" class="headerlink" title="11、选择软件包"></a>11、选择软件包</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-bf7d0d4fe0462028.png" alt></p><h2 id="12、等待系统安装"><a href="#12、等待系统安装" class="headerlink" title="12、等待系统安装"></a>12、等待系统安装</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-d9686d387dd11b71.png" alt></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;1、下载&quot;&gt;&lt;a href=&quot;#1、下载&quot; class=&quot;headerlink&quot; title=&quot;1、下载&quot;&gt;&lt;/a&gt;1、下载&lt;/h2&gt;&lt;p&gt;先去&lt;a href=&quot;https://cn.ubuntu.com/download&quot; target=&quot;_blank&quot; rel
-      
-    
-    </summary>
-    
-    
-      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
-    
-    
-      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2021年CentOS8停止维护</title>
-    <link href="https://zengwu.com.cn/p/60a498fe.html"/>
-    <id>https://zengwu.com.cn/p/60a498fe.html</id>
-    <published>2021-10-18T06:47:24.000Z</published>
-    <updated>2021-11-02T14:25:46.233Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响"><a href="#2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响" class="headerlink" title="2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响?"></a>2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响?</h2><p>事情是这样的，就在2020年12月8日，CentOS开发团队的一篇文章<a href="https://link.zhihu.com/?target=https%3A//blog.centos.org/2020/12/future-is-centos-stream/">future is centos stream</a>，让<code>CentOS Linux</code>发行版止步在了CentOS8版本，并且将在2021年12月31日停止维护（原本EOL时间是2029年5月31日的），替代它的是<code>CentOS Stream</code>滚动发行版。</p><p>这一消息<code>震惊了全世界CentOS使用者</code>，使用如此之广的开源操作系统就这么说没就没了？！？！</p><p>不相信也没有办法！事实如此。</p><h2 id="CentOS发行版与RHEL有何关系？"><a href="#CentOS发行版与RHEL有何关系？" class="headerlink" title="CentOS发行版与RHEL有何关系？"></a>CentOS发行版与RHEL有何关系？</h2><p>可以说 CentOS Linux 与 RHEL 算是兄弟关系。</p><p>CentOS（Community Enterprise Operating System）是Linux发行版之一，它是来自于Red Hat Enterprise Linux（RHEL）依照开放源代码规定发布的源代码所编译而成。由于出自同样的源代码，因此有些要求高度稳定性的服务器以CentOS替代商业版的Red Hat Enterprise Linux使用。</p><p>两者的不同，在于CentOS并不包含封闭源代码软件。CentOS 对上游代码的主要修改是为了移除不能自由使用的商标。</p><h2 id="Stream滚动版会替代CentOS稳定版有什么影响呢？"><a href="#Stream滚动版会替代CentOS稳定版有什么影响呢？" class="headerlink" title="Stream滚动版会替代CentOS稳定版有什么影响呢？"></a>Stream滚动版会替代CentOS稳定版有什么影响呢？</h2><p>我们先了解下Fedora、CentOS Stream、CentOS Linux和RHEL这几个版本的上下游关系：</p><p><img src="https://upload-images.jianshu.io/upload_images/19826068-f8cbca80e6e3a230.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p><p>如果你的服务器上安装了CentOS系统，对你的影响是：</p><ol><li>不再有bug修复更新，不会修复导致主机不稳定的BUG，同一个问题会一直让你头疼（可能没有这样的问题）。</li><li>不再为你提供新版本的软件包更新，以后就靠自己动手了。</li><li>稳定性降低，Stream滚动版可以理解为RHEL上游开发分支版本，稳定性必然是不如RHEL。对于生产系统稳定性的重要性你可以自己衡量。</li><li>寻找新的稳定版操作系统版本，可能是未来的<code>Rocky Linux</code>、Ubuntu或者SUSE还是ColorOS之类的其他系统。</li></ol><p>如果你的服务器是不对接公网，而仅仅是内部系统，那么对你来说影响并不大，因为很多服务软件都是你自己使用源代码编译生成的。继续使用<code>CentOS 8</code>也是可以的。</p><p>如果你的服务器对接公网，这就有网络安全问题啦， 一旦操作系统存在安全类的BUG，可以被攻击，那就遭了，这时你使用<code>CentOS 8</code>心里也是没底了，总觉着这是颗定时炸弹一样。换掉它早晚是你的选择。</p><h2 id="为什么Stream滚动版会替代CentOS呢？"><a href="#为什么Stream滚动版会替代CentOS呢？" class="headerlink" title="为什么Stream滚动版会替代CentOS呢？"></a>为什么Stream滚动版会替代CentOS呢？</h2><p>引发这一切的博客原文如下：</p><pre><code>CentOS Project shifts focus to CentOS StreamTuesday , 8, December 2020 Rich Bowen Uncategorized 669 CommentsThe future of the CentOS Project is CentOS Stream, and over the next year we’ll be shifting focus from CentOS Linux, the rebuild of Red Hat Enterprise Linux (RHEL), to CentOS Stream, which tracks just ahead of a current RHEL release. CentOS Linux 8, as a rebuild of RHEL 8, will end at the end of 2021\. CentOS Stream continues after that date, serving as the upstream (development) branch of Red Hat Enterprise Linux.Meanwhile, we understand many of you are deeply invested in CentOS Linux 7, and we’ll continue to produce that version through the remainder of the RHEL 7 life cycle.CentOS Stream will also be the centerpiece of a major shift in collaboration among the CentOS Special Interest Groups (SIGs). This ensures SIGs are developing and testing against what becomes the next version of RHEL. This also provides SIGs a clear single goal, rather than having to build and test for two releases. It gives the CentOS contributor community a great deal of influence in the future of RHEL. And it removes confusion around what “CentOS” means in the Linux distribution ecosystem.When CentOS Linux 8 (the rebuild of RHEL8) ends, your best option will be to migrate to CentOS Stream 8, which is a small delta from CentOS Linux 8, and has regular updates like traditional CentOS Linux releases. If you are using CentOS Linux 8 in a production environment, and are concerned that CentOS Stream will not meet your needs, we encourage you to contact Red Hat about options.We have an FAQ to help with your information and planning needs, as you figure out how this shift of project focus might affect you.</code></pre><p>这段文字的大概总结：</p><pre><code>2021年CentOS项目组重点关注CentOS Stream发行版，建议将CentOS8更新到CentOS Stream发行版，如果你不想将Stream版本应用到生产系统，可以联系RHEL（使用商业版更稳定呗）。</code></pre><p>博文下面的评论几乎都是负面的愤怒情绪，从此再也没有免费的RHEL企业版Linux系统了。</p><p>本文转自 <a href="https://zhuanlan.zhihu.com/p/348239763" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/348239763</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响&quot;&gt;&lt;a href=&quot;#2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响&quot; class=&quot;headerlink&quot; title=&quot;2021年CentOS8停止
-      
-    
-    </summary>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android中使用OAID</title>
-    <link href="https://zengwu.com.cn/p/a69bb014.html"/>
-    <id>https://zengwu.com.cn/p/a69bb014.html</id>
-    <published>2021-10-15T08:00:54.000Z</published>
-    <updated>2021-11-02T14:25:46.257Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><p>因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android 10及后续版本中非厂商系统应用将无法获取IMEI、MAC等设备信息。无法获取IMEI会在用户行为统计过程中对设备识别产生一定影响。近日移动安全联盟针对该问题联合国内手机厂商推出补充设备标准体系方案，选择OAID字段作为IMEI等的替代字段。OAID字段是由中国信通院联合华为、小米、OPPO、VIVO等厂商共同推出的设备识别字段，具有一定的权威性，可满足用户行为统计的使用场景。</p><p>移动安全联盟官网：  <a href="http://www.msa-alliance.cn/col.jsp?id=120" target="_blank" rel="noopener">移动安全联盟刚官网地址</a><br>安全联盟SDK、文档以及申请表格：  <a href="https://xianwanlibs.oss-cn-hangzhou.aliyuncs.com/msa-demo/oaid_sdk_1.0.29.zip" target="_blank" rel="noopener">安全联盟SDK1.0.29文档及SDK</a></p><h2 id="目前支持的机型"><a href="#目前支持的机型" class="headerlink" title="目前支持的机型"></a>目前支持的机型</h2><table><thead><tr><th>厂商名称</th><th>支持版本</th></tr></thead><tbody><tr><td>华为</td><td>HMS 2.6.2 及以上</td></tr><tr><td>小米</td><td>MIUI 10.2 及以上版本</td></tr><tr><td>vivo</td><td>Android 9 及以上版本</td></tr><tr><td>OPPO</td><td>colorOS 6 大部分覆盖，colorOS 7 及以上全覆盖</td></tr><tr><td>联想</td><td>ZUI 11.4 及以上版本</td></tr><tr><td>三星</td><td>Android 10 版本</td></tr><tr><td>魅族</td><td>Android 10 版本</td></tr><tr><td>努比亚</td><td>Android 10 版本</td></tr><tr><td>中兴</td><td>Android 10 版本</td></tr><tr><td>华硕</td><td>Android 10 版本</td></tr><tr><td>一加</td><td>Android 10 版本</td></tr><tr><td>黑鲨</td><td>Android 10 版本</td></tr><tr><td>摩托罗拉</td><td>Android 10 版本</td></tr><tr><td>Freeme OS</td><td>Android 10 版本</td></tr><tr><td>酷赛（铂睿智恒）</td><td>Android 10 版本</td></tr><tr><td>Realme</td><td>colorOS 6 大部分覆盖，colorOS 7 及以上全覆盖</td></tr><tr><td>荣耀</td><td>Android 10 版本</td></tr></tbody></table><h2 id="调用方法"><a href="#调用方法" class="headerlink" title="调用方法"></a>调用方法</h2><ol><li>接入准备——申请证书文件（将需要申请的app信息填写到example_batch.csv表格，然后发送到<a href="mailto:msa@caict.ac.cn">msa@caict.ac.cn</a>进行申请。注意每个包名对应一个签名，申请时需要将需要申请的全部包名填写到表格中。申请后安全联盟将会把所有申请的证书发送到申请时使用的邮箱）</li></ol><ul><li>注意： 关于example_batch.csv表格<br>表格中的会员账号：是指在安全联盟登录的账号 <a href="http://www.msa-alliance.cn/login.jsp?url=/col.jsp?id=120" target="_blank" rel="noopener">可点击进入安全联盟登录页面</a><br>表格中的邮箱：最好填写安全联盟登录账号绑定的邮箱</li></ul><ol start="2"><li><p>把oaid_sdk_x.x.x.aar拷贝到项的libs目录，并设置依赖，其中x.x.x代 表版本号。最新的版本为1.0.29</p></li><li><p>将证书文件（应用包名.cert.pem)、 supplierconfig.json 文件拷贝到项目 assets 目录下，（只获取oaid信息则不需要修改json配置文件，只需原样放到assets目录下即可。如果想要使用VAID，可修改里边对应内容，特别是需要设置 appid 的部分，要去对应厂商的应用商店里注册自己的 app，来获取对应appid。）</p></li><li><p>设置依赖</p><pre><code>implementation files(‘libs/oaid_sdk_1.0.29.aar’)</code></pre></li><li><p>混淆设置</p></li></ol><pre><code>    # sdk    -keep class com.bun.miitmdid.** { *; }    # asus    -keep class com.asus.msa.SupplementaryDID.** { *; }    -keep class com.asus.msa.sdid.** { *; }    # freeme    -keep class com.android.creator.** { *; }    -keep class com.android.msasdk.** { *; }    # huawei    -keep class com.huawei.hms.ads.identifier.** { *; }    #-keep class com.uodis.opendevice.aidl.** { *; }    # lenovo    -keep class com.zui.deviceidservice.** { *; }    -keep class com.zui.opendeviceidlibrary.** { *; }    # meizu    -keep class com.meizu.flyme.openidsdk.** { *; }    # nubia    -keep class com.bun.miitmdid.provider.nubia.NubiaIdentityImpl    # oppo    -keep class com.heytap.openid.** { *; }    # samsung    -keep class com.samsung.android.deviceidservice.** { *; }    # vivo    -keep class com.vivo.identifier.** { *; }    # xiaomi    -keep class com.bun.miitmdid.provider.xiaomi.IdentifierManager    # zte    -keep class com.bun.lib.** { *; }    # coolpad    -keep class com.coolpad.deviceidsupport.** { *; }</code></pre><ol start="6"><li><p>设置 gradle 编译选项，开发者可以根据自己对平台的选择进行合理配置</p><pre><code>ndk { abiFilters  &#39;armeabi-v7a&#39;,&#39;x86&#39;,&#39;arm64-v8a&#39;,&#39;x86_64&#39;,&#39;armeabi&#39; }</code></pre><p>注意：考虑到 sdk 兼容性，sdk 包默认集成了常用 abi 的 so，包括 armeabi-v7a,arm64-v8a, x84, x84_64 共四种。如果需要减小 SDK 体积，可以使用压缩工具打开 aar 文件，手动删除多余的架构。</p></li><li><p>添加 oaid管理文件<code>MiitHelper.java</code></p></li></ol><p>根据官网源文件<code>DemoHelper.java</code>修改而来，可以根据自己需求修改，这里是cocos工程，这里将文件<code>MiitHelper.java</code>放到<code>org.cocos2dx.javascript</code>目录中。</p><pre><code class="line-numbers language-java">package org.cocos2dx.javascript;import android.content.Context;import android.util.Log;import com.bun.miitmdid.core.InfoCode;import com.bun.miitmdid.core.MdidSdkHelper;import com.bun.miitmdid.interfaces.IIdentifierListener;import com.bun.miitmdid.interfaces.IdSupplier;import com.bun.miitmdid.pojo.IdSupplierImpl;import java.io.BufferedReader;import java.io.IOException;import java.io.InputStream;import java.io.InputStreamReader;public class MiitHelper implements IIdentifierListener {    public static final String TAG = &quot;MiitHelper&quot;;    public static final int HELPER_VERSION_CODE = 20210928; // DemoHelper版本号    private AppIdsUpdater appIdsUpdater;    private boolean isCertInit = false;    public final boolean isSDKLogOn = true;                           // 1）设置 是否开启sdk日志    public static String ASSET_FILE_NAME_CERT = &quot;&quot;;                // 2）设置 asset证书文件名    public static void Init(Context context, AppIdsUpdater listener){        MiitHelper miitHelper = new MiitHelper();        ASSET_FILE_NAME_CERT = context.getPackageName()+&quot;.cert.pem&quot;;        Log.e(TAG,ASSET_FILE_NAME_CERT);        System.loadLibrary(&quot;nllvm1632808251147706677&quot;);  // 加固版本在调用前必须载入SDK安全库        if(MdidSdkHelper.SDK_VERSION_CODE != HELPER_VERSION_CODE){            Log.w(TAG,&quot;SDK version not match.&quot;);            throw new RuntimeException(&quot;SDK version not match.&quot;);        }        miitHelper.appIdsUpdater = listener;        // 获取设备号        miitHelper.getDeviceIds(context);    }    /**     * 获取OAID     * @param cxt     */    public void getDeviceIds(Context cxt){        // TODO （4）初始化SDK证书        if(!isCertInit){ // 证书只需初始化一次            // 证书为PEM文件中的所有文本内容（包括首尾行、换行符）            isCertInit = MdidSdkHelper.InitCert(cxt, loadPemFromAssetFile(cxt, ASSET_FILE_NAME_CERT));            if(!isCertInit){                Log.w(TAG, &quot;getDeviceIds: cert init failed&quot;);            }        }        //（可选）设置InitSDK接口回调超时时间(仅适用于接口为异步)，默认值为5000ms.        // 注：请在调用前设置一次后就不再更改，否则可能导致回调丢失、重复等问题        MdidSdkHelper.setGlobalTimeout(5000);        // TODO （5）调用SDK获取ID        int code = MdidSdkHelper.InitSdk(cxt, isSDKLogOn, this);        // TODO （6）根据SDK返回的code进行不同处理        IdSupplierImpl unsupportedIdSupplier = new IdSupplierImpl();        if(code == InfoCode.INIT_ERROR_CERT_ERROR){                         // 证书未初始化或证书无效，SDK内部不会回调onSupport            // APP自定义逻辑            Log.w(TAG,&quot;cert not init or check not pass&quot;);            onSupport(unsupportedIdSupplier);        }else if(code == InfoCode.INIT_ERROR_DEVICE_NOSUPPORT){             // 不支持的设备, SDK内部不会回调onSupport            // APP自定义逻辑            Log.w(TAG,&quot;device not supported&quot;);            onSupport(unsupportedIdSupplier);        }else if( code == InfoCode.INIT_ERROR_LOAD_CONFIGFILE){            // 加载配置文件出错, SDK内部不会回调onSupport            // APP自定义逻辑            Log.w(TAG,&quot;failed to load config file&quot;);            onSupport(unsupportedIdSupplier);        }else if(code == InfoCode.INIT_ERROR_MANUFACTURER_NOSUPPORT){      // 不支持的设备厂商, SDK内部不会回调onSupport            // APP自定义逻辑            Log.w(TAG,&quot;manufacturer not supported&quot;);            onSupport(unsupportedIdSupplier);        }else if(code == InfoCode.INIT_ERROR_SDK_CALL_ERROR){             // sdk调用出错, SSDK内部不会回调onSupport            // APP自定义逻辑            Log.w(TAG,&quot;sdk call error&quot;);            onSupport(unsupportedIdSupplier);        } else if(code == InfoCode.INIT_INFO_RESULT_DELAY) {             // 获取接口是异步的，SDK内部会回调onSupport            Log.i(TAG, &quot;result delay (async)&quot;);        }else if(code == InfoCode.INIT_INFO_RESULT_OK){                  // 获取接口是同步的，SDK内部会回调onSupport            Log.i(TAG, &quot;result ok (sync)&quot;);        }else {            // sdk版本高于DemoHelper代码版本可能出现的情况，无法确定是否调用onSupport            // 不影响成功的OAID获取            Log.w(TAG,&quot;getDeviceIds: unknown code: &quot; + code);        }    }    /**     * APP自定义的getDeviceIds(Context cxt)的接口回调     * @param supplier     */    @Override    public void onSupport(IdSupplier supplier) {        if(supplier==null) {            Log.w(TAG, &quot;onSupport: supplier is null&quot;);            return;        }        if(appIdsUpdater ==null) {            Log.w(TAG, &quot;onSupport: callbackListener is null&quot;);            return;        }        // 获取Id信息        // 注：IdSupplier中的内容为本次调用MdidSdkHelper.InitSdk()的结果，不会实时更新。 如需更新，需调用MdidSdkHelper.InitSdk()        boolean isSupported = supplier.isSupported();        boolean isLimited  = supplier.isLimited();        String oaid=supplier.getOAID();        String vaid=supplier.getVAID();        String aaid=supplier.getAAID();        //TODO (7) 自定义后续流程，以下显示到UI的示例        String idsText= &quot;support: &quot; + (isSupported ? &quot;true&quot; : &quot;false&quot;) +                &quot;\nlimit: &quot; + (isLimited ? &quot;true&quot; : &quot;false&quot;) +                &quot;\nOAID: &quot; + oaid +                &quot;\nVAID: &quot; + vaid +                &quot;\nAAID: &quot; + aaid + &quot;\n&quot;;        Log.d(TAG, &quot;onSupport: ids: \n&quot; + idsText);        appIdsUpdater.onIdsValid(oaid);    }    public interface AppIdsUpdater {        void onIdsValid(String oaid);    }    /**     * 从asset文件读取证书内容     * @param context     * @param assetFileName     * @return 证书字符串     */    public static String loadPemFromAssetFile(Context context, String assetFileName){        try {            InputStream is = context.getAssets().open(assetFileName);            BufferedReader in = new BufferedReader(new InputStreamReader(is));            StringBuilder builder = new StringBuilder();            String line;            while ((line = in.readLine()) != null){                builder.append(line);                builder.append(&#39;\n&#39;);            }            return builder.toString();        } catch (IOException e) {            Log.e(TAG, &quot;loadPemFromAssetFile failed&quot;);            return &quot;&quot;;        }    }}</code></pre><ol start="8"><li><p>调用</p><p>在<code>Activity</code>的<code>onCreate</code>函数中添加初始化。这是异步调用，使用需要注意一下。</p></li></ol><pre><code class="line-numbers language-java">public class AppActivity extends Cocos2dxActivity implements ActivityCompat.OnRequestPermissionsResultCallback {    public static String oaid = &quot;&quot;;    ...    @Override    protected void onCreate(Bundle savedInstanceState) {        ...        MiitHelper.Init(this, new MiitHelper.AppIdsUpdater(){            @Override            public void onIdsValid(String oaid){                AppActivity.oaid = oaid;            }        });    }    ....}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;关于&quot;&gt;&lt;a href=&quot;#关于&quot; class=&quot;headerlink&quot; title=&quot;关于&quot;&gt;&lt;/a&gt;关于&lt;/h2&gt;&lt;p&gt;因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android
-      
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://zengwu.com.cn/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="https://zengwu.com.cn/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android中使用GAID</title>
-    <link href="https://zengwu.com.cn/p/632f98fb.html"/>
-    <id>https://zengwu.com.cn/p/632f98fb.html</id>
-    <published>2021-10-15T08:00:54.000Z</published>
-    <updated>2021-11-02T14:25:46.236Z</updated>
-    
-    <content type="html"><![CDATA[<p>在Android系统中，也有一个广告ID类似于iOS系统中的IDFA，这个就是基于Google Play Services的GAID了。但是国产手机的Andoird系统都是阉割掉了Google Play Services，所以是获取不到GAID的。</p><h2 id="设置依赖"><a href="#设置依赖" class="headerlink" title="设置依赖"></a>设置依赖</h2><p>在gradle中添加google sdk组件</p><pre><code> implementation group: &#39;com.google.android.gms&#39;, name: &#39;play-services-ads&#39;, version: &#39;15.0.0&#39;</code></pre><h2 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h2><pre><code class="line-numbers language-java"> //获取 GAIDpublic String getGAID(){        String gaid= &quot;&quot;;        AdvertisingIdClient.Info adInfo = null ;        try {            adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);        } catch (IOException e) {            // Unrecoverable error connecting to Google Play services (e.g.,            // the old version of the service doesn&#39;t support getting AdvertisingId).            Log.e(&quot;getGAID&quot;, &quot;IOException&quot;);        } catch (GooglePlayServicesNotAvailableException e) {            // Google Play services is not available entirely.            Log.e(&quot;getGAID&quot;, &quot;GooglePlayServicesNotAvailableException&quot;);        } catch (Exception e) {            Log.e(&quot;getGAID&quot;, &quot;Exception:&quot;+e.toString());            // Encountered a recoverable error connecting to Google Play services.        }        if (adInfo!= null){            gaid= adInfo.getId();            Log.w(&quot;getGAID&quot;, &quot;gaid:&quot;+gaid);        }        return gaid;    }</code></pre><p>注意，此方法需要在子线程执行，不然会报错。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在Android系统中，也有一个广告ID类似于iOS系统中的IDFA，这个就是基于Google Play Services的GAID了。但是国产手机的Andoird系统都是阉割掉了Google Play Services，所以是获取不到GAID的。&lt;/p&gt;
-&lt;h2 id=&quot;
-      
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://zengwu.com.cn/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="https://zengwu.com.cn/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>go中strings包</title>
-    <link href="https://zengwu.com.cn/p/774f7474.html"/>
-    <id>https://zengwu.com.cn/p/774f7474.html</id>
-    <published>2021-10-09T08:03:29.000Z</published>
-    <updated>2021-10-09T14:03:04.012Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="字符串比较"><a href="#字符串比较" class="headerlink" title="字符串比较"></a>字符串比较</h2><p><code>func Compare(a, b string) int</code><br>按两个字符串顺序比较两个字符ASCII码值大小比较。如果 a==b，则结果为 0，如果 a &lt; b，则结果为 -1，如果 a &gt; b，则结果为 +1。</p><pre><code class="line-numbers language-go">// 输出　-1fmt.Println(strings.Compare(&quot;guoke&quot;, &quot;hello&quot;))</code></pre><h2 id="字符串包含关系"><a href="#字符串包含关系" class="headerlink" title="字符串包含关系"></a>字符串包含关系</h2><p><code>func Contains(s, substr string) bool</code><br>判断s串中是否包含substr串。</p><pre><code class="line-numbers language-go">// 输出　truefmt.Println(strings.Contains(&quot;guoke&quot;, &quot;ke&quot;))</code></pre><h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><p><code>func Index(s, str string) int</code><br>判断str字符串在s字符串中出现的第一个索引位置，-1 表示字符串 s 不包含字符串 str</p><pre><code class="line-numbers language-go">// 输出　2fmt.Println(strings.Index(&quot;guoke&quot;, &quot;o&quot;))</code></pre><p><code>func LastIndex(s, str string) int</code><br>LastIndex返回子字符串str在s中最后一次出现的索引位置。</p><pre><code class="line-numbers language-go">// 输出　2fmt.Println(strings.LastIndex(&quot;guoke&quot;, &quot;o&quot;))</code></pre><h2 id="字符串替换"><a href="#字符串替换" class="headerlink" title="字符串替换"></a>字符串替换</h2><p><code>func Replace(s, old, new string, n int) string</code><br>替换返回字符串 s 的前 n 个副本,由新替换旧的非重叠实例。如果 old 为空，则匹配字符串的开头</p><pre><code class="line-numbers language-go">// 输出　gaakefmt.Println(strings.Replace(&quot;guoke&quot;, &quot;uo&quot;, &quot;aa&quot;, 1))</code></pre><h2 id="字符串重复"><a href="#字符串重复" class="headerlink" title="字符串重复"></a>字符串重复</h2><p><code>func Repeat(s string, count int) string</code><br>重复s字符串count次, 最后返回新生成的重复的字符串</p><pre><code class="line-numbers language-go">// 输出　guokeguokefmt.Println(strings.Repeat(&quot;guoke&quot;, 2))</code></pre><h2 id="剔除字符串开头和结尾的字符"><a href="#剔除字符串开头和结尾的字符" class="headerlink" title="剔除字符串开头和结尾的字符"></a>剔除字符串开头和结尾的字符</h2><p><code>func TrimSpace(s string)</code><br>剔除字符串开头和结尾的空白符号</p><pre><code class="line-numbers language-go">// 输出　guokefmt.Println(strings.TrimSpace(&quot; guoke&quot;))</code></pre><p><code>func Trim(s string, cutset string) string</code><br>替换指定的字符</p><pre><code class="line-numbers language-go">// 输出　guokfmt.Println(strings.Trim(&quot;guoke&quot;, &quot;e&quot;))</code></pre><p><code>func TrimLeft(s string, cutset string)</code><br><code>func TrimRight(s string, cutset string)</code><br>剔除开头或者结尾的字符串，该方法只在开头或者结尾剔除指定的字符</p><h2 id="字符串大小写转换"><a href="#字符串大小写转换" class="headerlink" title="字符串大小写转换"></a>字符串大小写转换</h2><p><code>func ToLower(s string) string</code><br>所有字母转换为小写</p><p><code>func ToUpper(s string) string</code><br>所有字母转换为大写</p><h2 id="分割字符串"><a href="#分割字符串" class="headerlink" title="分割字符串"></a>分割字符串</h2><p><code>func Split(s, sep string) []string</code><br>把字符串按照sep进行分割, 返回slice</p><pre><code class="line-numbers language-go">// 输出　[gu kegu ke]fmt.Println(strings.Split(&quot;guokeguoke&quot;, &quot;o&quot;))</code></pre><h2 id="拼接slice到字符串"><a href="#拼接slice到字符串" class="headerlink" title="拼接slice到字符串"></a>拼接slice到字符串</h2><p><code>func Join(elems []string, sep string) string</code><br>Join 连接其第一个参数的元素以创建单个字符串。 分隔符字符串 sep 放置在结果字符串中的元素之间。</p><pre><code class="line-numbers language-go">// 输出　aaobbelem := []string{&quot;aa&quot;, &quot;bb&quot;}fmt.Println(strings.Join(elem, &quot;o&quot;))</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;字符串比较&quot;&gt;&lt;a href=&quot;#字符串比较&quot; class=&quot;headerlink&quot; title=&quot;字符串比较&quot;&gt;&lt;/a&gt;字符串比较&lt;/h2&gt;&lt;p&gt;&lt;code&gt;func Compare(a, b string) int&lt;/code&gt;&lt;br&gt;按两个字符串顺序比较两个
-      
-    
-    </summary>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>go处理中文字符串</title>
-    <link href="https://zengwu.com.cn/p/4638a5a6.html"/>
-    <id>https://zengwu.com.cn/p/4638a5a6.html</id>
-    <published>2021-10-08T13:00:28.000Z</published>
-    <updated>2021-10-09T14:03:04.020Z</updated>
-    
-    <content type="html"><![CDATA[<p>先来看一个简单的例子</p><pre><code class="line-numbers language-go">func main() {    str := &quot;你好guoke&quot;    fmt.Println(&quot;字符串长度为:&quot;, len(str))    for i:=0; i&lt;len(str); i++{        fmt.Println(&quot;第&quot;,i+1,&quot;个字符为:&quot;,str[i:i+1])    }}</code></pre><p>输出的结果为：</p><pre><code class="line-numbers language-txt">字符串长度为: 11第 1 个字符为: �第 2 个字符为: �第 3 个字符为: �第 4 个字符为: �第 5 个字符为: �第 6 个字符为: �第 7 个字符为: g第 8 个字符为: u第 9 个字符为: o第 10 个字符为: k第 11 个字符为: e</code></pre><p>从上面例子中可以看出，string是以byte数组形式存储的,而一个utf8格式的中文占3个byte.要得到正确的中文字符的长度和分割,可以使用<code>rune</code>数组来拆分. rune类型是int32的别名,一个rune可以表示一个中文字符,go也提供了rune数组自动拆分string中文字符的方法<code>rt := []rune(str)</code>.</p><p>我们再把上面例子修改一下：</p><pre><code class="line-numbers language-go">func main() {    str := &quot;你好guoke&quot;    rt := []rune(str)    fmt.Println(&quot;字符串长度为:&quot;, len(rt))    for i:=0; i&lt;len(rt); i++{        fmt.Println(&quot;第&quot;,i+1,&quot;个字符为:&quot;,string(rt[i]))    }}</code></pre><p>得到的输出结果为：</p><pre><code class="line-numbers language-txt">字符串长度为: 7第 1 个字符为: 你第 2 个字符为: 好第 3 个字符为: g第 4 个字符为: u第 5 个字符为: o第 6 个字符为: k第 7 个字符为: e</code></pre><p>这样就能比较好的处理中文了,而且不会出现乱码的情况.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;先来看一个简单的例子&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;line-numbers language-go&quot;&gt;func main() {
-    str := &amp;quot;你好guoke&amp;quot;
-    fmt.Println(&amp;quot;字符串长度为:&amp;quo
-      
-    
-    </summary>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Protocolbuf不同语言生成</title>
-    <link href="https://zengwu.com.cn/p/a162a42a.html"/>
-    <id>https://zengwu.com.cn/p/a162a42a.html</id>
-    <published>2021-09-30T02:17:23.000Z</published>
-    <updated>2021-10-09T14:03:04.022Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="protoc"><a href="#protoc" class="headerlink" title="protoc"></a>protoc</h1><p><a href="https://github.com/protocolbuffers/protobuf/releases/tag/v3.18.0" target="_blank" rel="noopener">Protocol Buffers</a>可以使用Google提供的protoc来生成不同语言的版本.</p><pre><code class="line-numbers language-bash">protoc -I=$SRC_DIR --type_out=$DST_DIR $SRC_DIR/file.proto</code></pre><ul><li>$SRC_DIR: proto源文件目录</li><li>type_out:支持的输出语言</li><li>$DST_DIR: 输出目录</li><li>file.proto: proto文件名</li></ul><p>type_out支持的输出类型有:<br>| 类型       | 语言 | 输出文件             |<br>| ———- | —- | ——————– |<br>| cpp_out    | C++  | file.pb.cc,file.pb.h |<br>| csharp_out | C#   | file.cs              |<br>| go_out     | Go   | file.pb.go           |<br>| java_out   | Java | file..java           |</p><h1 id="js-ts"><a href="#js-ts" class="headerlink" title="js/ts"></a>js/ts</h1><p>对于js/ts的生成,可以使用<code>protobufjs</code>插件来完成</p><pre><code class="line-numbers language-bash">npm install -g protobufjs</code></pre><pre><code class="line-numbers language-bash"># 生成jspbjs -t static-module -w commonjs -o  file.js file.proto# 生成tspbts -o file.ts file.js</code></pre><h1 id="脚本实现多proto生成"><a href="#脚本实现多proto生成" class="headerlink" title="脚本实现多proto生成"></a>脚本实现多proto生成</h1><p>自己用python 3.7写了一个proto生成的脚本.<a href="https://github.com/zngw/protocol" target="_blank" rel="noopener">https://github.com/zngw/protocol</a></p><p>将所有要生成proto源文件放在<code>proto_raw</code>目录中,可以是多个文件</p><pre><code class="line-numbers language-proto">//登录请求message GameLoginReq {    string account = 1;        // 登录帐号    string password = 2;    // 登录密码}//登录返回message GameLoginResp {    int32 result = 1;    // 返回结果.}</code></pre><p>然后使用不同的to_xx.py生成不同的语言.生成的文件在out目录中<br><img src="//gitee.com/guoke3915/zw/raw/master/p/a162a42a/19826068-d98677d445c4e601.png" alt></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;protoc&quot;&gt;&lt;a href=&quot;#protoc&quot; class=&quot;headerlink&quot; title=&quot;protoc&quot;&gt;&lt;/a&gt;protoc&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/protocolbuffers/protobuf/r
-      
-    
-    </summary>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Protobuf3语言指南（转）</title>
-    <link href="https://zengwu.com.cn/p/387686d2.html"/>
-    <id>https://zengwu.com.cn/p/387686d2.html</id>
-    <published>2021-09-29T01:29:18.000Z</published>
-    <updated>2021-10-09T14:03:04.023Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>英文原文：<br><a href="https://developers.google.com/protocol-buffers/docs/proto3?hl=zh-cn#generating" target="_blank" rel="noopener">Language Guide (proto3)</a><br>中文出处：<br><a href="http://www.open-open.com/home/space.php?uid=37924&do=blog&id=5873" target="_blank" rel="noopener">Protobuf语言指南</a><br><a href="http://colobu.com/2015/01/07/Protobuf-language-guide/" target="_blank" rel="noopener">[译]Protobuf 语法指南</a><br>中文出处是proto2的译文，proto3的英文出现后在原来基础上增改了，水平有限，还请指正</p></blockquote><p>这个指南描述了如何使用Protocol buffer 语言去描述你的protocol buffer 数据， 包括 .proto文件符号和如何从.proto文件生成类。包含了proto2版本的protocol buffer语言：对于老版本的proto3 符号，请见<a href="https://developers.google.com/protocol-buffers/docs/proto?hl=zh-cn" target="_blank" rel="noopener">Proto2 Language Guide</a>（以及<a href="http://colobu.com/2015/01/07/Protobuf-language-guide/" target="_blank" rel="noopener">中文译本</a>，抄了很多这里的感谢下老版本的翻译者）</p><p>本文是一个参考指南——如果要查看如何使用本文中描述的多个特性的循序渐进的例子，请在<a href="https://developers.google.com/protocol-buffers/docs/tutorials?hl=zh-cn" target="_blank" rel="noopener">教程</a>中查找需要的语言的教程。</p><h1 id="定义一个消息类型"><a href="#定义一个消息类型" class="headerlink" title="定义一个消息类型"></a>定义一个消息类型</h1><p>先来看一个非常简单的例子。假设你想定义一个“搜索请求”的消息格式，每一个请求含有一个查询字符串、你感兴趣的查询结果所在的页数，以及每一页多少条查询结果。可以采用如下的方式来定义消息类型的.proto文件了：</p><pre><code>syntax = &quot;proto3&quot;;message SearchRequest {  string query = 1;  int32 page_number = 2;  int32 result_per_page = 3;}1234567</code></pre><ul><li>文件的第一行指定了你正在使用proto3语法：如果你没有指定这个，编译器会使用proto2。这个指定语法行必须是文件的非空非注释的第一个行。</li><li>SearchRequest消息格式有3个字段，在消息中承载的数据分别对应于每一个字段。其中每个字段都有一个名字和一种类型。</li></ul><h2 id="指定字段类型"><a href="#指定字段类型" class="headerlink" title="指定字段类型"></a>指定字段类型</h2><p>在上面的例子中，所有字段都是标量类型：两个整型（page_number和result_per_page），一个string类型（query）。当然，你也可以为字段指定其他的合成类型，包括枚举（enumerations）或其他消息类型。</p><h2 id="分配标识号"><a href="#分配标识号" class="headerlink" title="分配标识号"></a>分配标识号</h2><p>正如你所见，在消息定义中，每个字段都有唯一的一个数字标识符。这些标识符是用来在消息的二进制格式中识别各个字段的，一旦开始使用就不能够再改变。注：[1,15]之内的标识号在编码的时候会占用一个字节。[16,2047]之内的标识号则占用2个字节。所以应该为那些频繁出现的消息元素保留 [1,15]之内的标识号。切记：要为将来有可能添加的、频繁出现的标识号预留一些标识号。</p><p>最小的标识号可以从1开始，最大到2^29 - 1, or 536,870,911。不可以使用其中的[19000－19999]（ (从FieldDescriptor::kFirstReservedNumber 到 FieldDescriptor::kLastReservedNumber)）的标识号， Protobuf协议实现中对这些进行了预留。如果非要在.proto文件中使用这些预留标识号，编译时就会报警。同样你也不能使用早期<a href="https://developers.google.com/protocol-buffers/docs/proto3?hl=zh-cn#reserved" target="_blank" rel="noopener">保留</a>的标识号。</p><h2 id="指定字段规则"><a href="#指定字段规则" class="headerlink" title="指定字段规则"></a>指定字段规则</h2><p>所指定的消息字段修饰符必须是如下之一：</p><ul><li><p>singular：一个格式良好的消息应该有0个或者1个这种字段（但是不能超过1个）。</p></li><li><p>repeated：在一个格式良好的消息中，这种字段可以重复任意多次（包括0次）。重复的值的顺序会被保留。</p><p>在proto3中，repeated的标量域默认情况虾使用packed。</p><p>你可以了解更多的pakced属性在<a href="https://developers.google.com/protocol-buffers/docs/encoding?hl=zh-cn#packed" target="_blank" rel="noopener">Protocol Buffer 编码</a></p></li></ul><h2 id="添加更多消息类型"><a href="#添加更多消息类型" class="headerlink" title="添加更多消息类型"></a>添加更多消息类型</h2><p>在一个.proto文件中可以定义多个消息类型。在定义多个相关的消息的时候，这一点特别有用——例如，如果想定义与SearchResponse消息类型对应的回复消息格式的话，你可以将它添加到相同的.proto文件中，如：</p><pre><code>message SearchRequest {  string query = 1;  int32 page_number = 2;  int32 result_per_page = 3;}message SearchResponse { ...}123456789</code></pre><h2 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h2><p>向.proto文件添加注释，可以使用C/C++/java风格的双斜杠（//） 语法格式，如：</p><pre><code>message SearchRequest {  string query = 1;  int32 page_number = 2;  // Which page number do we want?  int32 result_per_page = 3;  // Number of results to return per page.}12345</code></pre><h2 id="保留标识符（Reserved）"><a href="#保留标识符（Reserved）" class="headerlink" title="保留标识符（Reserved）"></a>保留标识符（Reserved）</h2><p>如果你通过删除或者注释所有域，以后的用户可以重用标识号当你重新更新类型的时候。如果你使用旧版本加载相同的.proto文件这会导致严重的问题，包括数据损坏、隐私错误等等。现在有一种确保不会发生这种情况的方法就是指定保留标识符（and/or names, which can also cause issues for JSON serialization不明白什么意思），protocol buffer的编译器会警告未来尝试使用这些域标识符的用户。</p><pre><code>message Foo {  reserved 2, 15, 9 to 11;  reserved &quot;foo&quot;, &quot;bar&quot;;}1234</code></pre><p>注：不要在同一行reserved声明中同时声明域名字和标识号</p><h2 id="从-proto文件生成了什么？"><a href="#从-proto文件生成了什么？" class="headerlink" title="从.proto文件生成了什么？"></a>从.proto文件生成了什么？</h2><p>当用protocol buffer编译器来运行.proto文件时，编译器将生成所选择语言的代码，这些代码可以操作在.proto文件中定义的消息类型，包括获取、设置字段值，将消息序列化到一个输出流中，以及从一个输入流中解析消息。</p><ul><li>对C++来说，编译器会为每个.proto文件生成一个.h文件和一个.cc文件，.proto文件中的每一个消息有一个对应的类。</li><li>对Java来说，编译器为每一个消息类型生成了一个.java文件，以及一个特殊的Builder类（该类是用来创建消息类接口的）。</li><li>对Python来说，有点不太一样——Python编译器为.proto文件中的每个消息类型生成一个含有静态描述符的模块，，该模块与一个元类（metaclass）在运行时（runtime）被用来创建所需的Python数据访问类。</li><li>对go来说，编译器会位每个消息类型生成了一个.pd.go文件。</li><li>对于Ruby来说，编译器会为每个消息类型生成了一个.rb文件。</li><li>javaNano来说，编译器输出类似域java但是没有Builder类</li><li>对于Objective-C来说，编译器会为每个消息类型生成了一个pbobjc.h文件和pbobjcm文件，.proto文件中的每一个消息有一个对应的类。</li><li>对于C#来说，编译器会为每个消息类型生成了一个.cs文件，.proto文件中的每一个消息有一个对应的类。</li></ul><p>你可以从如下的文档链接中获取每种语言更多API(proto3版本的内容很快就公布)。<a href="https://developers.google.com/protocol-buffers/docs/reference/overview?hl=zh-cn" target="_blank" rel="noopener">API Reference</a></p><h1 id="标量数值类型"><a href="#标量数值类型" class="headerlink" title="标量数值类型"></a>标量数值类型</h1><p>一个标量消息字段可以含有一个如下的类型——该表格展示了定义于.proto文件中的类型，以及与之对应的、在自动生成的访问类中定义的类型：</p><table><thead><tr><th>.proto Type</th><th>Notes</th><th>C++ Type</th><th>Java Type</th><th>Python Type[2]</th><th>Go Type</th><th>Ruby Type</th><th>C# Type</th><th>PHP Type</th></tr></thead><tbody><tr><td>double</td><td></td><td>double</td><td>double</td><td>float</td><td>float64</td><td>Float</td><td>double</td><td>float</td></tr><tr><td>float</td><td></td><td>float</td><td>float</td><td>float</td><td>float32</td><td>Float</td><td>float</td><td>float</td></tr><tr><td>int32</td><td>使用变长编码，对于负值的效率很低，如果你的域有可能有负值，请使用sint64替代</td><td>int32</td><td>int</td><td>int</td><td>int32</td><td>Fixnum 或者 Bignum（根据需要）</td><td>int</td><td>integer</td></tr><tr><td>uint32</td><td>使用变长编码</td><td>uint32</td><td>int</td><td>int/long</td><td>uint32</td><td>Fixnum 或者 Bignum（根据需要）</td><td>uint</td><td>integer</td></tr><tr><td>uint64</td><td>使用变长编码</td><td>uint64</td><td>long</td><td>int/long</td><td>uint64</td><td>Bignum</td><td>ulong</td><td>integer/string</td></tr><tr><td>sint32</td><td>使用变长编码，这些编码在负值时比int32高效的多</td><td>int32</td><td>int</td><td>int</td><td>int32</td><td>Fixnum 或者 Bignum（根据需要）</td><td>int</td><td>integer</td></tr><tr><td>sint64</td><td>使用变长编码，有符号的整型值。编码时比通常的int64高效。</td><td>int64</td><td>long</td><td>int/long</td><td>int64</td><td>Bignum</td><td>long</td><td>integer/string</td></tr><tr><td>fixed32</td><td>总是4个字节，如果数值总是比总是比228大的话，这个类型会比uint32高效。</td><td>uint32</td><td>int</td><td>int</td><td>uint32</td><td>Fixnum 或者 Bignum（根据需要）</td><td>uint</td><td>integer</td></tr><tr><td>fixed64</td><td>总是8个字节，如果数值总是比总是比256大的话，这个类型会比uint64高效。</td><td>uint64</td><td>long</td><td>int/long</td><td>uint64</td><td>Bignum</td><td>ulong</td><td>integer/string</td></tr><tr><td>sfixed32</td><td>总是4个字节</td><td>int32</td><td>int</td><td>int</td><td>int32</td><td>Fixnum 或者 Bignum（根据需要）</td><td>int</td><td>integer</td></tr><tr><td>sfixed64</td><td>总是8个字节</td><td>int64</td><td>long</td><td>int/long</td><td>int64</td><td>Bignum</td><td>long</td><td>integer/string</td></tr><tr><td>bool</td><td></td><td>bool</td><td>boolean</td><td>bool</td><td>bool</td><td>TrueClass/FalseClass</td><td>bool</td><td>boolean</td></tr><tr><td>string</td><td>一个字符串必须是UTF-8编码或者7-bit ASCII编码的文本。</td><td>string</td><td>String</td><td>str/unicode</td><td>string</td><td>String (UTF-8)</td><td>string</td><td>string</td></tr><tr><td>bytes</td><td>可能包含任意顺序的字节数据。</td><td>string</td><td>ByteString</td><td>str</td><td>[]byte</td><td>String (ASCII-8BIT)</td><td>ByteString</td><td>string</td></tr></tbody></table><p>你可以在文章<a href="https://developers.google.com/protocol-buffers/docs/encoding?hl=zh-cn" target="_blank" rel="noopener">Protocol Buffer 编码</a>中，找到更多“序列化消息时各种类型如何编码”的信息。</p><ol><li>在java中，无符号32位和64位整型被表示成他们的整型对应形似，最高位被储存在标志位中。</li><li>对于所有的情况，设定值会执行类型检查以确保此值是有效。</li><li>64位或者无符号32位整型在解码时被表示成为ilong，但是在设置时可以使用int型值设定，在所有的情况下，值必须符合其设置其类型的要求。</li><li>python中string被表示成在解码时表示成unicode。但是一个ASCIIstring可以被表示成str类型。</li><li>Integer在64位的机器上使用，string在32位机器上使用</li></ol><h1 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h1><p>当一个消息被解析的时候，如果被编码的信息不包含一个特定的singular元素，被解析的对象锁对应的域被设置位一个默认值，对于不同类型指定如下：</p><ul><li><p>对于strings，默认是一个空string</p></li><li><p>对于bytes，默认是一个空的bytes</p></li><li><p>对于bools，默认是false</p></li><li><p>对于数值类型，默认是0</p></li><li><p>对于枚举，默认是第一个定义的枚举值，必须为0;</p></li><li><p>对于消息类型（message），域没有被设置，确切的消息是根据语言确定的，详见<a href="https://developers.google.com/protocol-buffers/docs/reference/overview?hl=zh-cn" target="_blank" rel="noopener">generated code guide</a></p><p>对于可重复域的默认值是空（通常情况下是对应语言中空列表）。</p><p>注：对于标量消息域，一旦消息被解析，就无法判断域释放被设置为默认值（例如，例如boolean值是否被设置为false）还是根本没有被设置。你应该在定义你的消息类型时非常注意。例如，比如你不应该定义boolean的默认值false作为任何行为的触发方式。也应该注意如果一个标量消息域被设置为标志位，这个值不应该被序列化传输。</p><p>查看<a href="https://developers.google.com/protocol-buffers/docs/reference/overview?hl=zh-cn" target="_blank" rel="noopener">generated code guide</a>选择你的语言的默认值的工作细节。</p></li></ul><h1 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h1><p>当需要定义一个消息类型的时候，可能想为一个字段指定某“预定义值序列”中的一个值。例如，假设要为每一个SearchRequest消息添加一个 corpus字段，而corpus的值可能是UNIVERSAL，WEB，IMAGES，LOCAL，NEWS，PRODUCTS或VIDEO中的一个。 其实可以很容易地实现这一点：通过向消息定义中添加一个枚举（enum）并且为每个可能的值定义一个常量就可以了。</p><p>在下面的例子中，在消息格式中添加了一个叫做Corpus的枚举类型——它含有所有可能的值 ——以及一个类型为Corpus的字段：</p><pre><code>message SearchRequest {  string query = 1;  int32 page_number = 2;  int32 result_per_page = 3;  enum Corpus {    UNIVERSAL = 0;    WEB = 1;    IMAGES = 2;    LOCAL = 3;    NEWS = 4;    PRODUCTS = 5;    VIDEO = 6;  }  Corpus corpus = 4;}123456789101112131415</code></pre><p>如你所见，Corpus枚举的第一个常量映射为0：每个枚举类型必须将其第一个类型映射为0，这是因为：</p><ul><li><p>必须有有一个0值，我们可以用这个0值作为默认值。</p></li><li><p>这个零值必须为第一个元素，为了兼容proto2语义，枚举类的第一个值总是默认值。</p><p>你可以通过将不同的枚举常量指定位相同的值。如果这样做你需要将allow_alias设定位true，否则编译器会在别名的地方产生一个错误信息。</p></li></ul><pre><code>enum EnumAllowingAlias {  option allow_alias = true;  UNKNOWN = 0;  STARTED = 1;  RUNNING = 1;}enum EnumNotAllowingAlias {  UNKNOWN = 0;  STARTED = 1;  // RUNNING = 1;  // Uncommenting this line will cause a compile error inside Google and a warning message outside.}1234567891011</code></pre><p>枚举常量必须在32位整型值的范围内。因为enum值是使用可变编码方式的，对负数不够高效，因此不推荐在enum中使用负数。如上例所示，可以在 一个消息定义的内部或外部定义枚举——这些枚举可以在.proto文件中的任何消息定义里重用。当然也可以在一个消息中声明一个枚举类型，而在另一个不同 的消息中使用它——采用MessageType.EnumType的语法格式。</p><p>当对一个使用了枚举的.proto文件运行protocol buffer编译器的时候，生成的代码中将有一个对应的enum（对Java或C++来说），或者一个特殊的EnumDescriptor类（对 Python来说），它被用来在运行时生成的类中创建一系列的整型值符号常量（symbolic constants）。</p><p>在反序列化的过程中，无法识别的枚举值会被保存在消息中，虽然这种表示方式需要依据所使用语言而定。在那些支持开放枚举类型超出指定范围之外的语言中（例如C++和Go），为识别的值会被表示成所支持的整型。在使用封闭枚举类型的语言中（Java），使用枚举中的一个类型来表示未识别的值，并且可以使用所支持整型来访问。在其他情况下，如果解析的消息被序列号，未识别的值将保持原样。</p><p>关于如何在你的应用程序的消息中使用枚举的更多信息，请查看所选择的语言<a href="http://code.google.com/intl/zh-CN/apis/protocolbuffers/docs/reference/overview.html。" target="_blank" rel="noopener">generated code guide</a></p><h1 id="使用其他消息类型"><a href="#使用其他消息类型" class="headerlink" title="使用其他消息类型"></a>使用其他消息类型</h1><p>你可以将其他消息类型用作字段类型。例如，假设在每一个SearchResponse消息中包含Result消息，此时可以在相同的.proto文件中定义一个Result消息类型，然后在SearchResponse消息中指定一个Result类型的字段，如：</p><pre><code>message SearchResponse {  repeated Result results = 1;}message Result {  string url = 1;  string title = 2;  repeated string snippets = 3;}123456789</code></pre><h2 id="导入定义"><a href="#导入定义" class="headerlink" title="导入定义"></a>导入定义</h2><p>在上面的例子中，Result消息类型与SearchResponse是定义在同一文件中的。如果想要使用的消息类型已经在其他.proto文件中已经定义过了呢？<br>你可以通过导入（importing）其他.proto文件中的定义来使用它们。要导入其他.proto文件的定义，你需要在你的文件中添加一个导入声明，如：</p><pre><code>import &quot;myproject/other_protos.proto&quot;;1</code></pre><p>默认情况下你只能使用直接导入的.proto文件中的定义. 然而， 有时候你需要移动一个.proto文件到一个新的位置， 可以不直接移动.proto文件， 只需放入一个伪 .proto 文件在老的位置， 然后使用import public转向新的位置。import public 依赖性会通过任意导入包含import public声明的proto文件传递。例如：</p><pre><code>// 这是新的proto// All definitions are moved here12// 这是久的proto// 这是所有客户端正在导入的包import public &quot;new.proto&quot;;import &quot;other.proto&quot;;1234// 客户端protoimport &quot;old.proto&quot;;// 现在你可以使用新久两种包的proto定义了。123</code></pre><p>通过在编译器命令行参数中使用<code>-I/--proto_path</code>protocal 编译器会在指定目录搜索要导入的文件。如果没有给出标志，编译器会搜索编译命令被调用的目录。通常你只要指定proto_path标志为你的工程根目录就好。并且指定好导入的正确名称就好。</p><h2 id="使用proto2消息类型"><a href="#使用proto2消息类型" class="headerlink" title="使用proto2消息类型"></a>使用proto2消息类型</h2><p>在你的proto3消息中导入proto2的消息类型也是可以的，反之亦然，然后proto2枚举不可以直接在proto3的标识符中使用（如果仅仅在proto2消息中使用是可以的）。</p><h2 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h2><p>你可以在其他消息类型中定义、使用消息类型，在下面的例子中，Result消息就定义在SearchResponse消息内，如：</p><pre><code>message SearchResponse {  message Result {    string url = 1;    string title = 2;    repeated string snippets = 3;  }  repeated Result results = 1;}12345678</code></pre><p>如果你想在它的父消息类型的外部重用这个消息类型，你需要以Parent.Type的形式使用它，如：</p><pre><code>message SomeOtherMessage {  SearchResponse.Result result = 1;}123</code></pre><p>当然，你也可以将消息嵌套任意多层，如：</p><pre><code>message Outer {                  // Level 0  message MiddleAA {  // Level 1    message Inner {   // Level 2      int64 ival = 1;      bool  booly = 2;    }  }  message MiddleBB {  // Level 1    message Inner {   // Level 2      int32 ival = 1;      bool  booly = 2;    }  }}1234567891011121314</code></pre><h2 id="更新一个消息类型"><a href="#更新一个消息类型" class="headerlink" title="更新一个消息类型"></a>更新一个消息类型</h2><p>如果一个已有的消息格式已无法满足新的需求——如，要在消息中添加一个额外的字段——但是同时旧版本写的代码仍然可用。不用担心！更新消息而不破坏已有代码是非常简单的。在更新时只要记住以下的规则即可。</p><ul><li>不要更改任何已有的字段的数值标识。</li><li>如果你增加新的字段，使用旧格式的字段仍然可以被你新产生的代码所解析。你应该记住这些元素的默认值这样你的新代码就可以以适当的方式和旧代码产生的数据交互。相似的，通过新代码产生的消息也可以被旧代码解析：只不过新的字段会被忽视掉。注意，未被识别的字段会在反序列化的过程中丢弃掉，所以如果消息再被传递给新的代码，新的字段依然是不可用的（这和proto2中的行为是不同的，在proto2中未定义的域依然会随着消息被序列化）</li><li>非required的字段可以移除——只要它们的标识号在新的消息类型中不再使用（更好的做法可能是重命名那个字段，例如在字段前添加“OBSOLETE_”前缀，那样的话，使用的.proto文件的用户将来就不会无意中重新使用了那些不该使用的标识号）。</li><li>int32, uint32, int64, uint64,和bool是全部兼容的，这意味着可以将这些类型中的一个转换为另外一个，而不会破坏向前、 向后的兼容性。如果解析出来的数字与对应的类型不相符，那么结果就像在C++中对它进行了强制类型转换一样（例如，如果把一个64位数字当作int32来 读取，那么它就会被截断为32位的数字）。</li><li>sint32和sint64是互相兼容的，但是它们与其他整数类型不兼容。</li><li>string和bytes是兼容的——只要bytes是有效的UTF-8编码。</li><li>嵌套消息与bytes是兼容的——只要bytes包含该消息的一个编码过的版本。</li><li>fixed32与sfixed32是兼容的，fixed64与sfixed64是兼容的。</li><li>枚举类型与int32，uint32，int64和uint64相兼容（注意如果值不相兼容则会被截断），然而在客户端反序列化之后他们可能会有不同的处理方式，例如，未识别的proto3枚举类型会被保留在消息中，但是他的表示方式会依照语言而定。int类型的字段总会保留他们的</li></ul><h1 id="Any"><a href="#Any" class="headerlink" title="Any"></a>Any</h1><p>Any类型消息允许你在没有指定他们的.proto定义的情况下使用消息作为一个嵌套类型。一个Any类型包括一个可以被序列化bytes类型的任意消息，以及一个URL作为一个全局标识符和解析消息类型。为了使用Any类型，你需要导入<code>import google/protobuf/any.proto</code></p><pre><code>import &quot;google/protobuf/any.proto&quot;;message ErrorStatus {  string message = 1;  repeated google.protobuf.Any details = 2;}123456</code></pre><p>对于给定的消息类型的默认类型URL是<code>type.googleapis.com/packagename.messagename</code>。</p><p>不同语言的实现会支持动态库以线程安全的方式去帮助封装或者解封装Any值。例如在java中，Any类型会有特殊的<code>pack()</code>和<code>unpack()</code>访问器，在C++中会有<code>PackFrom()</code>和<code>UnpackTo()</code>方法。</p><pre><code>// Storing an arbitrary message type in Any.NetworkErrorDetails details = ...;ErrorStatus status;status.add_details()-&gt;PackFrom(details);// Reading an arbitrary message from Any.ErrorStatus status = ...;for (const Any&amp; detail : status.details()) {  if (detail.Is&lt;NetworkErrorDetails&gt;()) {    NetworkErrorDetails network_error;    detail.UnpackTo(&amp;network_error);    ... processing network_error ...  }}1234567891011121314</code></pre><p><strong>目前，用于Any类型的动态库仍在开发之中</strong><br>如果你已经很熟悉<a href="https://developers.google.com/protocol-buffers/docs/proto?hl=zh-cn" target="_blank" rel="noopener">proto2语法</a>，使用Any替换<a href="https://developers.google.com/protocol-buffers/docs/proto?hl=zh-cn#extensions" target="_blank" rel="noopener">拓展</a></p><h1 id="Oneof"><a href="#Oneof" class="headerlink" title="Oneof"></a>Oneof</h1><p>如果你的消息中有很多可选字段， 并且同时至多一个字段会被设置， 你可以加强这个行为，使用oneof特性节省内存.</p><p>Oneof字段就像可选字段， 除了它们会共享内存， 至多一个字段会被设置。 设置其中一个字段会清除其它字段。 你可以使用<code>case()</code>或者<code>WhichOneof()</code> 方法检查哪个oneof字段被设置， 看你使用什么语言了.</p><h2 id="使用Oneof"><a href="#使用Oneof" class="headerlink" title="使用Oneof"></a>使用Oneof</h2><p>为了在.proto定义Oneof字段， 你需要在名字前面加上oneof关键字, 比如下面例子的test_oneof:</p><pre><code>message SampleMessage {  oneof test_oneof {    string name = 4;    SubMessage sub_message = 9;  }}123456</code></pre><p>然后你可以增加oneof字段到 oneof 定义中. 你可以增加任意类型的字段, 但是不能使用repeated 关键字.</p><p>在产生的代码中, oneof字段拥有同样的 getters 和setters， 就像正常的可选字段一样. 也有一个特殊的方法来检查到底那个字段被设置. 你可以在相应的语言<a href="https://developers.google.com/protocol-buffers/docs/reference/overview?hl=zh-cn" target="_blank" rel="noopener">API指南</a>中找到oneof API介绍.</p><h2 id="Oneof-特性"><a href="#Oneof-特性" class="headerlink" title="Oneof 特性"></a>Oneof 特性</h2><ul><li>设置oneof会自动清楚其它oneof字段的值. 所以设置多次后，只有最后一次设置的字段有值.</li></ul><pre><code>SampleMessage message;message.set_name(&quot;name&quot;);CHECK(message.has_name());message.mutable_sub_message();   // Will clear name field.CHECK(!message.has_name());12345</code></pre><ul><li>如果解析器遇到同一个oneof中有多个成员，只有最会一个会被解析成消息。</li><li>oneof不支持<code>repeated</code>.</li><li>反射API对oneof 字段有效.</li><li>如果使用C++,需确保代码不会导致内存泄漏. 下面的代码会崩溃， 因为<code>sub_message</code> 已经通过<code>set_name()</code>删除了</li></ul><pre><code>SampleMessage message;SubMessage* sub_message = message.mutable_sub_message();message.set_name(&quot;name&quot;);      // Will delete sub_messagesub_message-&gt;set_...            // Crashes here1234</code></pre><ul><li>在C++中，如果你使用<code>Swap()</code>两个oneof消息，每个消息，两个消息将拥有对方的值，例如在下面的例子中，<code>msg1</code>会拥有<code>sub_message</code>并且<code>msg2</code>会有<code>name</code>。</li></ul><pre><code>SampleMessage msg1;msg1.set_name(&quot;name&quot;);SampleMessage msg2;msg2.mutable_sub_message();msg1.swap(&amp;msg2);CHECK(msg1.has_sub_message());CHECK(msg2.has_name());1234567</code></pre><h2 id="向后兼容性问题"><a href="#向后兼容性问题" class="headerlink" title="向后兼容性问题"></a>向后兼容性问题</h2><p>当增加或者删除oneof字段时一定要小心. 如果检查oneof的值返回<code>None/NOT_SET</code>, 它意味着oneof字段没有被赋值或者在一个不同的版本中赋值了。 你不会知道是哪种情况，因为没有办法判断如果未识别的字段是一个oneof字段。</p><p>Tage 重用问题：</p><ul><li>将字段移入或移除oneof：在消息被序列号或者解析后，你也许会失去一些信息（有些字段也许会被清除）</li><li>删除一个字段或者加入一个字段：在消息被序列号或者解析后，这也许会清除你现在设置的oneof字段</li><li>分离或者融合oneof：行为与移动常规字段相似。</li></ul><h1 id="Map（映射）"><a href="#Map（映射）" class="headerlink" title="Map（映射）"></a>Map（映射）</h1><p>如果你希望创建一个关联映射，protocol buffer提供了一种快捷的语法：</p><pre><code>map&lt;key_type, value_type&gt; map_field = N;1</code></pre><p>其中<code>key_type</code>可以是任意Integer或者string类型（所以，除了floating和bytes的任意标量类型都是可以的）<code>value_type</code>可以是任意类型。</p><p>例如，如果你希望创建一个project的映射，每个<code>Projecct</code>使用一个string作为key，你可以像下面这样定义：</p><pre><code>map&lt;string, Project&gt; projects = 3;1</code></pre><ul><li>Map的字段可以是repeated。</li><li>序列化后的顺序和map迭代器的顺序是不确定的，所以你不要期望以固定顺序处理Map</li><li>当为.proto文件产生生成文本格式的时候，map会按照key 的顺序排序，数值化的key会按照数值排序。</li><li>从序列化中解析或者融合时，如果有重复的key则后一个key不会被使用，当从文本格式中解析map时，如果存在重复的key。</li></ul><p>生成map的API现在对于所有proto3支持的语言都可用了，你可以从<a href="https://developers.google.com/protocol-buffers/docs/reference/overview?hl=zh-cn" target="_blank" rel="noopener">API指南</a>找到更多信息。</p><h2 id="向后兼容性问题-1"><a href="#向后兼容性问题-1" class="headerlink" title="向后兼容性问题"></a>向后兼容性问题</h2><p>map语法序列化后等同于如下内容，因此即使是不支持map语法的protocol buffer实现也是可以处理你的数据的：</p><pre><code>message MapFieldEntry {  key_type key = 1;  value_type value = 2;}repeated MapFieldEntry map_field = N;123456</code></pre><h1 id="包"><a href="#包" class="headerlink" title="包"></a>包</h1><p>当然可以为.proto文件新增一个可选的package声明符，用来防止不同的消息类型有命名冲突。如：</p><pre><code>package foo.bar;message Open { ... }12</code></pre><p>在其他的消息格式定义中可以使用包名+消息名的方式来定义域的类型，如：</p><pre><code>message Foo {  ...  required foo.bar.Open open = 1;  ...}12345</code></pre><p>包的声明符会根据使用语言的不同影响生成的代码。</p><ul><li>对于C++，产生的类会被包装在C++的命名空间中，如上例中的<code>Open</code>会被封装在 <code>foo::bar</code>空间中； - 对于Java，包声明符会变为java的一个包，除非在.proto文件中提供了一个明确有<code>java_package</code>；</li><li>对于 Python，这个包声明符是被忽略的，因为Python模块是按照其在文件系统中的位置进行组织的。</li><li>对于Go，包可以被用做Go包名称，除非你显式的提供一个<code>option go_package</code>在你的.proto文件中。</li><li>对于Ruby，生成的类可以被包装在内置的Ruby名称空间中，转换成Ruby所需的大小写样式 （首字母大写；如果第一个符号不是一个字母，则使用PB_前缀），例如<code>Open</code>会在<code>Foo::Bar</code>名称空间中。</li><li>对于javaNano包会使用Java包，除非你在你的文件中显式的提供一个<code>option java_package</code>。</li><li>对于C#包可以转换为<code>PascalCase</code>后作为名称空间，除非你在你的文件中显式的提供一个<code>option csharp_namespace</code>，例如，<code>Open</code>会在<code>Foo.Bar</code>名称空间中</li></ul><h2 id="包及名称的解析"><a href="#包及名称的解析" class="headerlink" title="包及名称的解析"></a>包及名称的解析</h2><p>Protocol buffer语言中类型名称的解析与C++是一致的：首先从最内部开始查找，依次向外进行，每个包会被看作是其父类包的内部类。当然对于 （<code>foo.bar.Baz</code>）这样以“.”分隔的意味着是从最外围开始的。</p><p>ProtocolBuffer编译器会解析.proto文件中定义的所有类型名。 对于不同语言的代码生成器会知道如何来指向每个具体的类型，即使它们使用了不同的规则。</p><h1 id="定义服务-Service"><a href="#定义服务-Service" class="headerlink" title="定义服务(Service)"></a>定义服务(Service)</h1><p>如果想要将消息类型用在RPC(远程方法调用)系统中，可以在.proto文件中定义一个RPC服务接口，protocol buffer编译器将会根据所选择的不同语言生成服务接口代码及存根。如，想要定义一个RPC服务并具有一个方法，该方法能够接收 SearchRequest并返回一个SearchResponse，此时可以在.proto文件中进行如下定义：</p><pre><code>service SearchService {  rpc Search (SearchRequest) returns (SearchResponse);}123</code></pre><p>最直观的使用protocol buffer的RPC系统是<a href="https://github.com/grpc/grpc-experiments" target="_blank" rel="noopener">gRPC</a>一个由谷歌开发的语言和平台中的开源的PRC系统，gRPC在使用protocl buffer时非常有效，如果使用特殊的protocol buffer插件可以直接为您从.proto文件中产生相关的RPC代码。</p><p>如果你不想使用gRPC，也可以使用protocol buffer用于自己的RPC实现，你可以从<a href="https://developers.google.com/protocol-buffers/docs/proto?hl=zh-cn#services" target="_blank" rel="noopener">proto2语言指南中找到更多信息</a></p><p>还有一些第三方开发的PRC实现使用Protocol Buffer。参考<a href="https://github.com/google/protobuf/blob/master/docs/third_party.md" target="_blank" rel="noopener">第三方插件wiki</a>查看这些实现的列表。</p><h1 id="JSON-映射"><a href="#JSON-映射" class="headerlink" title="JSON 映射"></a>JSON 映射</h1><p>Proto3 支持JSON的编码规范，使他更容易在不同系统之间共享数据，在下表中逐个描述类型。</p><p>如果JSON编码的数据丢失或者其本身就是<code>null</code>，这个数据会在解析成protocol buffer的时候被表示成默认值。如果一个字段在protocol buffer中表示为默认值，体会在转化成JSON的时候编码的时候忽略掉以节省空间。具体实现可以提供在JSON编码中可选的默认值。</p><table><thead><tr><th>proto3</th><th>JSON</th><th>JSON示例</th><th>注意</th></tr></thead><tbody><tr><td>message</td><td>object</td><td>{“fBar”: v, “g”: null, …}</td><td>产生JSON对象，消息字段名可以被映射成lowerCamelCase形式，并且成为JSON对象键，null被接受并成为对应字段的默认值</td></tr><tr><td>enum</td><td>string</td><td>“FOO_BAR”</td><td>枚举值的名字在proto文件中被指定</td></tr><tr><td>map</td><td>object</td><td>{“k”: v, …}</td><td>所有的键都被转换成string</td></tr><tr><td>repeated V</td><td>array</td><td>[v, …]</td><td>null被视为空列表</td></tr><tr><td>bool</td><td>true, false</td><td>true, false</td><td></td></tr><tr><td>string</td><td>string</td><td>“Hello World!”</td><td></td></tr><tr><td>bytes</td><td>base64 string</td><td>“YWJjMTIzIT8kKiYoKSctPUB+”</td><td></td></tr><tr><td>int32, fixed32, uint32</td><td>number</td><td>1, -10, 0</td><td>JSON值会是一个十进制数，数值型或者string类型都会接受</td></tr><tr><td>int64, fixed64, uint64</td><td>string</td><td>“1”, “-10”</td><td>JSON值会是一个十进制数，数值型或者string类型都会接受</td></tr><tr><td>float, double</td><td>number</td><td>1.1, -10.0, 0, “NaN”, “Infinity”</td><td>JSON值会是一个数字或者一个指定的字符串如”NaN”,”infinity”或者”-Infinity”，数值型或者字符串都是可接受的，指数符号也可以接受</td></tr><tr><td>Any</td><td>object</td><td>{“@type”: “url”, “f”: v, … }</td><td>如果一个Any保留一个特上述的JSON映射，则它会转换成一个如下形式：<code>{&quot;@type&quot;: xxx, &quot;value&quot;: yyy}</code>否则，该值会被转换成一个JSON对象，<code>@type</code>字段会被插入所指定的确定的值</td></tr><tr><td>Timestamp</td><td>string</td><td>“1972-01-01T10:00:20.021Z”</td><td>使用RFC 339，其中生成的输出将始终是Z-归一化啊的，并且使用0，3，6或者9位小数</td></tr><tr><td>Duration</td><td>string</td><td>“1.000340012s”, “1s”</td><td>生成的输出总是0，3，6或者9位小数，具体依赖于所需要的精度，接受所有可以转换为纳秒级的精度</td></tr><tr><td>Struct</td><td>object</td><td>{ … }</td><td>任意的JSON对象，见struct.proto</td></tr><tr><td>Wrapper types</td><td>various types</td><td>2, “2”, “foo”, true, “true”, null, 0, …</td><td>包装器在JSON中的表示方式类似于基本类型，但是允许nulll，并且在转换的过程中保留null</td></tr><tr><td>FieldMask</td><td>string</td><td>“f.fooBar,h”</td><td>见fieldmask.proto</td></tr><tr><td>ListValue</td><td>array</td><td>[foo, bar, …]</td><td></td></tr><tr><td>Value</td><td>value</td><td></td><td>任意JSON值</td></tr><tr><td>NullValue</td><td>null</td><td></td><td>JSON null</td></tr></tbody></table><h1 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h1><p>在定义.proto文件时能够标注一系列的options。Options并不改变整个文件声明的含义，但却能够影响特定环境下处理方式。完整的可用选项可以在google/protobuf/descriptor.proto找到。</p><p>一些选项是文件级别的，意味着它可以作用于最外范围，不包含在任何消息内部、enum或服务定义中。一些选项是消息级别的，意味着它可以用在消息定义的内部。当然有些选项可以作用在域、enum类型、enum值、服务类型及服务方法中。到目前为止，并没有一种有效的选项能作用于所有的类型。</p><p>如下就是一些常用的选择：</p><ul><li><code>java_package</code> (文件选项) :这个选项表明生成java类所在的包。如果在.proto文件中没有明确的声明java_package，就采用默认的包名。当然了，默认方式产生的 java包名并不是最好的方式，按照应用名称倒序方式进行排序的。如果不需要产生java代码，则该选项将不起任何作用。如：</li></ul><pre><code>option java_package = &quot;com.example.foo&quot;;1</code></pre><ul><li><code>java_outer_classname</code> (文件选项): 该选项表明想要生成Java类的名称。如果在.proto文件中没有明确的java_outer_classname定义，生成的class名称将会根据.proto文件的名称采用驼峰式的命名方式进行生成。如（foo_bar.proto生成的java类名为FooBar.java）,如果不生成java代码，则该选项不起任何作用。如：</li></ul><pre><code>option java_outer_classname = &quot;Ponycopter&quot;;1</code></pre><ul><li><pre><code>optimize_for</code></pre><p>(文件选项): 可以被设置为 SPEED, CODE_SIZE,或者LITE_RUNTIME。这些值将通过如下的方式影响C++及java代码的生成：</p></li></ul><ul><li><code>SPEED (default)</code>: protocol buffer编译器将通过在消息类型上执行序列化、语法分析及其他通用的操作。这种代码是最优的。</li><li><code>CODE_SIZE</code>: protocol buffer编译器将会产生最少量的类，通过共享或基于反射的代码来实现序列化、语法分析及各种其它操作。采用该方式产生的代码将比SPEED要少得多， 但是操作要相对慢些。当然实现的类及其对外的API与SPEED模式都是一样的。这种方式经常用在一些包含大量的.proto文件而且并不盲目追求速度的 应用中。</li><li><code>LITE_RUNTIME</code>: protocol buffer编译器依赖于运行时核心类库来生成代码（即采用libprotobuf-lite 替代libprotobuf）。这种核心类库由于忽略了一 些描述符及反射，要比全类库小得多。这种模式经常在移动手机平台应用多一些。编译器采用该模式产生的方法实现与SPEED模式不相上下，产生的类通过实现 MessageLite接口，但它仅仅是Messager接口的一个子集。</li></ul><pre><code>option optimize_for = CODE_SIZE;1</code></pre><ul><li><code>cc_enable_arenas</code>(文件选项):对于C++产生的代码启用<a href="https://developers.google.com/protocol-buffers/docs/reference/arenas?hl=zh-cn" target="_blank" rel="noopener">arena allocation</a></li><li><code>objc_class_prefix</code>(文件选项):设置Objective-C类的前缀，添加到所有Objective-C从此.proto文件产生的类和枚举类型。没有默认值，所使用的前缀应该是苹果推荐的3-5个大写字符，注意2个字节的前缀是苹果所保留的。</li><li><code>deprecated</code>(字段选项):如果设置为<code>true</code>则表示该字段已经被废弃，并且不应该在新的代码中使用。在大多数语言中没有实际的意义。在java中，这回变成<code>@Deprecated</code>注释，在未来，其他语言的代码生成器也许会在字标识符中产生废弃注释，废弃注释会在编译器尝试使用该字段时发出警告。如果字段没有被使用你也不希望有新用户使用它，尝试使用保留语句替换字段声明。</li></ul><pre><code>int32 old_field = 6 [deprecated=true];1</code></pre><h2 id="自定义选项"><a href="#自定义选项" class="headerlink" title="自定义选项"></a>自定义选项</h2><p>ProtocolBuffers允许自定义并使用选项。该功能应该属于一个高级特性，对于大部分人是用不到的。如果你的确希望创建自己的选项，请参看<a href="https://developers.google.com/protocol-buffers/docs/proto?hl=zh-cn#customoptions" target="_blank" rel="noopener"> Proto2 Language Guide</a>。注意创建自定义选项使用了拓展，拓展只在proto3中可用。</p><h1 id="生成访问类"><a href="#生成访问类" class="headerlink" title="生成访问类"></a>生成访问类</h1><p>可以通过定义好的.proto文件来生成Java,Python,C++, Ruby, JavaNano, Objective-C,或者C# 代码，需要基于.proto文件运行protocol buffer编译器protoc。如果你没有安装编译器，下载<a href="https://developers.google.com/protocol-buffers/docs/downloads?hl=zh-cn" target="_blank" rel="noopener">安装包</a>并遵照README安装。对于Go,你还需要安装一个特殊的代码生成器插件。你可以通过GitHub上的<a href="https://github.com/golang/protobuf/" target="_blank" rel="noopener">protobuf库</a>找到安装过程</p><p>通过如下方式调用protocol编译器：</p><pre><code>protoc --proto_path=IMPORT_PATH --cpp_out=DST_DIR --java_out=DST_DIR --python_out=DST_DIR --go_out=DST_DIR --ruby_out=DST_DIR --javanano_out=DST_DIR --objc_out=DST_DIR --csharp_out=DST_DIR path/to/file.proto1</code></pre><ul><li><p><code>IMPORT_PATH</code>声明了一个.proto文件所在的解析import具体目录。如果忽略该值，则使用当前目录。如果有多个目录则可以多次调用<code>--proto_path</code>，它们将会顺序的被访问并执行导入。<code>-I=IMPORT_PATH</code>是<code>--proto_path</code>的简化形式。</p></li><li><p>当然也可以提供一个或多个输出路径：</p></li></ul><ul><li><code>--cpp_out</code> 在目标目录DST_DIR中产生C++代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/cpp-generated?hl=zh-cn" target="_blank" rel="noopener">C++代码生成参考</a>中查看更多。</li><li><code>--java_out</code> 在目标目录DST_DIR中产生Java代码，可以在 <a href="https://developers.google.com/protocol-buffers/docs/reference/java-generated?hl=zh-cn" target="_blank" rel="noopener">Java代码生成参考</a>中查看更多。</li><li><code>--python_out</code> 在目标目录 DST_DIR 中产生Python代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/python-generated?hl=zh-cn" target="_blank" rel="noopener">Python代码生成参考</a>中查看更多。</li><li><code>--go_out</code> 在目标目录 DST_DIR 中产生Go代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/go-generated?hl=zh-cn" target="_blank" rel="noopener">GO代码生成参考</a>中查看更多。</li><li><code>--ruby_out</code>在目标目录 DST_DIR 中产生Go代码，参考正在制作中。</li><li><code>--javanano_out</code>在目标目录DST_DIR中生成JavaNano，JavaNano代码生成器有一系列的选项用于定制自定义生成器的输出：你可以通过生成器的<a href="https://github.com/google/protobuf/tree/master/javanano" target="_blank" rel="noopener">README</a>查找更多信息，JavaNano参考正在制作中。</li><li><code>--objc_out</code>在目标目录DST_DIR中产生Object代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/objective-c-generated?hl=zh-cn" target="_blank" rel="noopener">Objective-C代码生成参考</a>中查看更多。</li><li><code>--csharp_out</code>在目标目录DST_DIR中产生Object代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/csharp-generated?hl=zh-cn" target="_blank" rel="noopener">C#代码生成参考</a>中查看更多。</li><li><code>--php_out</code>在目标目录DST_DIR中产生Object代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/php-generated?hl=zh-cn" target="_blank" rel="noopener">PHP代码生成参考</a>中查看更多。</li></ul><p>作为一个方便的拓展，如果DST_DIR以.zip或者.jar结尾，编译器会将输出写到一个ZIP格式文件或者符合JAR标准的.jar文件中。注意如果输出已经存在则会被覆盖，编译器还没有智能到可以追加文件。<br>- 你必须提议一个或多个.proto文件作为输入，多个.proto文件可以只指定一次。虽然文件路径是相对于当前目录的，每个文件必须位于其IMPORT_PATH下，以便每个文件可以确定其规范的名称。</p><p>本文转自：<a href="https://blog.csdn.net/u011518120/article/details/54604615" target="_blank" rel="noopener">https://blog.csdn.net/u011518120/article/details/54604615</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;英文原文：&lt;br&gt;&lt;a href=&quot;https://developers.google.com/protocol-buffers/docs/proto3?hl=zh-cn#generating&quot; target=&quot;_blank&quot; rel=&quot;noope
-      
-    
-    </summary>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>go使用base64编码</title>
-    <link href="https://zengwu.com.cn/p/a4fc4ca7.html"/>
-    <id>https://zengwu.com.cn/p/a4fc4ca7.html</id>
-    <published>2021-09-27T18:00:42.000Z</published>
-    <updated>2021-10-09T14:03:04.013Z</updated>
-    
-    <content type="html"><![CDATA[<p>Go中的系统库中提供了<code>encoding/base64</code>编码/解码的内置支持.</p><p><code>encoding/base64</code>提供了四种模式的编码/解码</p><ul><li>StdEncoding：常规编码</li><li>URLEncoding：URL safe 编码</li><li>RawStdEncoding：常规编码，末尾不补 =</li><li>RawURLEncoding：URL safe 编码，末尾不补 =</li></ul><p>其中，URL safe 编码，相当于是替换掉字符串中的特殊字符，+ 和 /。</p><p>各种模式的编码/解码测试用例如下:</p><pre><code class="line-numbers language-go">package mainimport (    &quot;encoding/base64&quot;    &quot;fmt&quot;)func main() {    msg := []byte(&quot;Hello world. 你好，世界！&quot;)    encoded := base64.StdEncoding.EncodeToString(msg)    fmt.Println(encoded)    // SGVsbG8gd29ybGQuIOS9oOWlve+8jOS4lueVjO+8gQ==    decoded, _ := base64.StdEncoding.DecodeString(encoded)    fmt.Println(string(decoded))    // Hello world. 你好，世界！    encoded = base64.RawStdEncoding.EncodeToString(msg)    fmt.Println(encoded)    // SGVsbG8gd29ybGQuIOS9oOWlve+8jOS4lueVjO+8gQ    decoded, _ = base64.RawStdEncoding.DecodeString(encoded)    fmt.Println(string(decoded))    // Hello world. 你好，世界！    encoded = base64.URLEncoding.EncodeToString(msg)    fmt.Println(encoded)    // SGVsbG8gd29ybGQuIOS9oOWlve-8jOS4lueVjO-8gQ==    decoded, _ = base64.URLEncoding.DecodeString(encoded)    fmt.Println(string(decoded))    // Hello world. 你好，世界！    encoded = base64.RawURLEncoding.EncodeToString(msg)    fmt.Println(encoded)    // SGVsbG8gd29ybGQuIOS9oOWlve-8jOS4lueVjO-8gQ    decoded, _ = base64.RawURLEncoding.DecodeString(encoded)    fmt.Println(string(decoded))    // Hello world. 你好，世界！}</code></pre><p>本文参考：<a href="https://syaning.github.io/go-pkgs/encoding/base64.html" target="_blank" rel="noopener">https://syaning.github.io/go-pkgs/encoding/base64.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Go中的系统库中提供了&lt;code&gt;encoding/base64&lt;/code&gt;编码/解码的内置支持.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;encoding/base64&lt;/code&gt;提供了四种模式的编码/解码&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;StdEncoding：常规编码&lt;/li&gt;
-&lt;l
-      
-    
-    </summary>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
     
   </entry>
   

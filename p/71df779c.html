@@ -633,7 +633,21 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\e2daa99b.html" rel="bookmark">Linux中周期任务</a></div>
+      <div class="popular-posts-title"><a href="\p\d9b9df12.html" rel="bookmark">git基本命令</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\536760e1.html" rel="bookmark">Linux下读写NTFS格式</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\4d81b25b.html" rel="bookmark">Ubuntu 20.04 安装 Nats</a></div>
       
     </li>
   
@@ -641,20 +655,6 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
       
       
       <div class="popular-posts-title"><a href="\p\618372ba.html" rel="bookmark">Ubuntu 20.04 安装 Redis</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\p\cf0371b3.html" rel="bookmark">Docker中pull microsoft/dotnet报错</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\p\35ea3f99.html" rel="bookmark">Ubuntu 20.04安装Docker</a></div>
       
     </li>
   
@@ -803,7 +803,7 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
               
                 <a href="/archives/index.html">
               
-                  <span class="site-state-item-count">323</span>
+                  <span class="site-state-item-count">332</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -879,28 +879,28 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
               
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-02
-                    <a href="/p/58e1b8b4.html" title="也谈“过客”">也谈“过客”</a>
+                    11-19
+                    <a href="/p/e334394.html" title="curl发送POST请求">curl发送POST请求</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-01
-                    <a href="/p/536760e1.html" title="Linux下读写NTFS格式">Linux下读写NTFS格式</a>
+                    11-18
+                    <a href="/p/334d5fc9.html" title="Java中byte数组和String字符串相互转换">Java中byte数组和String字符串相互转换</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    10-30
-                    <a href="/p/874c58c2.html" title="股市中的过客">股市中的过客</a>
+                    11-16
+                    <a href="/p/38171cdb.html" title="Excel公式中创建包含双引号字符串">Excel公式中创建包含双引号字符串</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    10-29
-                    <a href="/p/c66a286f.html" title="go读取docx文档">go读取docx文档</a>
+                    11-14
+                    <a href="/p/c77f34b0.html" title="Win10双蓝牙音频同步输出">Win10双蓝牙音频同步输出</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    10-27
-                    <a href="/p/4d81b25b.html" title="Ubuntu 20.04 安装 Nats">Ubuntu 20.04 安装 Nats</a>
+                    11-11
+                    <a href="/p/13fa19f4.html" title="程序猿的情书">程序猿的情书</a>
                 </div><br/>
               
             </ul>
@@ -971,7 +971,7 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
     
       <span class="post-meta-item-text">全站字数&#58;</span>
     
-    <span title="全站字数">305k</span>
+    <span title="全站字数">307.9k</span>
   </div>
   
 
@@ -1096,7 +1096,7 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
         url: entries
       }
 
-      post('/count'+'/get', postData, function(results){
+      post('//count.zengwu.com.cn/count'+'/get', postData, function(results){
         var COUNT_CONTAINER_REF = '.zngw-visitors-count';
         if (results==null || results.length === 0) {
           $visitors.find(COUNT_CONTAINER_REF).text(0);
@@ -1134,7 +1134,7 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
         host:window.location.host
       }
 
-      post('/count'+'/add', postData, function(results){
+      post('//count.zengwu.com.cn/count'+'/add', postData, function(results){
         var COUNT_CONTAINER_REF = '.zngw-visitors-count';
         var $element = $(document.getElementById(url));
         $element.find(COUNT_CONTAINER_REF).text(results.time);
@@ -1155,7 +1155,7 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
         host:window.location.host
       }
 
-      post('/count'+'/add', postData, function(results){
+      post('//count.zengwu.com.cn/count'+'/add', postData, function(results){
         var $element = $(document.getElementById(url));
         $element.find('.gk-totals-count').text(results.time);
         $element.find('.gk-uv-count').text(results.uv);
@@ -1173,7 +1173,7 @@ sudo npm config set python /usr/bin/python2.7</code></pre>
         limit: 6
       }
 
-      post('/count'+'/top', postData,function(results){
+      post('//count.zengwu.com.cn/count'+'/top', postData,function(results){
         var index = 0;
         for (var i = 0; i < results.length; i++) {
           var item = results[i];

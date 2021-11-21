@@ -1,6 +1,431 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>curl发送POST请求</title>
+    <url>/p/e334394.html</url>
+    <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>curl 是常用的命令行工具，用来请求 Web 服务器。它的名字就是客户端（client）的 URL 工具的意思。它的功能非常强大，命令行参数多达几十种。如果熟练的话，完全可以取代 Postman 这一类的图形界面工具。</p>
+<h1 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h1><p>curl默认协议就是GET，直接使用 <code>curl url</code>相当于直接用浏览器打开。</p>
+<h1 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h1><p>curl 使用 -X POST 可以发送POST消息。如果要post json数据，如：</p>
+<pre><code class="line-numbers language-bash">curl -H &quot;Content-Type:application/json&quot; -X POST -d &#39;{&quot;uid&quot;:&quot;123&quot;}&#39; http://127.0.0.1:3000/rest/test</code></pre>
+<p>参数解析：</p>
+<ul>
+<li>-H 请求头。post json需要添加 <code>-H &quot;Content-Type: application/json&quot;</code></li>
+<li>-X 请求协议。</li>
+<li>-d post的body内容，如果是json数据，外层再加一个<code>&#39;</code>包含</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java中byte数组和String字符串相互转换</title>
+    <url>/p/334d5fc9.html</url>
+    <content><![CDATA[<h2 id="一、简单的转换"><a href="#一、简单的转换" class="headerlink" title="一、简单的转换"></a>一、简单的转换</h2><p>Java中String提供了byte数组和String字符串相互转换的方法。</p>
+<pre><code class="line-numbers language-java">        String str = &quot;Hello World&quot;;
+
+        // String 转 byte数组
+        byte [] strByte = str.getBytes();
+
+        // byte数组转 String
+        String strString = new String(strByte);</code></pre>
+<h2 id="二、带编码方式转换"><a href="#二、带编码方式转换" class="headerlink" title="二、带编码方式转换"></a>二、带编码方式转换</h2><p>带编码方式有二种方式</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><pre><code class="line-numbers language-java">        try{
+            String str = &quot;Hello World&quot;;
+
+            // String 转 byte数组
+            byte [] strByte = str.getBytes(&quot;utf-8&quot;);
+
+            // byte数组转 String
+            String strString = new String(strByte,&quot;utf-8&quot;);
+        } catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+        }</code></pre>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><pre><code class="line-numbers language-java">        String str = &quot;Hello World&quot;;
+
+        // String 转 byte数组
+        byte [] strByte = str.getBytes(StandardCharsets.UTF_8);
+
+        // byte数组转 String
+        String strString = new String(strByte, StandardCharsets.UTF_8);</code></pre>
+<p>方法一和方法二的区别是，方法一的转换方法会抛出<code>UnsupportedEncodingException</code>异常， 使用时需要加<code>try catch</code>。而方法二不会抛出异常，平时使用方法二比会比较方便哈。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Excel公式中创建包含双引号字符串</title>
+    <url>/p/38171cdb.html</url>
+    <content><![CDATA[<p>在Excel公式中，如果要用到字符串，一般会用双引号将字符串引起来。如：</p>
+<pre><code class="line-numbers language-excel">=IF(A1&gt;0,&quot;真&quot;,&quot;假&quot;)</code></pre>
+<p>如果<code>A1</code>大于0显示字符串<code>真</code>，否则显示为<code>假</code>字符串</p>
+<p>但是，如果要显示的结果字符串中包含双引号呢，如A1大于0时要显示为 <code>&quot;A1&gt;0&quot;为真</code>，直接使用会报公式语法错误。这时我们可以用<code>CHAR(34)</code>来表示比引号<code>&quot;</code>，然后使用<code>&amp;</code>来连接字符串。此时公式为：</p>
+<pre><code class="line-numbers language-excel">=IF(A1&gt;0,CHAR(34)&amp;&quot;A1&gt;0&quot;&amp;CHAR(34)&amp;&quot;为真&quot;,&quot;假&quot;)</code></pre>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/38171cdb/19826068-9b83e8f6654fd466.png" alt></p>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10双蓝牙音频同步输出</title>
+    <url>/p/c77f34b0.html</url>
+    <content><![CDATA[<p>　　有些蓝牙音箱可以相互配对再连接电脑可以实现多蓝牙同步输出的效果，但是大多不同品牌的蓝牙音箱还是不能相互配对的，要实现双蓝牙音频同步输出则需要借助软件了。<br>　　这里推荐<a href="https://www.vb-audio.com" target="_blank" rel="noopener">voice meeter</a>，官网上有三个版本提供下载，分别是 voicemeeter、voicemeeter banana 和 voicemeeter potato，除了potato 其他两个版本完全免费，可以实现音频多轨道输出了。</p>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>　　这里使用<a href="https://vb-audio.com/Voicemeeter/banana.htm" target="_blank" rel="noopener">banana</a>版本，先去官网下载最新版本</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-32d6b285660afab4.png" alt></p>
+<p>　　下载后直接运行exe，点右下角的Install就可以安装，安装好后可能需要重启电脑。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>1、 设置系统音频输出为 VoiceMeeter Input(VB-Audio VoiceMeeter VAIO)</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-d3602d33d5cd75e5.png" alt></p>
+<p>2、打开 <code>voicemeeterpro</code>默认安装路径在<code>C:\Program Files (x86)\VB\Voicemeeter\</code>。<br><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-9c64700ecadf563e.png" alt></p>
+<p>3、 voicemeeterpro默认支持3个硬件音轨输出。点击可以选择输出的硬件设备，选择对应的蓝牙音箱。</p>
+<ul>
+<li>A1：天猫精灵X1</li>
+<li>A2：华为AM08蓝牙音箱</li>
+<li>A3：HDMI显示器外接有线音箱</li>
+</ul>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-97ac445eac9e64e5.png" alt></p>
+<p>4、调整延迟</p>
+<p>前面设置好后电脑播发的声音会在选项的三个设备上同时播放了，但是由于蓝牙设备的不同以及距离等问题，会出现不同的延迟，这里我们可以去设置里调整每个设备的延迟时间，这个根据个人听边自己调整了，调到一个自己听起来比较舒服的同步就行了。</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-5cf564d8d193b0bc.png" alt></p>
+<p>5、开机启动Banana并且常驻状态栏</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/c77f34b0/19826068-c0fd4e92e799c234.png" alt></p>
+<p>额外分享一个<a href="https://www.bilibili.com/read/cv5380467" target="_blank" rel="noopener">voice meeter 详细教程</a></p>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>程序猿的情书</title>
+    <url>/p/13fa19f4.html</url>
+    <content><![CDATA[<p>亲爱的“对象”<br>　　我能抽象出整个世界，但是我不能抽象出你，因为你在我心中是那么的具体，所以我的世界并不完整。<br>　　我可以重载甚至覆盖这个世界里的任何一种方法，但是我却不能重载对你的思念，也许命中注定了，你在我的世界里永远的烙上了静态的属性。<br>　　而我不慎调用了爱你这个方法，当我义无返顾的把自己作为参数传进这个方法时，我才发现爱上你是一个死循环。。。<br>　　它不停的返回对你的思念压入我心里的堆栈，在这无尽的黑夜中，我的内存里已经再也装不下别人。。。<br>　　我不停的向系统申请空间，但却捕获一个异常：我爱的人不爱我。<br>　　为了解决这个异常，我愿意虚拟出最后一点内存，把所有我能实现的方法地址压入堆栈，并且在栈尾压入最后一个方法：将字符串“我爱你，你爱我吗？”传递给你。。。<br>　　如果返回值为真，我将用尽一生去爱你，否则，我将释放掉所有系统资源。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ssh端口映射</title>
+    <url>/p/f5ce4608.html</url>
+    <content><![CDATA[<p>考虑到在程序中使用ssh认证连接MongoDB数据库的问题，还折腾了<a href="https://www.jianshu.com/p/8a5a1f581f04" target="_blank" rel="noopener">《Java使用SSH连接MongoDB》</a>、<a href="https://www.jianshu.com/p/ac98c90833d0" target="_blank" rel="noopener">《C#使用SSH认证连接MongoDB》</a>、<a href="https://www.jianshu.com/p/e3617a2883ea" target="_blank" rel="noopener">《go中使用SSH认证连接MongoDB》</a>。后面发现，在linux中<code>ssh -L</code>命令的可以直接完成ssh认证并将远程端口映射成本地端口。然后再然程序连接本地对应的端口就可以了。</p>
+<pre><code class="line-numbers language-bash">ssh -CfNgL bind_port:host:hostport  user@ip -o TCPKeepAlive=yes</code></pre>
+<p>解析：</p>
+<ul>
+<li>-C        压缩传输数据</li>
+<li>-f        建立SSH连接后放置后台，静默模式</li>
+<li>-N        不要执行远程命令。 这对于仅转发端口很有用（仅限协议版本2）</li>
+<li>-g        允许远程主机连接本地端口转发</li>
+<li>-L        指定本地（客户端）主机上的给定端口要转发到远程端的给定主机和端口。</li>
+<li>bind_port： 本地监听端口</li>
+<li>host:hostport： 远程映射地址和端口</li>
+<li>user@ip: ssh服务器ip和登录用户</li>
+<li>-o TCPKeepAlive=yes：tcp连接保持</li>
+</ul>
+<p>例如：</p>
+<pre><code class="line-numbers language-bash">ssh -CfNgL 3717:127.0.0.1:27017 192.168.0.105 -o TCPKeepAlive=yes
+
+# 使用可以查看ssh进程
+ps -ef | grep ssh
+
+root     27059     1  0 20:10 ?        00:00:00 ssh -CfNgL 3717:127.0.0.1:27017 192.168.0.105 -o TCPKeepAlive=yes</code></pre>
+<p>然后，用mongodb连接 127.0.0.1:3717就可以了</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Ubuntu</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>go中使用SSH认证连接MongoDB</title>
+    <url>/p/f0aeed1a.html</url>
+    <content><![CDATA[<h1 id="一、说明"><a href="#一、说明" class="headerlink" title="一、说明"></a>一、说明</h1><p>go连接MongoDB驱动库<code>mongo-driver</code>和<code>mgo.v2</code>库中都不支持ssh认证连接的。但是我们可以使用net库先与MongoDB数据库服务器建立ssh连接，然后再将MongoDB数据库所在服务器端口映射到本地连接中转发就可以了。</p>
+<h1 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h1><p>下面以<code>mongo-driver</code>数据库驱动为例。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="line-numbers language-bash">go get -u github.com/zngw/sshtunnel</code></pre>
+<p>实现代码</p>
+<pre><code class="line-numbers language-bash">// @Title 
+// @Description $
+// @Author  55
+// @Date  2021/11/7
+package main
+
+import (
+    &quot;context&quot;
+    &quot;github.com/zngw/log&quot;
+    &quot;github.com/zngw/sshtunnel/ssht&quot;
+    &quot;go.mongodb.org/mongo-driver/bson&quot;
+    &quot;go.mongodb.org/mongo-driver/mongo&quot;
+    &quot;go.mongodb.org/mongo-driver/mongo/options&quot;
+    &quot;go.mongodb.org/mongo-driver/mongo/readpref&quot;
+    &quot;net/url&quot;
+    &quot;strings&quot;
+    &quot;time&quot;
+)
+
+func main() {
+    sshUri := &quot;ssh://root:123456@192.168.1.55:22&quot;
+    mdbUri := &quot;mongodb://root:123456@127.0.0.1:27017/admin&quot;
+
+    u, err := url.Parse(mdbUri)
+    if err != nil {
+        log.Error(&quot;test&quot;, &quot;解析数据库连接信息失败 %v&quot;, err)
+        return
+    }
+
+    listen, err := ssht.TunnelUri(sshUri, u.Host, &quot;:3717&quot;)
+    if err != nil {
+        log.Error(&quot;test&quot;, &quot;启用ssh端口映射失败 %v&quot;, err)
+    } else {
+        log.Info(&quot;test&quot;, &quot;启用ssh端口映射成功 %s&quot;, listen)
+    }
+
+    // 替换数据库地址端口
+    mdbUri = strings.Replace(mdbUri, u.Host, listen, -1)
+
+    // 下面按正常逻辑连接mongodb
+    name := &quot;Test&quot;
+    maxTime := time.Duration(2)     // 链接超时时间
+    table := &quot;test&quot;                 // 表名
+
+    // 连接数据库
+    db, err := ConnectToDB(mdbUri, name, maxTime)
+    if err != nil {
+        log.Error(&quot;test&quot;,&quot;链接数据库有误!&quot;)
+    }
+
+    // 获取test表数据数量
+    collection := db.Collection(table)
+    count, err := collection.CountDocuments(context.Background(), bson.D{})
+    if err != nil {
+        log.Error(&quot;test&quot;, err.Error())
+        return
+    }
+
+    log.Info(&quot;test&quot;,&quot;collection.CountDocuments: %v&quot;, count)
+}
+
+func ConnectToDB(uri, name string, timeout time.Duration) (*mongo.Database, error)  {
+    // 设置连接超时时间
+    ctx, cancel := context.WithTimeout(context.Background(), timeout)
+    defer cancel()
+    // 通过传进来的uri连接相关的配置
+    o := options.Client().ApplyURI(uri)
+    // 发起链接
+    client, err := mongo.Connect(ctx, o)
+    if err != nil {
+        log.Error(&quot;test&quot;,err.Error())
+        return nil, err
+    }
+    // 判断服务是不是可用
+    if err = client.Ping(context.Background(), readpref.Primary()); err != nil {
+        log.Error(&quot;test&quot;,err.Error())
+        return nil, err
+    }
+    // 返回 client
+    return client.Database(name), nil
+}</code></pre>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C#使用SSH认证连接MongoDB</title>
+    <url>/p/9c31a311.html</url>
+    <content><![CDATA[<h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>在C#中可以使用<code>Renci.SshNet</code>和<code>MongoDB.Driver</code>通过SSH认证连接MongoDB数据库。</p>
+<p>先去NuGet程序包管理页面中，下载<code>Renci.SshNet</code>和<code>MongoDB.Driver</code>库</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826068-fad2048930d348b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h1><p>可以先通过SshNet库使用SSH认证连接MongoDB所在的服务器，再用MongoDB.Driver连接本地SshNet达到通过SSH认证连接MongoDB的目的。</p>
+<p>实现代码</p>
+<pre><code class="line-numbers language-C#">using System;
+using System.Collections.Generic;
+using MongoDB.Driver;
+using Renci.SshNet;
+
+public class MongoAdmin
+{
+    // 数据库连接参数
+    private const string MONGODB_URI = &quot;mongodb://root:123456@127.0.0.1:3717/admin&quot;;
+
+    private const string SSH_USER = &quot;root&quot;;          // ssh账号
+    private const string SSH_PASSWORD = &quot;.&quot;;         // ssh密码，若使用密钥且没密码时填空
+    private const string SSH_PRVKEY = &quot;./ssh.pem&quot;;   // ssh密钥，若使用密码登录时为空
+    private const string SSH_HOST = &quot;192.168.0.105&quot;; // ssh服务器
+    private const int    SSH_PORT = 22;              // ssh端口
+
+    public static void Test()
+    {
+        try
+        {
+            var uri = new Uri(MONGODB_URI);
+
+            // 存在密钥文件使用密钥登录，不存在密钥文件使用密码登录
+            ConnectionInfo conn = null;
+            if (string.IsNullOrEmpty(SSH_PRVKEY))
+            {
+                conn = new ConnectionInfo(SSH_HOST, SSH_PORT, SSH_USER, new PasswordAuthenticationMethod(SSH_USER, SSH_PASSWORD));
+            }
+            else
+            {
+                conn = new ConnectionInfo(SSH_HOST, SSH_PORT, SSH_USER, new PrivateKeyAuthenticationMethod(SSH_USER, new PrivateKeyFile(SSH_PRVKEY)));
+            }
+
+            // 连接SSH
+            var cli = new SshClient(conn);
+            cli.Connect();
+
+            var port = new ForwardedPortLocal(&quot;127.0.0.1&quot;, SSH_HOST, (uint)uri.Port);
+            cli.AddForwardedPort(port);
+            port.Start();
+
+            // 用本地端口替换mongodb uri中配置端口
+            var mUri = MONGODB_URI.Replace($&quot;:{uri.Port}&quot;, $&quot;:{port.BoundPort}&quot;);
+
+            var mCli = new MongoClient(mUri);
+            var mdb = mCli.GetDatabase(&quot;test&quot;);
+
+            foreach ( var name in mdb.ListCollectionNames().ToList())
+            {
+                Console.WriteLine(name);
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e.ToString());
+        }
+    }
+}</code></pre>
+]]></content>
+      <categories>
+        <category>CSharp(C#)</category>
+      </categories>
+      <tags>
+        <tag>CSharp(C#)</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java使用SSH连接MongoDB</title>
+    <url>/p/a6b55fd5.html</url>
+    <content><![CDATA[<h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>在Java中可以使用<code>mongodb-driver</code>和<code>com.jcraft</code>来实现Java中使用SSH连接MongoDB。</p>
+<p>maven配置</p>
+<pre><code class="line-numbers language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.mongodb&lt;/groupId&gt;
+    &lt;artifactId&gt;mongodb-driver&lt;/artifactId&gt;
+    &lt;version&gt;3.12.10&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;com.jcraft&lt;/groupId&gt;
+    &lt;artifactId&gt;jsch&lt;/artifactId&gt;
+    &lt;version&gt;0.1.55&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<h1 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h1><p>可以先通过JSch库使用SSH连接到MongoDB所有的服务器，再设置经JSch从本地端口到远程MongoDB端口的转发，最后使用mongodb-driver连接本地的转发端口就可以连接服务器了。</p>
+<p>实现代码</p>
+<pre><code class="line-numbers language-java">package com.application;
+
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
+import com.mongodb.*;
+import com.mongodb.client.MongoDatabase;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
+
+import java.net.URI;
+
+public class MongoAdmin {
+    // 数据库连接参数
+    private static final String MONGODB_URI = &quot;mongodb://root:123456@127.0.0.1:3717/admin&quot;;
+
+    private static final String SSH_USER = &quot;root&quot;;          // ssh账号
+    private static final String SSH_PASSWORD = &quot;.&quot;;         // ssh密码，若使用密钥且没密码时填空
+    private static final String SSH_PRVKEY = &quot;./ssh.pem&quot;;   // ssh密钥，若使用密码登录时为空
+    private static final String SSH_HOST = &quot;192.168.0.105&quot;; // ssh服务器
+    private static final Integer SSH_PORT = 22;             // ssh端口
+
+    public static void test() {
+        try {
+            URI uri = new URI(MONGODB_URI);
+
+            java.util.Properties config = new java.util.Properties();
+
+            // 设置ssh自动接受新的公钥
+            config.put(&quot;StrictHostKeyChecking&quot;,&quot;no&quot;);
+
+            JSch jsch = new JSch();
+
+            // 设置ssh密钥
+            if (!&quot;&quot;.equals(SSH_PRVKEY)){
+                jsch.addIdentity(SSH_PRVKEY);
+            }
+
+            Session sshSession = jsch.getSession(SSH_USER, SSH_HOST, SSH_PORT);
+            if (!&quot;&quot;.equals(SSH_PASSWORD)){
+                sshSession.setPassword(SSH_PASSWORD);
+            }
+            sshSession.setConfig(config);
+            sshSession.connect();
+
+            // 设置端口转发，将远程MongoDB端口转发为本地MongoDB对应端口
+            sshSession.setPortForwardingL(uri.getPort(), uri.getHost(), uri.getPort());
+
+            // 创建MongoDB连接
+            PojoCodecProvider pojoCodecProvider =  PojoCodecProvider.builder().automatic(true).build();
+            CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClient.getDefaultCodecRegistry(),
+                    CodecRegistries.fromProviders(pojoCodecProvider));
+
+            MongoClientOptions.Builder optionsBuilder = MongoClientOptions.builder()
+                    .codecRegistry(codecRegistry).serverSelectionTimeout(1000);
+
+            MongoClientURI clientUri = new MongoClientURI(MONGODB_URI, optionsBuilder);
+
+            MongoClient mongoClient = new MongoClient(clientUri);
+
+            // 测试打印test库所有列表
+            MongoDatabase mdb = mongoClient.getDatabase(&quot;test&quot;);
+            for ( String name : mdb.listCollectionNames()){
+                System.out.println(name);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+}</code></pre>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>也谈“过客”</title>
     <url>/p/58e1b8b4.html</url>
     <content><![CDATA[<p>　　曾经用了十多年的网名“过客”，但自己很少去深思这个词的含义。昨天一个网友留言道：每个人都是自己生命中的主角，而不只是过客。也许是每个人的生活以及对这个词的理解都不同吧…<br>　　“过客”这个词在词典里解释为过路的人，在百度百科网络词汇中，过客：指在互联网上历来都是“客”源不断,从博客、威客、换客、维客、拼客、晒客和晾客后,现在竟然又冒出了过客这一新生网友群体。过客是指在网友在网络行走过程中，所浏览过的网页或网站，匆匆而过，称作“过客”。<br>　　就我的理解，所谓“过客”，便是匆匆走过的人。走过你的生活，进过你的心灵，深入过你的生命。“过客”在生活中应该一直是有的，只是以前很少有人说这个话题。随着现代文明的发展，信息的传播越来越广泛，越来越疾速，空间上的跨越也越来越方便，多元化的机会，让人与人的相遇，心灵与心灵的碰撞变得更容易了些。但这样的相遇与碰撞却还是受生活和空间的限制，于是，走近，远去，下一个走近，又无奈的远去，这样的聚聚分分不断的的产生，“过客”也就出现了。<br>　　所谓“过客”，匆匆的走过我们的生命，给生命留下一些痕迹，然后就像远飘的云彩，再顺着他们自己生命的方向悠然的离去？<br>　　徐志摩的《偶然》中也提到过这样的段，也许能更好的解释“过客”的涵义吧。“我是天空里一片云，偶尔把风影在你的波心——你不必讶异，更无须欢喜——在转瞬间消灭了踪影。你和相逢在黑夜的海上，你有你的，我有我的，方向；你记得也好，最好你忘掉，在这交会时互放的光亮！”生命与全命的相逢，就是这样偶然而难以把握，交汇时互映光辉，然后就是擦肩而过，留下记忆或遗忘。对“过客”，天长地久是无法强加的奢望。<br>　　以乎很伤感，似乎很无奈，但生命在很多时候就是这样的无助。相对于浩瀚的宇宙和无限的时空，地球就是一个匆匆的过客，而渺小的人类相对于地球，便又成了一个匆匆的过客，在漫漫的人类发展史上，每一个人是一个匆匆的过客，在一人长长的一生中，那些匆匆而来又匆匆而去的人又是我们生命中的过客。我们是过客里的过客，能选择什么，又能放弃什么？<br>　　坦然的接受这生命中聚聚分分吧，没有讶异，也不要抱怨。来了接受；去了，坦然。别人进出我们的心灵，我们也出进别人的生命，别人是你的过客，你也是别人匆匆的过客。无需奢求，只静静的享受拥有时的那份感动。同时感谢，感谢他们曾走入我们的生命…</p>
@@ -3598,7 +4023,7 @@ func main() {
 <h2 id="2、图文识别"><a href="#2、图文识别" class="headerlink" title="2、图文识别"></a>2、图文识别</h2><p>对于简单文字不太多的网站，可以使用图文识别来完成。QQ截图就有这个功能，可以选用QQ截图装要复制的文字截图，再按图文识别按钮，再从识别出来的内容中复制出来</p>
 <p><img src="//gitee.com/guoke3915/zw/raw/master/p/f72f6493/19826068-e0116f7167efa048.png" alt></p>
 <p><img src="//gitee.com/guoke3915/zw/raw/master/p/f72f6493/19826068-aefc5858433bec60.png" alt></p>
-<h2 id="3、使用网页插件"><a href="#3、使用网页插件" class="headerlink" title="3、使用网页插件"></a>3、使用网页插件</h2><p>这里推荐一款简单的插件<a href="https://chrome.google.com/webstore/detail/simple-allow-copy/aefehdhdciieocakfobpaaolhipkcpgc/related?utm_source=chrome-app-launcher-info-dialog" target="_blank" rel="noopener">Simple Allow Copy</a>。离线安装包<a href="https://raw.githubusercontent.com/zngw/cdn/master/SaveAllResources-0.1.8_0.crx" target="_blank" rel="noopener">SaveAllResources-0.1.8_0.crx</a>，安装后就和正常网页一样复制了</p>
+<h2 id="3、使用网页插件"><a href="#3、使用网页插件" class="headerlink" title="3、使用网页插件"></a>3、使用网页插件</h2><p>这里推荐一款简单的插件<a href="https://chrome.google.com/webstore/detail/simple-allow-copy/aefehdhdciieocakfobpaaolhipkcpgc/related?utm_source=chrome-app-launcher-info-dialog" target="_blank" rel="noopener">Simple Allow Copy</a>。离线安装包 <a href="https://raw.githubusercontent.com/zngw/cdn/master/SaveAllResources-0.1.8_0.crx" target="_blank" rel="noopener">GitHub下载</a>、<a href="https://www.aliyundrive.com/s/4dxavEJNene/folder/618cc84fd7f347f9d90143b699dfce7849a9a749" target="_blank" rel="noopener">阿里云盘下载</a>，安装后就和正常网页一样复制了</p>
 <p><img src="//gitee.com/guoke3915/zw/raw/master/p/f72f6493/19826068-4fda473a95974914.png" alt></p>
 ]]></content>
       <categories>
@@ -7825,7 +8250,7 @@ systemctl restart nmb.service</code></pre>
   //其他平台直接使用
   this.wss = new WebSocket(url);
 }</code></pre>
-<p>如果官网打不开可以下载这个 <a href="https://github.com/zngw/cdn/blob/master/cacert/cacert-2021-04-13.pem" target="_blank" rel="noopener">cacert-2021-04-13.pem</a></p>
+<p>如果官网打不开可以下载这个 <a href="https://www.aliyundrive.com/s/3ubVje6axpF/folder/618cc3d2f2e9e121d0884669b45e5be73d92faff" target="_blank" rel="noopener">cacert</a></p>
 ]]></content>
       <categories>
         <category>Cocos2d-JS</category>
@@ -10963,7 +11388,7 @@ set versionFile=%assets_path%\build\jsb-link\assets\resources\native\06\066c7e06
     <content><![CDATA[<p>有时遇到好看的H5网站，相要下载上面的资源。按F12可以查看Sources（源代码），一个一个的下载资源比较麻烦，但是Chrome中有个<code>Save All Resources</code>插件可以一键下载网页资源.</p>
 <h2 id="在线安装"><a href="#在线安装" class="headerlink" title="在线安装"></a>在线安装</h2><p>先在Google Chrome网上应用店中搜<a href="https://chrome.google.com/webstore/detail/save-all-resources/abpdnfjocnmdomablahdcfnoggeeiedb/related" target="_blank" rel="noopener">Save All Resources</a>,直接<code>添加至Chrome</code></p>
 <p><img src="//gitee.com/guoke3915/zw/raw/master/p/c47ce95f/19826068-298b56f41cf0791f.png" alt></p>
-<h2 id="离线安装"><a href="#离线安装" class="headerlink" title="离线安装"></a>离线安装</h2><p>如果打不开应用商店，可以下载<a href="https://raw.githubusercontent.com/zngw/cdn/master/SaveAllResources-0.1.8_0.crx" target="_blank" rel="noopener">离线Save All Resources</a>, 导入方式可以参考<a href="/p/3366a179.html">Chrome 扩展导入导出</a></p>
+<h2 id="离线安装"><a href="#离线安装" class="headerlink" title="离线安装"></a>离线安装</h2><p>如果打不开应用商店，可以下载离线包 <a href="https://raw.githubusercontent.com/zngw/cdn/master/SaveAllResources-0.1.8_0.crx" target="_blank" rel="noopener">GitHub下载</a>、<a href="https://www.aliyundrive.com/s/4dxavEJNene/folder/618cc84fd7f347f9d90143b699dfce7849a9a749" target="_blank" rel="noopener">阿里云盘下载</a>, 导入方式可以参考<a href="/p/3366a179.html">Chrome 扩展导入导出</a></p>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>打开要下载的网站，按F12查看源码。选择右侧的<code>ResourcesSaver</code>，然后点<code>Save All Resources</code>就可以直接保存</p>
 <p><img src="//gitee.com/guoke3915/zw/raw/master/p/c47ce95f/19826068-75c5f02198f94367.png" alt></p>
 ]]></content>
@@ -15984,23 +16409,6 @@ vector&lt;string&gt; split(const string &amp;str, const string &amp;pattern)
       </tags>
   </entry>
   <entry>
-    <title>Android 9.0 应用请求http请求无法访问网络</title>
-    <url>/p/baddbcad.html</url>
-    <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>前两天Android Studio打包时，sdk版本从27 升级到29，发现原来的http请求访问不了。原来是在Android (9.0)+系统的设备上，如果应用使用的是非加密的明文流量的http网络请求，则会导致该应用无法进行网络请求，https则不会受影响</p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="1-将SDK版本降为27及以下"><a href="#1-将SDK版本降为27及以下" class="headerlink" title="1. 将SDK版本降为27及以下"></a>1. 将SDK版本降为27及以下</h2><h2 id="2-将http协议改为https协议"><a href="#2-将http协议改为https协议" class="headerlink" title="2. 将http协议改为https协议"></a>2. 将http协议改为https协议</h2><h2 id="3-修改工程配置"><a href="#3-修改工程配置" class="headerlink" title="3. 修改工程配置"></a>3. 修改工程配置</h2><p>修改工程AndroidManifest文件中的application标签内添加</p>
-<pre><code>&lt;application
-...
-  android:usesCleartextTraffic=&quot;true&quot;
-...
-/&gt;</code></pre>]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Android Studio Gradle工程路径太长</title>
     <url>/p/55b12ce9.html</url>
     <content><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>用cocos creator生成了一个gradle 的 android工程，项目本身目录就比较深，再加上默认的生成路径又是一大堆，最后用Android Studio打开的时候，目录已经很长很长了。再然后就编译出错了</p>
@@ -16021,6 +16429,23 @@ vector&lt;string&gt; split(const string &amp;str, const string &amp;pattern)
     }
 }</code></pre><p>然后，重新用Android Studio打开项目就可以了</p>
 ]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android 9.0 应用请求http请求无法访问网络</title>
+    <url>/p/baddbcad.html</url>
+    <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>前两天Android Studio打包时，sdk版本从27 升级到29，发现原来的http请求访问不了。原来是在Android (9.0)+系统的设备上，如果应用使用的是非加密的明文流量的http网络请求，则会导致该应用无法进行网络请求，https则不会受影响</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="1-将SDK版本降为27及以下"><a href="#1-将SDK版本降为27及以下" class="headerlink" title="1. 将SDK版本降为27及以下"></a>1. 将SDK版本降为27及以下</h2><h2 id="2-将http协议改为https协议"><a href="#2-将http协议改为https协议" class="headerlink" title="2. 将http协议改为https协议"></a>2. 将http协议改为https协议</h2><h2 id="3-修改工程配置"><a href="#3-修改工程配置" class="headerlink" title="3. 修改工程配置"></a>3. 修改工程配置</h2><p>修改工程AndroidManifest文件中的application标签内添加</p>
+<pre><code>&lt;application
+...
+  android:usesCleartextTraffic=&quot;true&quot;
+...
+/&gt;</code></pre>]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -27525,6 +27950,44 @@ DNS2=114.114.114.114         #</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>CentOS7 安装Docker</title>
+    <url>/p/39d97234.html</url>
+    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
+sudo yum -y update
+
+## 卸载旧版本
+sudo yum remove docker  docker-common docker-selinux docker-engine
+&lt;!-- more --&gt;
+## 安装需要的软件包
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
+
+## 安装container-selinux
+yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
+
+## 设置yum源
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+## 安装
+sudo yum -y install docker-ce
+
+## 设置开机启动
+sudo systemctl enable docker
+
+## 启动docker
+sudo systemctl start docker
+
+## 显示版本
+docker version</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS 7 关闭selinux</title>
     <url>/p/c2b74a9a.html</url>
     <content><![CDATA[<ol>
@@ -27588,44 +28051,6 @@ SELINUXTYPE=targeted</code></pre>
       </categories>
       <tags>
         <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CentOS7 安装Docker</title>
-    <url>/p/39d97234.html</url>
-    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
-sudo yum -y update
-
-## 卸载旧版本
-sudo yum remove docker  docker-common docker-selinux docker-engine
-&lt;!-- more --&gt;
-## 安装需要的软件包
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
-
-## 安装container-selinux
-yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
-
-## 设置yum源
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-## 安装
-sudo yum -y install docker-ce
-
-## 设置开机启动
-sudo systemctl enable docker
-
-## 启动docker
-sudo systemctl start docker
-
-## 显示版本
-docker version</code></pre>
-]]></content>
-      <categories>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -27856,6 +28281,77 @@ sudo cp src/redis-cli /usr/local/bin/</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
+    <url>/p/355346b3.html</url>
+    <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
+<pre><code class="line-numbers language-bash">#!/bin/bash
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
+
+sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+
+cd /
+mkdir data
+cd data
+mkdir db
+mkdir log
+
+mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
+
+read -p &quot;Enter your account:&quot; account
+read -p &quot;Enter your password:&quot; password
+mongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;
+
+ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`
+for id in $ID
+do
+kill -9 $id
+done
+
+mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+<h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol>
+<li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre>
+</li>
+<li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre>
+</li>
+<li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre>
+</li>
+<li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre>
+</li>
+<li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /
+mkdir data
+cd data
+mkdir db
+mkdir log</code></pre>
+</li>
+<li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+</li>
+<li>创建帐号<pre><code class="line-numbers language-bash">mongo
+use admin
+db.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })
+db.auth(&quot;root&quot;,&quot;123456&quot;)
+exit</code></pre>
+</li>
+<li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo
+root      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
+root      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongo
+kill 11737</code></pre>
+</li>
+<li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>MongoDB</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS-7中离线安装MongoDB</title>
     <url>/p/65eba897.html</url>
     <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
@@ -28009,77 +28505,6 @@ systemctl enable mongodb.service</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
-    <url>/p/355346b3.html</url>
-    <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
-<pre><code class="line-numbers language-bash">#!/bin/bash
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
-
-sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-
-cd /
-mkdir data
-cd data
-mkdir db
-mkdir log
-
-mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
-
-read -p &quot;Enter your account:&quot; account
-read -p &quot;Enter your password:&quot; password
-mongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;
-
-ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`
-for id in $ID
-do
-kill -9 $id
-done
-
-mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-<h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol>
-<li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre>
-</li>
-<li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre>
-</li>
-<li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre>
-</li>
-<li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre>
-</li>
-<li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /
-mkdir data
-cd data
-mkdir db
-mkdir log</code></pre>
-</li>
-<li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-</li>
-<li>创建帐号<pre><code class="line-numbers language-bash">mongo
-use admin
-db.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })
-db.auth(&quot;root&quot;,&quot;123456&quot;)
-exit</code></pre>
-</li>
-<li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo
-root      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
-root      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongo
-kill 11737</code></pre>
-</li>
-<li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-        <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu安装npm(nodejs)环境</title>
     <url>/p/b387666f.html</url>
     <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
@@ -28176,32 +28601,6 @@ nvm alias default v10.16.3</code></pre>
       </categories>
       <tags>
         <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Win10 安装 MongoDB</title>
-    <url>/p/3172944f.html</url>
-    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
-<a id="more"></a>
-<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
-<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
-:: 创建MongoDB服务 
-:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
-:: 数据目录 D:\MongoDB\Server\4.2\data
-:: 外网可访问 --bind_ip_all
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
-:: 启动服务
-net start MongoDB</code></pre>
-<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
-<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>MongoDB</tag>
-        <tag>Window</tag>
       </tags>
   </entry>
   <entry>
@@ -28305,29 +28704,77 @@ db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>React环境搭建</title>
-    <url>/p/28a0bfec.html</url>
-    <content><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a>
+    <title>Win10 安装 MongoDB</title>
+    <url>/p/3172944f.html</url>
+    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
+<a id="more"></a>
+<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
+<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
+:: 创建MongoDB服务 
+:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
+:: 数据目录 D:\MongoDB\Server\4.2\data
+:: 外网可访问 --bind_ip_all
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
+:: 启动服务
+net start MongoDB</code></pre>
+<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
+<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Go文件名命名规则</title>
+    <url>/p/daf9791f.html</url>
+    <content><![CDATA[<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>在golang源代码中，经常看到各种文件名，比如： bolt_windows.go。<br>下面对文件名命令规则的说明：</p>
+<a id="more"></a>
 <ol>
-<li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li>
-<li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li>
-<li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li>
-<li>命令行cd进入项目目录</li>
-<li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-cli
-npm install babel-preset-react</code></pre>
+<li><p>平台区分</p>
+<p>文件名_平台。</p>
+<p>例： file_windows.go, file_unix.go</p>
+<p>可选为<code>windows, unix, posix, plan9, darwin, bsd, linux, freebsd, nacl, netbsd, openbsd, solaris, dragonfly, bsd, notbsd， android，stubs</code></p>
 </li>
-<li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre>
+<li><p>测试单远</p>
+<p>文件名_test.go或者 文件名_平台_test.go。</p>
+<p>例： path_test.go,  path_windows_test.go</p>
 </li>
-<li>npm install （安装依赖）</li>
-<li>npm start （启动）</li>
-<li>打包可部署 npm run build （在dist目录下，部署的东西）</li>
+<li><p>版本区分（猜测）</p>
+<p>文件名_版本号等。</p>
+<p>例：trap_windows_1.4.go</p>
+</li>
+<li><p>CPU类型区分, 汇编用的多</p>
+<p>文件名_(平台:可选)_CPU类型.</p>
+<p>例：vdso_linux_amd64.go</p>
+<p>可选为<code>amd64, none, 386, arm, arm64, mips64, s390,mips64x,ppc64x, nonppc64x, s390x, x86,amd64p32</code></p>
+</li>
+</ol>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
+<li><p>golang的命名需要使用驼峰命名法，且不能出现下划线</p>
+</li>
+<li><p>golang中根据首字母的大小写来确定可以访问的权限。无论是方法名、常量、变量名还是结构体的名称，如果首字母大写，则可以被其他的包访问；如果首字母小写，则只能在本包中使用，可以简单的理解成，首字母大写是公有的，首字母小写是私有的</p>
+</li>
+<li><p>结构体中属性名的大写</p>
+<p>如果属性名小写则在数据解析（如json解析,或将结构体作为请求或访问参数）时无法解析</p>
+</li>
+</ol>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
+<li>go build 的时候会选择性地编译以系统名结尾的文件(linux、darwin、windows、freebsd)。例如Linux(Unix)系统下编译只会选择array_linux.go文件，其它系统命名后缀文件全部忽略。</li>
+<li>在xxx.go文件的文件头上添加 // + build !windows (tags)，可以选择在windows系统下面不编译 <pre><code class="line-numbers language-go">// +build !windows
+package main</code></pre>
+</li>
 </ol>
 ]]></content>
       <categories>
-        <category>Windows</category>
+        <category>Golang</category>
       </categories>
       <tags>
-        <tag>Window</tag>
+        <tag>Golang</tag>
       </tags>
   </entry>
   <entry>
@@ -28387,63 +28834,29 @@ npm install babel-preset-react</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Go文件名命名规则</title>
-    <url>/p/daf9791f.html</url>
-    <content><![CDATA[<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>在golang源代码中，经常看到各种文件名，比如： bolt_windows.go。<br>下面对文件名命令规则的说明：</p>
-<a id="more"></a>
+    <title>React环境搭建</title>
+    <url>/p/28a0bfec.html</url>
+    <content><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a>
 <ol>
-<li><p>平台区分</p>
-<p>文件名_平台。</p>
-<p>例： file_windows.go, file_unix.go</p>
-<p>可选为<code>windows, unix, posix, plan9, darwin, bsd, linux, freebsd, nacl, netbsd, openbsd, solaris, dragonfly, bsd, notbsd， android，stubs</code></p>
+<li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li>
+<li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li>
+<li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li>
+<li>命令行cd进入项目目录</li>
+<li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-cli
+npm install babel-preset-react</code></pre>
 </li>
-<li><p>测试单远</p>
-<p>文件名_test.go或者 文件名_平台_test.go。</p>
-<p>例： path_test.go,  path_windows_test.go</p>
+<li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre>
 </li>
-<li><p>版本区分（猜测）</p>
-<p>文件名_版本号等。</p>
-<p>例：trap_windows_1.4.go</p>
-</li>
-<li><p>CPU类型区分, 汇编用的多</p>
-<p>文件名_(平台:可选)_CPU类型.</p>
-<p>例：vdso_linux_amd64.go</p>
-<p>可选为<code>amd64, none, 386, arm, arm64, mips64, s390,mips64x,ppc64x, nonppc64x, s390x, x86,amd64p32</code></p>
-</li>
-</ol>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
-<li><p>golang的命名需要使用驼峰命名法，且不能出现下划线</p>
-</li>
-<li><p>golang中根据首字母的大小写来确定可以访问的权限。无论是方法名、常量、变量名还是结构体的名称，如果首字母大写，则可以被其他的包访问；如果首字母小写，则只能在本包中使用，可以简单的理解成，首字母大写是公有的，首字母小写是私有的</p>
-</li>
-<li><p>结构体中属性名的大写</p>
-<p>如果属性名小写则在数据解析（如json解析,或将结构体作为请求或访问参数）时无法解析</p>
-</li>
-</ol>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
-<li>go build 的时候会选择性地编译以系统名结尾的文件(linux、darwin、windows、freebsd)。例如Linux(Unix)系统下编译只会选择array_linux.go文件，其它系统命名后缀文件全部忽略。</li>
-<li>在xxx.go文件的文件头上添加 // + build !windows (tags)，可以选择在windows系统下面不编译 <pre><code class="line-numbers language-go">// +build !windows
-package main</code></pre>
-</li>
+<li>npm install （安装依赖）</li>
+<li>npm start （启动）</li>
+<li>打包可部署 npm run build （在dist目录下，部署的东西）</li>
 </ol>
 ]]></content>
       <categories>
-        <category>Golang</category>
+        <category>Windows</category>
       </categories>
       <tags>
-        <tag>Golang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SSH获取连接者IP</title>
-    <url>/p/8c986da4.html</url>
-    <content><![CDATA[<pre><code class="line-numbers language-bash">who am i | awk &#39;{print $5}&#39; | sed &#39;s/(//g&#39; | sed &#39;s/)//g&#39;</code></pre>
-]]></content>
-      <categories>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
+        <tag>Window</tag>
       </tags>
   </entry>
   <entry>
@@ -28453,6 +28866,18 @@ package main</code></pre>
 yum update
 yum install dotnet-sdk-2.2
 dotnet --version</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SSH获取连接者IP</title>
+    <url>/p/8c986da4.html</url>
+    <content><![CDATA[<pre><code class="line-numbers language-bash">who am i | awk &#39;{print $5}&#39; | sed &#39;s/(//g&#39; | sed &#39;s/)//g&#39;</code></pre>
 ]]></content>
       <categories>
         <category>CentOS</category>
