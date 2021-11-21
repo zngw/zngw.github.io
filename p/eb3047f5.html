@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="/js/src/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+
+
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CentOS," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="过愙" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一、起因现在很多路由都支持自定义hosts，可以将局域网中的域名解析到自定义的IP中，但是公司用了华为ASG当路由， 这个就不能自定义hosts了，所以可以局域网中搭建一个内网DNS服务器，然后将华为ASC的DNS配置成内网DNS服务器IP就可以了。 二、DNSmasq的简介这里用轻量的Dnsmasq服务器来实现内网DNS服务器搭建。Dnsmasq 是提供 DNS 缓存和 DHCP 服务功能。作为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DNSmasq安装与配置">
+<meta property="og:url" content="https://zengwu.com.cn/p/eb3047f5.html">
+<meta property="og:site_name" content="过愙">
+<meta property="og:description" content="一、起因现在很多路由都支持自定义hosts，可以将局域网中的域名解析到自定义的IP中，但是公司用了华为ASG当路由， 这个就不能自定义hosts了，所以可以局域网中搭建一个内网DNS服务器，然后将华为ASC的DNS配置成内网DNS服务器IP就可以了。 二、DNSmasq的简介这里用轻量的Dnsmasq服务器来实现内网DNS服务器搭建。Dnsmasq 是提供 DNS 缓存和 DHCP 服务功能。作为">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-20T07:17:55.000Z">
+<meta property="article:modified_time" content="2021-06-20T15:15:41.433Z">
+<meta property="article:author" content="过客">
+<meta property="article:tag" content="CentOS">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":0,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zengwu.com.cn/p/eb3047f5.html"/>
+
+
+<link rel="stylesheet" href="/js/src/prism.css">
+
+
+
+
+
+
+  <title>DNSmasq安装与配置 | 过愙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f759423ed17e6f82c79790450fa6ab7e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">过愙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">编程有风险，入坑需谨慎</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br />
+            
+            热度
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photos/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-camera-retro"></i> <br />
+            
+            相册
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/eb3047f5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">DNSmasq安装与配置</h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-20T15:17:55+08:00">
+                2021-06-20
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2021-06-20</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CentOS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">CentOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  28
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/eb3047f5.html" class="zngw_visitors" data-flag-title="DNSmasq安装与配置">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、起因"><a href="#一、起因" class="headerlink" title="一、起因"></a>一、起因</h1><p>现在很多路由都支持自定义hosts，可以将局域网中的域名解析到自定义的IP中，但是公司用了华为ASG当路由， 这个就不能自定义hosts了，所以可以局域网中搭建一个内网DNS服务器，然后将华为ASC的DNS配置成内网DNS服务器IP就可以了。</p>
+<h1 id="二、DNSmasq的简介"><a href="#二、DNSmasq的简介" class="headerlink" title="二、DNSmasq的简介"></a>二、DNSmasq的简介</h1><p>这里用轻量的Dnsmasq服务器来实现内网DNS服务器搭建。Dnsmasq 是提供 DNS 缓存和 DHCP 服务功能。作为域名解析服务器(DNS)，dnsmasq可以通过缓存 DNS 请求来提高对访问过的网址的连接速度。作为DHCP 服务器，dnsmasq 可以用于为局域网电脑分配内网ip地址和提供路由。DNS和DHCP两个功能可以同时或分别单独实现。dnsmasq轻量且易配置，适用于个人用户或少于50台主机的网络。此外它还自带了一个 PXE 服务器。</p>
+<h1 id="三、安装DNSmasq"><a href="#三、安装DNSmasq" class="headerlink" title="三、安装DNSmasq"></a>三、安装DNSmasq</h1><pre><code class="line-numbers language-bash">yum install -y dnsmasq</code></pre>
+<h1 id="四、开启防火墙"><a href="#四、开启防火墙" class="headerlink" title="四、开启防火墙"></a>四、开启防火墙</h1><pre><code class="line-numbers language-bash">firewall-cmd --zone=public --add-port=53/tcp --permanent
+firewall-cmd --zone=public --add-port=53/udp --permanent
+firewall-cmd --reload</code></pre>
+<h1 id="五、简单配置启用hosts功能"><a href="#五、简单配置启用hosts功能" class="headerlink" title="五、简单配置启用hosts功能"></a>五、简单配置启用hosts功能</h1><p>先做一个简单快捷的配置，配置一个类似于本地hosts功能的DNS。</p>
+<h2 id="5-1-vim-etc-dnsmasq-conf"><a href="#5-1-vim-etc-dnsmasq-conf" class="headerlink" title="5.1 vim /etc/dnsmasq.conf"></a>5.1 vim /etc/dnsmasq.conf</h2><pre><code class="line-numbers language-conf">no-hosts                              # 此配置可以直接查询上游DNS了
+resolv-file=/etc/resolv.dnsmasq.conf  # 配置上游服务文件，严格按照文件中的顺序进行查找
+strict-order                          # 取消这一行的注释，表示严格按照resolv.conf中的顺序进行查找。
+listen-address=192.168.0.2,127.0.0.1  # 如果想允许所有的用户使用你的DNS解析服务器，把listen-address去掉即可。
+addn-hosts=/etc/dnsmasq.hosts         # 配置DNS服务器hosts文件</code></pre>
+<h2 id="5-2-vim-etc-resolv-dnsmasq-conf"><a href="#5-2-vim-etc-resolv-dnsmasq-conf" class="headerlink" title="5.2 vim /etc/resolv.dnsmasq.conf"></a>5.2 vim /etc/resolv.dnsmasq.conf</h2><p>配置上游的DNS</p>
+<pre><code class="line-numbers language-conf">nameserver 8.8.8.8
+nameserver 114.114.114.114</code></pre>
+<h2 id="5-3-vim-etc-dnsmasq-hosts"><a href="#5-3-vim-etc-dnsmasq-hosts" class="headerlink" title="5.3 vim /etc/dnsmasq.hosts"></a>5.3 vim /etc/dnsmasq.hosts</h2><p>配置DNS服务器的hosts文件</p>
+<pre><code class="line-numbers language-conf"># 这里就是配置ip 域名的解析
+# 如：将 guoke.com 解析到 192.168.0.55
+192.168.0.55 guoke.com</code></pre>
+<h1 id="六、启动"><a href="#六、启动" class="headerlink" title="六、启动"></a>六、启动</h1><pre><code class="line-numbers language-bash">systemctl start dnsmasq   # 启动
+systemctl stop dnsmasq    # 关闭
+systemctl restart dnsmasq # 重启
+systemctl enable dnsmasq  # 设置开机启动 </code></pre>
+<h1 id="七、-etc-dnsmasq-conf详细解析"><a href="#七、-etc-dnsmasq-conf详细解析" class="headerlink" title="七、/etc/dnsmasq.conf详细解析"></a>七、/etc/dnsmasq.conf详细解析</h1><h2 id="7-1-提升DNS加快解析速度，server-后面可以添加指定的DNS，例如国内外不同的网站使用不同的DNS。"><a href="#7-1-提升DNS加快解析速度，server-后面可以添加指定的DNS，例如国内外不同的网站使用不同的DNS。" class="headerlink" title="7.1 提升DNS加快解析速度，server=后面可以添加指定的DNS，例如国内外不同的网站使用不同的DNS。"></a>7.1 提升DNS加快解析速度，server=后面可以添加指定的DNS，例如国内外不同的网站使用不同的DNS。</h2><h4 id="国内指定DNS"><a href="#国内指定DNS" class="headerlink" title="国内指定DNS"></a>国内指定DNS</h4><pre><code class="line-numbers language-conf">server=/cn/114.114.114.114
+server=/taobao.com/114.114.114.114
+server=/taobaocdn.com/114.114.114.114</code></pre>
+<h4 id="国外指定DNS"><a href="#国外指定DNS" class="headerlink" title="国外指定DNS"></a>国外指定DNS</h4><pre><code class="line-numbers language-conf">server=/google.com/8.8.8.8</code></pre>
+<h2 id="7-2-屏蔽网页广告，将指广告的URL指定127这个IP，就可以将网页上讨厌的广告给去掉了。"><a href="#7-2-屏蔽网页广告，将指广告的URL指定127这个IP，就可以将网页上讨厌的广告给去掉了。" class="headerlink" title="7.2 屏蔽网页广告，将指广告的URL指定127这个IP，就可以将网页上讨厌的广告给去掉了。"></a>7.2 屏蔽网页广告，将指广告的URL指定127这个IP，就可以将网页上讨厌的广告给去掉了。</h2><pre><code class="line-numbers language-conf">address=/ad.youku.com/127.0.0.1
+address=/ad.iqiyi.com/127.0.0.1</code></pre>
+<h2 id="7-3-指定域名解析到特定的IP上。这个功能可以让你控制一些网站的访问，非法的DNS就经常把一些正规的网站解析到不正确IP上。"><a href="#7-3-指定域名解析到特定的IP上。这个功能可以让你控制一些网站的访问，非法的DNS就经常把一些正规的网站解析到不正确IP上。" class="headerlink" title="7.3 指定域名解析到特定的IP上。这个功能可以让你控制一些网站的访问，非法的DNS就经常把一些正规的网站解析到不正确IP上。"></a>7.3 指定域名解析到特定的IP上。这个功能可以让你控制一些网站的访问，非法的DNS就经常把一些正规的网站解析到不正确IP上。</h2><pre><code class="line-numbers language-conf">address=/zengwu.com.cn/39.98.60.8</code></pre>
+<h1 id="八、附-etc-dnsmasq-conf文件解析"><a href="#八、附-etc-dnsmasq-conf文件解析" class="headerlink" title="八、附/etc/dnsmasq.conf文件解析"></a>八、附/etc/dnsmasq.conf文件解析</h1><pre><code class="line-numbers language-conf"># 不加载本地的 /etc/hosts 文件
+
+#no-hosts
+
+# 添加读取额外的 hosts 文件路径，可以多次指定。如果指定为目录，则读取目录中的所有文件。
+
+#addn-hosts=/etc/dnsmasq.hosts.d
+
+# 读取目录中的所有文件，文件更新将自动读取
+
+#hostsdir=/etc/dnsmasq.hosts.d
+
+# 例如，/etc/hosts中的os01将扩展成os01.example.com
+
+#expand-hosts
+
+
+
+##############################################################################
+
+# 缓存时间设置，一般不需要设置
+
+# 本地 hosts 文件的缓存时间，通常不要求缓存本地，这样更改hosts文件后就即时生效。
+
+#local-ttl=3600
+
+# 同 local-ttl 仅影响 DHCP 租约
+
+#dhcp-ttl=&lt;time&gt;
+
+# 对于上游返回的值没有ttl时，dnsmasq给一个默认的ttl，一般不需要设置，
+
+#neg-ttl=&lt;time&gt;
+
+# 指定返回给客户端的ttl时间，一般不需要设置
+
+#max-ttl=&lt;time&gt;
+
+# 设置在缓存中的条目的最大 TTL。
+
+#max-cache-ttl=&lt;time&gt;
+
+# 不需要设置，除非你知道你在做什么。
+
+#min-cache-ttl=&lt;time&gt;
+
+# 一般不需要设置
+
+#auth-ttl=&lt;time&gt;
+
+
+
+##############################################################################
+
+# 记录dns查询日志，如果指定 log-queries=extra 那么在每行开始处都有额外的日志信息。
+
+#log-queries
+
+# 设置日志记录器，&#39;-&#39; 为 stderr，也可以是文件路径。默认为：DAEMON，调试时使用 LOCAL0。
+
+#log-facility=&lt;facility&gt;
+
+#log-facility=/var/log/dnsmasq/dnsmasq.log
+
+# 异步log，缓解阻塞，提高性能。默认为5，最大100。
+
+#log-async[=&lt;lines&gt;]
+
+#log-async=50
+
+
+
+##############################################################################
+
+# 指定用户和组
+
+#user=nobody
+
+#group=nobody
+
+
+
+##############################################################################
+
+# 指定DNS的端口，默认53，设置 port=0 将完全禁用 DNS 功能，仅使用 DHCP/TFTP
+
+#port=53
+
+# 指定 EDNS.0 UDP 包的最大尺寸，默认为 RFC5625 推荐的 edns-packet-max=4096
+
+#edns-packet-max=&lt;size&gt;
+
+# 指定向上游查询的 UDP 端口，默认是随机端口，指定后降低安全性、加快速度、减少资源消耗。
+
+# 设置为 &#39;0&#39; 由操作系统分配。
+
+#query-port=53535
+
+# 指定向上游查询的 UDP 端口范围，方便防火墙设置。
+
+#min-port=&lt;port&gt;
+
+#max-port=&lt;port&gt;
+
+# 指定接口，指定后同时附加 lo 接口，可以使用&#39;*&#39;通配符。
+
+# 不能使用接口别名（例如：&quot;eth1:0&quot;），请用 listen-address 选项替代。
+
+#interface=wlp2s0
+
+# 指定排除的接口，排除优先级高，可以使用&#39;*&#39;通配符
+
+#except-interface=
+
+# 仅接受同一子网的 DNS 请求。
+
+# 仅在未指定 interface、except-interface、listen-address 或者 auth-server 时有效。
+
+#local-service
+
+# 指定不提供 DHCP 或 TFTP 服务的接口，仅提供 DNS 服务。
+
+#no-dhcp-interface=enp3s0
+
+# 指定IP地址，可以多次指定。
+
+# interface 选项和 listen-address 选项可以同时使用。
+
+# 下面两行与指定 interface 选项的作用类似。
+
+listen-address=192.168.10.17
+
+#listen-address=127.0.0.1
+
+# 通常情况下即使设置了 interface 选项（例如：interface=wlp2s0 ）
+
+# 将仍然绑定到通配符地址（例如：*:53 ）。
+
+# 开启此项将仅监听指定的接口。
+
+# 适用于在同一主机的不同接口或 IP 地址上运行多个 dns 服务器。
+
+bind-interfaces
+
+# 对于新添加的接口不进行绑定。仅 Linux 系统支持，其他系统等同于 bind-interfaces 选项。
+
+#bind-dynamic
+
+
+
+##############################################################################
+
+# 如果 hosts 中的主机有多个 IP 地址，仅返回对应子网的 IP 地址。
+
+localise-queries
+
+# 如果反向查找的是私有地址例如192.168.X.X，仅从 hosts 文件查找，不再转发到上游服务器
+
+#bogus-priv
+
+# 对于任何被解析到此 IP 的域名，将响应 NXDOMAIN 使其解析失效，可以多次指定
+
+# 通常用于对于访问不存在的域名，禁止其跳转到运营商的广告站点。
+
+#bogus-nxdomain=64.94.110.11
+
+# 忽略包含指定地址的 A 记录查询的回复。
+
+# 例如上游有台 dns 服务器伪造 www.baidu.com 的 IP 为 1.1.1.1 并且响应速度非常快。
+
+# 指定 ignore-address=1.1.1.1 可以忽略它的响应信息，
+
+# 从而等待 www.baidu.com 正确的查询结果。
+
+#ignore-address=&lt;ipaddr&gt;
+
+filterwin2k
+
+
+
+##############################################################################
+
+# 指定 resolv-file 文件路径，默认/etc/resolv.conf
+
+#resolv-file=/etc/resolv.conf
+
+# 不读取 resolv-file 来确定上游服务器
+
+#no-resolv
+
+# 在编译时需要启用 DBus 支持。
+
+#enable-dbus[=&lt;service-name&gt;]
+
+# 严格按照resolv.conf中的顺序进行查找
+
+#strict-order
+
+# 向所有上游服务器发送查询，而不是一个。
+
+all-servers
+
+# 启用转发循环检测
+
+#dns-loop-detect
+
+
+
+##############################################################################
+
+# 这项安全设置是拒绝解析包含私有 IP 地址的域名，
+
+# 这些IP地址包括如下私有地址范围：10.0.0.0/8、172.16.0.0/12、192.168.0.0/16。
+
+# 其初衷是要防止类似上游DNS服务器故意将某些域名解析成特定私有内网IP而劫持用户这样的安全***。
+
+# 直接在配置文件中注销 stop-dns-rebind 配置项从而禁用该功能。
+
+# 这个方法确实可以一劳永逸的解决解析内网 IP 地址的问题，
+
+# 但是我们也失去了这项安全保护的特性，所以在这里我不推荐这个办法。
+
+# 使用 rebind-domain-ok 进行特定配置，顾名思义该配置项可以有选择的忽略域名的 rebind 行为
+
+stop-dns-rebind
+
+rebind-localhost-ok
+
+#rebind-domain-ok=[&lt;domain&gt;]|[[/&lt;domain&gt;/[&lt;domain&gt;/]
+
+rebind-domain-ok=/.test.com/
+
+
+
+##############################################################################
+
+# 也不要检测 /etc/resolv.conf 的变化
+
+#no-poll
+
+# 重启后清空缓存
+
+clear-on-reload
+
+# 完整的域名才向上游服务器查找，如果仅仅是主机名仅查找hosts文件
+
+domain-needed
+
+
+
+##############################################################################
+
+# IP地址转换
+
+#alias=[&lt;old-ip&gt;]|[&lt;start-ip&gt;-&lt;end-ip&gt;],&lt;new-ip&gt;[,&lt;mask&gt;]
+
+##############################################################################
+
+#local=[/[&lt;domain&gt;]/[domain/]][&lt;ipaddr&gt;[#&lt;port&gt;][@&lt;source-ip&gt;|&lt;interface&gt;[#&lt;port&gt;]]
+
+#server=[/[&lt;domain&gt;]/[domain/]][&lt;ipaddr&gt;[#&lt;port&gt;][@&lt;source-ip&gt;|&lt;interface&gt;[#&lt;port&gt;]]
+
+server=/test.com/192.168.10.117
+
+server=/10.168.192.in-addr.arpa/192.168.10.117
+
+#rev-server=&lt;ip-address&gt;/&lt;prefix-len&gt;,&lt;ipaddr&gt;[#&lt;port&gt;][@&lt;source-ip&gt;|&lt;interface&gt;[#&lt;port&gt;]]
+
+
+
+# 将任何属于 &lt;domain&gt; 域名解析成指定的 &lt;ipaddr&gt; 地址。
+
+# 也就是将 &lt;domain&gt; 及其所有子域名解析成指定的 &lt;ipaddr&gt; IPv4 或者 IPv6 地址，通常用于屏蔽特定的域名。
+
+# 一次只能指定一个 IPv4 或者 IPv6 地址，要同时返回 IPv4 和IPv6 地址，请多次指定 address= 选项。
+
+# 注意： /etc/hosts 以及 DHCP 租约将覆盖此项设置。
+
+#address=/&lt;domain&gt;/[domain/][&lt;ipaddr&gt;]
+
+
+
+#ipset=/&lt;domain&gt;/[domain/]&lt;ipset&gt;[,&lt;ipset&gt;]
+
+#mx-host=&lt;mx name&gt;[[,&lt;hostname&gt;],&lt;preference&gt;]
+
+#mx-target=&lt;hostname&gt;
+
+
+
+# SRV 记录
+
+#srv-host=&lt;_service&gt;.&lt;_prot&gt;.[&lt;domain&gt;],[&lt;target&gt;[,&lt;port&gt;[,&lt;priority&gt;[,&lt;weight&gt;]]]]
+
+
+
+# A, AAAA 和 PTR 记录 
+
+#host-record=&lt;name&gt;[,&lt;name&gt;....],[&lt;IPv4-address&gt;],[&lt;IPv6-address&gt;][,&lt;TTL&gt;]
+
+
+
+# TXT 记录
+
+#txt-record=&lt;name&gt;[[,&lt;text&gt;],&lt;text&gt;]
+
+
+
+# PTR 记录 
+
+#ptr-record=&lt;name&gt;[,&lt;target&gt;]
+
+
+
+#naptr-record=&lt;name&gt;,&lt;order&gt;,&lt;preference&gt;,&lt;flags&gt;,&lt;service&gt;,&lt;regexp&gt;[,&lt;replacement&gt;]
+
+
+
+# CNAME 别名记录
+
+#cname=&lt;cname&gt;,&lt;target&gt;[,&lt;TTL&gt;]
+
+
+
+
+
+#dns-rr=&lt;name&gt;,&lt;RR-number&gt;,[&lt;hex data&gt;]
+
+#interface-name=&lt;name&gt;,&lt;interface&gt;[/4|/6]
+
+#synth-domain=&lt;domain&gt;,&lt;address range&gt;[,&lt;prefix&gt;]
+
+#add-mac[=base64|text]
+
+#add-cpe-id=&lt;string&gt;
+
+#add-subnet[[=[&lt;IPv4 address&gt;/]&lt;IPv4 prefix length&gt;][,[&lt;IPv6 address&gt;/]&lt;IPv6 prefix length&gt;]]
+
+##############################################################################
+
+
+
+##############################################################################
+
+# 缓存条数，默认为150条，cache-size=0 禁用缓存。
+
+cache-size=1000
+
+# 不缓存未知域名缓存，默认情况下dnsmasq缓存未知域名并直接返回为客户端。
+
+no-negcache
+
+# 指定DNS同属查询转发数量
+
+dns-forward-max=1000
+
+
+
+##############################################################################
+
+#dnssec
+
+#trust-anchor=[&lt;class&gt;],&lt;domain&gt;,&lt;key-tag&gt;,&lt;algorithm&gt;,&lt;digest-type&gt;,&lt;digest&gt;
+
+#dnssec-check-unsigned
+
+#dnssec-no-timecheck
+
+#dnssec-timestamp=&lt;path&gt;
+
+#proxy-dnssec
+
+#dnssec-debug
+
+
+
+##############################################################################
+
+#auth-server=&lt;domain&gt;,&lt;interface&gt;|&lt;ip-address&gt;
+
+#auth-zone=&lt;domain&gt;[,&lt;subnet&gt;[/&lt;prefix length&gt;][,&lt;subnet&gt;[/&lt;prefix length&gt;].....]]
+
+#auth-zone=&lt;domain&gt;[,&lt;interface name&gt;[/6|/4][,&lt;interface name&gt;[/6|/4].....]]
+
+#auth-soa=&lt;serial&gt;[,&lt;hostmaster&gt;[,&lt;refresh&gt;[,&lt;retry&gt;[,&lt;expiry&gt;]]]]
+
+#auth-sec-servers=&lt;domain&gt;[,&lt;domain&gt;[,&lt;domain&gt;...]]
+
+#auth-peer=&lt;ip-address&gt;[,&lt;ip-address&gt;[,&lt;ip-address&gt;...]]
+
+
+
+# 启用连接跟踪，读取 Linux 入栈 DNS 查询请求的连接跟踪标记，
+
+# 并且将上游返回的响应信息设置同样的标记。
+
+# 用于带宽控制和防火墙部署。
+
+# 此选项必须在编译时启用 conntrack 支持，并且内核正确配置并加载 conntrack。
+
+# 此选项不能与 query-port 同时使用。
+
+#conntrack
+
+
+
+
+
+##############################################################################
+
+#
+
+#        DHCP 选项
+
+#
+
+##############################################################################
+
+# 设置 DHCP 地址池，同时启用 DHCP 功能。
+
+# IPv4 &lt;mode&gt; 可指定为 static|proxy ，当 &lt;mode&gt; 指定为 static 时，
+
+# 需用 dhcp-host 手动分配地址池中的 IP 地址。
+
+# 当 &lt;mode&gt; 指定为 proxy 时，为指定的地址池提供 DHCP 代理。
+
+#dhcp-range=[tag:&lt;tag&gt;[,tag:&lt;tag&gt;],][set:&lt;tag&gt;,]&lt;start-addr&gt;[,&lt;end-addr&gt;][,&lt;mode&gt;][,&lt;netmask&gt;[,&lt;broadcast&gt;]][,&lt;lease time&gt;]
+
+#dhcp-range=172.16.0.2,172.16.0.250,255.255.255.0,1h
+
+#dhcp-range=192.168.10.150,192.168.10.180,static,255.255.255.0,1h
+
+
+
+# 根据 MAC 地址或 id 固定分配客户端的 IP 地址、主机名、租期。
+
+# IPv4 下指定 id:* 将忽略 DHCP 客户端的 ID ，仅根据 MAC 来进行 IP 地址分配。
+
+# 在读取 /etc/hosts 的情况，也可以根据 /etc/hosts 中的主机名分配对应 IP 地址。
+
+# 指定 ignore 将忽略指定客户端得 DHCP 请求。
+
+#dhcp-host=[&lt;hwaddr&gt;][,id:&lt;client_id&gt;|*][,set:&lt;tag&gt;][,&lt;ipaddr&gt;][,&lt;hostname&gt;][,&lt;lease_time&gt;][,ignore]
+
+#dhcp-hostsfile=&lt;path&gt;
+
+#dhcp-hostsdir=&lt;path&gt;
+
+# 读取 /etc/ethers 文件 与使用 dhcp-host 的作用相同。IPv6 无效。
+
+#read-ethers
+
+
+
+# 指定给 DHCP 客户端的选项信息，
+
+# 默认情况下 dnsmasq 将发送：子网掩码、广播地址、DNS 服务器地址、网关地址、域等信息。
+
+# 指定此选项也可覆盖这些默认值并且设置其他选项值。
+
+# 重要：可以使用 option:&lt;option-name&gt;或者 option号 来指定。
+
+# &lt;option-name&gt; 和 option号的对应关系可使用命令：
+
+# dnsmasq --help dhcp 以及 dnsmasq --help dhcp6 查看，这点很重要。
+
+# 例如设置网关参数，既可以使用 dhcp-option=3,192.168.4.4 也可以使用 dhcp-option = option:router,192.168.4.4。
+
+# 0.0.0.0 意味着当前运行 dnsmasq 的主机地址。
+
+# 如果指定了多个 tag:&lt;tag&gt; 必须同时匹配才行。
+
+# [encap:&lt;opt&gt;,][vi-encap:&lt;enterprise&gt;,][vendor:[&lt;vendor-class&gt;],] 有待继续研究。
+
+#dhcp-option=[tag:&lt;tag&gt;,[tag:&lt;tag&gt;,]][encap:&lt;opt&gt;,][vi-encap:&lt;enterprise&gt;,][vendor:[&lt;vendor-class&gt;],][&lt;opt&gt;|option:&lt;opt-name&gt;|option6:&lt;opt&gt;|option6:&lt;opt-name&gt;],[&lt;value&gt;[,&lt;value&gt;]]
+
+#dhcp-option-force=[tag:&lt;tag&gt;,[tag:&lt;tag&gt;,]][encap:&lt;opt&gt;,][vi-encap:&lt;enterprise&gt;,][vendor:[&lt;vendor-class&gt;],]&lt;opt&gt;,[&lt;value&gt;[,&lt;value&gt;]]
+
+#dhcp-optsfile=&lt;path&gt;
+
+#dhcp-optsdir=&lt;path&gt;
+
+#dhcp-option=3,1.2.3.4
+
+#dhcp-option=option:router,1.2.3.4
+
+#dhcp-option=option:router,192.168.10.254
+
+#dhcp-option=option:dns-server,192.168.10.254,221.12.1.227,221.12.33.227
+
+
+
+##############################################################################
+
+# (IPv4 only) 禁用重用服务器名称和文件字段作为额外的 dhcp-option 选项。
+
+# 一般情况下 dnsmasq 从 dhcp-boot 移出启动服务器和文件信息到 dhcp-option 选项中。
+
+# 这使得在 dhcp-option 选项封包中有额外的选项空间可用，但是会使老的客户端混淆。
+
+# 此选项将强制使用简单并安全的方式来避免此类情况。可以认为是一个兼容性选项。
+
+#dhcp-no-override
+
+
+
+##############################################################################
+
+# 配置 DHCP 中继。
+
+# &lt;local address&gt; 是运行 dnsmasq 的接口的 IP 地址。
+
+# 所有在 &lt;local address&gt; 接口上接收到的 DHCP 请求将中继到 &lt;server address&gt; 指定的远程 DHCP 服务器。
+
+# 可以多次配置此选项，使用同一个 &lt;local address&gt; 转发到多个不同的 &lt;server address&gt; 指定的远程 DHCP 服务器。
+
+# &lt;server address&gt; 仅允许使用 IP 地址，不能使用域名等其他格式。
+
+# 如果是 DHCPv6，&lt;server address&gt; 可以是 ALL_SERVERS 的多播地址 ff05::1:3 。
+
+# 在这种情况下必须指定接口 &lt;interface&gt; ，不能使用通配符，用于直接多播到对应的 DHCP 服务器所在的接口。
+
+# &lt;interface&gt; 指定了仅允许接收从 &lt;interface&gt; 接口的 DHCP 服务器相应信息。
+
+#dhcp-relay=&lt;local address&gt;,&lt;server address&gt;[,&lt;interface&gt;]
+
+
+
+##############################################################################
+
+# 设置标签
+
+#dhcp-vendorclass=set:&lt;tag&gt;,[enterprise:&lt;IANA-enterprise number&gt;,]&lt;vendor-class&gt;
+
+#dhcp-userclass=set:&lt;tag&gt;,&lt;user-class&gt;
+
+#dhcp-mac=set:&lt;tag&gt;,&lt;MAC address&gt;
+
+#dhcp-circuitid=set:&lt;tag&gt;,&lt;circuit-id&gt;
+
+#dhcp-remoteid=set:&lt;tag&gt;,&lt;remote-id&gt;
+
+#dhcp-subscrid=set:&lt;tag&gt;,&lt;subscriber-id&gt;
+
+#dhcp-match=set:&lt;tag&gt;,&lt;option number&gt;|option:&lt;option name&gt;|vi-encap:&lt;enterprise&gt;[,&lt;value&gt;]
+
+#tag-if=set:&lt;tag&gt;[,set:&lt;tag&gt;[,tag:&lt;tag&gt;[,tag:&lt;tag&gt;]]]
+
+
+
+#dhcp-proxy[=&lt;ip addr&gt;]......
+
+
+
+##############################################################################
+
+# 不分配匹配这些 tag:&lt;tag&gt; 的 DHCP 请求。
+
+#dhcp-ignore=tag:&lt;tag&gt;[,tag:&lt;tag&gt;]
+
+#dhcp-ignore-names[=tag:&lt;tag&gt;[,tag:&lt;tag&gt;]]
+
+#dhcp-generate-names=tag:&lt;tag&gt;[,tag:&lt;tag&gt;]
+
+# IPv4 only 使用广播与匹配 tag:&lt;tag&gt; 的客户端通信。一般用于兼容老的 BOOT 客户端。
+
+#dhcp-broadcast[=tag:&lt;tag&gt;[,tag:&lt;tag&gt;]] 
+
+
+
+##############################################################################
+
+# IPv4 only 设置 DHCP 服务器返回的 BOOTP 选项，
+
+# &lt;servername&gt; &lt;server address&gt; 可选，
+
+# 如果未设置服务器名称将设为空，服务器地址设为 dnsmasq 的 IP 地址。
+
+# 如果指定了多个 tag:&lt;tag&gt; 必须同时匹配才行。
+
+# 如果指定 &lt;tftp_servername&gt; 将按照 /etc/hosts 中对应的 IP 地址进行轮询负载均衡。  
+
+#dhcp-boot=[tag:&lt;tag&gt;,]&lt;filename&gt;,[&lt;servername&gt;[,&lt;server address&gt;|&lt;tftp_servername&gt;]]
+
+# 根据不同的类型使用不同的选项。
+
+# 使用示例：
+
+#        dhcp-match=set:EFI_x86-64,option:client-arch,9
+
+#        dhcp-boot=tag:EFI_x86-64,uefi/grubx64.efi
+
+#        #dhcp-match=set:EFI_Xscale,option:client-arch,8
+
+#        #dhcp-boot=tag:EFI_Xscale,uefi/grubx64.efi
+
+#        #dhcp-match=set:EFI_BC,option:client-arch,7
+
+#        #dhcp-boot=tag:EFI_BC,uefi/grubx64.efi
+
+#        #dhcp-match=set:EFI_IA32,option:client-arch,6
+
+#        #dhcp-boot=tag:EFI_IA32,uefi/grubx64.efi
+
+#        #dhcp-match=set:Intel_Lean_Client,option:client-arch,5
+
+#        #dhcp-boot=tag:Intel_Lean_Client,uefi/grubx64.efi
+
+#        #dhcp-match=set:Arc_x86,option:client-arch,4
+
+#        #dhcp-boot=tag:Arc_x86,uefi/grubx64.efi
+
+#        #dhcp-match=set:DEC_Alpha,option:client-arch,3
+
+#        #dhcp-boot=tag:DEC_Alpha,uefi/grubx64.efi
+
+#        #dhcp-match=set:EFI_Itanium,option:client-arch,2
+
+#        #dhcp-boot=tag:EFI_Itanium,uefi/grubx64.efi
+
+#        #dhcp-match=set:NEC/PC98,option:client-arch,1
+
+#        #dhcp-boot=tag:NEC/PC98,uefi/grubx64.efi
+
+#        dhcp-match=set:Intel_x86PC,option:client-arch,0
+
+#        dhcp-boot=tag:Intel_x86PC,pxelinux.0
+
+
+
+##############################################################################
+
+# DHCP 使用客户端的 MAC 地址的哈希值为客户端分配 IP 地址，
+
+# 通常情况下即使客户端使自己的租约到期，客户端的 IP 地址仍将长期保持稳定。
+
+# 在默认模式下，IP 地址是随机分配的。
+
+# 启用 dhcp-sequential-ip 选项将按顺序分配 IP 地址。
+
+# 在顺序分配模式下，客户端使租约到期更像是仅仅移动一下 IP 地址。
+
+# 在通常情况下不建议使用这种方式。
+
+#dhcp-sequential-ip
+
+
+
+##############################################################################
+
+# 多数情况下我们使用 PXE，只是简单的允许 PXE 客户端获取 IP 地址，
+
+# 然后 PXE 客户端下载 dhcp-boot 选项指定的文件并执行，也就是 BOOTP 的方式。
+
+# 然而在有适当配置的 DHCP 服务器支持的情况下，PXE 系统能够实现更复杂的功能。
+
+# pxe-service 选项可指定 PXE 环境的启动菜单。
+
+# 为不同的类型系统设定不同的启动菜单，并且覆盖 dhcp-boot 选项。
+
+# &lt;CSA&gt; 为客户端系统类型：x86PC, PC98, IA64_EFI, Alpha, Arc_x86, Intel_Lean_Client, 
+
+# IA32_EFI, X86-64_EFI, Xscale_EFI, BC_EFI, ARM32_EFI 和 ARM64_EFI，其他类型可能为一个整数。
+
+# &lt;basename&gt; 引导 PXE 客户端使用 tftp 从 &lt;server address&gt; 或者 &lt;server_name&gt; 下载文件。
+
+#     注意：&quot;layer&quot; 后缀 (通常是 &quot;.0&quot;) 由 PXE 提供，也就是 PXE 客户端默认在文件名附加 .0 后缀。
+
+#     示例：pxe-service=x86PC, &quot;Install Linux&quot;, pxelinux         （读取 pxelinux.0 文件并执行）
+
+#           pxe-service=x86PC, &quot;Install Linux&quot;, pxelinux, 1.2.3.4（不适用于老的PXE）
+
+#     &lt;bootservicetype&gt; 整数，PXE 客户端将通过广播或者通过 &lt;server address&gt; 
+
+#           或者 &lt;server_name&gt; 搜索对应类型的适合的启动服务。。
+
+#     示例：pxe-service=x86PC, &quot;Install windows from RIS server&quot;, 1
+
+#           pxe-service=x86PC, &quot;Install windows from RIS server&quot;, 1, 1.2.3.4
+
+#     未指定 &lt;basename&gt;、&lt;bootservicetype&gt; 或者 &lt;bootservicetype&gt; 为 “0”，将从本地启动。
+
+#     示例：pxe-service=x86PC, &quot;Boot from local disk&quot;
+
+#           pxe-service=x86PC, &quot;Boot from local disk&quot;, 0
+
+# 如果指定 &lt;server_name&gt; 将按照 /etc/hosts 中对应的 IP 地址进行轮询负载均衡。  
+
+#pxe-service=[tag:&lt;tag&gt;,]&lt;CSA&gt;,&lt;menu text&gt;[,&lt;basename&gt;|&lt;bootservicetype&gt;][,&lt;server address&gt;|&lt;server_name&gt;]
+
+# 在 PXE 启动后弹出提示，&lt;prompt&gt; 为提示内容，&lt;timeout&gt; 为超时时间，为 0 则立即执行。
+
+# 如果未指定此选项，在有多个启动选项的情况下等待用户选择，不会超时。
+
+#pxe-prompt=[tag:&lt;tag&gt;,]&lt;prompt&gt;[,&lt;timeout&gt;]
+
+# 根据不同的类型使用不同的菜单，使用示例：
+
+#        #pxe-prompt=&quot;What system shall I netboot?&quot;, 120
+
+#        # or with timeout before first available action is taken:
+
+#        pxe-prompt=&quot;Press F8 or Enter key for menu.&quot;, 60
+
+#        pxe-service=x86PC, &quot;Now in x86PC (BIOS mode), boot from local&quot;, 0
+
+#        pxe-service=x86PC, &quot;Now in x86PC (BIOS mode)&quot;, pxelinux
+
+#        pxe-service=PC98, &quot;Now in PC98 mode&quot;, PC98
+
+#        pxe-service=IA64_EFI, &quot;Now in IA64_EFI mode&quot;, IA64_EFI
+
+#        pxe-service=Alpha, &quot;Now in Alpha mode&quot;, Alpha
+
+#        pxe-service=Arc_x86, &quot;Now in Arc_x86 mode&quot;, Arc_x86
+
+#        pxe-service=Intel_Lean_Client, &quot;Now in Intel_Lean_Client mode&quot;, Intel_Lean_Client
+
+#        pxe-service=IA32_EFI, &quot;Now in IA32_EFI mode&quot;, IA32_EFI
+
+#        pxe-service=X86-64_EFI, &quot;Now in X86-64_EFI (UEFI mode), boot from local&quot;, 0
+
+#        pxe-service=X86-64_EFI, &quot;Now in X86-64_EFI (UEFI mode)&quot;, grub/grub-x86_64.efi
+
+#        pxe-service=Xscale_EFI, &quot;Now in Xscale_EFI mode&quot;, Xscale_EFI
+
+#        pxe-service=BC_EFI, &quot;Now in BC_EFI mode&quot;, BC_EFI
+
+#        # CentOS7 系统不支持下列两个选项
+
+#        #pxe-service=ARM32_EFI,&quot;Now in ARM32_EFI mode&quot;,ARM32_EFI
+
+#        #pxe-service=ARM64_EFI,&quot;Now in ARM64_EFI mode&quot;,ARM64_EFI
+
+
+
+##############################################################################
+
+# 默认为150，即最多分配150个ip地址出去，最大1000个ip
+
+#dhcp-lease-max=150
+
+# (IPv4 only) 指定DHCP端口，默认为67和68。如果不指定则为1067和1068，单指定一个，第二个加1
+
+#dhcp-alternate-port[=&lt;server port&gt;[,&lt;client port&gt;]]
+
+# 谨慎使用此选项，避免 IP 地址浪费。(IPv4 only) 允许动态分配 IP 地址给 BOOTP 客户端。
+
+# 注意：BOOTP 客户端获取的 IP 地址是永久的，将无法再次分配给其他客户端。
+
+#bootp-dynamic[=&lt;network-id&gt;[,&lt;network-id&gt;]]
+
+# 谨慎使用此选项。
+
+# 默认情况下 DHCP 服务器使用 ping 的方式进行确保 IP 未被使用的情况下将 IP 地址分配出去。
+
+# 启用此选项将不使用 ping 进行确认。
+
+#no-ping
+
+
+
+##############################################################################
+
+# 记录额外的 dhcp 日志，记录所有发送给 DHCP 客户端的选项（option）以及标签（tag）信息
+
+#log-dhcp
+
+# 禁止记录日常操作日志，错误日志仍然记录。启用 log-dhcp 将覆盖下列选项。
+
+#quiet-dhcp
+
+#quiet-dhcp6
+
+#quiet-ra
+
+
+
+# 修改 DHCP 默认租约文件路径，默认情况下无需修改
+
+#dhcp-leasefile=/var/lib/dnsmasq/dnsmasq.leases
+
+# (IPv6 only)
+
+#dhcp-duid=&lt;enterprise-id&gt;,&lt;uid&gt;
+
+
+
+##############################################################################
+
+#dhcp-script=&lt;path&gt;
+
+#dhcp-luascript=&lt;path&gt;
+
+#dhcp-scriptuser=root
+
+#script-arp
+
+#leasefile-ro
+
+
+
+#bridge-interface=&lt;interface&gt;,&lt;alias&gt;[,&lt;alias&gt;]
+
+
+
+##############################################################################
+
+# 给 DHCP 服务器指定 domain 域名信息，也可以给对应的 IP 地址池指定域名。
+
+#     直接指定域名
+
+#     示例：domain=thekelleys.org.uk
+
+#     子网对应的域名
+
+#     示例：domain=wireless.thekelleys.org.uk,192.168.2.0/24
+
+#     ip范围对应的域名
+
+#     示例：domain=reserved.thekelleys.org.uk,192.68.3.100,192.168.3.200
+
+#domain=&lt;domain&gt;[,&lt;address range&gt;[,local]]
+
+# 在默认情况下 dnsmasq 插入普通的客户端主机名到 DNS 中。
+
+# 在这种情况下主机名必须唯一，即使两个客户端具有不同的域名后缀。
+
+# 如果第二个客户端使用了相同的主机名，DNS 查询将自动更新为第二个客户端的 IP 地址。
+
+# 如果设置了 dhcp-fqdn 选项，普通的主机名将不再插入到 DNS 中去，
+
+# 仅允许合格的具有域名后缀的主机名插入到 DNS 服务器中。
+
+# 指定此选项需同时指定不含 &lt;address range&gt; 地址范围的 domain 选项。
+
+#dhcp-fqdn
+
+# 通常情况下分配 DHCP 租约后，dnsmasq 设置 FQDN 选项告诉客户端不要尝试 DDNS 更新主机名与 IP 地址。
+
+# 这是因为  name-IP 已自动添加到 dnsmasq 的 DNS 视图中的。
+
+# 设置此选项将允许客户端 DDNS 更新，
+
+# 在 windows 下允许客户端更新 windows AD 服务器是非常有用的。
+
+# 参看  RFC 4702 。
+
+#dhcp-client-update
+
+
+
+#enable-ra
+
+#ra-param=&lt;interface&gt;,[high|low],[[&lt;ra-interval&gt;],&lt;router lifetime&gt;]
+
+
+
+
+
+##############################################################################
+
+#
+
+#        TFTP 选项
+
+#
+
+##############################################################################
+
+# 对于绝大多数的配置，仅需指定 enable-tftp 和 tftp-root 选项即可。
+
+# 是否启用内置的 tftp 服务器，可以指定多个逗号分隔的网络接口
+
+#enable-tftp[=&lt;interface&gt;[,&lt;interface&gt;]]
+
+#enable-tftp
+
+#enable-tftp=enp3s0,lo
+
+# 指定 tftp 的根目录，也就是寻找传输文件时使用的相对路径，可以附加接口，
+
+#tftp-root=&lt;directory&gt;[,&lt;interface&gt;]
+
+#tftp-root=/var/lib/tftpboot/
+
+# 如果取消注释，那么即使指定的 tftp-root 无法访问，仍然启动 tftp 服务。
+
+#tftp-no-fail
+
+# 附加客户端的 IP 地址作为文件路径。此选项仅在正确设置了 tftp-root 的情况下可用，
+
+# 示例：如果 tftp-root=/tftp，客户端为 192.168.1.15 请求 myfile.txt 文件时，
+
+# 将优先请求 /tftp/192.168.1.15/myfile.txt 文件， 其次是 /tftp/myfile.txt 文件。
+
+# 感觉没什么用。
+
+#tftp-unique-root
+
+# 启用安全模式，启用此选项，仅允许 tftp 进程访问属主为自己的文件。
+
+# 不启用此选项，允许访问所有 tftp 进程属主可读取的文件。
+
+# 如果 dnsmasq 是以 root 用户运行，tftp-secure 选项将允许访问全局可读的文件。
+
+# 一般情况下不推荐以 root 用户运行 dnsmasq。
+
+# 在指定了 tftp-root 的情况下并不是很重要。
+
+#tftp-secure
+
+# 将所有文件请求转换为小写。对于 Windows 客户端来说非常有用，建议开启此项。
+
+# 注意：dnsmasq 的 TFTP 服务器总是将文件路径中的“\”转换为“/”。
+
+#tftp-lowercase
+
+# 允许最大的连接数，默认为 50 。
+
+# 如果将连接数设置的很大，需注意每个进程的最大文件描述符限制，详见文档手册。
+
+#tftp-max=&lt;connections&gt;
+
+#tftp-max=50
+
+# 设置传输时的 MTU 值，建议不设置或按需设置。
+
+# 如果设定的值大于网络接口的 MTU 值，将按照网络接口的 MTU 值自动分片传输（不推荐）。
+
+#tftp-mtu=&lt;mtu size&gt;
+
+# 停止 tftp 服务器与客户端协商 &quot;blocksize&quot; 选项。启用后，防止一些古怪的客户端出问题。
+
+#tftp-no-blocksize
+
+# 指定 tftp 的连接端口的范围，方便防火墙部署。
+
+# tftp 侦听在 69/udp ，连接端口默认是由系统自动分配的，
+
+# 非 root 用户运行时指定的连接端口号需大于 1025 最大 65535。
+
+#tftp-port-range=&lt;start&gt;,&lt;end&gt;
+
+###############################################################################
+
+#conf-dir=&lt;directory&gt;[,&lt;file-extension&gt;......]
+
+#conf-file=/etc/dnsmasq.more.conf
+
+conf-dir=/etc/dnsmasq.d
+
+#servers-file=&lt;file&gt;</code></pre>
+
+      
+    </div>
+    
+    
+    
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    过客
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zengwu.com.cn/p/eb3047f5.html" title="DNSmasq安装与配置">https://zengwu.com.cn/p/eb3047f5.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC 4.0 BY-SA</a> 版权协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    
+      <div class="post-tags">
+        
+          <a href="/tags/CentOS/index.html" rel="tag"><i class="fa fa-tag"></i> CentOS</a>
+        
+      </div>
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward-wepay.png" alt="过客 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward-alipay.png" alt="过客 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+        
+
+  <div class="popular-posts-header">相关推荐</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\708a4ff9.html" rel="bookmark">执行docker-compose up -d时出现ERROR: Failed to Setup IP tables: Unable to enable SKIP DNAT rule</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\536760e1.html" rel="bookmark">Linux下读写NTFS格式</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\60a498fe.html" rel="bookmark">2021年CentOS8停止维护</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\14f21a82.html" rel="bookmark">CentOS 安装 pm2 运行出错</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\9dd52052.html" rel="bookmark">将 .pem 文件与 .ppk 互相转换</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/p/20b1f90d.html" rel="next" title="跨平台共享鼠标Synergy">
+                  <i class="fa fa-chevron-left"></i> 跨平台共享鼠标Synergy
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/p/b7b3b90b.html" rel="prev" title="CentOS 挂载新硬盘">
+                  CentOS 挂载新硬盘 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "right",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src="/static/api/js/share.js?cdnversion="+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+              文章目录
+            </li>
+          
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      
+        <section class="site-overview-wrap sidebar-panel">
+      
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+            <a href="/">
+                <img class="site-author-image" itemprop="image"
+                  src="/images/avatar.png"
+                  alt="过客" />
+              </a>
+            
+              <p class="site-author-name" itemprop="name">过客</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/index.html">
+              
+                  <span class="site-state-item-count">323</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zngw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/a51cd2236c13" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:guoke@zngw.icu" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://zengwu3915.lofter.com" target="_blank" title="乐乎">
+                      
+                        <i class="fa fa-fw fa-camera-retro"></i>乐乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa fa-history" aria-hidden="true"></i>
+              <a href="/archives/index.html" target='inline'>近期文章</a>
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    11-02
+                    <a href="/p/58e1b8b4.html" title="也谈“过客”">也谈“过客”</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    11-01
+                    <a href="/p/536760e1.html" title="Linux下读写NTFS格式">Linux下读写NTFS格式</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-30
+                    <a href="/p/874c58c2.html" title="股市中的过客">股市中的过客</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-29
+                    <a href="/p/c66a286f.html" title="go读取docx文档">go读取docx文档</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-27
+                    <a href="/p/4d81b25b.html" title="Ubuntu 20.04 安装 Nats">Ubuntu 20.04 安装 Nats</a>
+                </div><br/>
+              
+            </ul>
+            </div>
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-">
+              <div class="links-of-blogroll-title">
+                <i class="fa fa-signal" aria-hidden="true"></i>
+                <a href="/top/index.html" target='inline'>热门推荐</a>
+              </div>
+              <ul id="zngw_top" class="zngw_top links-of-blogroll-list"></ul>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、起因"><span class="nav-text">一、起因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、DNSmasq的简介"><span class="nav-text">二、DNSmasq的简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、安装DNSmasq"><span class="nav-text">三、安装DNSmasq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、开启防火墙"><span class="nav-text">四、开启防火墙</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、简单配置启用hosts功能"><span class="nav-text">五、简单配置启用hosts功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-vim-etc-dnsmasq-conf"><span class="nav-text">5.1 vim &#x2F;etc&#x2F;dnsmasq.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-vim-etc-resolv-dnsmasq-conf"><span class="nav-text">5.2 vim &#x2F;etc&#x2F;resolv.dnsmasq.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-vim-etc-dnsmasq-hosts"><span class="nav-text">5.3 vim &#x2F;etc&#x2F;dnsmasq.hosts</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、启动"><span class="nav-text">六、启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、-etc-dnsmasq-conf详细解析"><span class="nav-text">七、&#x2F;etc&#x2F;dnsmasq.conf详细解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-提升DNS加快解析速度，server-后面可以添加指定的DNS，例如国内外不同的网站使用不同的DNS。"><span class="nav-text">7.1 提升DNS加快解析速度，server&#x3D;后面可以添加指定的DNS，例如国内外不同的网站使用不同的DNS。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#国内指定DNS"><span class="nav-text">国内指定DNS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#国外指定DNS"><span class="nav-text">国外指定DNS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-屏蔽网页广告，将指广告的URL指定127这个IP，就可以将网页上讨厌的广告给去掉了。"><span class="nav-text">7.2 屏蔽网页广告，将指广告的URL指定127这个IP，就可以将网页上讨厌的广告给去掉了。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-指定域名解析到特定的IP上。这个功能可以让你控制一些网站的访问，非法的DNS就经常把一些正规的网站解析到不正确IP上。"><span class="nav-text">7.3 指定域名解析到特定的IP上。这个功能可以让你控制一些网站的访问，非法的DNS就经常把一些正规的网站解析到不正确IP上。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#八、附-etc-dnsmasq-conf文件解析"><span class="nav-text">八、附&#x2F;etc&#x2F;dnsmasq.conf文件解析</span></a></li></ol></div>
+              
+            
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="post-meta-divider">|</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过客</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">全站字数&#58;</span>
+    
+    <span title="全站字数">305k</span>
+  </div>
+  
+
+<span id="sitetime"></span>
+<script language=javascript>
+  var sitetime = document.getElementById("sitetime")
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+
+    let start = new Date("2019-09-04");
+    let today = new Date();
+    
+    let d1 = today.getDate();
+    let m1 = today.getMonth()+1;
+    let y1 = today.getFullYear();
+    let d2 = start.getDate();
+    let m2 = start.getMonth()+1;
+    let y2 = start.getFullYear();
+
+    var getMonthDays = function (y, m) {
+        var aMonthDays = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (m == 2 && ((y % 400 == 0) || (y % 4 == 0 && y % 100 != 0))) {
+            return 29;
+        }
+        return aMonthDays[m];
+    };
+
+    let y, m, d
+    let tempD = 0
+    let tmpM = 0
+    let tmpY = 0
+
+    if (d1 >= d2) {
+      d = d1 - d2
+    } else {
+      tmpM = -1
+      d = getMonthDays(y2, m2) + d1 - d2
+    }
+
+    if (m1 + tmpM >= m2) {
+      m = m1 + tmpM - m2
+    } else {
+      tmpY = -1
+      m = 12 + m1 + tmpM - m2
+    }
+    y = y1 + tmpY - y2
+       
+    let str = "";
+    if (y > 0) {
+      str = y + '年 ' + ("0"+m).substr(-2) + "月 " + ("0"+(d + 1)).substr(-2) + '天 '
+    }else if (m > 0) {
+      str =  m + "月 " + ("0"+(d + 1)).substr(-2) + '天 '
+    }else if (d > 0) {
+      str =  (d + 1) + '天 '
+    }
+
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+	}
+ 
+  if(sitetime){
+	  siteTime();
+  }
+</script>
+
+<div>
+  
+
+  
+    <span id="/" class="zngw_totals" data-flag-title="过愙">
+      <span class="post-meta-divider" style="margin:0 0">第</span>
+      <span class="gk-uv-count"></span>
+      <span class="post-meta-divider" style="margin:0 0">位朋友,</span>
+
+      <span class="post-meta-divider" style="margin:0 0">历经</span>
+      <span class="gk-totals-count"></span>
+      <span class="post-meta-divider" style="margin:0 0">次回眸才与你相遇</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+    <span class="post-meta-divider"><a target="_blank" href="http://beian.miit.gov.cn/">湘ICP备20003596号</a></span>
+  
+
+  <script type="text/javascript" src="/js/src/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"></script>
+  <script>
+    function post(url, postInfo, success, fail) {
+      axios.post(url, postInfo)
+        .then((resp) => {
+          if (success) {
+            success(resp.data)
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          if (fail) {
+            fail(error)
+          }
+        })
+    }
+
+    function showTime() {
+      var entries = [];
+      var $visitors = $(".zngw_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+      if(entries.length == 0){
+        return
+      }
+
+      let postData = {
+        user: 'guoke3915',
+        url: entries
+      }
+
+      post('/count'+'/get', postData, function(results){
+        var COUNT_CONTAINER_REF = '.zngw-visitors-count';
+        if (results==null || results.length === 0) {
+          $visitors.find(COUNT_CONTAINER_REF).text(0);
+          return;
+        }
+
+        for (var i = 0; i < results.length; i++) {
+          var item = results[i];
+          var element = document.getElementById(item.url);
+
+          $(element).find(COUNT_CONTAINER_REF).text(item.time);
+        }
+        for(var i = 0; i < entries.length; i++) {
+          var url = entries[i];
+          var element = document.getElementById(url);
+          var countSpan = $(element).find(COUNT_CONTAINER_REF);
+          if( countSpan.text() == '') {
+            countSpan.text(0);
+          }
+        }
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function addCount() {
+      var $visitors = $(".zngw_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        url: url,
+        title: title,
+        host:window.location.host
+      }
+
+      post('/count'+'/add', postData, function(results){
+        var COUNT_CONTAINER_REF = '.zngw-visitors-count';
+        var $element = $(document.getElementById(url));
+        $element.find(COUNT_CONTAINER_REF).text(results.time);
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function addTotals() {
+      var $visitors = $(".zngw_totals");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        url: url,
+        title: title,
+        host:window.location.host
+      }
+
+      post('/count'+'/add', postData, function(results){
+        var $element = $(document.getElementById(url));
+        $element.find('.gk-totals-count').text(results.time);
+        $element.find('.gk-uv-count').text(results.uv);
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function showTop() {
+      var $visitors = $(".zngw_top");
+      var url = $visitors.attr('id').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        limit: 6
+      }
+
+      post('/count'+'/top', postData,function(results){
+        var index = 0;
+        for (var i = 0; i < results.length; i++) {
+          var item = results[i];
+          if(item.url!=='/'){
+            index++;
+            var content="<li class='pull-left' style='text-align: left; width:175px; overflow:hidden; white-space:nowrap '><font color='#EE0000'>"+index+" </font><a href='.."+item.url+"' rel='section' title='" +item.title+ "'>"+item.title+"</a></li><li class='pull-right'><font color='#519ABA'>"+item.time+"</font></li><br>"
+            
+            document.getElementById(url).innerHTML+=content
+          }
+        }
+      }, function(err){
+        console.error(error);
+      })
+    }
+
+    $(function() {
+      if ($('.zngw_top').length == 1) {
+        showTop();
+      }
+
+      if ($('.zngw_totals').length == 1) {
+        addTotals();
+      }
+
+      if ($('.zngw_visitors').length == 1) {
+        addCount();
+      } else if ($('.post-title-link').length > 1) {
+        showTime();
+      }
+    });
+  </script>
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1278604389&web_id=1278604389" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/js/src/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/js/src/jquery.fancybox.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+<script src="/js/src/prism.min.js" async></script>
+
+
+  
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+  
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+  <script type="text/javascript" src="/js/src/copyright.min.js"></script>
+</body>
+</html>

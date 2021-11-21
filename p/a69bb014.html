@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="/js/src/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+
+
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="过愙" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="关于因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android 10及后续版本中非厂商系统应用将无法获取IMEI、MAC等设备信息。无法获取IMEI会在用户行为统计过程中对设备识别产生一定影响。近日移动安全联盟针对该问题联合国内手机厂商推出补充设备标准体系方案，选择OAID字段作为IMEI等的替代字段。OAID字段是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中使用OAID">
+<meta property="og:url" content="https://zengwu.com.cn/p/a69bb014.html">
+<meta property="og:site_name" content="过愙">
+<meta property="og:description" content="关于因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android 10及后续版本中非厂商系统应用将无法获取IMEI、MAC等设备信息。无法获取IMEI会在用户行为统计过程中对设备识别产生一定影响。近日移动安全联盟针对该问题联合国内手机厂商推出补充设备标准体系方案，选择OAID字段作为IMEI等的替代字段。OAID字段是">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-15T08:00:54.000Z">
+<meta property="article:modified_time" content="2021-11-02T14:25:46.257Z">
+<meta property="article:author" content="过客">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":0,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zengwu.com.cn/p/a69bb014.html"/>
+
+
+<link rel="stylesheet" href="/js/src/prism.css">
+
+
+
+
+
+
+  <title>Android中使用OAID | 过愙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f759423ed17e6f82c79790450fa6ab7e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">过愙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">编程有风险，入坑需谨慎</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br />
+            
+            热度
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photos/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-camera-retro"></i> <br />
+            
+            相册
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/a69bb014.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Android中使用OAID</h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-15T16:00:54+08:00">
+                2021-10-15
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2021-10-15</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/a69bb014.html" class="zngw_visitors" data-flag-title="Android中使用OAID">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><p>因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android 10及后续版本中非厂商系统应用将无法获取IMEI、MAC等设备信息。无法获取IMEI会在用户行为统计过程中对设备识别产生一定影响。近日移动安全联盟针对该问题联合国内手机厂商推出补充设备标准体系方案，选择OAID字段作为IMEI等的替代字段。OAID字段是由中国信通院联合华为、小米、OPPO、VIVO等厂商共同推出的设备识别字段，具有一定的权威性，可满足用户行为统计的使用场景。</p>
+<p>移动安全联盟官网：  <a href="http://www.msa-alliance.cn/col.jsp?id=120" target="_blank" rel="noopener">移动安全联盟刚官网地址</a><br>安全联盟SDK、文档以及申请表格：  <a href="https://xianwanlibs.oss-cn-hangzhou.aliyuncs.com/msa-demo/oaid_sdk_1.0.29.zip" target="_blank" rel="noopener">安全联盟SDK1.0.29文档及SDK</a></p>
+<h2 id="目前支持的机型"><a href="#目前支持的机型" class="headerlink" title="目前支持的机型"></a>目前支持的机型</h2><table>
+<thead>
+<tr>
+<th>厂商名称</th>
+<th>支持版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>华为</td>
+<td>HMS 2.6.2 及以上</td>
+</tr>
+<tr>
+<td>小米</td>
+<td>MIUI 10.2 及以上版本</td>
+</tr>
+<tr>
+<td>vivo</td>
+<td>Android 9 及以上版本</td>
+</tr>
+<tr>
+<td>OPPO</td>
+<td>colorOS 6 大部分覆盖，colorOS 7 及以上全覆盖</td>
+</tr>
+<tr>
+<td>联想</td>
+<td>ZUI 11.4 及以上版本</td>
+</tr>
+<tr>
+<td>三星</td>
+<td>Android 10 版本</td>
+</tr>
+<tr>
+<td>魅族</td>
+<td>Android 10 版本</td>
+</tr>
+<tr>
+<td>努比亚</td>
+<td>Android 10 版本</td>
+</tr>
+<tr>
+<td>中兴</td>
+<td>Android 10 版本</td>
+</tr>
+<tr>
+<td>华硕</td>
+<td>Android 10 版本</td>
+</tr>
+<tr>
+<td>一加</td>
+<td>Android 10 版本</td>
+</tr>
+<tr>
+<td>黑鲨</td>
+<td>Android 10 版本</td>
+</tr>
+<tr>
+<td>摩托罗拉</td>
+<td>Android 10 版本</td>
+</tr>
+<tr>
+<td>Freeme OS</td>
+<td>Android 10 版本</td>
+</tr>
+<tr>
+<td>酷赛（铂睿智恒）</td>
+<td>Android 10 版本</td>
+</tr>
+<tr>
+<td>Realme</td>
+<td>colorOS 6 大部分覆盖，colorOS 7 及以上全覆盖</td>
+</tr>
+<tr>
+<td>荣耀</td>
+<td>Android 10 版本</td>
+</tr>
+</tbody></table>
+<h2 id="调用方法"><a href="#调用方法" class="headerlink" title="调用方法"></a>调用方法</h2><ol>
+<li>接入准备——申请证书文件（将需要申请的app信息填写到example_batch.csv表格，然后发送到<a href="mailto:msa@caict.ac.cn">msa@caict.ac.cn</a>进行申请。注意每个包名对应一个签名，申请时需要将需要申请的全部包名填写到表格中。申请后安全联盟将会把所有申请的证书发送到申请时使用的邮箱）</li>
+</ol>
+<ul>
+<li>注意： 关于example_batch.csv表格<br>表格中的会员账号：是指在安全联盟登录的账号 <a href="http://www.msa-alliance.cn/login.jsp?url=/col.jsp?id=120" target="_blank" rel="noopener">可点击进入安全联盟登录页面</a><br>表格中的邮箱：最好填写安全联盟登录账号绑定的邮箱</li>
+</ul>
+<ol start="2">
+<li><p>把oaid_sdk_x.x.x.aar拷贝到项的libs目录，并设置依赖，其中x.x.x代 表版本号。最新的版本为1.0.29</p>
+</li>
+<li><p>将证书文件（应用包名.cert.pem)、 supplierconfig.json 文件拷贝到项目 assets 目录下，（只获取oaid信息则不需要修改json配置文件，只需原样放到assets目录下即可。如果想要使用VAID，可修改里边对应内容，特别是需要设置 appid 的部分，要去对应厂商的应用商店里注册自己的 app，来获取对应appid。）</p>
+</li>
+<li><p>设置依赖</p>
+<pre><code>implementation files(‘libs/oaid_sdk_1.0.29.aar’)</code></pre></li>
+<li><p>混淆设置</p>
+</li>
+</ol>
+<pre><code>    # sdk
+    -keep class com.bun.miitmdid.** { *; }
+    # asus
+    -keep class com.asus.msa.SupplementaryDID.** { *; }
+    -keep class com.asus.msa.sdid.** { *; }
+    # freeme
+    -keep class com.android.creator.** { *; }
+    -keep class com.android.msasdk.** { *; }
+    # huawei
+    -keep class com.huawei.hms.ads.identifier.** { *; }
+    #-keep class com.uodis.opendevice.aidl.** { *; }
+    # lenovo
+    -keep class com.zui.deviceidservice.** { *; }
+    -keep class com.zui.opendeviceidlibrary.** { *; }
+    # meizu
+    -keep class com.meizu.flyme.openidsdk.** { *; }
+    # nubia
+    -keep class com.bun.miitmdid.provider.nubia.NubiaIdentityImpl
+    # oppo
+    -keep class com.heytap.openid.** { *; }
+    # samsung
+    -keep class com.samsung.android.deviceidservice.** { *; }
+    # vivo
+    -keep class com.vivo.identifier.** { *; }
+    # xiaomi
+    -keep class com.bun.miitmdid.provider.xiaomi.IdentifierManager
+    # zte
+    -keep class com.bun.lib.** { *; }
+    # coolpad
+    -keep class com.coolpad.deviceidsupport.** { *; }
+</code></pre><ol start="6">
+<li><p>设置 gradle 编译选项，开发者可以根据自己对平台的选择进行合理配置</p>
+<pre><code>ndk { abiFilters  &#39;armeabi-v7a&#39;,&#39;x86&#39;,&#39;arm64-v8a&#39;,&#39;x86_64&#39;,&#39;armeabi&#39; }</code></pre><p>注意：考虑到 sdk 兼容性，sdk 包默认集成了常用 abi 的 so，包括 armeabi-v7a,arm64-v8a, x84, x84_64 共四种。如果需要减小 SDK 体积，可以使用压缩工具打开 aar 文件，手动删除多余的架构。</p>
+</li>
+<li><p>添加 oaid管理文件<code>MiitHelper.java</code></p>
+</li>
+</ol>
+<p>根据官网源文件<code>DemoHelper.java</code>修改而来，可以根据自己需求修改，这里是cocos工程，这里将文件<code>MiitHelper.java</code>放到<code>org.cocos2dx.javascript</code>目录中。</p>
+<pre><code class="line-numbers language-java">package org.cocos2dx.javascript;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.bun.miitmdid.core.InfoCode;
+import com.bun.miitmdid.core.MdidSdkHelper;
+import com.bun.miitmdid.interfaces.IIdentifierListener;
+import com.bun.miitmdid.interfaces.IdSupplier;
+import com.bun.miitmdid.pojo.IdSupplierImpl;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class MiitHelper implements IIdentifierListener {
+    public static final String TAG = &quot;MiitHelper&quot;;
+    public static final int HELPER_VERSION_CODE = 20210928; // DemoHelper版本号
+    private AppIdsUpdater appIdsUpdater;
+    private boolean isCertInit = false;
+
+    public final boolean isSDKLogOn = true;                           // 1）设置 是否开启sdk日志
+    public static String ASSET_FILE_NAME_CERT = &quot;&quot;;                // 2）设置 asset证书文件名
+
+    public static void Init(Context context, AppIdsUpdater listener){
+        MiitHelper miitHelper = new MiitHelper();
+
+        ASSET_FILE_NAME_CERT = context.getPackageName()+&quot;.cert.pem&quot;;
+        Log.e(TAG,ASSET_FILE_NAME_CERT);
+
+        System.loadLibrary(&quot;nllvm1632808251147706677&quot;);  // 加固版本在调用前必须载入SDK安全库
+        if(MdidSdkHelper.SDK_VERSION_CODE != HELPER_VERSION_CODE){
+            Log.w(TAG,&quot;SDK version not match.&quot;);
+            throw new RuntimeException(&quot;SDK version not match.&quot;);
+        }
+        miitHelper.appIdsUpdater = listener;
+
+        // 获取设备号
+        miitHelper.getDeviceIds(context);
+    }
+
+    /**
+     * 获取OAID
+     * @param cxt
+     */
+    public void getDeviceIds(Context cxt){
+        // TODO （4）初始化SDK证书
+        if(!isCertInit){ // 证书只需初始化一次
+            // 证书为PEM文件中的所有文本内容（包括首尾行、换行符）
+            isCertInit = MdidSdkHelper.InitCert(cxt, loadPemFromAssetFile(cxt, ASSET_FILE_NAME_CERT));
+            if(!isCertInit){
+                Log.w(TAG, &quot;getDeviceIds: cert init failed&quot;);
+            }
+        }
+
+        //（可选）设置InitSDK接口回调超时时间(仅适用于接口为异步)，默认值为5000ms.
+        // 注：请在调用前设置一次后就不再更改，否则可能导致回调丢失、重复等问题
+        MdidSdkHelper.setGlobalTimeout(5000);
+
+        // TODO （5）调用SDK获取ID
+        int code = MdidSdkHelper.InitSdk(cxt, isSDKLogOn, this);
+
+        // TODO （6）根据SDK返回的code进行不同处理
+        IdSupplierImpl unsupportedIdSupplier = new IdSupplierImpl();
+        if(code == InfoCode.INIT_ERROR_CERT_ERROR){                         // 证书未初始化或证书无效，SDK内部不会回调onSupport
+            // APP自定义逻辑
+            Log.w(TAG,&quot;cert not init or check not pass&quot;);
+            onSupport(unsupportedIdSupplier);
+        }else if(code == InfoCode.INIT_ERROR_DEVICE_NOSUPPORT){             // 不支持的设备, SDK内部不会回调onSupport
+            // APP自定义逻辑
+            Log.w(TAG,&quot;device not supported&quot;);
+            onSupport(unsupportedIdSupplier);
+        }else if( code == InfoCode.INIT_ERROR_LOAD_CONFIGFILE){            // 加载配置文件出错, SDK内部不会回调onSupport
+            // APP自定义逻辑
+            Log.w(TAG,&quot;failed to load config file&quot;);
+            onSupport(unsupportedIdSupplier);
+        }else if(code == InfoCode.INIT_ERROR_MANUFACTURER_NOSUPPORT){      // 不支持的设备厂商, SDK内部不会回调onSupport
+            // APP自定义逻辑
+            Log.w(TAG,&quot;manufacturer not supported&quot;);
+            onSupport(unsupportedIdSupplier);
+        }else if(code == InfoCode.INIT_ERROR_SDK_CALL_ERROR){             // sdk调用出错, SSDK内部不会回调onSupport
+            // APP自定义逻辑
+            Log.w(TAG,&quot;sdk call error&quot;);
+            onSupport(unsupportedIdSupplier);
+        } else if(code == InfoCode.INIT_INFO_RESULT_DELAY) {             // 获取接口是异步的，SDK内部会回调onSupport
+            Log.i(TAG, &quot;result delay (async)&quot;);
+        }else if(code == InfoCode.INIT_INFO_RESULT_OK){                  // 获取接口是同步的，SDK内部会回调onSupport
+            Log.i(TAG, &quot;result ok (sync)&quot;);
+        }else {
+            // sdk版本高于DemoHelper代码版本可能出现的情况，无法确定是否调用onSupport
+            // 不影响成功的OAID获取
+            Log.w(TAG,&quot;getDeviceIds: unknown code: &quot; + code);
+        }
+    }
+
+    /**
+     * APP自定义的getDeviceIds(Context cxt)的接口回调
+     * @param supplier
+     */
+    @Override
+    public void onSupport(IdSupplier supplier) {
+        if(supplier==null) {
+            Log.w(TAG, &quot;onSupport: supplier is null&quot;);
+            return;
+        }
+        if(appIdsUpdater ==null) {
+            Log.w(TAG, &quot;onSupport: callbackListener is null&quot;);
+            return;
+        }
+        // 获取Id信息
+        // 注：IdSupplier中的内容为本次调用MdidSdkHelper.InitSdk()的结果，不会实时更新。 如需更新，需调用MdidSdkHelper.InitSdk()
+        boolean isSupported = supplier.isSupported();
+        boolean isLimited  = supplier.isLimited();
+        String oaid=supplier.getOAID();
+        String vaid=supplier.getVAID();
+        String aaid=supplier.getAAID();
+
+        //TODO (7) 自定义后续流程，以下显示到UI的示例
+        String idsText= &quot;support: &quot; + (isSupported ? &quot;true&quot; : &quot;false&quot;) +
+                &quot;\nlimit: &quot; + (isLimited ? &quot;true&quot; : &quot;false&quot;) +
+                &quot;\nOAID: &quot; + oaid +
+                &quot;\nVAID: &quot; + vaid +
+                &quot;\nAAID: &quot; + aaid + &quot;\n&quot;;
+        Log.d(TAG, &quot;onSupport: ids: \n&quot; + idsText);
+        appIdsUpdater.onIdsValid(oaid);
+    }
+
+    public interface AppIdsUpdater {
+        void onIdsValid(String oaid);
+    }
+
+    /**
+     * 从asset文件读取证书内容
+     * @param context
+     * @param assetFileName
+     * @return 证书字符串
+     */
+    public static String loadPemFromAssetFile(Context context, String assetFileName){
+        try {
+            InputStream is = context.getAssets().open(assetFileName);
+            BufferedReader in = new BufferedReader(new InputStreamReader(is));
+            StringBuilder builder = new StringBuilder();
+            String line;
+            while ((line = in.readLine()) != null){
+                builder.append(line);
+                builder.append(&#39;\n&#39;);
+            }
+            return builder.toString();
+        } catch (IOException e) {
+            Log.e(TAG, &quot;loadPemFromAssetFile failed&quot;);
+            return &quot;&quot;;
+        }
+    }
+}</code></pre>
+<ol start="8">
+<li><p>调用</p>
+<p>在<code>Activity</code>的<code>onCreate</code>函数中添加初始化。这是异步调用，使用需要注意一下。</p>
+</li>
+</ol>
+<pre><code class="line-numbers language-java">public class AppActivity extends Cocos2dxActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+    public static String oaid = &quot;&quot;;
+
+    ...
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ...
+
+        MiitHelper.Init(this, new MiitHelper.AppIdsUpdater(){
+            @Override
+            public void onIdsValid(String oaid){
+                AppActivity.oaid = oaid;
+            }
+        });
+    }
+
+    ....
+}</code></pre>
+
+      
+    </div>
+    
+    
+    
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    过客
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zengwu.com.cn/p/a69bb014.html" title="Android中使用OAID">https://zengwu.com.cn/p/a69bb014.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC 4.0 BY-SA</a> 版权协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    
+      <div class="post-tags">
+        
+          <a href="/tags/Java/index.html" rel="tag"><i class="fa fa-tag"></i> Java</a>
+        
+      </div>
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward-wepay.png" alt="过客 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward-alipay.png" alt="过客 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+        
+
+  <div class="popular-posts-header">相关推荐</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\632f98fb.html" rel="bookmark">Android中使用GAID</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\41a71aca.html" rel="bookmark">使用Intellij IDE修改jar并打包</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\28861ff9.html" rel="bookmark">阿里云域名动态DDNS配置</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\55b12ce9.html" rel="bookmark">Android Studio Gradle工程路径太长</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\baddbcad.html" rel="bookmark">Android 9.0 应用请求http请求无法访问网络</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/p/632f98fb.html" rel="next" title="Android中使用GAID">
+                  <i class="fa fa-chevron-left"></i> Android中使用GAID
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/p/60a498fe.html" rel="prev" title="2021年CentOS8停止维护">
+                  2021年CentOS8停止维护 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "right",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src="/static/api/js/share.js?cdnversion="+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+              文章目录
+            </li>
+          
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      
+        <section class="site-overview-wrap sidebar-panel">
+      
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+            <a href="/">
+                <img class="site-author-image" itemprop="image"
+                  src="/images/avatar.png"
+                  alt="过客" />
+              </a>
+            
+              <p class="site-author-name" itemprop="name">过客</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/index.html">
+              
+                  <span class="site-state-item-count">323</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zngw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/a51cd2236c13" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:guoke@zngw.icu" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://zengwu3915.lofter.com" target="_blank" title="乐乎">
+                      
+                        <i class="fa fa-fw fa-camera-retro"></i>乐乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa fa-history" aria-hidden="true"></i>
+              <a href="/archives/index.html" target='inline'>近期文章</a>
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    11-02
+                    <a href="/p/58e1b8b4.html" title="也谈“过客”">也谈“过客”</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    11-01
+                    <a href="/p/536760e1.html" title="Linux下读写NTFS格式">Linux下读写NTFS格式</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-30
+                    <a href="/p/874c58c2.html" title="股市中的过客">股市中的过客</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-29
+                    <a href="/p/c66a286f.html" title="go读取docx文档">go读取docx文档</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-27
+                    <a href="/p/4d81b25b.html" title="Ubuntu 20.04 安装 Nats">Ubuntu 20.04 安装 Nats</a>
+                </div><br/>
+              
+            </ul>
+            </div>
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-">
+              <div class="links-of-blogroll-title">
+                <i class="fa fa-signal" aria-hidden="true"></i>
+                <a href="/top/index.html" target='inline'>热门推荐</a>
+              </div>
+              <ul id="zngw_top" class="zngw_top links-of-blogroll-list"></ul>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于"><span class="nav-text">关于</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目前支持的机型"><span class="nav-text">目前支持的机型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用方法"><span class="nav-text">调用方法</span></a></li></ol></div>
+              
+            
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="post-meta-divider">|</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过客</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">全站字数&#58;</span>
+    
+    <span title="全站字数">305k</span>
+  </div>
+  
+
+<span id="sitetime"></span>
+<script language=javascript>
+  var sitetime = document.getElementById("sitetime")
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+
+    let start = new Date("2019-09-04");
+    let today = new Date();
+    
+    let d1 = today.getDate();
+    let m1 = today.getMonth()+1;
+    let y1 = today.getFullYear();
+    let d2 = start.getDate();
+    let m2 = start.getMonth()+1;
+    let y2 = start.getFullYear();
+
+    var getMonthDays = function (y, m) {
+        var aMonthDays = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (m == 2 && ((y % 400 == 0) || (y % 4 == 0 && y % 100 != 0))) {
+            return 29;
+        }
+        return aMonthDays[m];
+    };
+
+    let y, m, d
+    let tempD = 0
+    let tmpM = 0
+    let tmpY = 0
+
+    if (d1 >= d2) {
+      d = d1 - d2
+    } else {
+      tmpM = -1
+      d = getMonthDays(y2, m2) + d1 - d2
+    }
+
+    if (m1 + tmpM >= m2) {
+      m = m1 + tmpM - m2
+    } else {
+      tmpY = -1
+      m = 12 + m1 + tmpM - m2
+    }
+    y = y1 + tmpY - y2
+       
+    let str = "";
+    if (y > 0) {
+      str = y + '年 ' + ("0"+m).substr(-2) + "月 " + ("0"+(d + 1)).substr(-2) + '天 '
+    }else if (m > 0) {
+      str =  m + "月 " + ("0"+(d + 1)).substr(-2) + '天 '
+    }else if (d > 0) {
+      str =  (d + 1) + '天 '
+    }
+
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+	}
+ 
+  if(sitetime){
+	  siteTime();
+  }
+</script>
+
+<div>
+  
+
+  
+    <span id="/" class="zngw_totals" data-flag-title="过愙">
+      <span class="post-meta-divider" style="margin:0 0">第</span>
+      <span class="gk-uv-count"></span>
+      <span class="post-meta-divider" style="margin:0 0">位朋友,</span>
+
+      <span class="post-meta-divider" style="margin:0 0">历经</span>
+      <span class="gk-totals-count"></span>
+      <span class="post-meta-divider" style="margin:0 0">次回眸才与你相遇</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+    <span class="post-meta-divider"><a target="_blank" href="http://beian.miit.gov.cn/">湘ICP备20003596号</a></span>
+  
+
+  <script type="text/javascript" src="/js/src/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"></script>
+  <script>
+    function post(url, postInfo, success, fail) {
+      axios.post(url, postInfo)
+        .then((resp) => {
+          if (success) {
+            success(resp.data)
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          if (fail) {
+            fail(error)
+          }
+        })
+    }
+
+    function showTime() {
+      var entries = [];
+      var $visitors = $(".zngw_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+      if(entries.length == 0){
+        return
+      }
+
+      let postData = {
+        user: 'guoke3915',
+        url: entries
+      }
+
+      post('/count'+'/get', postData, function(results){
+        var COUNT_CONTAINER_REF = '.zngw-visitors-count';
+        if (results==null || results.length === 0) {
+          $visitors.find(COUNT_CONTAINER_REF).text(0);
+          return;
+        }
+
+        for (var i = 0; i < results.length; i++) {
+          var item = results[i];
+          var element = document.getElementById(item.url);
+
+          $(element).find(COUNT_CONTAINER_REF).text(item.time);
+        }
+        for(var i = 0; i < entries.length; i++) {
+          var url = entries[i];
+          var element = document.getElementById(url);
+          var countSpan = $(element).find(COUNT_CONTAINER_REF);
+          if( countSpan.text() == '') {
+            countSpan.text(0);
+          }
+        }
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function addCount() {
+      var $visitors = $(".zngw_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        url: url,
+        title: title,
+        host:window.location.host
+      }
+
+      post('/count'+'/add', postData, function(results){
+        var COUNT_CONTAINER_REF = '.zngw-visitors-count';
+        var $element = $(document.getElementById(url));
+        $element.find(COUNT_CONTAINER_REF).text(results.time);
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function addTotals() {
+      var $visitors = $(".zngw_totals");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        url: url,
+        title: title,
+        host:window.location.host
+      }
+
+      post('/count'+'/add', postData, function(results){
+        var $element = $(document.getElementById(url));
+        $element.find('.gk-totals-count').text(results.time);
+        $element.find('.gk-uv-count').text(results.uv);
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function showTop() {
+      var $visitors = $(".zngw_top");
+      var url = $visitors.attr('id').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        limit: 6
+      }
+
+      post('/count'+'/top', postData,function(results){
+        var index = 0;
+        for (var i = 0; i < results.length; i++) {
+          var item = results[i];
+          if(item.url!=='/'){
+            index++;
+            var content="<li class='pull-left' style='text-align: left; width:175px; overflow:hidden; white-space:nowrap '><font color='#EE0000'>"+index+" </font><a href='.."+item.url+"' rel='section' title='" +item.title+ "'>"+item.title+"</a></li><li class='pull-right'><font color='#519ABA'>"+item.time+"</font></li><br>"
+            
+            document.getElementById(url).innerHTML+=content
+          }
+        }
+      }, function(err){
+        console.error(error);
+      })
+    }
+
+    $(function() {
+      if ($('.zngw_top').length == 1) {
+        showTop();
+      }
+
+      if ($('.zngw_totals').length == 1) {
+        addTotals();
+      }
+
+      if ($('.zngw_visitors').length == 1) {
+        addCount();
+      } else if ($('.post-title-link').length > 1) {
+        showTime();
+      }
+    });
+  </script>
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1278604389&web_id=1278604389" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/js/src/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/js/src/jquery.fancybox.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+<script src="/js/src/prism.min.js" async></script>
+
+
+  
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+  
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+  <script type="text/javascript" src="/js/src/copyright.min.js"></script>
+</body>
+</html>

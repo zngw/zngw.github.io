@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="/js/src/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+
+
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JS," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="过愙" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="用echarts可以很简单的实现世界地图，但是，官方的js版本中国家的名称都是英文的，所以这里需要自己设定nameMap来实现国家名中文转换。先上效果图，下面是根据腾讯数据自己写的全球疫情现存情况图 可以不需要安装什么插件，直接引用官方示例中的js链接就可以了。 &lt;script src&#x3D;&quot;&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;zngw&#x2F;cdn&#x2F;jquery.min.js&amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Echarts世界地图中文名称">
+<meta property="og:url" content="https://zengwu.com.cn/p/e9b22066.html">
+<meta property="og:site_name" content="过愙">
+<meta property="og:description" content="用echarts可以很简单的实现世界地图，但是，官方的js版本中国家的名称都是英文的，所以这里需要自己设定nameMap来实现国家名中文转换。先上效果图，下面是根据腾讯数据自己写的全球疫情现存情况图 可以不需要安装什么插件，直接引用官方示例中的js链接就可以了。 &lt;script src&#x3D;&quot;&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;zngw&#x2F;cdn&#x2F;jquery.min.js&amp;qu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/guoke3915/zw/raw/master/p/e9b22066/19826068-9582379ff1e62455-1583896384485.png">
+<meta property="article:published_time" content="2020-03-11T03:16:55.000Z">
+<meta property="article:modified_time" content="2021-03-08T01:43:29.462Z">
+<meta property="article:author" content="过客">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/guoke3915/zw/raw/master/p/e9b22066/19826068-9582379ff1e62455-1583896384485.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":0,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zengwu.com.cn/p/e9b22066.html"/>
+
+
+<link rel="stylesheet" href="/js/src/prism.css">
+
+
+
+
+
+
+  <title>Echarts世界地图中文名称 | 过愙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f759423ed17e6f82c79790450fa6ab7e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">过愙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">编程有风险，入坑需谨慎</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br />
+            
+            热度
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photos/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-camera-retro"></i> <br />
+            
+            相册
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/e9b22066.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Echarts世界地图中文名称</h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-11T11:16:55+08:00">
+                2020-03-11
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2020-03-11</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/e9b22066.html" class="zngw_visitors" data-flag-title="Echarts世界地图中文名称">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>用echarts可以很简单的实现世界地图，但是，官方的js版本中国家的名称都是英文的，所以这里需要自己设定nameMap来实现国家名中文转换。<br>先上效果图，下面是根据腾讯数据自己写的<a href="http://zengwu.com.cn/p/whjy.html">全球疫情现存情况图</a><br><img src="//gitee.com/guoke3915/zw/raw/master/p/e9b22066/19826068-9582379ff1e62455-1583896384485.png" alt></p>
+<p>可以不需要安装什么插件，直接引用官方示例中的js链接就可以了。</p>
+<pre><code class="line-numbers language-js">&lt;script src=&quot;//cdn.jsdelivr.net/gh/zngw/cdn/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;!-- 引入 echarts.js --&gt;
+&lt;script src=&quot;//cdn.jsdelivr.net/gh/zngw/cdn/echarts/echarts.min.js&quot;&gt;&lt;/script&gt;
+&lt;!--引入地图数据js文件，引入后会自动注册地图名字和数据--&gt;
+&lt;script src=&quot;//cdn.jsdelivr.net/gh/zngw/cdn/echarts/world.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+    &lt;!--为echarts准备一个dom容器--&gt;
+    &lt;div id=&quot;myEcharts&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    let nameMap = {
+        Afghanistan: &#39;阿富汗&#39;,
+        Singapore: &#39;新加坡&#39;,
+        Angola: &#39;安哥拉&#39;,
+        Albania: &#39;阿尔巴尼亚&#39;,
+        &#39;United Arab Emirates&#39;: &#39;阿联酋&#39;,
+        Argentina: &#39;阿根廷&#39;,
+        Armenia: &#39;亚美尼亚&#39;,
+        &#39;French Southern and Antarctic Lands&#39;:
+            &#39;法属南半球和南极领地&#39;,
+        Australia: &#39;澳大利亚&#39;,
+        Austria: &#39;奥地利&#39;,
+        Azerbaijan: &#39;阿塞拜疆&#39;,
+        Burundi: &#39;布隆迪&#39;,
+        Belgium: &#39;比利时&#39;,
+        Benin: &#39;贝宁&#39;,
+        &#39;Burkina Faso&#39;: &#39;布基纳法索&#39;,
+        Bangladesh: &#39;孟加拉国&#39;,
+        Bulgaria: &#39;保加利亚&#39;,
+        &#39;The Bahamas&#39;: &#39;巴哈马&#39;,
+        &#39;Bosnia and Herzegovina&#39;: &#39;波斯尼亚和黑塞哥维那&#39;,
+        Belarus: &#39;白俄罗斯&#39;,
+        Belize: &#39;伯利兹&#39;,
+        Bermuda: &#39;百慕大&#39;,
+        Bolivia: &#39;玻利维亚&#39;,
+        Brazil: &#39;巴西&#39;,
+        Brunei: &#39;文莱&#39;,
+        Bhutan: &#39;不丹&#39;,
+        Botswana: &#39;博茨瓦纳&#39;,
+        &#39;Central African Republic&#39;: &#39;中非共和国&#39;,
+        Canada: &#39;加拿大&#39;,
+        Switzerland: &#39;瑞士&#39;,
+        Chile: &#39;智利&#39;,
+        China: &#39;中国&#39;,
+        &#39;Ivory Coast&#39;: &#39;象牙海岸&#39;,
+        Cameroon: &#39;喀麦隆&#39;,
+        &#39;Democratic Republic of the Congo&#39;: &#39;刚果民主共和国&#39;,
+        &#39;Republic of the Congo&#39;: &#39;刚果共和国&#39;,
+        Colombia: &#39;哥伦比亚&#39;,
+        &#39;Costa Rica&#39;: &#39;哥斯达黎加&#39;,
+        Cuba: &#39;古巴&#39;,
+        &#39;Northern Cyprus&#39;: &#39;北塞浦路斯&#39;,
+        Cyprus: &#39;塞浦路斯&#39;,
+        &#39;Czech Republic&#39;: &#39;捷克共和国&#39;,
+        Germany: &#39;德国&#39;,
+        Djibouti: &#39;吉布提&#39;,
+        Denmark: &#39;丹麦&#39;,
+        &#39;Dominican Republic&#39;: &#39;多明尼加共和国&#39;,
+        Algeria: &#39;阿尔及利亚&#39;,
+        Ecuador: &#39;厄瓜多尔&#39;,
+        Egypt: &#39;埃及&#39;,
+        Eritrea: &#39;厄立特里亚&#39;,
+        Spain: &#39;西班牙&#39;,
+        Estonia: &#39;爱沙尼亚&#39;,
+        Ethiopia: &#39;埃塞俄比亚&#39;,
+        Finland: &#39;芬兰&#39;,
+        Fiji: &#39;斐&#39;,
+        &#39;Falkland Islands&#39;: &#39;福克兰群岛&#39;,
+        France: &#39;法国&#39;,
+        Gabon: &#39;加蓬&#39;,
+        &#39;United Kingdom&#39;: &#39;英国&#39;,
+        Georgia: &#39;格鲁吉亚&#39;,
+        Ghana: &#39;加纳&#39;,
+        Guinea: &#39;几内亚&#39;,
+        Gambia: &#39;冈比亚&#39;,
+        &#39;Guinea Bissau&#39;: &#39;几内亚比绍&#39;,
+        Greece: &#39;希腊&#39;,
+        Greenland: &#39;格陵兰&#39;,
+        Guatemala: &#39;危地马拉&#39;,
+        &#39;French Guiana&#39;: &#39;法属圭亚那&#39;,
+        Guyana: &#39;圭亚那&#39;,
+        Honduras: &#39;洪都拉斯&#39;,
+        Croatia: &#39;克罗地亚&#39;,
+        Haiti: &#39;海地&#39;,
+        Hungary: &#39;匈牙利&#39;,
+        Indonesia: &#39;印度尼西亚&#39;,
+        India: &#39;印度&#39;,
+        Ireland: &#39;爱尔兰&#39;,
+        Iran: &#39;伊朗&#39;,
+        Iraq: &#39;伊拉克&#39;,
+        Iceland: &#39;冰岛&#39;,
+        Israel: &#39;以色列&#39;,
+        Italy: &#39;意大利&#39;,
+        Jamaica: &#39;牙买加&#39;,
+        Jordan: &#39;约旦&#39;,
+        Japan: &#39;日本&#39;,
+        Kazakhstan: &#39;哈萨克斯坦&#39;,
+        Kenya: &#39;肯尼亚&#39;,
+        Kyrgyzstan: &#39;吉尔吉斯斯坦&#39;,
+        Cambodia: &#39;柬埔寨&#39;,
+        Kosovo: &#39;科索沃&#39;,
+        Kuwait: &#39;科威特&#39;,
+        Laos: &#39;老挝&#39;,
+        Lebanon: &#39;黎巴嫩&#39;,
+        Liberia: &#39;利比里亚&#39;,
+        Libya: &#39;利比亚&#39;,
+        &#39;Sri Lanka&#39;: &#39;斯里兰卡&#39;,
+        Lesotho: &#39;莱索托&#39;,
+        Lithuania: &#39;立陶宛&#39;,
+        Luxembourg: &#39;卢森堡&#39;,
+        Latvia: &#39;拉脱维亚&#39;,
+        Morocco: &#39;摩洛哥&#39;,
+        Moldova: &#39;摩尔多瓦&#39;,
+        Madagascar: &#39;马达加斯加&#39;,
+        Mexico: &#39;墨西哥&#39;,
+        Macedonia: &#39;马其顿&#39;,
+        Mali: &#39;马里&#39;,
+        Myanmar: &#39;缅甸&#39;,
+        Montenegro: &#39;黑山&#39;,
+        Mongolia: &#39;蒙古&#39;,
+        Mozambique: &#39;莫桑比克&#39;,
+        Mauritania: &#39;毛里塔尼亚&#39;,
+        Malawi: &#39;马拉维&#39;,
+        Malaysia: &#39;马来西亚&#39;,
+        Namibia: &#39;纳米比亚&#39;,
+        &#39;New Caledonia&#39;: &#39;新喀里多尼亚&#39;,
+        Niger: &#39;尼日尔&#39;,
+        Nigeria: &#39;尼日利亚&#39;,
+        Nicaragua: &#39;尼加拉瓜&#39;,
+        Netherlands: &#39;荷兰&#39;,
+        Norway: &#39;挪威&#39;,
+        Nepal: &#39;尼泊尔&#39;,
+        &#39;New Zealand&#39;: &#39;新西兰&#39;,
+        Oman: &#39;阿曼&#39;,
+        Pakistan: &#39;巴基斯坦&#39;,
+        Panama: &#39;巴拿马&#39;,
+        Peru: &#39;秘鲁&#39;,
+        Philippines: &#39;菲律宾&#39;,
+        &#39;Papua New Guinea&#39;: &#39;巴布亚新几内亚&#39;,
+        Poland: &#39;波兰&#39;,
+        &#39;Puerto Rico&#39;: &#39;波多黎各&#39;,
+        &#39;North Korea&#39;: &#39;北朝鲜&#39;,
+        Portugal: &#39;葡萄牙&#39;,
+        Paraguay: &#39;巴拉圭&#39;,
+        Qatar: &#39;卡塔尔&#39;,
+        Romania: &#39;罗马尼亚&#39;,
+        Russia: &#39;俄罗斯&#39;,
+        Rwanda: &#39;卢旺达&#39;,
+        &#39;Western Sahara&#39;: &#39;西撒哈拉&#39;,
+        &#39;Saudi Arabia&#39;: &#39;沙特阿拉伯&#39;,
+        Sudan: &#39;苏丹&#39;,
+        &#39;South Sudan&#39;: &#39;南苏丹&#39;,
+        Senegal: &#39;塞内加尔&#39;,
+        &#39;Solomon Islands&#39;: &#39;所罗门群岛&#39;,
+        &#39;Sierra Leone&#39;: &#39;塞拉利昂&#39;,
+        &#39;El Salvador&#39;: &#39;萨尔瓦多&#39;,
+        Somaliland: &#39;索马里兰&#39;,
+        Somalia: &#39;索马里&#39;,
+        &#39;Republic of Serbia&#39;: &#39;塞尔维亚&#39;,
+        Suriname: &#39;苏里南&#39;,
+        Slovakia: &#39;斯洛伐克&#39;,
+        Slovenia: &#39;斯洛文尼亚&#39;,
+        Sweden: &#39;瑞典&#39;,
+        Swaziland: &#39;斯威士兰&#39;,
+        Syria: &#39;叙利亚&#39;,
+        Chad: &#39;乍得&#39;,
+        Togo: &#39;多哥&#39;,
+        Thailand: &#39;泰国&#39;,
+        Tajikistan: &#39;塔吉克斯坦&#39;,
+        Turkmenistan: &#39;土库曼斯坦&#39;,
+        &#39;East Timor&#39;: &#39;东帝汶&#39;,
+        &#39;Trinidad and Tobago&#39;: &#39;特里尼达和多巴哥&#39;,
+        Tunisia: &#39;突尼斯&#39;,
+        Turkey: &#39;土耳其&#39;,
+        &#39;United Republic of Tanzania&#39;: &#39;坦桑尼亚&#39;,
+        Uganda: &#39;乌干达&#39;,
+        Ukraine: &#39;乌克兰&#39;,
+        Uruguay: &#39;乌拉圭&#39;,
+        &#39;United States&#39;: &#39;美国&#39;,
+        Uzbekistan: &#39;乌兹别克斯坦&#39;,
+        Venezuela: &#39;委内瑞拉&#39;,
+        Vietnam: &#39;越南&#39;,
+        Vanuatu: &#39;瓦努阿图&#39;,
+        &#39;West Bank&#39;: &#39;西岸&#39;,
+        Yemen: &#39;也门&#39;,
+        &#39;South Africa&#39;: &#39;南非&#39;,
+        Zambia: &#39;赞比亚&#39;,
+        Korea: &#39;韩国&#39;,
+        Tanzania: &#39;坦桑尼亚&#39;,
+        Zimbabwe: &#39;津巴布韦&#39;,
+        Congo: &#39;刚果&#39;,
+        &#39;Central African Rep.&#39;: &#39;中非&#39;,
+        Serbia: &#39;塞尔维亚&#39;,
+        &#39;Bosnia and Herz.&#39;: &#39;波黑&#39;,
+        &#39;Czech Rep.&#39;: &#39;捷克&#39;,
+        &#39;W. Sahara&#39;: &#39;西撒哈拉&#39;,
+        &#39;Lao PDR&#39;: &#39;老挝&#39;,
+        &#39;Dem.Rep.Korea&#39;: &#39;朝鲜&#39;,
+        &#39;Falkland Is.&#39;: &#39;福克兰群岛&#39;,
+        &#39;Timor-Leste&#39;: &#39;东帝汶&#39;,
+        &#39;Solomon Is.&#39;: &#39;所罗门群岛&#39;,
+        Palestine: &#39;巴勒斯坦&#39;,
+        &#39;N. Cyprus&#39;: &#39;北塞浦路斯&#39;,
+        Aland: &#39;奥兰群岛&#39;,
+        &#39;Fr. S. Antarctic Lands&#39;: &#39;法属南半球和南极陆地&#39;,
+        Mauritius: &#39;毛里求斯&#39;,
+        Comoros: &#39;科摩罗&#39;,
+        &#39;Eq. Guinea&#39;: &#39;赤道几内亚&#39;,
+        &#39;Guinea-Bissau&#39;: &#39;几内亚比绍&#39;,
+        &#39;Dominican Rep.&#39;: &#39;多米尼加&#39;,
+        &#39;Saint Lucia&#39;: &#39;圣卢西亚&#39;,
+        Dominica: &#39;多米尼克&#39;,
+        &#39;Antigua and Barb.&#39;: &#39;安提瓜和巴布达&#39;,
+        &#39;U.S. Virgin Is.&#39;: &#39;美国原始岛屿&#39;,
+        Montserrat: &#39;蒙塞拉特&#39;,
+        Grenada: &#39;格林纳达&#39;,
+        Barbados: &#39;巴巴多斯&#39;,
+        Samoa: &#39;萨摩亚&#39;,
+        Bahamas: &#39;巴哈马&#39;,
+        &#39;Cayman Is.&#39;: &#39;开曼群岛&#39;,
+        &#39;Faeroe Is.&#39;: &#39;法罗群岛&#39;,
+        &#39;IsIe of Man&#39;: &#39;马恩岛&#39;,
+        Malta: &#39;马耳他共和国&#39;,
+        Jersey: &#39;泽西&#39;,
+        &#39;Cape Verde&#39;: &#39;佛得角共和国&#39;,
+        &#39;Turks and Caicos Is.&#39;: &#39;特克斯和凯科斯群岛&#39;,
+        &#39;St. Vin. and Gren.&#39;: &#39;圣文森特和格林纳丁斯&#39;
+    },
+
+        option = {
+            title: {
+                text: &#39;全球疫情图:现存&#39;,
+                left: &#39;center&#39;
+            },
+            tooltip: {
+                trigger: &#39;item&#39;
+            },
+            visualMap: {
+                type: &#39;piecewise&#39;,
+                pieces: [
+                    { min: 10000, max: 1000000, label: &#39;&gt;=10000&#39;, color: &#39;#550101&#39; },
+                    { min: 1000, max: 9999, label: &#39;1000-9999&#39;, color: &#39;#a92919&#39; },
+                    { min: 500, max: 999, label: &#39;500-999&#39;, color: &#39;#af4e41&#39; },
+                    { min: 100, max: 499, label: &#39;100-499&#39;, color: &#39;#ee7263&#39; },
+                    { min: 10, max: 99, label: &#39;10-99&#39;, color: &#39;#f5bba7&#39; },
+                    { min: 1, max: 9, label: &#39;1-9&#39;, color: &#39;#fdf2d5&#39; },
+                    { min: 0, max: 0, label: &#39;无确证&#39;, color: &#39;#fefefe&#39; },
+                ],
+                color: [&#39;#E0022B&#39;, &#39;#E09107&#39;, &#39;#A3E00B&#39;]
+            },
+            nameMap: nameMap,
+            toolbox: {
+                show: true,
+                orient: &#39;vertical&#39;,
+                left: &#39;right&#39;,
+                top: &#39;center&#39;,
+                feature: {
+                    mark: { show: true },
+                    dataView: { show: true, readOnly: false },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            roamController: {
+                show: true,
+                left: &#39;right&#39;,
+                mapTypeControl: {
+                    &#39;world&#39;: true
+                }
+            },
+            series: [
+                {
+                    name: &#39;现存数&#39;,
+                    type: &#39;map&#39;,
+                    mapType: &#39;world&#39;,
+                    roam: false,
+                    label: {
+                        show: false,   // 这里就不在地图上显示名字了，200多个会晕的
+                        color: &#39;rgb(0, 0, 0)&#39;
+                    },
+                    data: []
+                }
+            ]
+        };
+
+    //获取数据
+    function getData() {
+        $.ajax({
+            url: &quot;https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5&quot;,
+            dataType: &quot;jsonp&quot;,
+            success: function (data) {
+                var res = data.data || &quot;&quot;;
+                res = JSON.parse(res);
+                var newArr = [];
+                if (res) {
+                    for (var i = 0; i &lt; res.areaTree.length; i++) {
+                        var json = {
+                            name: res.areaTree[i].name,
+                            value: res.areaTree[i].total.confirm - res.areaTree[i].total.dead - res.areaTree[i].total.heal,
+                        }
+                        newArr.push(json)
+                    }
+                    //使用指定的配置项和数据显示图表
+                    myChart.setOption({
+                        series: [
+                            {
+                                name: &#39;现存数&#39;,
+                                type: &#39;map&#39;,
+                                mapType: &#39;world&#39;,
+                                roam: false,
+                                label: {
+                                    fontSize: 8,
+                                    show: false,
+                                    color: &#39;rgb(0, 0, 0)&#39;
+                                },
+                                data: newArr
+                            }
+                        ]
+                    });
+
+                }
+            }
+        })
+    }
+    //初始化echarts实例
+    var myEcharts = document.getElementById(&#39;myEcharts&#39;);
+    var myChart = echarts.init(myEcharts);
+    myChart.setOption(option);
+    getData();
+&lt;/script&gt;</code></pre>
+<p>要注意的是data 数据国家名字和nameMap映射国家名字保持一致，否则就不会显示了。</p>
+<p>nameMap数据来源于: <a href="https://juejin.im/post/5c80cefde51d453552133eed" target="_blank" rel="noopener">https://juejin.im/post/5c80cefde51d453552133eed</a></p>
+
+      
+    </div>
+    
+    
+    
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    过客
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zengwu.com.cn/p/e9b22066.html" title="Echarts世界地图中文名称">https://zengwu.com.cn/p/e9b22066.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC 4.0 BY-SA</a> 版权协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    
+      <div class="post-tags">
+        
+          <a href="/tags/JS/index.html" rel="tag"><i class="fa fa-tag"></i> JS</a>
+        
+      </div>
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward-wepay.png" alt="过客 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward-alipay.png" alt="过客 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+        
+
+  <div class="popular-posts-header">相关推荐</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\64f6c1cd.html" rel="bookmark">如何隐藏站长统计图标</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\9c7b1943.html" rel="bookmark">JS计算两日期相差年月日</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\b93c557d.html" rel="bookmark">使用npm生成ETH钱包地址</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\864686ac.html" rel="bookmark">公祭日网页灰色效果</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\f0e2fc72.html" rel="bookmark">npm发布流程</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/p/e929662a.html" rel="next" title="MongoDB重复数据插入性能测试">
+                  <i class="fa fa-chevron-left"></i> MongoDB重复数据插入性能测试
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/p/2a7ceb64.html" rel="prev" title="Hexo中添加类QQ空间旅游相册">
+                  Hexo中添加类QQ空间旅游相册 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "right",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src="/static/api/js/share.js?cdnversion="+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      
+        <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+            <a href="/">
+                <img class="site-author-image" itemprop="image"
+                  src="/images/avatar.png"
+                  alt="过客" />
+              </a>
+            
+              <p class="site-author-name" itemprop="name">过客</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/index.html">
+              
+                  <span class="site-state-item-count">323</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zngw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/a51cd2236c13" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:guoke@zngw.icu" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://zengwu3915.lofter.com" target="_blank" title="乐乎">
+                      
+                        <i class="fa fa-fw fa-camera-retro"></i>乐乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa fa-history" aria-hidden="true"></i>
+              <a href="/archives/index.html" target='inline'>近期文章</a>
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    11-02
+                    <a href="/p/58e1b8b4.html" title="也谈“过客”">也谈“过客”</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    11-01
+                    <a href="/p/536760e1.html" title="Linux下读写NTFS格式">Linux下读写NTFS格式</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-30
+                    <a href="/p/874c58c2.html" title="股市中的过客">股市中的过客</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-29
+                    <a href="/p/c66a286f.html" title="go读取docx文档">go读取docx文档</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-27
+                    <a href="/p/4d81b25b.html" title="Ubuntu 20.04 安装 Nats">Ubuntu 20.04 安装 Nats</a>
+                </div><br/>
+              
+            </ul>
+            </div>
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-">
+              <div class="links-of-blogroll-title">
+                <i class="fa fa-signal" aria-hidden="true"></i>
+                <a href="/top/index.html" target='inline'>热门推荐</a>
+              </div>
+              <ul id="zngw_top" class="zngw_top links-of-blogroll-list"></ul>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="post-meta-divider">|</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过客</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">全站字数&#58;</span>
+    
+    <span title="全站字数">305k</span>
+  </div>
+  
+
+<span id="sitetime"></span>
+<script language=javascript>
+  var sitetime = document.getElementById("sitetime")
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+
+    let start = new Date("2019-09-04");
+    let today = new Date();
+    
+    let d1 = today.getDate();
+    let m1 = today.getMonth()+1;
+    let y1 = today.getFullYear();
+    let d2 = start.getDate();
+    let m2 = start.getMonth()+1;
+    let y2 = start.getFullYear();
+
+    var getMonthDays = function (y, m) {
+        var aMonthDays = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (m == 2 && ((y % 400 == 0) || (y % 4 == 0 && y % 100 != 0))) {
+            return 29;
+        }
+        return aMonthDays[m];
+    };
+
+    let y, m, d
+    let tempD = 0
+    let tmpM = 0
+    let tmpY = 0
+
+    if (d1 >= d2) {
+      d = d1 - d2
+    } else {
+      tmpM = -1
+      d = getMonthDays(y2, m2) + d1 - d2
+    }
+
+    if (m1 + tmpM >= m2) {
+      m = m1 + tmpM - m2
+    } else {
+      tmpY = -1
+      m = 12 + m1 + tmpM - m2
+    }
+    y = y1 + tmpY - y2
+       
+    let str = "";
+    if (y > 0) {
+      str = y + '年 ' + ("0"+m).substr(-2) + "月 " + ("0"+(d + 1)).substr(-2) + '天 '
+    }else if (m > 0) {
+      str =  m + "月 " + ("0"+(d + 1)).substr(-2) + '天 '
+    }else if (d > 0) {
+      str =  (d + 1) + '天 '
+    }
+
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+	}
+ 
+  if(sitetime){
+	  siteTime();
+  }
+</script>
+
+<div>
+  
+
+  
+    <span id="/" class="zngw_totals" data-flag-title="过愙">
+      <span class="post-meta-divider" style="margin:0 0">第</span>
+      <span class="gk-uv-count"></span>
+      <span class="post-meta-divider" style="margin:0 0">位朋友,</span>
+
+      <span class="post-meta-divider" style="margin:0 0">历经</span>
+      <span class="gk-totals-count"></span>
+      <span class="post-meta-divider" style="margin:0 0">次回眸才与你相遇</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+    <span class="post-meta-divider"><a target="_blank" href="http://beian.miit.gov.cn/">湘ICP备20003596号</a></span>
+  
+
+  <script type="text/javascript" src="/js/src/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"></script>
+  <script>
+    function post(url, postInfo, success, fail) {
+      axios.post(url, postInfo)
+        .then((resp) => {
+          if (success) {
+            success(resp.data)
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          if (fail) {
+            fail(error)
+          }
+        })
+    }
+
+    function showTime() {
+      var entries = [];
+      var $visitors = $(".zngw_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+      if(entries.length == 0){
+        return
+      }
+
+      let postData = {
+        user: 'guoke3915',
+        url: entries
+      }
+
+      post('/count'+'/get', postData, function(results){
+        var COUNT_CONTAINER_REF = '.zngw-visitors-count';
+        if (results==null || results.length === 0) {
+          $visitors.find(COUNT_CONTAINER_REF).text(0);
+          return;
+        }
+
+        for (var i = 0; i < results.length; i++) {
+          var item = results[i];
+          var element = document.getElementById(item.url);
+
+          $(element).find(COUNT_CONTAINER_REF).text(item.time);
+        }
+        for(var i = 0; i < entries.length; i++) {
+          var url = entries[i];
+          var element = document.getElementById(url);
+          var countSpan = $(element).find(COUNT_CONTAINER_REF);
+          if( countSpan.text() == '') {
+            countSpan.text(0);
+          }
+        }
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function addCount() {
+      var $visitors = $(".zngw_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        url: url,
+        title: title,
+        host:window.location.host
+      }
+
+      post('/count'+'/add', postData, function(results){
+        var COUNT_CONTAINER_REF = '.zngw-visitors-count';
+        var $element = $(document.getElementById(url));
+        $element.find(COUNT_CONTAINER_REF).text(results.time);
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function addTotals() {
+      var $visitors = $(".zngw_totals");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        url: url,
+        title: title,
+        host:window.location.host
+      }
+
+      post('/count'+'/add', postData, function(results){
+        var $element = $(document.getElementById(url));
+        $element.find('.gk-totals-count').text(results.time);
+        $element.find('.gk-uv-count').text(results.uv);
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function showTop() {
+      var $visitors = $(".zngw_top");
+      var url = $visitors.attr('id').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        limit: 6
+      }
+
+      post('/count'+'/top', postData,function(results){
+        var index = 0;
+        for (var i = 0; i < results.length; i++) {
+          var item = results[i];
+          if(item.url!=='/'){
+            index++;
+            var content="<li class='pull-left' style='text-align: left; width:175px; overflow:hidden; white-space:nowrap '><font color='#EE0000'>"+index+" </font><a href='.."+item.url+"' rel='section' title='" +item.title+ "'>"+item.title+"</a></li><li class='pull-right'><font color='#519ABA'>"+item.time+"</font></li><br>"
+            
+            document.getElementById(url).innerHTML+=content
+          }
+        }
+      }, function(err){
+        console.error(error);
+      })
+    }
+
+    $(function() {
+      if ($('.zngw_top').length == 1) {
+        showTop();
+      }
+
+      if ($('.zngw_totals').length == 1) {
+        addTotals();
+      }
+
+      if ($('.zngw_visitors').length == 1) {
+        addCount();
+      } else if ($('.post-title-link').length > 1) {
+        showTime();
+      }
+    });
+  </script>
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1278604389&web_id=1278604389" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/js/src/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/js/src/jquery.fancybox.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+<script src="/js/src/prism.min.js" async></script>
+
+
+  
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+  
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+  <script type="text/javascript" src="/js/src/copyright.min.js"></script>
+</body>
+</html>

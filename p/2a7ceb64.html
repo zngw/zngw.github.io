@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="/js/src/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+
+
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="软件使用," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="过愙" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="身为一个喜欢拍照的猿，博空中怎么可能少了相册呢。Hexo博客自身没有相册功能，网上找了一些资料都是瀑布流的样式较多，这不是我想要的，于是借鉴了 水寒写的添加瀑布流相册 自己写了一个。先上几张图看一下效果（ps:css现学现卖拼凑出为的，页面效果有待优化哈，完整效果可以去我博客看过愙相册）   1. 创建页面和导航栏进入博客根目录，用命令hexo new page photos新建相册页面 ，这样会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo中添加类QQ空间旅游相册">
+<meta property="og:url" content="https://zengwu.com.cn/p/2a7ceb64.html">
+<meta property="og:site_name" content="过愙">
+<meta property="og:description" content="身为一个喜欢拍照的猿，博空中怎么可能少了相册呢。Hexo博客自身没有相册功能，网上找了一些资料都是瀑布流的样式较多，这不是我想要的，于是借鉴了 水寒写的添加瀑布流相册 自己写了一个。先上几张图看一下效果（ps:css现学现卖拼凑出为的，页面效果有待优化哈，完整效果可以去我博客看过愙相册）   1. 创建页面和导航栏进入博客根目录，用命令hexo new page photos新建相册页面 ，这样会">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/guoke3915/zw/raw/master/p/2a7ceb64/19826068-b151b157d4420d34.png">
+<meta property="og:image" content="https://gitee.com/guoke3915/zw/raw/master/p/2a7ceb64/19826068-6155639a68a1387e.png">
+<meta property="article:published_time" content="2020-03-15T04:15:55.000Z">
+<meta property="article:modified_time" content="2020-03-16T16:16:39.740Z">
+<meta property="article:author" content="过客">
+<meta property="article:tag" content="软件使用">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/guoke3915/zw/raw/master/p/2a7ceb64/19826068-b151b157d4420d34.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":0,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zengwu.com.cn/p/2a7ceb64.html"/>
+
+
+<link rel="stylesheet" href="/js/src/prism.css">
+
+
+
+
+
+
+  <title>Hexo中添加类QQ空间旅游相册 | 过愙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f759423ed17e6f82c79790450fa6ab7e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">过愙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">编程有风险，入坑需谨慎</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br />
+            
+            热度
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photos/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-camera-retro"></i> <br />
+            
+            相册
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/2a7ceb64.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Hexo中添加类QQ空间旅游相册</h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-15T12:15:55+08:00">
+                2020-03-15
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2020-03-15</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">软件使用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/2a7ceb64.html" class="zngw_visitors" data-flag-title="Hexo中添加类QQ空间旅游相册">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>身为一个喜欢拍照的猿，博空中怎么可能少了相册呢。<br>Hexo博客自身没有相册功能，网上找了一些资料都是瀑布流的样式较多，这不是我想要的，于是借鉴了 <a href="https://dp2px.com/2018/09/29/hexophotos/" target="_blank" rel="noopener">水寒写的添加瀑布流相册</a> 自己写了一个。先上几张图看一下效果（ps:css现学现卖拼凑出为的，页面效果有待优化哈，完整效果可以去我博客看<a href="https://zengwu.com.cn/photos/index.html">过愙相册</a>）</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/2a7ceb64/19826068-b151b157d4420d34.png" alt="相册目录页"></p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/2a7ceb64/19826068-6155639a68a1387e.png" alt="单个相册"></p>
+<h2 id="1-创建页面和导航栏"><a href="#1-创建页面和导航栏" class="headerlink" title="1. 创建页面和导航栏"></a>1. 创建页面和导航栏</h2><p>进入博客根目录，用命令<code>hexo new page photos</code>新建相册页面 ，这样会在 /source/ 下创建 photos/index.md，在其中添加 type: picture。<br>在主题配置文件<code>themes\next\_config.yml</code>中对应位置 menu 里添加 photos: /photos || camera-retro ，这样生成后就有导航栏菜单了。<br>有了语言，还要到语言对应的目录中修改。</p>
+<h2 id="2-json-文件处理图片信息"><a href="#2-json-文件处理图片信息" class="headerlink" title="2. json 文件处理图片信息"></a>2. json 文件处理图片信息</h2><h3 id="2-1-文件分析"><a href="#2-1-文件分析" class="headerlink" title="2.1 文件分析"></a>2.1 文件分析</h3><p>为了生成多级的相册，这里的目录分为二级。</p>
+<ul>
+<li>第一级目录是相册，目录名就是相册名。</li>
+<li>第二级目录是分类目录，可以把同一时间或同一主题的放在一起，类似于QQ空间旅游相册中的地点分类。</li>
+<li>如果没有第二级目录，则以相片的日期分类。</li>
+<li>二级目录文件名如果带时间，如：2020-02-02.分类1。 拆分时间和目录名；如果不带时间，则用目录创建时间为分类时间，目录名为分类名</li>
+</ul>
+<p>目录结构如下：</p>
+<pre><code class="line-numbers language-powershell"> 相册根目录
+ ├─相册1
+ │  │  图片1.jpg
+ │  │  图片2.jpg
+ │  │
+ │  └─2020-02-02.分类1
+ │          图片3.jpg
+ │          图片4.jpg
+ │
+ └─相册2
+         图片5.jpg
+         图片6.jpg</code></pre>
+<p>我们需要生成的目录json数据为：</p>
+<pre><code class="line-numbers language-json">[{
+         &quot;mini&quot;: &quot;/min&quot;,
+         &quot;dir&quot;: &quot;相册2&quot;,
+         &quot;date&quot;: &quot;2020-03-14&quot;,
+          &quot;num&quot;: 2,
+          &quot;cover&quot;: {
+              &quot;url&quot;: &quot;/min/相册2/图片6.jpg&quot;,
+              &quot;width&quot;: 1024,
+              &quot;height&quot;: 768,
+          }
+         &quot;photos&quot;: [{
+                 &quot;date&quot;: &quot;2020-02-12&quot;,
+                 &quot;name&quot;: &quot;&quot;,
+                 &quot;photo&quot;: [{
+                         &quot;name&quot;: &quot;图片5&quot;,
+                         &quot;url&quot;: &quot;/相册2/图片5.jpg&quot;
+                     },{
+                         &quot;name&quot;: &quot;图片6&quot;,
+                         &quot;url&quot;: &quot;/相册2/图片6.jpg&quot;
+                     }]
+             }]
+     },{
+         &quot;mini&quot;: &quot;/min&quot;,
+         &quot;dir&quot;: &quot;相册1&quot;,
+         &quot;date&quot;: &quot;2020-03-14&quot;,
+          &quot;num&quot;: 4,
+          &quot;cover&quot;: {
+              &quot;url&quot;: &quot;/min//相册1/图片2.jpg&quot;,
+              &quot;width&quot;: 1024,
+              &quot;height&quot;: 768,
+          }
+         &quot;photos&quot;: [{
+                 &quot;date&quot;: &quot;2020-02-02&quot;,
+                 &quot;name&quot;: &quot;分类1&quot;,
+                 &quot;photo&quot;: [{
+                         &quot;name&quot;: &quot;图片3&quot;,
+                         &quot;url&quot;: &quot;/相册1/2020-02-02.分类1/图片3.jpg&quot;
+                     },{
+                         &quot;name&quot;: &quot;图片4&quot;,
+                         &quot;url&quot;: &quot;/相册1/2020-02-02.分类1/图片4.jpg&quot;
+                     }]
+             },{
+                 &quot;date&quot;: &quot;2020-02-27&quot;,
+                 &quot;name&quot;: &quot;&quot;,
+                 &quot;photo&quot;: [{
+                         &quot;name&quot;: &quot;图片1&quot;,
+                         &quot;url&quot;: &quot;/相册1/图片1.jpg&quot;
+                     },{
+                         &quot;name&quot;: &quot;图片2&quot;,
+                         &quot;url&quot;: &quot;/相册1/图片2.jpg&quot;
+                     }]
+             }]
+     }]</code></pre>
+<h3 id="2-2-编写处理脚本"><a href="#2-2-编写处理脚本" class="headerlink" title="2.2 编写处理脚本"></a>2.2 编写处理脚本</h3><p>在博客根目录的 /scripts/ 文件夹下新建一个 photo.js 文件，内容如下</p>
+<pre><code class="line-numbers language-js">const fs = require(&#39;fs&#39;)
+const path = require(&#39;path&#39;)
+const util = require(&#39;util&#39;)
+const images = require(&quot;images&quot;);
+
+// 默认相册图片根目录
+const defaultRootPath = &#39;/source/photos&#39;;
+// 默认是否开启缩略图
+const defaultUseMini = true;
+// 默认缩略图存放目录
+const defaultMiniPath = &#39;/min&#39;
+
+// 是否在hexo g状态
+const isInHexo = &quot;undefined&quot; != typeof hexo;
+
+if (isInHexo &amp;&amp; !hexo.config.photo.enable )
+    return;
+
+const promisifyReaddir = util.promisify(fs.readdir)
+const promisifyStat = util.promisify(fs.stat)
+
+// 图片格式
+const photoExtname = [&#39;.jpg&#39;, &#39;.bmp&#39;, &#39;.png&#39;, &#39;.gif&#39;]
+
+// 相册目录相对博客根目录，引用主题里的 photoPath 目录，如果没有则用 /source/photos
+const rootPath = ((isInHexo &amp;&amp; hexo.config.photo.path) ? hexo.photo.config.path : defaultRootPath);
+
+// 相册绝对路径
+const photoPath = path.resolve(__dirname, &#39;..&#39; + rootPath);
+
+// 是否使用缩略图，主题中存在
+const useMini = (isInHexo &amp;&amp; hexo.config.photo.mini.enable) ? hexo.photo.mini.enable : defaultUseMini;
+// 缩略图目录
+const minPath = useMini ? ((isInHexo &amp;&amp; hexo.config.photo.mini.path) ? hexo.config.photo.mini.path : defaultMiniPath) : &#39;&#39;;
+
+// 相册json数据
+var photoArray = new Array();
+
+async function init() {
+    // 是否成生缩略图
+    if (useMini) {
+        deleteFolder(photoPath + minPath);
+    }
+
+    // 获取相册数据
+    await getPhotoData()
+
+    // 相册内按时间排序
+    for (let i = 0; i &lt; photoArray.length; i++) {
+        if (photoArray[i].photos == null) {
+            continue;
+        }
+
+        photoArray[i].photos = photoArray[i].photos.sort(function (a, b) { return a.date &gt; b.date ? 1 : -1 })
+
+        console.log(photoArray[i].date, photoArray[i].photos[0].date);
+        // 刷新创建时间，不晚于最早的分类时间
+        if (photoArray[i].date &gt; photoArray[i].photos[0].date) {
+            photoArray[i].date = photoArray[i].photos[0].date
+        }
+    }
+    photoArray = photoArray.sort(function (a, b) { return a.date &gt; b.date ? -1 : 1 })
+    console.log(JSON.stringify(photoArray))
+
+    // 写入jsonp数据
+    fs.writeFile(photoPath + path.sep + &#39;photo.jsonp&#39;, &#39;callback(&#39;+JSON.stringify(photoArray)+&#39;)&#39;, function (err) {
+        if (err) {
+            return console.error(err);
+        }
+        console.log(&quot;数据写入成功！&quot;);
+    });
+}
+
+// 获取相册数据
+async function getPhotoData(proPath = &#39;&#39;) {
+    const dir = await promisifyReaddir(photoPath + proPath)
+
+    // 当前相册数据
+    var photoData = null;
+
+    // 相册名使用相册目录名
+    var photoName = null;
+
+    // 存在分类目录，
+    //    分类目录没带时间，则用目录创建时间为分类时间，目录名为分类名
+    //    分类目录存在时间，如：2020-02-02.分类1。 拆分时间和目录名
+    // 分类名。
+    var categoryName = &quot;&quot;;
+
+    // 分类时间。
+    var categoryDate = null;
+
+    // 相册只有一层，非根目录相册直接加入到对应一级目录中
+    if (proPath) {
+        // 获取最后一级目录名
+        let index = proPath.split(path.sep).join(&#39;/&#39;).lastIndexOf(&quot;\/&quot;);  //兼容两个平台 并获取最后位置index
+        let lastDir = proPath.substring(index + 1, proPath.length); //截取获得结果
+
+        // 获取第一次目录名，即 相册名
+        index = proPath.substring(1).split(path.sep).join(&#39;/&#39;).indexOf(&quot;\/&quot;);
+        photoName = index &gt; 0 ? proPath.substring(1, index + 1) : proPath.substring(1);
+
+        // 最后一级目录与相册名相等，说明当前目录是相册目录，否当前目录为分类目录
+        if (lastDir != photoName) {
+            // 拆分目录名
+            var tmp = lastDir.split(&#39;.&#39;);
+            if (tmp.length &gt; 1) {
+                categoryDate = new Date(tmp[0]).toISOString().substring(0, 10);
+                categoryName = lastDir.substring(tmp[0].length + 1);
+            }
+
+            // 不存在时间格式或时间格式不对，都认为无效时间，以分类目录创建时间处理
+            if (categoryDate == null) {
+                categoryName = lastDir;
+                const stat = await promisifyStat(`${photoPath}${proPath}`)
+                categoryDate = stat.mtime.toISOString().substring(0, 10);
+            }
+        }
+
+        for (let i = 0; i &lt; photoArray.length; i++) {
+            if (photoArray[i].dir === photoName) {
+                photoData = photoArray[i];
+                if (!photoData.photos) {
+                    photoData.photos = new Array()
+                }
+                break;
+            }
+        }
+    }
+
+    // 遍历目录中文件和文件夹
+    for (let i = 0; i &lt; dir.length; i++) {
+        const stat = await promisifyStat(path.resolve(photoPath + proPath, dir[i]))
+
+        if (stat.isFile()) {
+            // 根目录文件不处理，只处理子级以以下的图片文件
+            if (proPath) {
+
+                // 匹配图片后缀
+                var ext = path.extname(dir[i]).toLowerCase();
+                if (photoExtname.indexOf(ext) != -1) {
+                    var name = path.basename(dir[i], ext)
+                    var date = stat.mtime.toISOString().substring(0, 10)
+
+                    // 相册分类数据
+                    var photoCategory;
+                    for (let j = 0; j &lt; photoData.photos.length; j++) {
+                        // 根据时间和分类获取现在分类数据
+                        if (photoData.photos[j].date == categoryDate &amp;&amp; photoData.photos[j].name == categoryName) {
+                            photoCategory = photoData.photos[j];
+                            if (!photoCategory.photo) {
+                                photoCategory.photo = new Array();
+                            }
+                            break;
+                        }
+                    }
+
+                    // 不存分类则创建
+                    if (!photoCategory) {
+                        photoCategory = {
+                            date: categoryDate ? categoryDate : date,
+                            name: categoryName ? categoryName : &quot;&quot;,
+                            photo: new Array()
+                        }
+                        photoData.photos.push(photoCategory);
+                    }
+
+                     // 插入相片
+                    let img = images(photoPath + proPath + path.sep + dir[i]);
+                    photoCategory.photo.push({
+                        name: name,
+                        width: img.width(),
+                        height: img.height(),
+                        url: proPath + path.sep + dir[i]
+                    })
+
+                   // 更新相册信息
+                    photoData.num++;
+                    photoData.cover={
+                        width: img.width(),
+                        height: img.height(),
+                        url: minPath + proPath + path.sep + dir[i]
+                    }
+
+                    if (useMini) {
+                        var outPath = path.resolve(photoPath + minPath + path.sep + proPath + path.sep) + path.sep;
+                        checkDirExist(outPath);
+                        // 宽度小于1024的不缩放，大于1024的以宽度等比缩到1024
+                        let width = img.width();
+                        let height = img.height();
+                        if(width&gt;1024){
+                            height = 1024 * height / width;
+                            width = 1024;
+                        }
+                        img.resize(width,height)
+                            .save(outPath + path.sep + dir[i],{
+                                quality: 50                    //保存图片到文件,图片质量为50
+                            });
+                    }
+                }
+            }
+        } else if (stat.isDirectory()) {
+            // 缩略图目录忽略
+            if (path.sep + dir[i] === minPath) {
+                continue;
+            }
+
+            if (!proPath) {
+                // 根目录时创建相册
+                var photoData = {
+                    mini: minPath,
+                    dir: dir[i],
+                    date: stat.mtime.toISOString().substring(0, 10),
+                    num: 0,
+                    photos: new Array()
+                }
+                photoArray.push(photoData)
+            }
+            // 递归子目录
+            await getPhotoData(proPath + path.sep + dir[i])
+        }
+    }
+}
+
+// 删除目录
+function deleteFolder(filePath) {
+    const files = []
+    if (fs.existsSync(filePath)) {
+        const files = fs.readdirSync(filePath)
+        files.forEach((file) =&gt; {
+            const nextFilePath = filePath + path.sep + file
+            const states = fs.statSync(nextFilePath)
+            if (states.isDirectory()) {
+                //recurse
+                deleteFolder(nextFilePath)
+            } else {
+                //delete file
+                fs.unlinkSync(nextFilePath)
+            }
+        })
+        fs.rmdirSync(filePath)
+    }
+}
+
+// 判断目录是否存在，否存创建
+function checkDirExist(folderpath) {
+    const pathArr = folderpath.split(path.sep);
+    let _path = &#39;&#39;;
+    for (let i = 0; i &lt; pathArr.length; i++) {
+        if (pathArr[i]) {
+            _path += `${pathArr[i]}${path.sep}`;
+            if (!fs.existsSync(_path)) {
+                fs.mkdirSync(_path);
+            }
+        }
+    }
+}
+
+init()</code></pre>
+<p>在博客配置<code>_config.yml</code>中添加</p>
+<pre><code class="line-numbers language-yml">photo:
+  enable: false
+  path: /source/photos/
+  mini:
+    enable: true
+    path: /mini</code></pre>
+<p>下载图片nodejs的插件</p>
+<pre><code class="line-numbers language-powershell">npm install images</code></pre>
+<p>配置说明</p>
+<ul>
+<li>photo.enable: 是否在<code>hexo g</code>时编译， 不是相册不是很次都有更新，也不需要每次遍相册的时候都来编译这个，所以加了一个标志控制使用 <code>hexo g</code>编译时编译相册，<code>false-不编译</code>，<code>true-编译</code></li>
+<li>photo.path: 相册图片根目录,  如果不通过hexo编译，可以配置js脚本中的<code>defaultRootPath</code> </li>
+<li>photo.mini.enable: 是否开启图片压缩生成缩略图。如果不通过hexo编译，可以配置js脚本中的<code>defaultUseMini</code> 配置</li>
+<li>photo.mini.path: 缩略图生成的相对路径。如果开启了缩略图功能，这项不能添空，不然图片会被覆盖。 如果不通过hexo编译，可以配置js脚本中的<code>defaultMiniPath</code></li>
+</ul>
+<p>开启<code>photo.enable: true</code>直接<code>hexo g</code>，或者在根目录执行<code>node script/photo.js</code>就能生成json数据了，json数据在相册跟目录</p>
+<h2 id="3-编写页面处理js脚本"><a href="#3-编写页面处理js脚本" class="headerlink" title="3. 编写页面处理js脚本"></a>3. 编写页面处理js脚本</h2><p>在 <code>/themes/next/source/js/src/</code> 目录下创建一个 <code>photo.js</code>，内容如下：</p>
+<pre><code class="line-numbers language-js">const imgRoot = &#39;/photos&#39;
+photo = {
+    // 当前显示类型、dir-目录,photo-照片
+    type: &#39;dir&#39;,
+
+    // 相册索引
+    photoIndex: 0,
+
+    // 分类索引
+    categoryIndex: 0,
+
+    // 相册数据数组
+    photoArray: null,
+    //offset 每次加载照片数量，以分类为一个单位
+    offset: 10,
+
+    init: function () {
+        var that = this;
+        if (this.photoArray == null) {
+            //这里设置的是刚才生成的 jsonp 文件路径
+            // json文件如果用代码仓库做图床会出现跨域问题
+            $.ajax({
+                type:&quot;GET&quot;,
+                url:imgRoot + &quot;/photo.jsonp&quot;,
+                dataType:&quot;jsonp&quot;,
+                jsonpCallback:&quot;callback&quot;,
+                success:function(data){
+                    photoArray = data;
+                    that.randerDir();
+                }
+            });
+        } else {
+            this.randerDir();
+        }
+
+    },
+    randerDir: function () {
+        // 显示相册目录
+        let data = photoArray;
+        this.type = &#39;dir&#39;;
+        $(&quot;.photo-div&quot;).empty();
+
+        let li = &#39;&lt;div class=&quot;photo-box&quot;&gt;&#39;;
+        for (let i = 0; i &lt; data.length; i++) {
+            let cover = data[i].cover; // 封面
+            let width = 275;    // 相册目录定宽
+            let height = width * cover.height / cover.width;
+            li += &#39;&lt;div class=&quot;photo-box-item&quot; style=&quot;width: &#39; + width + &#39;px&quot;&gt;&#39; +
+                        &#39;&lt;div class=&quot;photo-box-item-click&quot; id=&quot;&#39; + i + &#39;&quot; style=&quot;height:&#39; + height + &#39;px&quot;&gt;&#39; +
+                            &#39;&lt;img class=&quot;nofancybox&quot; style=&quot;padding: 0; border: none;&quot; src=&quot;&#39; + imgRoot + cover.url + &#39;&quot;/&gt;&#39; +
+                        &#39;&lt;/div&gt;&#39; +
+                        &#39;&lt;div&gt;&#39; + data[i].dir + &#39;&lt;/div&gt;&#39; +
+                    &#39;&lt;/div&gt;&#39;
+        }
+        li += &#39;&lt;/div&gt;&#39;;
+        $(&quot;.photo-div&quot;).append(li);
+        this.minigrid();
+    },
+    render: function (page) {
+        if (!photoArray || photoArray.length &lt;= this.photoIndex) {
+            return;
+        }
+
+        // 相册数据
+        var photoData = photoArray[this.photoIndex];
+        this.type = &#39;photo&#39;;
+
+        // 插入相册标题
+        if (page == 1) {
+            let li = &#39;&lt;div class=&quot;photo-title&quot;&gt;&#39; +
+                &#39;&lt;div class=&quot;photo-title-text&quot;&gt;&#39; + photoData.dir + 
+                &#39;&lt;a href=&quot;&quot; class=&quot;photo-back&quot;&gt;返回相册&lt;/a&gt;&#39;  +&#39;&lt;/div&gt;&#39; +
+                &#39;&lt;div class=&quot;photo-title-desc&quot;&gt; 创建于&#39; + photoData.date + &#39;/ 共&#39; + photoData.num +&#39; 张&lt;/div&gt;&#39; +
+                &#39;&lt;/div&gt;&#39;
+            $(&quot;.photo-div&quot;).append(li);
+        }
+
+        let showCount = 0;
+        for (let i = 0; i &lt; photoData.photos.length; i++) {
+            // 分类
+            photoCategory = photoData.photos[i];
+            if (i &lt; this.categoryIndex) {
+                // 跳过
+                continue;
+            } else if (page &lt;= i &amp;&amp; showCount&gt;=this.offset) {
+                // 结束
+                break;
+            } else {
+                // 加入分类信息
+                this.categoryIndex++;
+                let li = &#39;&lt;div class=&quot;photo-category-text&quot;&gt;&#39; +photoCategory.date + (photoCategory.name?&#39;| &#39;:&#39;&#39;)+photoCategory.name  + &#39;&lt;/div&gt;&#39; +
+                    &#39;&lt;div class=&quot;photo-category photo-category-box-&#39; + this.categoryIndex + &#39;&quot;&gt;&#39;
+
+                    li += &#39;&lt;/div&gt;&#39;
+                    $(&quot;.photo-div&quot;).append(li);
+
+                for (let j = 0; j &lt; photoCategory.photo.length; j++) {
+                    showCount++;
+
+                    // 相片数据
+                    let data = photoCategory.photo[j];
+                    let imgNameWithPattern = data.url;
+                    let imgName = data.name;
+                    let li = &#39;&lt;a data-fancybox=&quot;gallery&quot; href=&quot;&#39; +imgRoot + imgNameWithPattern  + &#39;?raw=true&quot; data-caption=&quot;&#39; + imgName + &#39;&quot;&gt;&#39; +
+                    &#39;&lt;img style=&quot;padding: 0; border: none;&quot; src=&quot;&#39; + imgRoot + photoData.mini + imgNameWithPattern + &#39;&quot; alt=&quot;&#39; + imgName + &#39;&quot; title=&quot;&#39; + imgName + &#39;&quot;&gt;&lt;/a&gt;&#39;
+
+                    $(&#39;.photo-category-box-&#39; + this.categoryIndex).append(li);
+                    $(&#39;.photo-category-box-&#39; + this.categoryIndex).justifiedGallery({
+                            rowHeight: 300,
+                            margins: 4,
+                            randomize: true
+                        });
+                }
+            }
+        }
+
+        $(&quot;.photo-div&quot;).lazyload();
+        this.minigrid();
+    },
+    minigrid: function () {
+
+        // 使用 minigrid动态布局相册
+        var grid = null;
+        if (this.type == &quot;dir&quot;) {
+            grid = new Minigrid({
+                container: &#39;.photo-box&#39;,
+                item: &#39;.photo-box-item&#39;,
+                gutter: 12
+            });
+            grid.mount();
+        }
+
+        var that = this;
+
+        // 监听窗口大小事件
+        $(window).resize(function () {
+            if (that.type == &quot;dir&quot;) {
+                grid.mount();
+            } 
+
+            // 计算宽度是否加载新相片
+            that.loading();
+        });
+
+        // 监听滚动事件
+        $(window).on(&#39;scroll&#39;, function () {
+            // 计算宽度是否加载新相片
+            that.loading();
+        });
+
+        // 相册点击事件
+        $(&quot;.photo-box-item-click&quot;).bind(&quot;click&quot;, function () {
+            if (!photoArray || photoArray.length &lt;= this.id) {
+                return;
+            }
+
+            $(&quot;.photo-div&quot;).empty();
+            that.photoIndex = this.id;
+            that.categoryIndex = 0;
+            that.render(1)
+        });
+
+        // 返回相册事件
+        $(&quot;.photo-back&quot;).bind(&quot;click&quot;, function () {
+            if (!photoArray || photoArray.length &lt;= this.id) {
+                return;
+            }
+
+            $(&quot;.photo-div&quot;).empty();
+            that.randerDir();
+            return false;
+        });
+    },
+
+    // 判断滚动长度大于时加载新的
+    loading: function () {
+        if (this.type != &#39;photo&#39;) {
+            return;
+        }
+
+        var scrollTop = $(window).scrollTop();
+        if(scrollTop+$(window).height()&gt;$(&quot;.photo-div&quot;).height()){
+            this.render(this.categoryIndex+1);
+        }
+    }
+}
+photo.init();</code></pre>
+<p>这里imgRoot 配置相册相对网站的相对路径，也可以用图床填写图床的目录。<br>我用的是coding代码仓库为图床，这里可以配置</p>
+<pre><code>const imgRoot = &#39;//guoke3915.coding.net/p/guoke3915/d/img/git/raw/master/photos&#39;</code></pre><h2 id="4-配置主题"><a href="#4-配置主题" class="headerlink" title="4. 配置主题"></a>4. 配置主题</h2><p>这里用到了几个第三方的布局js插件，所以在主题中配置一下。这里都引用了cdn的代码，也可以自己下过来放到自己的网站上。</p>
+<ul>
+<li>minigrid：等宽瀑布布局，用于相册目录布局</li>
+<li>justifiedGallery： 画廊式图片布局，用于相册照片显示</li>
+<li>fancybox：照片展示插件</li>
+</ul>
+<h3 id="4-1-引用js文件"><a href="#4-1-引用js文件" class="headerlink" title="4.1 引用js文件"></a>4.1 引用js文件</h3><p>修改<code>/themes/next/layout/_scripts/commons.swig</code>文件，在最后加入代码</p>
+<pre><code class="line-numbers language-swig">{% if page.type ===&#39;picture&#39; %}
+  &lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.jsdelivr.net/gh/zngw/cdn/minigrid.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;/js/src/photo.js&quot;&gt;&lt;/script&gt;
+{% endif %}</code></pre>
+<h3 id="4-2-引用css文件"><a href="#4-2-引用css文件" class="headerlink" title="4.2 引用css文件"></a>4.2 引用css文件</h3><p>修改<code>themes\next\layout\_partials\head.swig</code>文件，在最后添加代码</p>
+<pre><code class="line-numbers language-swig">{% if page.type ===&#39;picture&#39; %}
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css&quot; /&gt;
+{% endif %}</code></pre>
+<h3 id="4-3-开启fancybox"><a href="#4-3-开启fancybox" class="headerlink" title="4.3 开启fancybox"></a>4.3 开启fancybox</h3><p>打开主题配置文件<code>themes\next\_config.yml</code>，<br>找到<code>fancybox:</code>设置为true<br>找到vendors:添加cdn地址</p>
+<pre><code class="line-numbers language-yml">vendors:
+
+  fancybox: //cdn.jsdelivr.net/gh/zngw/cdn/fancybox/jquery.fancybox.min.js
+  fancybox_css: //cdn.jsdelivr.net/gh/zngw/cdn/fancybox/jquery.fancybox.min.css</code></pre>
+<h2 id="5-修改CSS样式"><a href="#5-修改CSS样式" class="headerlink" title="5 修改CSS样式"></a>5 修改CSS样式</h2><p>找到<code>themes\next\source\css\_custom\custom.styl</code>文件，在后面添加</p>
+<pre><code class="line-numbers language-css">.photo-box {
+   width: 100%;
+   max-width: 1040px;
+   margin: 0 auto; 
+   text-align: center;
+}
+
+.photo-box-item {
+   overflow: hidden;
+   transition: .3s ease-in-out;
+   border-radius: 8px;
+   background-color: #ddd;
+}
+
+.photo-box-item-img {
+}
+.photo-box-item-img img {
+   transition: opacity 500ms ease-in
+}
+
+.photo-box-item .caption {
+    visibility: hidden;
+    position: absolute;
+    bottom: 0;
+    padding: 5px;
+    background-color: #000000;
+    left: 0;
+    right: 0;
+    margin: 0;
+    color: white;
+    font-size: 12px;
+    font-weight: 300;
+    font-family: sans-serif;
+    opacity: 0.7;
+}
+
+/* 鼠标移动上去后显示提示框 */
+.photo-box-item:hover .caption {
+    visibility: visible;
+}
+
+.photo-box-item-click {
+   overflow:hidden;
+}
+.photo-box-item-click img {
+   obj-fit: cover;
+   transition: opacity 500ms ease-in;
+}
+
+.photo-category-card {
+   overflow: hidden;
+   transition: .3s ease-in-out;
+   border-radius: 8px;
+   background-color: #ddd;
+}
+
+.photo-category-card-img {
+}
+.photo-category-card-img img {
+   transition: opacity 500ms ease-in
+}
+
+.photo-category-card .caption {
+    visibility: hidden;
+    position: absolute;
+    bottom: 0;
+    padding: 5px;
+    background-color: #000000;
+    left: 0;
+    right: 0;
+    margin: 0;
+    color: white;
+    font-size: 12px;
+    font-weight: 300;
+    font-family: sans-serif;
+    opacity: 0.7;
+}
+
+/* 鼠标移动上去后显示提示框 */
+.photo-category-card:hover .caption {
+    visibility: visible;
+}
+
+.photo-title-text {
+   line-height: 54px; 
+   background-color: #479ac7;
+   color: white;
+   font-size: 24px;
+}
+
+.photo-title-desc {
+   line-height: 20px; 
+   background-color: #479ac7;
+   color: white;
+   font-size: 12px;
+}
+
+.photo-back{     
+   line-height: 34px; 
+   margin-top: 10px;     
+   position: absolute;
+    display: inline-block;     
+    right:10px;
+    padding: 10px 10px;     
+    border-radius: 4px;     
+    background-color: #63b7ff;     
+    color: #fff;     
+    cursor: pointer;     
+  }     
+  .photo-back:hover{     
+    background-color: #99c6ff;     
+  } 
+
+  .photo-category-text {
+   line-height: 30px; 
+   background-color: #f1fafa;
+   color: #336699;;
+   font-size: 18px;
+}</code></pre>
+<h2 id="6-部分图片禁用fancybox"><a href="#6-部分图片禁用fancybox" class="headerlink" title="6. 部分图片禁用fancybox"></a>6. 部分图片禁用fancybox</h2><p>相册目录中的图片需要点击事件，所以，这里的图片需要禁用fancybox。<br>加一个<code>nofancybox</code>类标签，<br>修改一下<code>theme\next\source\js\src\utils.js</code>文件<br>找到<code>wrapImageWithFancyBox: function</code>函数，在循环里加一句<code>if ($(this).hasClass(&#39;nofancybox&#39;)) return;</code></p>
+<pre><code class="line-numbers language-js">  wrapImageWithFancyBox: function () {
+    $(&#39;.content img&#39;)
+      .not(&#39;[hidden]&#39;)
+      .not(&#39;.group-picture img, .post-gallery img&#39;)
+      .each(function () {
+        if ($(this).hasClass(&#39;nofancybox&#39;)) return;     // 就加这一句就可以了
+        var $image = $(this);
+        var imageTitle = $image.attr(&#39;title&#39;);
+        var $imageWrapLink = $image.parent(&#39;a&#39;);</code></pre>
+<p>然后在用的时候，img标签中加入 ‘<img class="nofancybox" style="padding: 0; border: none;" src>‘ </p>
+<h2 id="7-放入相册"><a href="#7-放入相册" class="headerlink" title="7. 放入相册"></a>7. 放入相册</h2><p>在第一步创建好的 <code>/source/photos/index.md</code> 文档中编辑好自己需要的相册页面内容，在需要放置相册的位置加入以下内容即可</p>
+<pre><code class="line-numbers language-md">---
+title: 相册
+date: 2020-03-14 12:26:45
+type: picture
+---
+&lt;div class=&quot;photo-div&quot;&gt;&lt;/div&gt;</code></pre>
+<h2 id="8-编译发布"><a href="#8-编译发布" class="headerlink" title="8. 编译发布"></a>8. 编译发布</h2><p>最后 <code>hexo clean &amp;&amp; hexo deploy -g</code> 就可以把相册页设置好了<br>如果不想编译博客，可以用<code>node script/photo.js</code>直接编译。然后的动将’/source/photos’目录下的所有图片文件夹、缩略图文件夹以及 photo.json数据文件直接上传就可以更新相册了。</p>
+
+      
+    </div>
+    
+    
+    
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    过客
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zengwu.com.cn/p/2a7ceb64.html" title="Hexo中添加类QQ空间旅游相册">https://zengwu.com.cn/p/2a7ceb64.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC 4.0 BY-SA</a> 版权协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    
+      <div class="post-tags">
+        
+          <a href="/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" rel="tag"><i class="fa fa-tag"></i> 软件使用</a>
+        
+      </div>
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward-wepay.png" alt="过客 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward-alipay.png" alt="过客 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+        
+
+  <div class="popular-posts-header">相关推荐</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\98fa4bbc.html" rel="bookmark">win10开机默认开启小键盘</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\57233631.html" rel="bookmark">Win 2012 远程卡在“正在加密远程连接”</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\9dd52052.html" rel="bookmark">将 .pem 文件与 .ppk 互相转换</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\f41fb63a.html" rel="bookmark">阿里云盘分享文件格式</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\f72f6493.html" rel="bookmark">网页内容无法复制</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/p/e9b22066.html" rel="next" title="Echarts世界地图中文名称">
+                  <i class="fa fa-chevron-left"></i> Echarts世界地图中文名称
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/p/2f0a2191.html" rel="prev" title="jQuery中使用jsonp">
+                  jQuery中使用jsonp <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "right",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src="/static/api/js/share.js?cdnversion="+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          
+            <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+              文章目录
+            </li>
+          
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      
+        <section class="site-overview-wrap sidebar-panel">
+      
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+            <a href="/">
+                <img class="site-author-image" itemprop="image"
+                  src="/images/avatar.png"
+                  alt="过客" />
+              </a>
+            
+              <p class="site-author-name" itemprop="name">过客</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/index.html">
+              
+                  <span class="site-state-item-count">323</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zngw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/a51cd2236c13" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:guoke@zngw.icu" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://zengwu3915.lofter.com" target="_blank" title="乐乎">
+                      
+                        <i class="fa fa-fw fa-camera-retro"></i>乐乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa fa-history" aria-hidden="true"></i>
+              <a href="/archives/index.html" target='inline'>近期文章</a>
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    11-02
+                    <a href="/p/58e1b8b4.html" title="也谈“过客”">也谈“过客”</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    11-01
+                    <a href="/p/536760e1.html" title="Linux下读写NTFS格式">Linux下读写NTFS格式</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-30
+                    <a href="/p/874c58c2.html" title="股市中的过客">股市中的过客</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-29
+                    <a href="/p/c66a286f.html" title="go读取docx文档">go读取docx文档</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-27
+                    <a href="/p/4d81b25b.html" title="Ubuntu 20.04 安装 Nats">Ubuntu 20.04 安装 Nats</a>
+                </div><br/>
+              
+            </ul>
+            </div>
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-">
+              <div class="links-of-blogroll-title">
+                <i class="fa fa-signal" aria-hidden="true"></i>
+                <a href="/top/index.html" target='inline'>热门推荐</a>
+              </div>
+              <ul id="zngw_top" class="zngw_top links-of-blogroll-list"></ul>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-创建页面和导航栏"><span class="nav-text">1. 创建页面和导航栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-json-文件处理图片信息"><span class="nav-text">2. json 文件处理图片信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-文件分析"><span class="nav-text">2.1 文件分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-编写处理脚本"><span class="nav-text">2.2 编写处理脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-编写页面处理js脚本"><span class="nav-text">3. 编写页面处理js脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-配置主题"><span class="nav-text">4. 配置主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-引用js文件"><span class="nav-text">4.1 引用js文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-引用css文件"><span class="nav-text">4.2 引用css文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-开启fancybox"><span class="nav-text">4.3 开启fancybox</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-修改CSS样式"><span class="nav-text">5 修改CSS样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-部分图片禁用fancybox"><span class="nav-text">6. 部分图片禁用fancybox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-放入相册"><span class="nav-text">7. 放入相册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-编译发布"><span class="nav-text">8. 编译发布</span></a></li></ol></div>
+              
+            
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="post-meta-divider">|</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过客</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">全站字数&#58;</span>
+    
+    <span title="全站字数">305k</span>
+  </div>
+  
+
+<span id="sitetime"></span>
+<script language=javascript>
+  var sitetime = document.getElementById("sitetime")
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+
+    let start = new Date("2019-09-04");
+    let today = new Date();
+    
+    let d1 = today.getDate();
+    let m1 = today.getMonth()+1;
+    let y1 = today.getFullYear();
+    let d2 = start.getDate();
+    let m2 = start.getMonth()+1;
+    let y2 = start.getFullYear();
+
+    var getMonthDays = function (y, m) {
+        var aMonthDays = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (m == 2 && ((y % 400 == 0) || (y % 4 == 0 && y % 100 != 0))) {
+            return 29;
+        }
+        return aMonthDays[m];
+    };
+
+    let y, m, d
+    let tempD = 0
+    let tmpM = 0
+    let tmpY = 0
+
+    if (d1 >= d2) {
+      d = d1 - d2
+    } else {
+      tmpM = -1
+      d = getMonthDays(y2, m2) + d1 - d2
+    }
+
+    if (m1 + tmpM >= m2) {
+      m = m1 + tmpM - m2
+    } else {
+      tmpY = -1
+      m = 12 + m1 + tmpM - m2
+    }
+    y = y1 + tmpY - y2
+       
+    let str = "";
+    if (y > 0) {
+      str = y + '年 ' + ("0"+m).substr(-2) + "月 " + ("0"+(d + 1)).substr(-2) + '天 '
+    }else if (m > 0) {
+      str =  m + "月 " + ("0"+(d + 1)).substr(-2) + '天 '
+    }else if (d > 0) {
+      str =  (d + 1) + '天 '
+    }
+
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+	}
+ 
+  if(sitetime){
+	  siteTime();
+  }
+</script>
+
+<div>
+  
+
+  
+    <span id="/" class="zngw_totals" data-flag-title="过愙">
+      <span class="post-meta-divider" style="margin:0 0">第</span>
+      <span class="gk-uv-count"></span>
+      <span class="post-meta-divider" style="margin:0 0">位朋友,</span>
+
+      <span class="post-meta-divider" style="margin:0 0">历经</span>
+      <span class="gk-totals-count"></span>
+      <span class="post-meta-divider" style="margin:0 0">次回眸才与你相遇</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+    <span class="post-meta-divider"><a target="_blank" href="http://beian.miit.gov.cn/">湘ICP备20003596号</a></span>
+  
+
+  <script type="text/javascript" src="/js/src/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"></script>
+  <script>
+    function post(url, postInfo, success, fail) {
+      axios.post(url, postInfo)
+        .then((resp) => {
+          if (success) {
+            success(resp.data)
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          if (fail) {
+            fail(error)
+          }
+        })
+    }
+
+    function showTime() {
+      var entries = [];
+      var $visitors = $(".zngw_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+      if(entries.length == 0){
+        return
+      }
+
+      let postData = {
+        user: 'guoke3915',
+        url: entries
+      }
+
+      post('/count'+'/get', postData, function(results){
+        var COUNT_CONTAINER_REF = '.zngw-visitors-count';
+        if (results==null || results.length === 0) {
+          $visitors.find(COUNT_CONTAINER_REF).text(0);
+          return;
+        }
+
+        for (var i = 0; i < results.length; i++) {
+          var item = results[i];
+          var element = document.getElementById(item.url);
+
+          $(element).find(COUNT_CONTAINER_REF).text(item.time);
+        }
+        for(var i = 0; i < entries.length; i++) {
+          var url = entries[i];
+          var element = document.getElementById(url);
+          var countSpan = $(element).find(COUNT_CONTAINER_REF);
+          if( countSpan.text() == '') {
+            countSpan.text(0);
+          }
+        }
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function addCount() {
+      var $visitors = $(".zngw_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        url: url,
+        title: title,
+        host:window.location.host
+      }
+
+      post('/count'+'/add', postData, function(results){
+        var COUNT_CONTAINER_REF = '.zngw-visitors-count';
+        var $element = $(document.getElementById(url));
+        $element.find(COUNT_CONTAINER_REF).text(results.time);
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function addTotals() {
+      var $visitors = $(".zngw_totals");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        url: url,
+        title: title,
+        host:window.location.host
+      }
+
+      post('/count'+'/add', postData, function(results){
+        var $element = $(document.getElementById(url));
+        $element.find('.gk-totals-count').text(results.time);
+        $element.find('.gk-uv-count').text(results.uv);
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function showTop() {
+      var $visitors = $(".zngw_top");
+      var url = $visitors.attr('id').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        limit: 6
+      }
+
+      post('/count'+'/top', postData,function(results){
+        var index = 0;
+        for (var i = 0; i < results.length; i++) {
+          var item = results[i];
+          if(item.url!=='/'){
+            index++;
+            var content="<li class='pull-left' style='text-align: left; width:175px; overflow:hidden; white-space:nowrap '><font color='#EE0000'>"+index+" </font><a href='.."+item.url+"' rel='section' title='" +item.title+ "'>"+item.title+"</a></li><li class='pull-right'><font color='#519ABA'>"+item.time+"</font></li><br>"
+            
+            document.getElementById(url).innerHTML+=content
+          }
+        }
+      }, function(err){
+        console.error(error);
+      })
+    }
+
+    $(function() {
+      if ($('.zngw_top').length == 1) {
+        showTop();
+      }
+
+      if ($('.zngw_totals').length == 1) {
+        addTotals();
+      }
+
+      if ($('.zngw_visitors').length == 1) {
+        addCount();
+      } else if ($('.post-title-link').length > 1) {
+        showTime();
+      }
+    });
+  </script>
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1278604389&web_id=1278604389" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/js/src/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/js/src/jquery.fancybox.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+<script src="/js/src/prism.min.js" async></script>
+
+
+  
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+  
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+  <script type="text/javascript" src="/js/src/copyright.min.js"></script>
+</body>
+</html>

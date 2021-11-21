@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>过愙</title>
+  
+  <subtitle>编程有风险，入坑需谨慎</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://zengwu.com.cn/"/>
+  <updated>2021-11-02T14:25:46.253Z</updated>
+  <id>https://zengwu.com.cn/</id>
+  
+  <author>
+    <name>过客</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>也谈“过客”</title>
+    <link href="https://zengwu.com.cn/p/58e1b8b4.html"/>
+    <id>https://zengwu.com.cn/p/58e1b8b4.html</id>
+    <published>2021-11-02T10:13:24.000Z</published>
+    <updated>2021-11-02T14:25:46.253Z</updated>
+    
+    <content type="html"><![CDATA[<p>　　曾经用了十多年的网名“过客”，但自己很少去深思这个词的含义。昨天一个网友留言道：每个人都是自己生命中的主角，而不只是过客。也许是每个人的生活以及对这个词的理解都不同吧…<br>　　“过客”这个词在词典里解释为过路的人，在百度百科网络词汇中，过客：指在互联网上历来都是“客”源不断,从博客、威客、换客、维客、拼客、晒客和晾客后,现在竟然又冒出了过客这一新生网友群体。过客是指在网友在网络行走过程中，所浏览过的网页或网站，匆匆而过，称作“过客”。<br>　　就我的理解，所谓“过客”，便是匆匆走过的人。走过你的生活，进过你的心灵，深入过你的生命。“过客”在生活中应该一直是有的，只是以前很少有人说这个话题。随着现代文明的发展，信息的传播越来越广泛，越来越疾速，空间上的跨越也越来越方便，多元化的机会，让人与人的相遇，心灵与心灵的碰撞变得更容易了些。但这样的相遇与碰撞却还是受生活和空间的限制，于是，走近，远去，下一个走近，又无奈的远去，这样的聚聚分分不断的的产生，“过客”也就出现了。<br>　　所谓“过客”，匆匆的走过我们的生命，给生命留下一些痕迹，然后就像远飘的云彩，再顺着他们自己生命的方向悠然的离去？<br>　　徐志摩的《偶然》中也提到过这样的段，也许能更好的解释“过客”的涵义吧。“我是天空里一片云，偶尔把风影在你的波心——你不必讶异，更无须欢喜——在转瞬间消灭了踪影。你和相逢在黑夜的海上，你有你的，我有我的，方向；你记得也好，最好你忘掉，在这交会时互放的光亮！”生命与全命的相逢，就是这样偶然而难以把握，交汇时互映光辉，然后就是擦肩而过，留下记忆或遗忘。对“过客”，天长地久是无法强加的奢望。<br>　　以乎很伤感，似乎很无奈，但生命在很多时候就是这样的无助。相对于浩瀚的宇宙和无限的时空，地球就是一个匆匆的过客，而渺小的人类相对于地球，便又成了一个匆匆的过客，在漫漫的人类发展史上，每一个人是一个匆匆的过客，在一人长长的一生中，那些匆匆而来又匆匆而去的人又是我们生命中的过客。我们是过客里的过客，能选择什么，又能放弃什么？<br>　　坦然的接受这生命中聚聚分分吧，没有讶异，也不要抱怨。来了接受；去了，坦然。别人进出我们的心灵，我们也出进别人的生命，别人是你的过客，你也是别人匆匆的过客。无需奢求，只静静的享受拥有时的那份感动。同时感谢，感谢他们曾走入我们的生命…</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;　　曾经用了十多年的网名“过客”，但自己很少去深思这个词的含义。昨天一个网友留言道：每个人都是自己生命中的主角，而不只是过客。也许是每个人的生活以及对这个词的理解都不同吧…&lt;br&gt;　　“过客”这个词在词典里解释为过路的人，在百度百科网络词汇中，过客：指在互联网上历来都是“客
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://zengwu.com.cn/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux下读写NTFS格式</title>
+    <link href="https://zengwu.com.cn/p/536760e1.html"/>
+    <id>https://zengwu.com.cn/p/536760e1.html</id>
+    <published>2021-10-31T16:05:43.000Z</published>
+    <updated>2021-11-02T14:25:46.238Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>在Linux上可以使用NTFS-3G来挂载NTFS格式的硬盘。NTFS-3G 是一个开源的软件，可以实现Linux、Free BSD、Mac OSX、NetBSD 和Haiku 等操作系统中的NTFS 读写支持。  它可以安全且快速地读写Windows 系统的NTFS 分区，而不用担心数据丢失。</p><h1 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h1><p>Ubuntu系统默认是自带ntfs-3g的，在CentOS中可以使用<code>yum</code>命令直接安装</p><pre><code class="line-numbers language-bash">yum install -y ntfs-3g</code></pre><h1 id="三、使用"><a href="#三、使用" class="headerlink" title="三、使用"></a>三、使用</h1><p>先用<code>fdisk -l</code>查看需要挂载硬盘的盘符。例如为<code>/dev/sdb</code></p><pre><code class="line-numbers language-bash">mount -t ntfs-3g /dev/sdb /data</code></pre><h1 id="四、设置开机自动挂载"><a href="#四、设置开机自动挂载" class="headerlink" title="四、设置开机自动挂载"></a>四、设置开机自动挂载</h1><p>打开<code>/etc/fstab</code>文件，在最后添加</p><pre><code class="line-numbers language-bash"># 只读模式挂载/dev/sdb /data ntfs-3g ro,umask=0222,defaults 0 0# 读写模式挂载/dev/sdb /data ntfs-3g rw,umask=0000,defaults 0 0</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h1&gt;&lt;p&gt;在Linux上可以使用NTFS-3G来挂载NTFS格式的硬盘。NTFS-3G 是一个开源的软件，可以实现Linux、Free
+      
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+      <category term="Linux" scheme="https://zengwu.com.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>股市中的过客</title>
+    <link href="https://zengwu.com.cn/p/874c58c2.html"/>
+    <id>https://zengwu.com.cn/p/874c58c2.html</id>
+    <published>2021-10-30T13:39:00.000Z</published>
+    <updated>2021-11-02T14:25:46.230Z</updated>
+    
+    <content type="html"><![CDATA[<p>　　工作十多年，手里有点小积蓄，之前存银行放余额宝发现利息都赶不上物价上涨。怎么样才能不亏呢？<br>　　在四五月份的时候开始买基金，那时候白酒消费比较凶残，各平台推荐的也比较多，对于小白来说看着推荐的还长了，也就跟风进了一些白酒消费类和上证50指数基金，结果到七八月份的时候亏了10%左右。本想赚点零花钱的，结果别人把碗给端走了。<br>　　自己的钱要掌握在自己手里，于是在八月底的时候开始爬进了股市。最近上班也不算太忙，手机也可以看看行情，也不太会去追热点做短线，买了些医疗、新能源、光伏相关的股票，摸爬滚打了二个月，小赚了11.4%，把基金亏的赚了回来。<br><img src="//gitee.com/guoke3915/zw/raw/master/p/874c58c2/19826068-8f317eecb6b95b22.png" alt></p><p>　　当然，入市有风险，不能把所有的鸡蛋放一个篮子，合理分配是比较重要的。我是把小积蓄分成了10份，3份存银行定期、3份买基金（虽然现在比较坑还亏着，但相信长期会有赚的）、3份玩股票、最后留1份在余额宝当流动资金。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;　　工作十多年，手里有点小积蓄，之前存银行放余额宝发现利息都赶不上物价上涨。怎么样才能不亏呢？&lt;br&gt;　　在四五月份的时候开始买基金，那时候白酒消费比较凶残，各平台推荐的也比较多，对于小白来说看着推荐的还长了，也就跟风进了一些白酒消费类和上证50指数基金，结果到七八月份的时
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://zengwu.com.cn/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="https://zengwu.com.cn/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go读取docx文档</title>
+    <link href="https://zengwu.com.cn/p/c66a286f.html"/>
+    <id>https://zengwu.com.cn/p/c66a286f.html</id>
+    <published>2021-10-29T14:47:31.000Z</published>
+    <updated>2021-11-02T14:25:46.235Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>docx 是一个带有 xml 的 zip 文件,  <a href="https://github.com/srinathh/gooxml" target="_blank" rel="noopener">srinathh/gooxml</a> 是一个用于创建 Office Open XML 文档的库.这个库只支持office 2007以及之后的版本的文档,即只能读取<code>.docx、.xlsx 和 .pptx</code>,面不能读取<code>.doc、.xls 和 .ppt</code></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><pre><code class="line-numbers language-bash">go get baliance.com/gooxml/document</code></pre><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>解析docx文档代码</p><pre><code class="line-numbers language-go">package mainimport (    &quot;baliance.com/gooxml/document&quot;    &quot;fmt&quot;    &quot;log&quot;)func main() {    doc, err := document.Open(&quot;zngw.docx&quot;)    if err != nil {        log.Fatalf(&quot;error opening document: %s&quot;, err)    }    //doc.Paragraphs()得到包含文档所有的段落的切片    for i, para := range doc.Paragraphs() {        //run为每个段落相同格式的文字组成的片段        fmt.Println(&quot;-----------第&quot;, i, &quot;段-------------&quot;)        for j, run := range para.Runs() {            fmt.Print(&quot;\t-----------第&quot;, j, &quot;格式片段-------------&quot;)            fmt.Print(run.Text())        }        fmt.Println()    }}</code></pre><h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>如有以下文档,有一个标题, 第二行是一段文字, 第三行有二种字体.</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c66a286f/19826068-138e2a2e271824de.png" alt></p><p>代码读取的结果为:</p><pre><code class="line-numbers language-bash">-----------第 0 段-------------    -----------第0格式片段-------------这里是标题-----------第 1 段-------------    -----------第0格式片段-------------这里是docx测试文档-----------第 2 段------------------------第 3 段-------------    -----------第0格式片段-------------Hello World!    -----------第1格式片段-------------你好呀</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h1&gt;&lt;p&gt;docx 是一个带有 xml 的 zip 文件,  &lt;a href=&quot;https://github.com/srinathh/gooxml&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu 20.04 安装 Nats</title>
+    <link href="https://zengwu.com.cn/p/4d81b25b.html"/>
+    <id>https://zengwu.com.cn/p/4d81b25b.html</id>
+    <published>2021-10-27T07:56:30.000Z</published>
+    <updated>2021-11-02T14:25:46.241Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h1><p>nats是一个开源的，云原生的消息系统。核心基于EventMachine开发，原理是基于消息发布订阅机制，每台服务器上的每个模块会根据自己的消息类别向MessageBus发布多个消息主题，而同时也向自己需要交互的模块，按照需要的主题订阅消息。能够达到每秒8-11百万个消息，整个程序很小只有3M Docker image，它不支持持久化消息，如果你离线，你就不能获得消息。使用nats streaming可以做到持久化，缓存等功能。</p><h1 id="2、下载"><a href="#2、下载" class="headerlink" title="2、下载"></a>2、下载</h1><p>去<a href="https://github.com/nats-io" target="_blank" rel="noopener">https://github.com/nats-io</a>下载最新版本的nats-server版本。这里用<a href="https://github.com/nats-io/nats-server/releases/download/v2.6.2/nats-server-v2.6.2-linux-amd64.tar.gz" target="_blank" rel="noopener">2.6.2版本</a></p><h1 id="3、运行"><a href="#3、运行" class="headerlink" title="3、运行"></a>3、运行</h1><p>解压后直接运行<code>nats-server</code>就可以了</p><pre><code class="line-numbers language-bash">tar zxf nats-server-v2.6.2-linux-amd64.tar.gz./nats-server-v2.6.2-linux-amd64/nats-server</code></pre><h1 id="4、将nats添加为服务"><a href="#4、将nats添加为服务" class="headerlink" title="4、将nats添加为服务"></a>4、将nats添加为服务</h1><pre><code class="line-numbers language-ini">vim /lib/systemd/system/nats.service[Unit]Description=nats-server daemonAfter=syslog.target  network.targetWants=network.target[Service]ExecStart=/home/nats-server/nats-server -c /home/nats-server/nats.ymlRestart= on-failure[Install]WantedBy=multi-user.target</code></pre><p>然后就可以通过<code>systemctl</code>来启动停止了</p><pre><code class="line-numbers language-bash">#开机启动systemctl enable nats# 启动systemctl start nats# 停止systemctl stop nats# 查看状态systemctl status nats</code></pre><h1 id="5、启动参数配置说明"><a href="#5、启动参数配置说明" class="headerlink" title="5、启动参数配置说明"></a>5、启动参数配置说明</h1><p>在源码<a href="https://github.com/nats-io/nats-server/blob/main/main.go#L26-L81" target="_blank" rel="noopener">main.go</a>中可以看到配置参数。</p><pre><code class="line-numbers language-yml">服务器选项:    -a, --addr &lt;host&gt;                绑定主机IP地址（默认是0.0.0.0）    -p, --port &lt;port&gt;                客户端连接NATS服务器使用的端口（默认是4222）    -n, --name &lt;server_name&gt;         服务器名字(默认:自动)    -P, --pid &lt;file&gt;                 存储PID的文件    -m, --http_port &lt;port&gt;           HTTP监听端口    -ms,--https_port &lt;port&gt;          HTTPS监听端口    -c, --config &lt;file&gt;              指定配置文件    -t                               测试配置文并退出    -sl,--signal &lt;signal&gt;[=&lt;pid&gt;]    向 nats-server 进程发送信号（停止、退出、重新打开、重新加载）                                      &lt;pid&gt; 可以是 PID（例如 1）或 PID 文件的路径（例如 /var/run/nats-server.pid）        --client_advertise &lt;string&gt;  向其他服务器广播的客户端 URL日志选项:    -l, --log &lt;file&gt;                 指定日志输出的文件    -T, --logtime                    是否开启日志的时间戳（默认为true）    -s, --syslog                     启用syslog作为日志方法    -r, --remote_syslog &lt;addr&gt;       远程日志服务器的地址（默认为udp://localhost:514）    -D, --debug                      开启调试输出    -V, --trace                      跟踪原始的协议    -VV                              详细跟踪（也跟踪系统帐户）    -DV                              调试并跟踪    -DVV                             调试和详细跟踪（也跟踪系统帐户）JetStream 选项:    -js, --jetstream                 启用 JetStream 功能。    -sd, --store_dir &lt;dir&gt;           设置存储目录。授权认证选项:        --user &lt;user&gt;                连接需要的用户名        --pass &lt;password&gt;            连接需要的密码        --auth &lt;token&gt;               连接所需的授权令牌TLS 安全选项:        --tls                       启用TLS，不验证客户端（默认为false）        --tlscert &lt;file&gt;             服务器证书文件        --tlskey &lt;file&gt;              服务器证书私钥        --tlsverify                  启用TLS，每一个客户端都要认证        --tlscacert &lt;file&gt;           客户端证书CA用于认证集群选项:        --routes &lt;rurl-1, rurl-2&gt;    请求和连接的路由        --cluster &lt;cluster-url&gt;      请求路由的集群 URL        --cluster_name &lt;string&gt;      Cluster Name，如果不设置会动态生成一个        --no_advertise &lt;bool&gt;        不向客户端通告已知的集群信息        --cluster_advertise &lt;string&gt; 向其他服务器通告的集群 URL        --connect_retries &lt;number&gt;   连接重试次数常规选项:    -h, --help                       显示帮助消息    -v, --version                   显示版本信息        --help_tls                   显示TLS 帮助消息</code></pre><h1 id="6、配置文件"><a href="#6、配置文件" class="headerlink" title="6、配置文件"></a>6、配置文件</h1><p>使用参数启动难免太复杂了点，所以可以通过-c加配置文件来启动。</p><p>NATS服务器配置文件的格式比较灵活，结合了传统的JSON格式和新的YAML格式的风格。<br>NATS配置文件格式支持以下语法：</p><pre><code class="line-numbers language-yml">Mixed Arrays: […]Nested Maps: {…}Multiple comment types: # and //Key value assigments using:    Equals sign (foo = 2)    Colon (foo: 2)    Whitespace (foo 2)Maps can be assigned with no key separatorSemicolons as value terminators in key/value assignments are optional&lt;br&gt;</code></pre><h2 id="简单配置"><a href="#简单配置" class="headerlink" title="简单配置"></a>简单配置</h2><pre><code class="line-numbers language-yml">listen: 127.0.0.1:4222</code></pre><h2 id="NATS服务器配置文件示例"><a href="#NATS服务器配置文件示例" class="headerlink" title="NATS服务器配置文件示例"></a>NATS服务器配置文件示例</h2><pre><code class="line-numbers language-yml">port: 4242   # 供客户端连接的监听端口net: apcera.me # 监听的网络地址http_port: 8222 # HTTP监控端口# 客户端连接的认证信息authorization { user:   derek password: T0pS3cr3t timeout: 1}# 集群定义cluster { host: &#39;127.0.0.1&#39; # 主机地址 port: 4244     # 路由连接的入站(inbound)端口 # 路由连接的认证信息 authorization {  user: route_user  password: T0pS3cr3tT00!  timeout: 0.5 } # Routes are actively solicited and connected to from this server. # Other servers can connect to us if they supply the correct credentials # in their routes definitions from above. routes = [  nats-route://user1:pass1@127.0.0.1:4245  nats-route://user2:pass2@127.0.0.1:4246 ]}# 日志选项debug:  falsetrace:  truelogtime: falselog_file: &quot;/tmp/gnatsd.log&quot;# PID进程文件pid_file: &quot;/tmp/gnatsd.pid&quot;# 一些系统属性# 客户端最大连接数max_connections: 100# 最大协议控制行max_control_line: 512# 最大的有效负载max_payload: 65536# 慢消费者阀值max_pending_size: 10000000</code></pre><p>配置文件参考：<a href="http://article.nxpop.com/col/6304.html" target="_blank" rel="noopener">http://article.nxpop.com/col/6304.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;1、介绍&quot;&gt;&lt;a href=&quot;#1、介绍&quot; class=&quot;headerlink&quot; title=&quot;1、介绍&quot;&gt;&lt;/a&gt;1、介绍&lt;/h1&gt;&lt;p&gt;nats是一个开源的，云原生的消息系统。核心基于EventMachine开发，原理是基于消息发布订阅机制，每台服务器上的每个
+      
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go中国家新闻出版署实名认证</title>
+    <link href="https://zengwu.com.cn/p/c01f879d.html"/>
+    <id>https://zengwu.com.cn/p/c01f879d.html</id>
+    <published>2021-10-25T07:27:37.000Z</published>
+    <updated>2021-11-02T14:25:46.234Z</updated>
+    
+    <content type="html"><![CDATA[<p>随着网络游戏防沉迷系统的接入，实名认证验证也是一个必不可少的部分，网上有第三方的实名认证但基本上都收费，<a href="http://www.nppa.gov.cn/" target="_blank" rel="noopener">国家新闻出版署</a>提供了免费的接口，不过需要自己去提交申请，获取<code>应用标识 (APPID)</code>、<code>应用密钥 (Secret Key)</code>、<code>业务权限标识(BizId)</code>，并将请求服务器的IP设为白名单后，就可以调用<code>https:// api.wlc.nppa.gov.cn/idcard/authentication/check</code>接口来获取实名认真了。</p><p>这个接口中请求体body使用了AES-128/GCM + BASE64算法加密，签名使用了sha256。直接上完整的代码</p><pre><code class="line-numbers language-go">import (    &quot;bytes&quot;    &quot;crypto/aes&quot;    &quot;crypto/cipher&quot;    &quot;crypto/rand&quot;    &quot;crypto/sha256&quot;    &quot;encoding/base64&quot;    &quot;encoding/hex&quot;    &quot;encoding/json&quot;    &quot;fmt&quot;    &quot;io&quot;    &quot;io/ioutil&quot;    &quot;net/http&quot;    &quot;sort&quot;    &quot;strconv&quot;    &quot;time&quot;)// 国家新闻出版署配置信息type nppaInfo struct {    AppId     string // 应用标识    SecretKey string // 应用密钥    BizId     string // 业务权限标识}var nppa nppaInfo// 输入国家新闻出版署配置信息func NppaInit(appId, secretKey, bizId string) {    nppa = nppaInfo{        AppId:     appId,        SecretKey: secretKey,        BizId:     bizId,    }}// 实名验证// ai     - 游戏内部成员标识,固定32位字符，一般使用 md5(用户ID)// name - 实名信息中的姓名// id     - 实名信息中身份证号码// 返回//         - result 是否验证成功//         - errcode 状态码//         - errmsg 状态描述func NppaCheck(ai, name, id string) (result bool, errcode int, errmsg string ) {    client := &amp;http.Client{}    // body 参数    param := map[string]string{        &quot;ai&quot;:    ai,        &quot;name&quot;:  name,        &quot;idNum&quot;: id,    }    // AES-128/GCM + BASE64算法加密    jsonParam, _ := json.Marshal(param)    cipher, _ := gcmEncrypt(string(jsonParam))    body, _ := json.Marshal(map[string]string{        &quot;data&quot;: cipher,    })    // post请求地址    req, _ := http.NewRequest(&quot;POST&quot;, &quot;https://api.wlc.nppa.gov.cn/idcard/authentication/check&quot;, bytes.NewReader(body))    // header头验证信息    headers := map[string]string{        &quot;appId&quot;:      nppa.AppId,        &quot;bizId&quot;:      nppa.BizId,        &quot;timestamps&quot;: strconv.FormatInt(time.Now().UnixNano()/1e6, 10),    }    // 签名    headers[&quot;sign&quot;] = sign(headers, string(body))    headers[&quot;Content-Type&quot;] = &quot;application/json;charset=utf-8&quot;    for k, v := range headers {        req.Header.Set(k, v)    }    // 请求    resp, err := client.Do(req)    if err != nil {        return false, -1, &quot;Http请求错误&quot;    }    defer resp.Body.Close()    if resp.StatusCode != 200 {        return false, resp.StatusCode, &quot;Http请求返回码错误&quot;    }    str, err := ioutil.ReadAll(resp.Body)    if err != nil {        return false, -2, &quot;Http请求返回数据为空&quot;    }    var msg map[string]interface{}    err = json.Unmarshal(str, &amp;msg)    if err != nil {        return false, -3, &quot;Http请求返回数据格式错误&quot;    }    ec, ok := msg[&quot;errcode&quot;]    if !ok {        return false, -3, &quot;Http请求返回数据格式错误&quot;    }    errcode = int(ec.(float64))    if errcode != 0 {        errmsg, _:= msg[&quot;errmsg&quot;]        return false, errcode, errmsg.(string)    }    data, ok := msg[&quot;data&quot;]    if !ok {        return false, -3, &quot;Http请求返回数据格式错误&quot;    }    r, ok := data.(map[string]interface{})[&quot;result&quot;]    if !ok {        return false, -3, &quot;Http请求返回数据格式错误&quot;    }    status, ok := r.(map[string]interface{})[&quot;status&quot;]    if !ok {        return false, -3, &quot;Http请求返回数据格式错误&quot;    }    errcode = int(status.(float64))    if errcode == 0{        return true, 0, &quot;认证成功&quot;    } else if errcode == 1 {        return false, errcode, &quot;认证中&quot;    }else {        return false, errcode, &quot;认证失败&quot;    }}func gcmEncrypt(originalText string) (string, error) {    // 需要解码    key, _ := hex.DecodeString(nppa.SecretKey)    block, err := aes.NewCipher(key)    if err != nil {        return &quot;&quot;, err    }    aesGcm, err := cipher.NewGCM(block)    if err != nil {        return &quot;&quot;, err    }    // 向量    nonce := make([]byte, aesGcm.NonceSize())    if _, err := io.ReadFull(rand.Reader, nonce); err != nil {        return &quot;&quot;, err    }    cipherText := aesGcm.Seal(nonce, nonce, []byte(originalText), nil)    // encode as base64 string    encoded := base64.StdEncoding.EncodeToString(cipherText)    return encoded, nil}func sign(headers map[string]string, body string) string {    var data string    var keys []string    // key排序    for k := range headers {        keys = append(keys, k)    }    sort.Strings(keys)    // 拼接    for _, k := range keys {        data = data + k + headers[k]    }    data = nppa.SecretKey + data + body    // 对字符串进行sha256哈希    h := sha256.New()    h.Write([]byte(data))    sum := h.Sum(nil)    return hex.EncodeToString(sum)}</code></pre><p>调用</p><pre><code class="line-numbers language-go">func main() {    // 初始化    NppaInit(&quot;test-appId&quot;,&quot;2836e95fcd10e04b0069bb1ee659955b&quot;,&quot;test-bizId&quot;)    // 使用    userId := &quot;123456&quot;    name := &quot;岑吾&quot;    id := &quot;xxxxxxxxxxxxxxxxxx&quot;    h := md5.New()    h.Write([]byte(userId))    ok,code,msg := NppaCheck(hex.EncodeToString(h.Sum(nil)), name, id)    fmt.Println(ok,code,msg)}</code></pre><p>详细返回参数可见<a href="https://www.aliyundrive.com/s/cfVduHgQ3Fb" target="_blank" rel="noopener">网络游戏防沉迷实名认证系统</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;随着网络游戏防沉迷系统的接入，实名认证验证也是一个必不可少的部分，网上有第三方的实名认证但基本上都收费，&lt;a href=&quot;http://www.nppa.gov.cn/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;国家新闻出版署&lt;/a&gt;提供了免费的接口，
+      
+    
+    </summary>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu 20.04 安装 Redis</title>
+    <link href="https://zengwu.com.cn/p/618372ba.html"/>
+    <id>https://zengwu.com.cn/p/618372ba.html</id>
+    <published>2021-10-24T05:27:42.000Z</published>
+    <updated>2021-11-02T14:25:46.243Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 Ubuntu 20.04 上安装 Redis 可以下载<code>http://download.redis.io/redis-stable.tar.gz</code>直接运行，但也可以使用<code>apt</code>来直接按装。Ubuntu 20.04 软件源中有Redis 5.0。</p><pre><code class="line-numbers language-bash">sudo apt updatesudo apt install redis-server</code></pre><h2 id="启动、停止、重启"><a href="#启动、停止、重启" class="headerlink" title="启动、停止、重启"></a>启动、停止、重启</h2><p>安装完成后Redis会自动启动，可以用<code>systemctl</code>来控制Redis的启动、停止、重启等</p><pre><code class="line-numbers language-bash"># 查看状态systemctl status redis-server.service# 启动systemctl start redis-server.service# 停止systemctl stop redis-server.service# 重启systemctl restart redis-server.service# 设置开机启动systemctl enable redis-server.service</code></pre><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p><code>apt</code>安装的Redis配置文件在<code>/etc/redis/redis.conf</code></p><h3 id="配置远程访问"><a href="#配置远程访问" class="headerlink" title="配置远程访问"></a>配置远程访问</h3><p>注释 bind这一行</p><pre><code class="line-numbers language-conf">#bind 127.0.0.1</code></pre><h3 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h3><pre><code class="line-numbers language-conf">requirepass 密码</code></pre><h3 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h3><pre><code class="line-numbers language-conf">port 6379</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在 Ubuntu 20.04 上安装 Redis 可以下载&lt;code&gt;http://download.redis.io/redis-stable.tar.gz&lt;/code&gt;直接运行，但也可以使用&lt;code&gt;apt&lt;/code&gt;来直接按装。Ubuntu 20.04 软件源中有
+      
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu 20.04安装Docker</title>
+    <link href="https://zengwu.com.cn/p/35ea3f99.html"/>
+    <id>https://zengwu.com.cn/p/35ea3f99.html</id>
+    <published>2021-10-22T01:33:54.000Z</published>
+    <updated>2021-11-02T14:25:46.240Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、卸载旧版本"><a href="#一、卸载旧版本" class="headerlink" title="一、卸载旧版本"></a>一、卸载旧版本</h2><pre><code class="line-numbers language-bash">sudo apt-get remove docker docker-engine docker.io containerd runc</code></pre><h2 id="二、使用官方安装脚本中的阿里云镜像自动安装"><a href="#二、使用官方安装脚本中的阿里云镜像自动安装" class="headerlink" title="二、使用官方安装脚本中的阿里云镜像自动安装"></a>二、使用官方安装脚本中的阿里云镜像自动安装</h2><pre><code class="line-numbers language-bash">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></pre><h2 id="三、启动Docker"><a href="#三、启动Docker" class="headerlink" title="三、启动Docker"></a>三、启动Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl start docker</code></pre><h2 id="四、停止Docker"><a href="#四、停止Docker" class="headerlink" title="四、停止Docker"></a>四、停止Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl stop docker.socket</code></pre><p>注意：停止时需要如果使用<code>sudo systemctl stop docker</code>是停止不了的，还会警告</p><pre><code class="line-numbers language-bash">root@ubuntu:~# systemctl stop dockerWarning: Stopping docker.service, but it can still be activated by:  docker.socket</code></pre><p>原因是Docker 有两个服务进程文件，可以通过<code>cd /lib/systemd/system/ &amp;&amp; ll|grep docker</code>查看，分别是<code>docker.service unit file</code> 和 <code>docker.socket unit file</code>，上面的警告意味着如果你试图停止docker服务，但docker.socket unit file还处于激活状态。</p><h2 id="五、设置开机启动"><a href="#五、设置开机启动" class="headerlink" title="五、设置开机启动"></a>五、设置开机启动</h2><pre><code class="line-numbers language-bash">sudo systemctl enable docker</code></pre><h2 id="六、显示版本"><a href="#六、显示版本" class="headerlink" title="六、显示版本"></a>六、显示版本</h2><pre><code class="line-numbers language-bash">docker version</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、卸载旧版本&quot;&gt;&lt;a href=&quot;#一、卸载旧版本&quot; class=&quot;headerlink&quot; title=&quot;一、卸载旧版本&quot;&gt;&lt;/a&gt;一、卸载旧版本&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;line-numbers language-bash&quot;&gt;sudo ap
+      
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker中pull microsoft/dotnet报错</title>
+    <link href="https://zengwu.com.cn/p/cf0371b3.html"/>
+    <id>https://zengwu.com.cn/p/cf0371b3.html</id>
+    <published>2021-10-22T01:33:54.000Z</published>
+    <updated>2021-11-02T14:25:46.237Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>今天在一台新的服务器中pull microsoft/dotnet的时候报错了</p><pre><code>docker: Error response from daemon: pull access denied for microsoft/dotnet, repository does not exist or may require &#39;docker login&#39;: denied: requested access to the resource is denied.</code></pre><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>这是因为.NET Core 2.1 和 2.2 容器映像已从 Docker Hub 中删除。 他们于 2021 年 8 月 21 日将这些映像移到了 Microsoft 容器注册表 (MCR)。 </p><p>使用<code>docker pull mcr.microsoft.com/dotnet/sdk:2.1</code> 来代替 <code>docker pull microsoft/dotnet</code>。</p><p>MCR 上的 .NET 映像可从以下存储库获得：</p><ul><li>mcr.microsoft.com/dotnet/runtime-deps</li><li>mcr.microsoft.com/dotnet/runtime</li><li>mcr.microsoft.com/dotnet/aspnet</li><li>mcr.microsoft.com/dotnet/sdk</li></ul><h2 id="具体的替换"><a href="#具体的替换" class="headerlink" title="具体的替换"></a>具体的替换</h2><h3 id="SDK"><a href="#SDK" class="headerlink" title="SDK"></a>SDK</h3><pre><code class="line-numbers language-txt">microsoft/dotnet:2.1-sdk -&gt; mcr.microsoft.com/dotnet/sdk:2.1microsoft/dotnet:2-sdk -&gt; mcr.microsoft.com/dotnet/sdk:2.1microsoft/dotnet:2.1-sdk-stretch -&gt; mcr.microsoft.com/dotnet/sdk:2.1-stretchmicrosoft/dotnet:2.1-sdk-stretch-arm32v7 -&gt; mcr.microsoft.com/dotnet/sdk:2.1-stretch-arm32v7microsoft/dotnet:2.1-sdk-nanoserver-1809 -&gt; mcr.microsoft.com/dotnet/sdk:2.1-nanoserver-1809microsoft/dotnet:2.1-sdk-alpine -&gt; mcr.microsoft.com/dotnet/sdk:2.1-alpinemicrosoft/dotnet:2.1-sdk-bionic -&gt; mcr.microsoft.com/dotnet/sdk:2.1-bionicmicrosoft/dotnet:2.1-sdk-bionic-arm32v7 -&gt; mcr.microsoft.com/dotnet/sdk:2.1-bionic-arm32v7microsoft/dotnet:latest -&gt; mcr.microsoft.com/dotnet/sdk:2.1</code></pre><h3 id="ASP-NET-Core"><a href="#ASP-NET-Core" class="headerlink" title="ASP.NET Core:"></a>ASP.NET Core:</h3><pre><code class="line-numbers language-txt">microsoft/dotnet:2.1-aspnetcore-runtime -&gt; mcr.microsoft.com/dotnet/aspnet:2.1microsoft/dotnet:2-aspnetcore-runtime-&gt; mcr.microsoft.com/dotnet/aspnet:2.1microsoft/dotnet:2.1-aspnetcore-runtime-stretch-slim -&gt; mcr.microsoft.com/dotnet/aspnet:2.1-stretch-slimmicrosoft/dotnet:2.1-aspnetcore-runtime-stretch-slim-arm32v7 -&gt; mcr.microsoft.com/dotnet/aspnet:2.1-stretch-slim-arm32v7microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1809 -&gt; mcr.microsoft.com/dotnet/aspnet:2.1-nanoserver-1809microsoft/dotnet:2.1-aspnetcore-runtime-alpine -&gt; mcr.microsoft.com/dotnet/aspnet:2.1-alpinemicrosoft/dotnet:2.1-aspnetcore-runtime-bionic -&gt; mcr.microsoft.com/dotnet/aspnet:2.1-bionicmicrosoft/dotnet:2.1-aspnetcore-runtime-bionic-arm32v7 -&gt; mcr.microsoft.com/dotnet/aspnet:2.1-bionic-arm32v7microsoft/dotnet:aspnetcore-runtime-&gt; mcr.microsoft.com/dotnet/aspnet:2.1</code></pre><h3 id="NET-Runtime"><a href="#NET-Runtime" class="headerlink" title=".NET Runtime:"></a>.NET Runtime:</h3><pre><code class="line-numbers language-txt">microsoft/dotnet:2.1-runtime -&gt; mcr.microsoft.com/dotnet/runtime:2.1microsoft/dotnet:2-runtime -&gt; mcr.microsoft.com/dotnet/runtime:2.1microsoft/dotnet:2.1-runtime-stretch-slim -&gt; mcr.microsoft.com/dotnet/runtime:2.1-stretch-slimmicrosoft/dotnet:2.1-runtime-stretch-slim-arm32v7 -&gt; mcr.microsoft.com/dotnet/runtime:2.1-stretch-slim-arm32v7microsoft/dotnet:2.1-runtime-nanoserver-1809 -&gt; mcr.microsoft.com/dotnet/runtime:2.1-nanoserver-1809microsoft/dotnet:2.1-runtime-alpine -&gt; mcr.microsoft.com/dotnet/runtime:2.1-alpinemicrosoft/dotnet:2.1-runtime-bionic -&gt; mcr.microsoft.com/dotnet/runtime:2.1-bionicmicrosoft/dotnet:2.1-runtime-bionic-arm32v7 -&gt; mcr.microsoft.com/dotnet/runtime:2.1-bionic-arm32v7microsoft/dotnet:runtime -&gt; mcr.microsoft.com/dotnet/runtime:2.1</code></pre><h3 id="NET-Runtime-dependencies"><a href="#NET-Runtime-dependencies" class="headerlink" title=".NET Runtime dependencies:"></a>.NET Runtime dependencies:</h3><pre><code class="line-numbers language-txt">microsoft/dotnet:2.1-runtime-deps -&gt; mcr.microsoft.com/dotnet/runtime-deps:2.1microsoft/dotnet:2.1-runtime-deps-stretch-slim -&gt; mcr.microsoft.com/dotnet/runtime-deps:2.1-stretch-slimmicrosoft/dotnet:2.1-runtime-deps-stretch-slim-arm32v7 -&gt; mcr.microsoft.com/dotnet/runtime-deps:2.1-stretch-slim-arm32v7microsoft/dotnet:2.1-runtime-deps-alpine -&gt; mcr.microsoft.com/dotnet/runtime-deps:2.1-alpinemicrosoft/dotnet:2.1-runtime-deps-bionic -&gt; mcr.microsoft.com/dotnet/runtime-deps:2.1-bionicmicrosoft/dotnet:2.1-runtime-deps-bionic-arm32v7 -&gt; mcr.microsoft.com/dotnet/runtime-deps:2.1-bionic-arm32v7microsoft/dotnet:runtime-deps -&gt; mcr.microsoft.com/dotnet/runtime-deps:2.1</code></pre><p>详见dotnet/announcements 的github文档:<a href="https://github.com/dotnet/announcements/issues/197" target="_blank" rel="noopener">https://github.com/dotnet/announcements/issues/197</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;报错&quot;&gt;&lt;a href=&quot;#报错&quot; class=&quot;headerlink&quot; title=&quot;报错&quot;&gt;&lt;/a&gt;报错&lt;/h2&gt;&lt;p&gt;今天在一台新的服务器中pull microsoft/dotnet的时候报错了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker: Error re
+      
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+      <category term="Linux" scheme="https://zengwu.com.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu 20.04修改ip</title>
+    <link href="https://zengwu.com.cn/p/f798f8e0.html"/>
+    <id>https://zengwu.com.cn/p/f798f8e0.html</id>
+    <published>2021-10-21T01:27:13.000Z</published>
+    <updated>2021-11-02T14:25:46.239Z</updated>
+    
+    <content type="html"><![CDATA[<p>ubuntu从17.10开始，已放弃在/etc/network/interfaces里固定IP的配置，即使配置也不会生效，而是改成netplan方式 ，配置写在/etc/netplan/00-installer-config.yaml或者类似名称的yaml文件里</p><pre><code class="line-numbers language-bash">root@ubuntu:~# ls /etc/netplan/00-installer-config.yaml</code></pre><p>然后编辑 <strong>sudo vim /etc/netplan/00-installer-config.yaml</strong>文件修改ip配置。这是一个yml文件遵循yaml语法规则。具体配置如下：</p><pre><code class="line-numbers language-yml"># This is the network config written by &#39;subiquity&#39;network:  ethernets:    ens160:                            #配置的网卡的名称      addresses:      - 192.168.0.121/24               #配置的静态ip地址和掩码      dhcp4: no                        #关闭DHCP，如果需要打开DHCP则写yes      gateway4: 192.168.0.1            #网关地址      nameservers:        addresses:        - 192.168.0.1                  #DNS服务器地址，多个DNS服务器地址需要用英文逗号分隔开        search:        - localhost                    #本地域名解析  version: 2</code></pre><p>使配置的ip地址生效</p><pre><code class="line-numbers language-bash">sudo netplan apply</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ubuntu从17.10开始，已放弃在/etc/network/interfaces里固定IP的配置，即使配置也不会生效，而是改成netplan方式 ，配置写在/etc/netplan/00-installer-config.yaml或者类似名称的yaml文件里&lt;/p&gt;
+&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu 20.04修改ip</title>
+    <link href="https://zengwu.com.cn/p/f798f8e0.html"/>
+    <id>https://zengwu.com.cn/p/f798f8e0.html</id>
+    <published>2021-10-18T16:31:55.000Z</published>
+    <updated>2021-11-02T14:25:46.242Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="使用root账号本地登录"><a href="#使用root账号本地登录" class="headerlink" title="使用root账号本地登录"></a>使用root账号本地登录</h2><p>ubuntu系统默认root用户是不能登录的，密码也是空的。</p><p>如果要使用root用户登录，必须先为root用户设置密码</p><pre><code class="line-numbers language-bash">sudo passwd root</code></pre><p>先输入当前用户密码启动管理员权限，然后再输入二次root新密码。</p><h2 id="使用root账号ssh远程登录"><a href="#使用root账号ssh远程登录" class="headerlink" title="使用root账号ssh远程登录"></a>使用root账号ssh远程登录</h2><pre><code class="line-numbers language-bash">sudo vim /etc/ssh/sshd_config</code></pre><p>找到<code>PermitRootLogin</code>修改配置为<code>PermitRootLogin yes</code></p><p>重新ssh使修改配置生效</p><pre><code class="line-numbers language-bash">sudo  systemctl  restart  ssh</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;使用root账号本地登录&quot;&gt;&lt;a href=&quot;#使用root账号本地登录&quot; class=&quot;headerlink&quot; title=&quot;使用root账号本地登录&quot;&gt;&lt;/a&gt;使用root账号本地登录&lt;/h2&gt;&lt;p&gt;ubuntu系统默认root用户是不能登录的，密码也是空的。
+      
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>安装Ubuntu Server版</title>
+    <link href="https://zengwu.com.cn/p/c1e67b27.html"/>
+    <id>https://zengwu.com.cn/p/c1e67b27.html</id>
+    <published>2021-10-18T16:31:55.000Z</published>
+    <updated>2021-11-02T14:25:46.251Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h2><p>先去<a href="https://cn.ubuntu.com/download" target="_blank" rel="noopener">Ubuntu中国站</a>下载最新长期支持版本：<a href="https://releases.ubuntu.com/20.04/ubuntu-20.04.3-live-server-amd64.iso" target="_blank" rel="noopener">Ubuntu Server 20.04.3 LTS</a>。</p><h2 id="2、启动安装程序"><a href="#2、启动安装程序" class="headerlink" title="2、启动安装程序"></a>2、启动安装程序</h2><p>将ios文件刻录成光盘或者制作成u盘镜像启动，设置电脑启动项，以Ubuntu安装程序启动电脑。</p><p>U盘可以使用<a href="https://rufus.ie/" target="_blank" rel="noopener">rufus</a>，很简单的制作U盘镜像</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-1620ccfe8864ad43.png" alt></p><h2 id="3、选择语言"><a href="#3、选择语言" class="headerlink" title="3、选择语言"></a>3、选择语言</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-d237416f7eabbf86.png" alt></p><h2 id="4、选择键盘布局"><a href="#4、选择键盘布局" class="headerlink" title="4、选择键盘布局"></a>4、选择键盘布局</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-01ce2bf329240be9.png" alt></p><h2 id="5、配置网络"><a href="#5、配置网络" class="headerlink" title="5、配置网络"></a>5、配置网络</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-d389b9202aebe33f.png" alt></p><h2 id="6、设置代理"><a href="#6、设置代理" class="headerlink" title="6、设置代理"></a>6、设置代理</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-5e768570c52bf8ca.png" alt></p><h2 id="7、配置-ubuntu-归档镜像"><a href="#7、配置-ubuntu-归档镜像" class="headerlink" title="7、配置 ubuntu 归档镜像"></a>7、配置 ubuntu 归档镜像</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-7f8de6c558dde676.png" alt></p><h2 id="8、磁盘设置"><a href="#8、磁盘设置" class="headerlink" title="8、磁盘设置"></a>8、磁盘设置</h2><p>默认是<code>Use an entire disk</code>使用整个磁盘，也可以选择<code>Custom storgage layout</code>手动分区。</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-1ffc6748ef19937a.png" alt></p><h2 id="9、配置分区"><a href="#9、配置分区" class="headerlink" title="9、配置分区"></a>9、配置分区</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-eb5be2bfc5acbf6a.png" alt></p><h2 id="10、设置用户秘密"><a href="#10、设置用户秘密" class="headerlink" title="10、设置用户秘密"></a>10、设置用户秘密</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-37bf58c8df267c9c.png" alt></p><h2 id="11、选择软件包"><a href="#11、选择软件包" class="headerlink" title="11、选择软件包"></a>11、选择软件包</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-bf7d0d4fe0462028.png" alt></p><h2 id="12、等待系统安装"><a href="#12、等待系统安装" class="headerlink" title="12、等待系统安装"></a>12、等待系统安装</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-d9686d387dd11b71.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1、下载&quot;&gt;&lt;a href=&quot;#1、下载&quot; class=&quot;headerlink&quot; title=&quot;1、下载&quot;&gt;&lt;/a&gt;1、下载&lt;/h2&gt;&lt;p&gt;先去&lt;a href=&quot;https://cn.ubuntu.com/download&quot; target=&quot;_blank&quot; rel
+      
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
+    
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2021年CentOS8停止维护</title>
+    <link href="https://zengwu.com.cn/p/60a498fe.html"/>
+    <id>https://zengwu.com.cn/p/60a498fe.html</id>
+    <published>2021-10-18T06:47:24.000Z</published>
+    <updated>2021-11-02T14:25:46.233Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响"><a href="#2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响" class="headerlink" title="2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响?"></a>2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响?</h2><p>事情是这样的，就在2020年12月8日，CentOS开发团队的一篇文章<a href="https://link.zhihu.com/?target=https%3A//blog.centos.org/2020/12/future-is-centos-stream/">future is centos stream</a>，让<code>CentOS Linux</code>发行版止步在了CentOS8版本，并且将在2021年12月31日停止维护（原本EOL时间是2029年5月31日的），替代它的是<code>CentOS Stream</code>滚动发行版。</p><p>这一消息<code>震惊了全世界CentOS使用者</code>，使用如此之广的开源操作系统就这么说没就没了？！？！</p><p>不相信也没有办法！事实如此。</p><h2 id="CentOS发行版与RHEL有何关系？"><a href="#CentOS发行版与RHEL有何关系？" class="headerlink" title="CentOS发行版与RHEL有何关系？"></a>CentOS发行版与RHEL有何关系？</h2><p>可以说 CentOS Linux 与 RHEL 算是兄弟关系。</p><p>CentOS（Community Enterprise Operating System）是Linux发行版之一，它是来自于Red Hat Enterprise Linux（RHEL）依照开放源代码规定发布的源代码所编译而成。由于出自同样的源代码，因此有些要求高度稳定性的服务器以CentOS替代商业版的Red Hat Enterprise Linux使用。</p><p>两者的不同，在于CentOS并不包含封闭源代码软件。CentOS 对上游代码的主要修改是为了移除不能自由使用的商标。</p><h2 id="Stream滚动版会替代CentOS稳定版有什么影响呢？"><a href="#Stream滚动版会替代CentOS稳定版有什么影响呢？" class="headerlink" title="Stream滚动版会替代CentOS稳定版有什么影响呢？"></a>Stream滚动版会替代CentOS稳定版有什么影响呢？</h2><p>我们先了解下Fedora、CentOS Stream、CentOS Linux和RHEL这几个版本的上下游关系：</p><p><img src="https://upload-images.jianshu.io/upload_images/19826068-f8cbca80e6e3a230.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p><p>如果你的服务器上安装了CentOS系统，对你的影响是：</p><ol><li>不再有bug修复更新，不会修复导致主机不稳定的BUG，同一个问题会一直让你头疼（可能没有这样的问题）。</li><li>不再为你提供新版本的软件包更新，以后就靠自己动手了。</li><li>稳定性降低，Stream滚动版可以理解为RHEL上游开发分支版本，稳定性必然是不如RHEL。对于生产系统稳定性的重要性你可以自己衡量。</li><li>寻找新的稳定版操作系统版本，可能是未来的<code>Rocky Linux</code>、Ubuntu或者SUSE还是ColorOS之类的其他系统。</li></ol><p>如果你的服务器是不对接公网，而仅仅是内部系统，那么对你来说影响并不大，因为很多服务软件都是你自己使用源代码编译生成的。继续使用<code>CentOS 8</code>也是可以的。</p><p>如果你的服务器对接公网，这就有网络安全问题啦， 一旦操作系统存在安全类的BUG，可以被攻击，那就遭了，这时你使用<code>CentOS 8</code>心里也是没底了，总觉着这是颗定时炸弹一样。换掉它早晚是你的选择。</p><h2 id="为什么Stream滚动版会替代CentOS呢？"><a href="#为什么Stream滚动版会替代CentOS呢？" class="headerlink" title="为什么Stream滚动版会替代CentOS呢？"></a>为什么Stream滚动版会替代CentOS呢？</h2><p>引发这一切的博客原文如下：</p><pre><code>CentOS Project shifts focus to CentOS StreamTuesday , 8, December 2020 Rich Bowen Uncategorized 669 CommentsThe future of the CentOS Project is CentOS Stream, and over the next year we’ll be shifting focus from CentOS Linux, the rebuild of Red Hat Enterprise Linux (RHEL), to CentOS Stream, which tracks just ahead of a current RHEL release. CentOS Linux 8, as a rebuild of RHEL 8, will end at the end of 2021\. CentOS Stream continues after that date, serving as the upstream (development) branch of Red Hat Enterprise Linux.Meanwhile, we understand many of you are deeply invested in CentOS Linux 7, and we’ll continue to produce that version through the remainder of the RHEL 7 life cycle.CentOS Stream will also be the centerpiece of a major shift in collaboration among the CentOS Special Interest Groups (SIGs). This ensures SIGs are developing and testing against what becomes the next version of RHEL. This also provides SIGs a clear single goal, rather than having to build and test for two releases. It gives the CentOS contributor community a great deal of influence in the future of RHEL. And it removes confusion around what “CentOS” means in the Linux distribution ecosystem.When CentOS Linux 8 (the rebuild of RHEL8) ends, your best option will be to migrate to CentOS Stream 8, which is a small delta from CentOS Linux 8, and has regular updates like traditional CentOS Linux releases. If you are using CentOS Linux 8 in a production environment, and are concerned that CentOS Stream will not meet your needs, we encourage you to contact Red Hat about options.We have an FAQ to help with your information and planning needs, as you figure out how this shift of project focus might affect you.</code></pre><p>这段文字的大概总结：</p><pre><code>2021年CentOS项目组重点关注CentOS Stream发行版，建议将CentOS8更新到CentOS Stream发行版，如果你不想将Stream版本应用到生产系统，可以联系RHEL（使用商业版更稳定呗）。</code></pre><p>博文下面的评论几乎都是负面的愤怒情绪，从此再也没有免费的RHEL企业版Linux系统了。</p><p>本文转自 <a href="https://zhuanlan.zhihu.com/p/348239763" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/348239763</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响&quot;&gt;&lt;a href=&quot;#2021年CentOS8停止维护转向CentOS的Stream分支对你有啥影响&quot; class=&quot;headerlink&quot; title=&quot;2021年CentOS8停止
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android中使用OAID</title>
+    <link href="https://zengwu.com.cn/p/a69bb014.html"/>
+    <id>https://zengwu.com.cn/p/a69bb014.html</id>
+    <published>2021-10-15T08:00:54.000Z</published>
+    <updated>2021-11-02T14:25:46.257Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><p>因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android 10及后续版本中非厂商系统应用将无法获取IMEI、MAC等设备信息。无法获取IMEI会在用户行为统计过程中对设备识别产生一定影响。近日移动安全联盟针对该问题联合国内手机厂商推出补充设备标准体系方案，选择OAID字段作为IMEI等的替代字段。OAID字段是由中国信通院联合华为、小米、OPPO、VIVO等厂商共同推出的设备识别字段，具有一定的权威性，可满足用户行为统计的使用场景。</p><p>移动安全联盟官网：  <a href="http://www.msa-alliance.cn/col.jsp?id=120" target="_blank" rel="noopener">移动安全联盟刚官网地址</a><br>安全联盟SDK、文档以及申请表格：  <a href="https://xianwanlibs.oss-cn-hangzhou.aliyuncs.com/msa-demo/oaid_sdk_1.0.29.zip" target="_blank" rel="noopener">安全联盟SDK1.0.29文档及SDK</a></p><h2 id="目前支持的机型"><a href="#目前支持的机型" class="headerlink" title="目前支持的机型"></a>目前支持的机型</h2><table><thead><tr><th>厂商名称</th><th>支持版本</th></tr></thead><tbody><tr><td>华为</td><td>HMS 2.6.2 及以上</td></tr><tr><td>小米</td><td>MIUI 10.2 及以上版本</td></tr><tr><td>vivo</td><td>Android 9 及以上版本</td></tr><tr><td>OPPO</td><td>colorOS 6 大部分覆盖，colorOS 7 及以上全覆盖</td></tr><tr><td>联想</td><td>ZUI 11.4 及以上版本</td></tr><tr><td>三星</td><td>Android 10 版本</td></tr><tr><td>魅族</td><td>Android 10 版本</td></tr><tr><td>努比亚</td><td>Android 10 版本</td></tr><tr><td>中兴</td><td>Android 10 版本</td></tr><tr><td>华硕</td><td>Android 10 版本</td></tr><tr><td>一加</td><td>Android 10 版本</td></tr><tr><td>黑鲨</td><td>Android 10 版本</td></tr><tr><td>摩托罗拉</td><td>Android 10 版本</td></tr><tr><td>Freeme OS</td><td>Android 10 版本</td></tr><tr><td>酷赛（铂睿智恒）</td><td>Android 10 版本</td></tr><tr><td>Realme</td><td>colorOS 6 大部分覆盖，colorOS 7 及以上全覆盖</td></tr><tr><td>荣耀</td><td>Android 10 版本</td></tr></tbody></table><h2 id="调用方法"><a href="#调用方法" class="headerlink" title="调用方法"></a>调用方法</h2><ol><li>接入准备——申请证书文件（将需要申请的app信息填写到example_batch.csv表格，然后发送到<a href="mailto:msa@caict.ac.cn">msa@caict.ac.cn</a>进行申请。注意每个包名对应一个签名，申请时需要将需要申请的全部包名填写到表格中。申请后安全联盟将会把所有申请的证书发送到申请时使用的邮箱）</li></ol><ul><li>注意： 关于example_batch.csv表格<br>表格中的会员账号：是指在安全联盟登录的账号 <a href="http://www.msa-alliance.cn/login.jsp?url=/col.jsp?id=120" target="_blank" rel="noopener">可点击进入安全联盟登录页面</a><br>表格中的邮箱：最好填写安全联盟登录账号绑定的邮箱</li></ul><ol start="2"><li><p>把oaid_sdk_x.x.x.aar拷贝到项的libs目录，并设置依赖，其中x.x.x代 表版本号。最新的版本为1.0.29</p></li><li><p>将证书文件（应用包名.cert.pem)、 supplierconfig.json 文件拷贝到项目 assets 目录下，（只获取oaid信息则不需要修改json配置文件，只需原样放到assets目录下即可。如果想要使用VAID，可修改里边对应内容，特别是需要设置 appid 的部分，要去对应厂商的应用商店里注册自己的 app，来获取对应appid。）</p></li><li><p>设置依赖</p><pre><code>implementation files(‘libs/oaid_sdk_1.0.29.aar’)</code></pre></li><li><p>混淆设置</p></li></ol><pre><code>    # sdk    -keep class com.bun.miitmdid.** { *; }    # asus    -keep class com.asus.msa.SupplementaryDID.** { *; }    -keep class com.asus.msa.sdid.** { *; }    # freeme    -keep class com.android.creator.** { *; }    -keep class com.android.msasdk.** { *; }    # huawei    -keep class com.huawei.hms.ads.identifier.** { *; }    #-keep class com.uodis.opendevice.aidl.** { *; }    # lenovo    -keep class com.zui.deviceidservice.** { *; }    -keep class com.zui.opendeviceidlibrary.** { *; }    # meizu    -keep class com.meizu.flyme.openidsdk.** { *; }    # nubia    -keep class com.bun.miitmdid.provider.nubia.NubiaIdentityImpl    # oppo    -keep class com.heytap.openid.** { *; }    # samsung    -keep class com.samsung.android.deviceidservice.** { *; }    # vivo    -keep class com.vivo.identifier.** { *; }    # xiaomi    -keep class com.bun.miitmdid.provider.xiaomi.IdentifierManager    # zte    -keep class com.bun.lib.** { *; }    # coolpad    -keep class com.coolpad.deviceidsupport.** { *; }</code></pre><ol start="6"><li><p>设置 gradle 编译选项，开发者可以根据自己对平台的选择进行合理配置</p><pre><code>ndk { abiFilters  &#39;armeabi-v7a&#39;,&#39;x86&#39;,&#39;arm64-v8a&#39;,&#39;x86_64&#39;,&#39;armeabi&#39; }</code></pre><p>注意：考虑到 sdk 兼容性，sdk 包默认集成了常用 abi 的 so，包括 armeabi-v7a,arm64-v8a, x84, x84_64 共四种。如果需要减小 SDK 体积，可以使用压缩工具打开 aar 文件，手动删除多余的架构。</p></li><li><p>添加 oaid管理文件<code>MiitHelper.java</code></p></li></ol><p>根据官网源文件<code>DemoHelper.java</code>修改而来，可以根据自己需求修改，这里是cocos工程，这里将文件<code>MiitHelper.java</code>放到<code>org.cocos2dx.javascript</code>目录中。</p><pre><code class="line-numbers language-java">package org.cocos2dx.javascript;import android.content.Context;import android.util.Log;import com.bun.miitmdid.core.InfoCode;import com.bun.miitmdid.core.MdidSdkHelper;import com.bun.miitmdid.interfaces.IIdentifierListener;import com.bun.miitmdid.interfaces.IdSupplier;import com.bun.miitmdid.pojo.IdSupplierImpl;import java.io.BufferedReader;import java.io.IOException;import java.io.InputStream;import java.io.InputStreamReader;public class MiitHelper implements IIdentifierListener {    public static final String TAG = &quot;MiitHelper&quot;;    public static final int HELPER_VERSION_CODE = 20210928; // DemoHelper版本号    private AppIdsUpdater appIdsUpdater;    private boolean isCertInit = false;    public final boolean isSDKLogOn = true;                           // 1）设置 是否开启sdk日志    public static String ASSET_FILE_NAME_CERT = &quot;&quot;;                // 2）设置 asset证书文件名    public static void Init(Context context, AppIdsUpdater listener){        MiitHelper miitHelper = new MiitHelper();        ASSET_FILE_NAME_CERT = context.getPackageName()+&quot;.cert.pem&quot;;        Log.e(TAG,ASSET_FILE_NAME_CERT);        System.loadLibrary(&quot;nllvm1632808251147706677&quot;);  // 加固版本在调用前必须载入SDK安全库        if(MdidSdkHelper.SDK_VERSION_CODE != HELPER_VERSION_CODE){            Log.w(TAG,&quot;SDK version not match.&quot;);            throw new RuntimeException(&quot;SDK version not match.&quot;);        }        miitHelper.appIdsUpdater = listener;        // 获取设备号        miitHelper.getDeviceIds(context);    }    /**     * 获取OAID     * @param cxt     */    public void getDeviceIds(Context cxt){        // TODO （4）初始化SDK证书        if(!isCertInit){ // 证书只需初始化一次            // 证书为PEM文件中的所有文本内容（包括首尾行、换行符）            isCertInit = MdidSdkHelper.InitCert(cxt, loadPemFromAssetFile(cxt, ASSET_FILE_NAME_CERT));            if(!isCertInit){                Log.w(TAG, &quot;getDeviceIds: cert init failed&quot;);            }        }        //（可选）设置InitSDK接口回调超时时间(仅适用于接口为异步)，默认值为5000ms.        // 注：请在调用前设置一次后就不再更改，否则可能导致回调丢失、重复等问题        MdidSdkHelper.setGlobalTimeout(5000);        // TODO （5）调用SDK获取ID        int code = MdidSdkHelper.InitSdk(cxt, isSDKLogOn, this);        // TODO （6）根据SDK返回的code进行不同处理        IdSupplierImpl unsupportedIdSupplier = new IdSupplierImpl();        if(code == InfoCode.INIT_ERROR_CERT_ERROR){                         // 证书未初始化或证书无效，SDK内部不会回调onSupport            // APP自定义逻辑            Log.w(TAG,&quot;cert not init or check not pass&quot;);            onSupport(unsupportedIdSupplier);        }else if(code == InfoCode.INIT_ERROR_DEVICE_NOSUPPORT){             // 不支持的设备, SDK内部不会回调onSupport            // APP自定义逻辑            Log.w(TAG,&quot;device not supported&quot;);            onSupport(unsupportedIdSupplier);        }else if( code == InfoCode.INIT_ERROR_LOAD_CONFIGFILE){            // 加载配置文件出错, SDK内部不会回调onSupport            // APP自定义逻辑            Log.w(TAG,&quot;failed to load config file&quot;);            onSupport(unsupportedIdSupplier);        }else if(code == InfoCode.INIT_ERROR_MANUFACTURER_NOSUPPORT){      // 不支持的设备厂商, SDK内部不会回调onSupport            // APP自定义逻辑            Log.w(TAG,&quot;manufacturer not supported&quot;);            onSupport(unsupportedIdSupplier);        }else if(code == InfoCode.INIT_ERROR_SDK_CALL_ERROR){             // sdk调用出错, SSDK内部不会回调onSupport            // APP自定义逻辑            Log.w(TAG,&quot;sdk call error&quot;);            onSupport(unsupportedIdSupplier);        } else if(code == InfoCode.INIT_INFO_RESULT_DELAY) {             // 获取接口是异步的，SDK内部会回调onSupport            Log.i(TAG, &quot;result delay (async)&quot;);        }else if(code == InfoCode.INIT_INFO_RESULT_OK){                  // 获取接口是同步的，SDK内部会回调onSupport            Log.i(TAG, &quot;result ok (sync)&quot;);        }else {            // sdk版本高于DemoHelper代码版本可能出现的情况，无法确定是否调用onSupport            // 不影响成功的OAID获取            Log.w(TAG,&quot;getDeviceIds: unknown code: &quot; + code);        }    }    /**     * APP自定义的getDeviceIds(Context cxt)的接口回调     * @param supplier     */    @Override    public void onSupport(IdSupplier supplier) {        if(supplier==null) {            Log.w(TAG, &quot;onSupport: supplier is null&quot;);            return;        }        if(appIdsUpdater ==null) {            Log.w(TAG, &quot;onSupport: callbackListener is null&quot;);            return;        }        // 获取Id信息        // 注：IdSupplier中的内容为本次调用MdidSdkHelper.InitSdk()的结果，不会实时更新。 如需更新，需调用MdidSdkHelper.InitSdk()        boolean isSupported = supplier.isSupported();        boolean isLimited  = supplier.isLimited();        String oaid=supplier.getOAID();        String vaid=supplier.getVAID();        String aaid=supplier.getAAID();        //TODO (7) 自定义后续流程，以下显示到UI的示例        String idsText= &quot;support: &quot; + (isSupported ? &quot;true&quot; : &quot;false&quot;) +                &quot;\nlimit: &quot; + (isLimited ? &quot;true&quot; : &quot;false&quot;) +                &quot;\nOAID: &quot; + oaid +                &quot;\nVAID: &quot; + vaid +                &quot;\nAAID: &quot; + aaid + &quot;\n&quot;;        Log.d(TAG, &quot;onSupport: ids: \n&quot; + idsText);        appIdsUpdater.onIdsValid(oaid);    }    public interface AppIdsUpdater {        void onIdsValid(String oaid);    }    /**     * 从asset文件读取证书内容     * @param context     * @param assetFileName     * @return 证书字符串     */    public static String loadPemFromAssetFile(Context context, String assetFileName){        try {            InputStream is = context.getAssets().open(assetFileName);            BufferedReader in = new BufferedReader(new InputStreamReader(is));            StringBuilder builder = new StringBuilder();            String line;            while ((line = in.readLine()) != null){                builder.append(line);                builder.append(&#39;\n&#39;);            }            return builder.toString();        } catch (IOException e) {            Log.e(TAG, &quot;loadPemFromAssetFile failed&quot;);            return &quot;&quot;;        }    }}</code></pre><ol start="8"><li><p>调用</p><p>在<code>Activity</code>的<code>onCreate</code>函数中添加初始化。这是异步调用，使用需要注意一下。</p></li></ol><pre><code class="line-numbers language-java">public class AppActivity extends Cocos2dxActivity implements ActivityCompat.OnRequestPermissionsResultCallback {    public static String oaid = &quot;&quot;;    ...    @Override    protected void onCreate(Bundle savedInstanceState) {        ...        MiitHelper.Init(this, new MiitHelper.AppIdsUpdater(){            @Override            public void onIdsValid(String oaid){                AppActivity.oaid = oaid;            }        });    }    ....}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;关于&quot;&gt;&lt;a href=&quot;#关于&quot; class=&quot;headerlink&quot; title=&quot;关于&quot;&gt;&lt;/a&gt;关于&lt;/h2&gt;&lt;p&gt;因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android中使用GAID</title>
+    <link href="https://zengwu.com.cn/p/632f98fb.html"/>
+    <id>https://zengwu.com.cn/p/632f98fb.html</id>
+    <published>2021-10-15T08:00:54.000Z</published>
+    <updated>2021-11-02T14:25:46.236Z</updated>
+    
+    <content type="html"><![CDATA[<p>在Android系统中，也有一个广告ID类似于iOS系统中的IDFA，这个就是基于Google Play Services的GAID了。但是国产手机的Andoird系统都是阉割掉了Google Play Services，所以是获取不到GAID的。</p><h2 id="设置依赖"><a href="#设置依赖" class="headerlink" title="设置依赖"></a>设置依赖</h2><p>在gradle中添加google sdk组件</p><pre><code> implementation group: &#39;com.google.android.gms&#39;, name: &#39;play-services-ads&#39;, version: &#39;15.0.0&#39;</code></pre><h2 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h2><pre><code class="line-numbers language-java"> //获取 GAIDpublic String getGAID(){        String gaid= &quot;&quot;;        AdvertisingIdClient.Info adInfo = null ;        try {            adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);        } catch (IOException e) {            // Unrecoverable error connecting to Google Play services (e.g.,            // the old version of the service doesn&#39;t support getting AdvertisingId).            Log.e(&quot;getGAID&quot;, &quot;IOException&quot;);        } catch (GooglePlayServicesNotAvailableException e) {            // Google Play services is not available entirely.            Log.e(&quot;getGAID&quot;, &quot;GooglePlayServicesNotAvailableException&quot;);        } catch (Exception e) {            Log.e(&quot;getGAID&quot;, &quot;Exception:&quot;+e.toString());            // Encountered a recoverable error connecting to Google Play services.        }        if (adInfo!= null){            gaid= adInfo.getId();            Log.w(&quot;getGAID&quot;, &quot;gaid:&quot;+gaid);        }        return gaid;    }</code></pre><p>注意，此方法需要在子线程执行，不然会报错。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在Android系统中，也有一个广告ID类似于iOS系统中的IDFA，这个就是基于Google Play Services的GAID了。但是国产手机的Andoird系统都是阉割掉了Google Play Services，所以是获取不到GAID的。&lt;/p&gt;
+&lt;h2 id=&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go中strings包</title>
+    <link href="https://zengwu.com.cn/p/774f7474.html"/>
+    <id>https://zengwu.com.cn/p/774f7474.html</id>
+    <published>2021-10-09T08:03:29.000Z</published>
+    <updated>2021-10-09T14:03:04.012Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="字符串比较"><a href="#字符串比较" class="headerlink" title="字符串比较"></a>字符串比较</h2><p><code>func Compare(a, b string) int</code><br>按两个字符串顺序比较两个字符ASCII码值大小比较。如果 a==b，则结果为 0，如果 a &lt; b，则结果为 -1，如果 a &gt; b，则结果为 +1。</p><pre><code class="line-numbers language-go">// 输出　-1fmt.Println(strings.Compare(&quot;guoke&quot;, &quot;hello&quot;))</code></pre><h2 id="字符串包含关系"><a href="#字符串包含关系" class="headerlink" title="字符串包含关系"></a>字符串包含关系</h2><p><code>func Contains(s, substr string) bool</code><br>判断s串中是否包含substr串。</p><pre><code class="line-numbers language-go">// 输出　truefmt.Println(strings.Contains(&quot;guoke&quot;, &quot;ke&quot;))</code></pre><h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><p><code>func Index(s, str string) int</code><br>判断str字符串在s字符串中出现的第一个索引位置，-1 表示字符串 s 不包含字符串 str</p><pre><code class="line-numbers language-go">// 输出　2fmt.Println(strings.Index(&quot;guoke&quot;, &quot;o&quot;))</code></pre><p><code>func LastIndex(s, str string) int</code><br>LastIndex返回子字符串str在s中最后一次出现的索引位置。</p><pre><code class="line-numbers language-go">// 输出　2fmt.Println(strings.LastIndex(&quot;guoke&quot;, &quot;o&quot;))</code></pre><h2 id="字符串替换"><a href="#字符串替换" class="headerlink" title="字符串替换"></a>字符串替换</h2><p><code>func Replace(s, old, new string, n int) string</code><br>替换返回字符串 s 的前 n 个副本,由新替换旧的非重叠实例。如果 old 为空，则匹配字符串的开头</p><pre><code class="line-numbers language-go">// 输出　gaakefmt.Println(strings.Replace(&quot;guoke&quot;, &quot;uo&quot;, &quot;aa&quot;, 1))</code></pre><h2 id="字符串重复"><a href="#字符串重复" class="headerlink" title="字符串重复"></a>字符串重复</h2><p><code>func Repeat(s string, count int) string</code><br>重复s字符串count次, 最后返回新生成的重复的字符串</p><pre><code class="line-numbers language-go">// 输出　guokeguokefmt.Println(strings.Repeat(&quot;guoke&quot;, 2))</code></pre><h2 id="剔除字符串开头和结尾的字符"><a href="#剔除字符串开头和结尾的字符" class="headerlink" title="剔除字符串开头和结尾的字符"></a>剔除字符串开头和结尾的字符</h2><p><code>func TrimSpace(s string)</code><br>剔除字符串开头和结尾的空白符号</p><pre><code class="line-numbers language-go">// 输出　guokefmt.Println(strings.TrimSpace(&quot; guoke&quot;))</code></pre><p><code>func Trim(s string, cutset string) string</code><br>替换指定的字符</p><pre><code class="line-numbers language-go">// 输出　guokfmt.Println(strings.Trim(&quot;guoke&quot;, &quot;e&quot;))</code></pre><p><code>func TrimLeft(s string, cutset string)</code><br><code>func TrimRight(s string, cutset string)</code><br>剔除开头或者结尾的字符串，该方法只在开头或者结尾剔除指定的字符</p><h2 id="字符串大小写转换"><a href="#字符串大小写转换" class="headerlink" title="字符串大小写转换"></a>字符串大小写转换</h2><p><code>func ToLower(s string) string</code><br>所有字母转换为小写</p><p><code>func ToUpper(s string) string</code><br>所有字母转换为大写</p><h2 id="分割字符串"><a href="#分割字符串" class="headerlink" title="分割字符串"></a>分割字符串</h2><p><code>func Split(s, sep string) []string</code><br>把字符串按照sep进行分割, 返回slice</p><pre><code class="line-numbers language-go">// 输出　[gu kegu ke]fmt.Println(strings.Split(&quot;guokeguoke&quot;, &quot;o&quot;))</code></pre><h2 id="拼接slice到字符串"><a href="#拼接slice到字符串" class="headerlink" title="拼接slice到字符串"></a>拼接slice到字符串</h2><p><code>func Join(elems []string, sep string) string</code><br>Join 连接其第一个参数的元素以创建单个字符串。 分隔符字符串 sep 放置在结果字符串中的元素之间。</p><pre><code class="line-numbers language-go">// 输出　aaobbelem := []string{&quot;aa&quot;, &quot;bb&quot;}fmt.Println(strings.Join(elem, &quot;o&quot;))</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;字符串比较&quot;&gt;&lt;a href=&quot;#字符串比较&quot; class=&quot;headerlink&quot; title=&quot;字符串比较&quot;&gt;&lt;/a&gt;字符串比较&lt;/h2&gt;&lt;p&gt;&lt;code&gt;func Compare(a, b string) int&lt;/code&gt;&lt;br&gt;按两个字符串顺序比较两个
+      
+    
+    </summary>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go处理中文字符串</title>
+    <link href="https://zengwu.com.cn/p/4638a5a6.html"/>
+    <id>https://zengwu.com.cn/p/4638a5a6.html</id>
+    <published>2021-10-08T13:00:28.000Z</published>
+    <updated>2021-10-09T14:03:04.020Z</updated>
+    
+    <content type="html"><![CDATA[<p>先来看一个简单的例子</p><pre><code class="line-numbers language-go">func main() {    str := &quot;你好guoke&quot;    fmt.Println(&quot;字符串长度为:&quot;, len(str))    for i:=0; i&lt;len(str); i++{        fmt.Println(&quot;第&quot;,i+1,&quot;个字符为:&quot;,str[i:i+1])    }}</code></pre><p>输出的结果为：</p><pre><code class="line-numbers language-txt">字符串长度为: 11第 1 个字符为: �第 2 个字符为: �第 3 个字符为: �第 4 个字符为: �第 5 个字符为: �第 6 个字符为: �第 7 个字符为: g第 8 个字符为: u第 9 个字符为: o第 10 个字符为: k第 11 个字符为: e</code></pre><p>从上面例子中可以看出，string是以byte数组形式存储的,而一个utf8格式的中文占3个byte.要得到正确的中文字符的长度和分割,可以使用<code>rune</code>数组来拆分. rune类型是int32的别名,一个rune可以表示一个中文字符,go也提供了rune数组自动拆分string中文字符的方法<code>rt := []rune(str)</code>.</p><p>我们再把上面例子修改一下：</p><pre><code class="line-numbers language-go">func main() {    str := &quot;你好guoke&quot;    rt := []rune(str)    fmt.Println(&quot;字符串长度为:&quot;, len(rt))    for i:=0; i&lt;len(rt); i++{        fmt.Println(&quot;第&quot;,i+1,&quot;个字符为:&quot;,string(rt[i]))    }}</code></pre><p>得到的输出结果为：</p><pre><code class="line-numbers language-txt">字符串长度为: 7第 1 个字符为: 你第 2 个字符为: 好第 3 个字符为: g第 4 个字符为: u第 5 个字符为: o第 6 个字符为: k第 7 个字符为: e</code></pre><p>这样就能比较好的处理中文了,而且不会出现乱码的情况.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;先来看一个简单的例子&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;line-numbers language-go&quot;&gt;func main() {
+    str := &amp;quot;你好guoke&amp;quot;
+    fmt.Println(&amp;quot;字符串长度为:&amp;quo
+      
+    
+    </summary>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Protocolbuf不同语言生成</title>
+    <link href="https://zengwu.com.cn/p/a162a42a.html"/>
+    <id>https://zengwu.com.cn/p/a162a42a.html</id>
+    <published>2021-09-30T02:17:23.000Z</published>
+    <updated>2021-10-09T14:03:04.022Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="protoc"><a href="#protoc" class="headerlink" title="protoc"></a>protoc</h1><p><a href="https://github.com/protocolbuffers/protobuf/releases/tag/v3.18.0" target="_blank" rel="noopener">Protocol Buffers</a>可以使用Google提供的protoc来生成不同语言的版本.</p><pre><code class="line-numbers language-bash">protoc -I=$SRC_DIR --type_out=$DST_DIR $SRC_DIR/file.proto</code></pre><ul><li>$SRC_DIR: proto源文件目录</li><li>type_out:支持的输出语言</li><li>$DST_DIR: 输出目录</li><li>file.proto: proto文件名</li></ul><p>type_out支持的输出类型有:<br>| 类型       | 语言 | 输出文件             |<br>| ———- | —- | ——————– |<br>| cpp_out    | C++  | file.pb.cc,file.pb.h |<br>| csharp_out | C#   | file.cs              |<br>| go_out     | Go   | file.pb.go           |<br>| java_out   | Java | file..java           |</p><h1 id="js-ts"><a href="#js-ts" class="headerlink" title="js/ts"></a>js/ts</h1><p>对于js/ts的生成,可以使用<code>protobufjs</code>插件来完成</p><pre><code class="line-numbers language-bash">npm install -g protobufjs</code></pre><pre><code class="line-numbers language-bash"># 生成jspbjs -t static-module -w commonjs -o  file.js file.proto# 生成tspbts -o file.ts file.js</code></pre><h1 id="脚本实现多proto生成"><a href="#脚本实现多proto生成" class="headerlink" title="脚本实现多proto生成"></a>脚本实现多proto生成</h1><p>自己用python 3.7写了一个proto生成的脚本.<a href="https://github.com/zngw/protocol" target="_blank" rel="noopener">https://github.com/zngw/protocol</a></p><p>将所有要生成proto源文件放在<code>proto_raw</code>目录中,可以是多个文件</p><pre><code class="line-numbers language-proto">//登录请求message GameLoginReq {    string account = 1;        // 登录帐号    string password = 2;    // 登录密码}//登录返回message GameLoginResp {    int32 result = 1;    // 返回结果.}</code></pre><p>然后使用不同的to_xx.py生成不同的语言.生成的文件在out目录中<br><img src="//gitee.com/guoke3915/zw/raw/master/p/a162a42a/19826068-d98677d445c4e601.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;protoc&quot;&gt;&lt;a href=&quot;#protoc&quot; class=&quot;headerlink&quot; title=&quot;protoc&quot;&gt;&lt;/a&gt;protoc&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/protocolbuffers/protobuf/r
+      
+    
+    </summary>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Protobuf3语言指南（转）</title>
+    <link href="https://zengwu.com.cn/p/387686d2.html"/>
+    <id>https://zengwu.com.cn/p/387686d2.html</id>
+    <published>2021-09-29T01:29:18.000Z</published>
+    <updated>2021-10-09T14:03:04.023Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>英文原文：<br><a href="https://developers.google.com/protocol-buffers/docs/proto3?hl=zh-cn#generating" target="_blank" rel="noopener">Language Guide (proto3)</a><br>中文出处：<br><a href="http://www.open-open.com/home/space.php?uid=37924&do=blog&id=5873" target="_blank" rel="noopener">Protobuf语言指南</a><br><a href="http://colobu.com/2015/01/07/Protobuf-language-guide/" target="_blank" rel="noopener">[译]Protobuf 语法指南</a><br>中文出处是proto2的译文，proto3的英文出现后在原来基础上增改了，水平有限，还请指正</p></blockquote><p>这个指南描述了如何使用Protocol buffer 语言去描述你的protocol buffer 数据， 包括 .proto文件符号和如何从.proto文件生成类。包含了proto2版本的protocol buffer语言：对于老版本的proto3 符号，请见<a href="https://developers.google.com/protocol-buffers/docs/proto?hl=zh-cn" target="_blank" rel="noopener">Proto2 Language Guide</a>（以及<a href="http://colobu.com/2015/01/07/Protobuf-language-guide/" target="_blank" rel="noopener">中文译本</a>，抄了很多这里的感谢下老版本的翻译者）</p><p>本文是一个参考指南——如果要查看如何使用本文中描述的多个特性的循序渐进的例子，请在<a href="https://developers.google.com/protocol-buffers/docs/tutorials?hl=zh-cn" target="_blank" rel="noopener">教程</a>中查找需要的语言的教程。</p><h1 id="定义一个消息类型"><a href="#定义一个消息类型" class="headerlink" title="定义一个消息类型"></a>定义一个消息类型</h1><p>先来看一个非常简单的例子。假设你想定义一个“搜索请求”的消息格式，每一个请求含有一个查询字符串、你感兴趣的查询结果所在的页数，以及每一页多少条查询结果。可以采用如下的方式来定义消息类型的.proto文件了：</p><pre><code>syntax = &quot;proto3&quot;;message SearchRequest {  string query = 1;  int32 page_number = 2;  int32 result_per_page = 3;}1234567</code></pre><ul><li>文件的第一行指定了你正在使用proto3语法：如果你没有指定这个，编译器会使用proto2。这个指定语法行必须是文件的非空非注释的第一个行。</li><li>SearchRequest消息格式有3个字段，在消息中承载的数据分别对应于每一个字段。其中每个字段都有一个名字和一种类型。</li></ul><h2 id="指定字段类型"><a href="#指定字段类型" class="headerlink" title="指定字段类型"></a>指定字段类型</h2><p>在上面的例子中，所有字段都是标量类型：两个整型（page_number和result_per_page），一个string类型（query）。当然，你也可以为字段指定其他的合成类型，包括枚举（enumerations）或其他消息类型。</p><h2 id="分配标识号"><a href="#分配标识号" class="headerlink" title="分配标识号"></a>分配标识号</h2><p>正如你所见，在消息定义中，每个字段都有唯一的一个数字标识符。这些标识符是用来在消息的二进制格式中识别各个字段的，一旦开始使用就不能够再改变。注：[1,15]之内的标识号在编码的时候会占用一个字节。[16,2047]之内的标识号则占用2个字节。所以应该为那些频繁出现的消息元素保留 [1,15]之内的标识号。切记：要为将来有可能添加的、频繁出现的标识号预留一些标识号。</p><p>最小的标识号可以从1开始，最大到2^29 - 1, or 536,870,911。不可以使用其中的[19000－19999]（ (从FieldDescriptor::kFirstReservedNumber 到 FieldDescriptor::kLastReservedNumber)）的标识号， Protobuf协议实现中对这些进行了预留。如果非要在.proto文件中使用这些预留标识号，编译时就会报警。同样你也不能使用早期<a href="https://developers.google.com/protocol-buffers/docs/proto3?hl=zh-cn#reserved" target="_blank" rel="noopener">保留</a>的标识号。</p><h2 id="指定字段规则"><a href="#指定字段规则" class="headerlink" title="指定字段规则"></a>指定字段规则</h2><p>所指定的消息字段修饰符必须是如下之一：</p><ul><li><p>singular：一个格式良好的消息应该有0个或者1个这种字段（但是不能超过1个）。</p></li><li><p>repeated：在一个格式良好的消息中，这种字段可以重复任意多次（包括0次）。重复的值的顺序会被保留。</p><p>在proto3中，repeated的标量域默认情况虾使用packed。</p><p>你可以了解更多的pakced属性在<a href="https://developers.google.com/protocol-buffers/docs/encoding?hl=zh-cn#packed" target="_blank" rel="noopener">Protocol Buffer 编码</a></p></li></ul><h2 id="添加更多消息类型"><a href="#添加更多消息类型" class="headerlink" title="添加更多消息类型"></a>添加更多消息类型</h2><p>在一个.proto文件中可以定义多个消息类型。在定义多个相关的消息的时候，这一点特别有用——例如，如果想定义与SearchResponse消息类型对应的回复消息格式的话，你可以将它添加到相同的.proto文件中，如：</p><pre><code>message SearchRequest {  string query = 1;  int32 page_number = 2;  int32 result_per_page = 3;}message SearchResponse { ...}123456789</code></pre><h2 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h2><p>向.proto文件添加注释，可以使用C/C++/java风格的双斜杠（//） 语法格式，如：</p><pre><code>message SearchRequest {  string query = 1;  int32 page_number = 2;  // Which page number do we want?  int32 result_per_page = 3;  // Number of results to return per page.}12345</code></pre><h2 id="保留标识符（Reserved）"><a href="#保留标识符（Reserved）" class="headerlink" title="保留标识符（Reserved）"></a>保留标识符（Reserved）</h2><p>如果你通过删除或者注释所有域，以后的用户可以重用标识号当你重新更新类型的时候。如果你使用旧版本加载相同的.proto文件这会导致严重的问题，包括数据损坏、隐私错误等等。现在有一种确保不会发生这种情况的方法就是指定保留标识符（and/or names, which can also cause issues for JSON serialization不明白什么意思），protocol buffer的编译器会警告未来尝试使用这些域标识符的用户。</p><pre><code>message Foo {  reserved 2, 15, 9 to 11;  reserved &quot;foo&quot;, &quot;bar&quot;;}1234</code></pre><p>注：不要在同一行reserved声明中同时声明域名字和标识号</p><h2 id="从-proto文件生成了什么？"><a href="#从-proto文件生成了什么？" class="headerlink" title="从.proto文件生成了什么？"></a>从.proto文件生成了什么？</h2><p>当用protocol buffer编译器来运行.proto文件时，编译器将生成所选择语言的代码，这些代码可以操作在.proto文件中定义的消息类型，包括获取、设置字段值，将消息序列化到一个输出流中，以及从一个输入流中解析消息。</p><ul><li>对C++来说，编译器会为每个.proto文件生成一个.h文件和一个.cc文件，.proto文件中的每一个消息有一个对应的类。</li><li>对Java来说，编译器为每一个消息类型生成了一个.java文件，以及一个特殊的Builder类（该类是用来创建消息类接口的）。</li><li>对Python来说，有点不太一样——Python编译器为.proto文件中的每个消息类型生成一个含有静态描述符的模块，，该模块与一个元类（metaclass）在运行时（runtime）被用来创建所需的Python数据访问类。</li><li>对go来说，编译器会位每个消息类型生成了一个.pd.go文件。</li><li>对于Ruby来说，编译器会为每个消息类型生成了一个.rb文件。</li><li>javaNano来说，编译器输出类似域java但是没有Builder类</li><li>对于Objective-C来说，编译器会为每个消息类型生成了一个pbobjc.h文件和pbobjcm文件，.proto文件中的每一个消息有一个对应的类。</li><li>对于C#来说，编译器会为每个消息类型生成了一个.cs文件，.proto文件中的每一个消息有一个对应的类。</li></ul><p>你可以从如下的文档链接中获取每种语言更多API(proto3版本的内容很快就公布)。<a href="https://developers.google.com/protocol-buffers/docs/reference/overview?hl=zh-cn" target="_blank" rel="noopener">API Reference</a></p><h1 id="标量数值类型"><a href="#标量数值类型" class="headerlink" title="标量数值类型"></a>标量数值类型</h1><p>一个标量消息字段可以含有一个如下的类型——该表格展示了定义于.proto文件中的类型，以及与之对应的、在自动生成的访问类中定义的类型：</p><table><thead><tr><th>.proto Type</th><th>Notes</th><th>C++ Type</th><th>Java Type</th><th>Python Type[2]</th><th>Go Type</th><th>Ruby Type</th><th>C# Type</th><th>PHP Type</th></tr></thead><tbody><tr><td>double</td><td></td><td>double</td><td>double</td><td>float</td><td>float64</td><td>Float</td><td>double</td><td>float</td></tr><tr><td>float</td><td></td><td>float</td><td>float</td><td>float</td><td>float32</td><td>Float</td><td>float</td><td>float</td></tr><tr><td>int32</td><td>使用变长编码，对于负值的效率很低，如果你的域有可能有负值，请使用sint64替代</td><td>int32</td><td>int</td><td>int</td><td>int32</td><td>Fixnum 或者 Bignum（根据需要）</td><td>int</td><td>integer</td></tr><tr><td>uint32</td><td>使用变长编码</td><td>uint32</td><td>int</td><td>int/long</td><td>uint32</td><td>Fixnum 或者 Bignum（根据需要）</td><td>uint</td><td>integer</td></tr><tr><td>uint64</td><td>使用变长编码</td><td>uint64</td><td>long</td><td>int/long</td><td>uint64</td><td>Bignum</td><td>ulong</td><td>integer/string</td></tr><tr><td>sint32</td><td>使用变长编码，这些编码在负值时比int32高效的多</td><td>int32</td><td>int</td><td>int</td><td>int32</td><td>Fixnum 或者 Bignum（根据需要）</td><td>int</td><td>integer</td></tr><tr><td>sint64</td><td>使用变长编码，有符号的整型值。编码时比通常的int64高效。</td><td>int64</td><td>long</td><td>int/long</td><td>int64</td><td>Bignum</td><td>long</td><td>integer/string</td></tr><tr><td>fixed32</td><td>总是4个字节，如果数值总是比总是比228大的话，这个类型会比uint32高效。</td><td>uint32</td><td>int</td><td>int</td><td>uint32</td><td>Fixnum 或者 Bignum（根据需要）</td><td>uint</td><td>integer</td></tr><tr><td>fixed64</td><td>总是8个字节，如果数值总是比总是比256大的话，这个类型会比uint64高效。</td><td>uint64</td><td>long</td><td>int/long</td><td>uint64</td><td>Bignum</td><td>ulong</td><td>integer/string</td></tr><tr><td>sfixed32</td><td>总是4个字节</td><td>int32</td><td>int</td><td>int</td><td>int32</td><td>Fixnum 或者 Bignum（根据需要）</td><td>int</td><td>integer</td></tr><tr><td>sfixed64</td><td>总是8个字节</td><td>int64</td><td>long</td><td>int/long</td><td>int64</td><td>Bignum</td><td>long</td><td>integer/string</td></tr><tr><td>bool</td><td></td><td>bool</td><td>boolean</td><td>bool</td><td>bool</td><td>TrueClass/FalseClass</td><td>bool</td><td>boolean</td></tr><tr><td>string</td><td>一个字符串必须是UTF-8编码或者7-bit ASCII编码的文本。</td><td>string</td><td>String</td><td>str/unicode</td><td>string</td><td>String (UTF-8)</td><td>string</td><td>string</td></tr><tr><td>bytes</td><td>可能包含任意顺序的字节数据。</td><td>string</td><td>ByteString</td><td>str</td><td>[]byte</td><td>String (ASCII-8BIT)</td><td>ByteString</td><td>string</td></tr></tbody></table><p>你可以在文章<a href="https://developers.google.com/protocol-buffers/docs/encoding?hl=zh-cn" target="_blank" rel="noopener">Protocol Buffer 编码</a>中，找到更多“序列化消息时各种类型如何编码”的信息。</p><ol><li>在java中，无符号32位和64位整型被表示成他们的整型对应形似，最高位被储存在标志位中。</li><li>对于所有的情况，设定值会执行类型检查以确保此值是有效。</li><li>64位或者无符号32位整型在解码时被表示成为ilong，但是在设置时可以使用int型值设定，在所有的情况下，值必须符合其设置其类型的要求。</li><li>python中string被表示成在解码时表示成unicode。但是一个ASCIIstring可以被表示成str类型。</li><li>Integer在64位的机器上使用，string在32位机器上使用</li></ol><h1 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h1><p>当一个消息被解析的时候，如果被编码的信息不包含一个特定的singular元素，被解析的对象锁对应的域被设置位一个默认值，对于不同类型指定如下：</p><ul><li><p>对于strings，默认是一个空string</p></li><li><p>对于bytes，默认是一个空的bytes</p></li><li><p>对于bools，默认是false</p></li><li><p>对于数值类型，默认是0</p></li><li><p>对于枚举，默认是第一个定义的枚举值，必须为0;</p></li><li><p>对于消息类型（message），域没有被设置，确切的消息是根据语言确定的，详见<a href="https://developers.google.com/protocol-buffers/docs/reference/overview?hl=zh-cn" target="_blank" rel="noopener">generated code guide</a></p><p>对于可重复域的默认值是空（通常情况下是对应语言中空列表）。</p><p>注：对于标量消息域，一旦消息被解析，就无法判断域释放被设置为默认值（例如，例如boolean值是否被设置为false）还是根本没有被设置。你应该在定义你的消息类型时非常注意。例如，比如你不应该定义boolean的默认值false作为任何行为的触发方式。也应该注意如果一个标量消息域被设置为标志位，这个值不应该被序列化传输。</p><p>查看<a href="https://developers.google.com/protocol-buffers/docs/reference/overview?hl=zh-cn" target="_blank" rel="noopener">generated code guide</a>选择你的语言的默认值的工作细节。</p></li></ul><h1 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h1><p>当需要定义一个消息类型的时候，可能想为一个字段指定某“预定义值序列”中的一个值。例如，假设要为每一个SearchRequest消息添加一个 corpus字段，而corpus的值可能是UNIVERSAL，WEB，IMAGES，LOCAL，NEWS，PRODUCTS或VIDEO中的一个。 其实可以很容易地实现这一点：通过向消息定义中添加一个枚举（enum）并且为每个可能的值定义一个常量就可以了。</p><p>在下面的例子中，在消息格式中添加了一个叫做Corpus的枚举类型——它含有所有可能的值 ——以及一个类型为Corpus的字段：</p><pre><code>message SearchRequest {  string query = 1;  int32 page_number = 2;  int32 result_per_page = 3;  enum Corpus {    UNIVERSAL = 0;    WEB = 1;    IMAGES = 2;    LOCAL = 3;    NEWS = 4;    PRODUCTS = 5;    VIDEO = 6;  }  Corpus corpus = 4;}123456789101112131415</code></pre><p>如你所见，Corpus枚举的第一个常量映射为0：每个枚举类型必须将其第一个类型映射为0，这是因为：</p><ul><li><p>必须有有一个0值，我们可以用这个0值作为默认值。</p></li><li><p>这个零值必须为第一个元素，为了兼容proto2语义，枚举类的第一个值总是默认值。</p><p>你可以通过将不同的枚举常量指定位相同的值。如果这样做你需要将allow_alias设定位true，否则编译器会在别名的地方产生一个错误信息。</p></li></ul><pre><code>enum EnumAllowingAlias {  option allow_alias = true;  UNKNOWN = 0;  STARTED = 1;  RUNNING = 1;}enum EnumNotAllowingAlias {  UNKNOWN = 0;  STARTED = 1;  // RUNNING = 1;  // Uncommenting this line will cause a compile error inside Google and a warning message outside.}1234567891011</code></pre><p>枚举常量必须在32位整型值的范围内。因为enum值是使用可变编码方式的，对负数不够高效，因此不推荐在enum中使用负数。如上例所示，可以在 一个消息定义的内部或外部定义枚举——这些枚举可以在.proto文件中的任何消息定义里重用。当然也可以在一个消息中声明一个枚举类型，而在另一个不同 的消息中使用它——采用MessageType.EnumType的语法格式。</p><p>当对一个使用了枚举的.proto文件运行protocol buffer编译器的时候，生成的代码中将有一个对应的enum（对Java或C++来说），或者一个特殊的EnumDescriptor类（对 Python来说），它被用来在运行时生成的类中创建一系列的整型值符号常量（symbolic constants）。</p><p>在反序列化的过程中，无法识别的枚举值会被保存在消息中，虽然这种表示方式需要依据所使用语言而定。在那些支持开放枚举类型超出指定范围之外的语言中（例如C++和Go），为识别的值会被表示成所支持的整型。在使用封闭枚举类型的语言中（Java），使用枚举中的一个类型来表示未识别的值，并且可以使用所支持整型来访问。在其他情况下，如果解析的消息被序列号，未识别的值将保持原样。</p><p>关于如何在你的应用程序的消息中使用枚举的更多信息，请查看所选择的语言<a href="http://code.google.com/intl/zh-CN/apis/protocolbuffers/docs/reference/overview.html。" target="_blank" rel="noopener">generated code guide</a></p><h1 id="使用其他消息类型"><a href="#使用其他消息类型" class="headerlink" title="使用其他消息类型"></a>使用其他消息类型</h1><p>你可以将其他消息类型用作字段类型。例如，假设在每一个SearchResponse消息中包含Result消息，此时可以在相同的.proto文件中定义一个Result消息类型，然后在SearchResponse消息中指定一个Result类型的字段，如：</p><pre><code>message SearchResponse {  repeated Result results = 1;}message Result {  string url = 1;  string title = 2;  repeated string snippets = 3;}123456789</code></pre><h2 id="导入定义"><a href="#导入定义" class="headerlink" title="导入定义"></a>导入定义</h2><p>在上面的例子中，Result消息类型与SearchResponse是定义在同一文件中的。如果想要使用的消息类型已经在其他.proto文件中已经定义过了呢？<br>你可以通过导入（importing）其他.proto文件中的定义来使用它们。要导入其他.proto文件的定义，你需要在你的文件中添加一个导入声明，如：</p><pre><code>import &quot;myproject/other_protos.proto&quot;;1</code></pre><p>默认情况下你只能使用直接导入的.proto文件中的定义. 然而， 有时候你需要移动一个.proto文件到一个新的位置， 可以不直接移动.proto文件， 只需放入一个伪 .proto 文件在老的位置， 然后使用import public转向新的位置。import public 依赖性会通过任意导入包含import public声明的proto文件传递。例如：</p><pre><code>// 这是新的proto// All definitions are moved here12// 这是久的proto// 这是所有客户端正在导入的包import public &quot;new.proto&quot;;import &quot;other.proto&quot;;1234// 客户端protoimport &quot;old.proto&quot;;// 现在你可以使用新久两种包的proto定义了。123</code></pre><p>通过在编译器命令行参数中使用<code>-I/--proto_path</code>protocal 编译器会在指定目录搜索要导入的文件。如果没有给出标志，编译器会搜索编译命令被调用的目录。通常你只要指定proto_path标志为你的工程根目录就好。并且指定好导入的正确名称就好。</p><h2 id="使用proto2消息类型"><a href="#使用proto2消息类型" class="headerlink" title="使用proto2消息类型"></a>使用proto2消息类型</h2><p>在你的proto3消息中导入proto2的消息类型也是可以的，反之亦然，然后proto2枚举不可以直接在proto3的标识符中使用（如果仅仅在proto2消息中使用是可以的）。</p><h2 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h2><p>你可以在其他消息类型中定义、使用消息类型，在下面的例子中，Result消息就定义在SearchResponse消息内，如：</p><pre><code>message SearchResponse {  message Result {    string url = 1;    string title = 2;    repeated string snippets = 3;  }  repeated Result results = 1;}12345678</code></pre><p>如果你想在它的父消息类型的外部重用这个消息类型，你需要以Parent.Type的形式使用它，如：</p><pre><code>message SomeOtherMessage {  SearchResponse.Result result = 1;}123</code></pre><p>当然，你也可以将消息嵌套任意多层，如：</p><pre><code>message Outer {                  // Level 0  message MiddleAA {  // Level 1    message Inner {   // Level 2      int64 ival = 1;      bool  booly = 2;    }  }  message MiddleBB {  // Level 1    message Inner {   // Level 2      int32 ival = 1;      bool  booly = 2;    }  }}1234567891011121314</code></pre><h2 id="更新一个消息类型"><a href="#更新一个消息类型" class="headerlink" title="更新一个消息类型"></a>更新一个消息类型</h2><p>如果一个已有的消息格式已无法满足新的需求——如，要在消息中添加一个额外的字段——但是同时旧版本写的代码仍然可用。不用担心！更新消息而不破坏已有代码是非常简单的。在更新时只要记住以下的规则即可。</p><ul><li>不要更改任何已有的字段的数值标识。</li><li>如果你增加新的字段，使用旧格式的字段仍然可以被你新产生的代码所解析。你应该记住这些元素的默认值这样你的新代码就可以以适当的方式和旧代码产生的数据交互。相似的，通过新代码产生的消息也可以被旧代码解析：只不过新的字段会被忽视掉。注意，未被识别的字段会在反序列化的过程中丢弃掉，所以如果消息再被传递给新的代码，新的字段依然是不可用的（这和proto2中的行为是不同的，在proto2中未定义的域依然会随着消息被序列化）</li><li>非required的字段可以移除——只要它们的标识号在新的消息类型中不再使用（更好的做法可能是重命名那个字段，例如在字段前添加“OBSOLETE_”前缀，那样的话，使用的.proto文件的用户将来就不会无意中重新使用了那些不该使用的标识号）。</li><li>int32, uint32, int64, uint64,和bool是全部兼容的，这意味着可以将这些类型中的一个转换为另外一个，而不会破坏向前、 向后的兼容性。如果解析出来的数字与对应的类型不相符，那么结果就像在C++中对它进行了强制类型转换一样（例如，如果把一个64位数字当作int32来 读取，那么它就会被截断为32位的数字）。</li><li>sint32和sint64是互相兼容的，但是它们与其他整数类型不兼容。</li><li>string和bytes是兼容的——只要bytes是有效的UTF-8编码。</li><li>嵌套消息与bytes是兼容的——只要bytes包含该消息的一个编码过的版本。</li><li>fixed32与sfixed32是兼容的，fixed64与sfixed64是兼容的。</li><li>枚举类型与int32，uint32，int64和uint64相兼容（注意如果值不相兼容则会被截断），然而在客户端反序列化之后他们可能会有不同的处理方式，例如，未识别的proto3枚举类型会被保留在消息中，但是他的表示方式会依照语言而定。int类型的字段总会保留他们的</li></ul><h1 id="Any"><a href="#Any" class="headerlink" title="Any"></a>Any</h1><p>Any类型消息允许你在没有指定他们的.proto定义的情况下使用消息作为一个嵌套类型。一个Any类型包括一个可以被序列化bytes类型的任意消息，以及一个URL作为一个全局标识符和解析消息类型。为了使用Any类型，你需要导入<code>import google/protobuf/any.proto</code></p><pre><code>import &quot;google/protobuf/any.proto&quot;;message ErrorStatus {  string message = 1;  repeated google.protobuf.Any details = 2;}123456</code></pre><p>对于给定的消息类型的默认类型URL是<code>type.googleapis.com/packagename.messagename</code>。</p><p>不同语言的实现会支持动态库以线程安全的方式去帮助封装或者解封装Any值。例如在java中，Any类型会有特殊的<code>pack()</code>和<code>unpack()</code>访问器，在C++中会有<code>PackFrom()</code>和<code>UnpackTo()</code>方法。</p><pre><code>// Storing an arbitrary message type in Any.NetworkErrorDetails details = ...;ErrorStatus status;status.add_details()-&gt;PackFrom(details);// Reading an arbitrary message from Any.ErrorStatus status = ...;for (const Any&amp; detail : status.details()) {  if (detail.Is&lt;NetworkErrorDetails&gt;()) {    NetworkErrorDetails network_error;    detail.UnpackTo(&amp;network_error);    ... processing network_error ...  }}1234567891011121314</code></pre><p><strong>目前，用于Any类型的动态库仍在开发之中</strong><br>如果你已经很熟悉<a href="https://developers.google.com/protocol-buffers/docs/proto?hl=zh-cn" target="_blank" rel="noopener">proto2语法</a>，使用Any替换<a href="https://developers.google.com/protocol-buffers/docs/proto?hl=zh-cn#extensions" target="_blank" rel="noopener">拓展</a></p><h1 id="Oneof"><a href="#Oneof" class="headerlink" title="Oneof"></a>Oneof</h1><p>如果你的消息中有很多可选字段， 并且同时至多一个字段会被设置， 你可以加强这个行为，使用oneof特性节省内存.</p><p>Oneof字段就像可选字段， 除了它们会共享内存， 至多一个字段会被设置。 设置其中一个字段会清除其它字段。 你可以使用<code>case()</code>或者<code>WhichOneof()</code> 方法检查哪个oneof字段被设置， 看你使用什么语言了.</p><h2 id="使用Oneof"><a href="#使用Oneof" class="headerlink" title="使用Oneof"></a>使用Oneof</h2><p>为了在.proto定义Oneof字段， 你需要在名字前面加上oneof关键字, 比如下面例子的test_oneof:</p><pre><code>message SampleMessage {  oneof test_oneof {    string name = 4;    SubMessage sub_message = 9;  }}123456</code></pre><p>然后你可以增加oneof字段到 oneof 定义中. 你可以增加任意类型的字段, 但是不能使用repeated 关键字.</p><p>在产生的代码中, oneof字段拥有同样的 getters 和setters， 就像正常的可选字段一样. 也有一个特殊的方法来检查到底那个字段被设置. 你可以在相应的语言<a href="https://developers.google.com/protocol-buffers/docs/reference/overview?hl=zh-cn" target="_blank" rel="noopener">API指南</a>中找到oneof API介绍.</p><h2 id="Oneof-特性"><a href="#Oneof-特性" class="headerlink" title="Oneof 特性"></a>Oneof 特性</h2><ul><li>设置oneof会自动清楚其它oneof字段的值. 所以设置多次后，只有最后一次设置的字段有值.</li></ul><pre><code>SampleMessage message;message.set_name(&quot;name&quot;);CHECK(message.has_name());message.mutable_sub_message();   // Will clear name field.CHECK(!message.has_name());12345</code></pre><ul><li>如果解析器遇到同一个oneof中有多个成员，只有最会一个会被解析成消息。</li><li>oneof不支持<code>repeated</code>.</li><li>反射API对oneof 字段有效.</li><li>如果使用C++,需确保代码不会导致内存泄漏. 下面的代码会崩溃， 因为<code>sub_message</code> 已经通过<code>set_name()</code>删除了</li></ul><pre><code>SampleMessage message;SubMessage* sub_message = message.mutable_sub_message();message.set_name(&quot;name&quot;);      // Will delete sub_messagesub_message-&gt;set_...            // Crashes here1234</code></pre><ul><li>在C++中，如果你使用<code>Swap()</code>两个oneof消息，每个消息，两个消息将拥有对方的值，例如在下面的例子中，<code>msg1</code>会拥有<code>sub_message</code>并且<code>msg2</code>会有<code>name</code>。</li></ul><pre><code>SampleMessage msg1;msg1.set_name(&quot;name&quot;);SampleMessage msg2;msg2.mutable_sub_message();msg1.swap(&amp;msg2);CHECK(msg1.has_sub_message());CHECK(msg2.has_name());1234567</code></pre><h2 id="向后兼容性问题"><a href="#向后兼容性问题" class="headerlink" title="向后兼容性问题"></a>向后兼容性问题</h2><p>当增加或者删除oneof字段时一定要小心. 如果检查oneof的值返回<code>None/NOT_SET</code>, 它意味着oneof字段没有被赋值或者在一个不同的版本中赋值了。 你不会知道是哪种情况，因为没有办法判断如果未识别的字段是一个oneof字段。</p><p>Tage 重用问题：</p><ul><li>将字段移入或移除oneof：在消息被序列号或者解析后，你也许会失去一些信息（有些字段也许会被清除）</li><li>删除一个字段或者加入一个字段：在消息被序列号或者解析后，这也许会清除你现在设置的oneof字段</li><li>分离或者融合oneof：行为与移动常规字段相似。</li></ul><h1 id="Map（映射）"><a href="#Map（映射）" class="headerlink" title="Map（映射）"></a>Map（映射）</h1><p>如果你希望创建一个关联映射，protocol buffer提供了一种快捷的语法：</p><pre><code>map&lt;key_type, value_type&gt; map_field = N;1</code></pre><p>其中<code>key_type</code>可以是任意Integer或者string类型（所以，除了floating和bytes的任意标量类型都是可以的）<code>value_type</code>可以是任意类型。</p><p>例如，如果你希望创建一个project的映射，每个<code>Projecct</code>使用一个string作为key，你可以像下面这样定义：</p><pre><code>map&lt;string, Project&gt; projects = 3;1</code></pre><ul><li>Map的字段可以是repeated。</li><li>序列化后的顺序和map迭代器的顺序是不确定的，所以你不要期望以固定顺序处理Map</li><li>当为.proto文件产生生成文本格式的时候，map会按照key 的顺序排序，数值化的key会按照数值排序。</li><li>从序列化中解析或者融合时，如果有重复的key则后一个key不会被使用，当从文本格式中解析map时，如果存在重复的key。</li></ul><p>生成map的API现在对于所有proto3支持的语言都可用了，你可以从<a href="https://developers.google.com/protocol-buffers/docs/reference/overview?hl=zh-cn" target="_blank" rel="noopener">API指南</a>找到更多信息。</p><h2 id="向后兼容性问题-1"><a href="#向后兼容性问题-1" class="headerlink" title="向后兼容性问题"></a>向后兼容性问题</h2><p>map语法序列化后等同于如下内容，因此即使是不支持map语法的protocol buffer实现也是可以处理你的数据的：</p><pre><code>message MapFieldEntry {  key_type key = 1;  value_type value = 2;}repeated MapFieldEntry map_field = N;123456</code></pre><h1 id="包"><a href="#包" class="headerlink" title="包"></a>包</h1><p>当然可以为.proto文件新增一个可选的package声明符，用来防止不同的消息类型有命名冲突。如：</p><pre><code>package foo.bar;message Open { ... }12</code></pre><p>在其他的消息格式定义中可以使用包名+消息名的方式来定义域的类型，如：</p><pre><code>message Foo {  ...  required foo.bar.Open open = 1;  ...}12345</code></pre><p>包的声明符会根据使用语言的不同影响生成的代码。</p><ul><li>对于C++，产生的类会被包装在C++的命名空间中，如上例中的<code>Open</code>会被封装在 <code>foo::bar</code>空间中； - 对于Java，包声明符会变为java的一个包，除非在.proto文件中提供了一个明确有<code>java_package</code>；</li><li>对于 Python，这个包声明符是被忽略的，因为Python模块是按照其在文件系统中的位置进行组织的。</li><li>对于Go，包可以被用做Go包名称，除非你显式的提供一个<code>option go_package</code>在你的.proto文件中。</li><li>对于Ruby，生成的类可以被包装在内置的Ruby名称空间中，转换成Ruby所需的大小写样式 （首字母大写；如果第一个符号不是一个字母，则使用PB_前缀），例如<code>Open</code>会在<code>Foo::Bar</code>名称空间中。</li><li>对于javaNano包会使用Java包，除非你在你的文件中显式的提供一个<code>option java_package</code>。</li><li>对于C#包可以转换为<code>PascalCase</code>后作为名称空间，除非你在你的文件中显式的提供一个<code>option csharp_namespace</code>，例如，<code>Open</code>会在<code>Foo.Bar</code>名称空间中</li></ul><h2 id="包及名称的解析"><a href="#包及名称的解析" class="headerlink" title="包及名称的解析"></a>包及名称的解析</h2><p>Protocol buffer语言中类型名称的解析与C++是一致的：首先从最内部开始查找，依次向外进行，每个包会被看作是其父类包的内部类。当然对于 （<code>foo.bar.Baz</code>）这样以“.”分隔的意味着是从最外围开始的。</p><p>ProtocolBuffer编译器会解析.proto文件中定义的所有类型名。 对于不同语言的代码生成器会知道如何来指向每个具体的类型，即使它们使用了不同的规则。</p><h1 id="定义服务-Service"><a href="#定义服务-Service" class="headerlink" title="定义服务(Service)"></a>定义服务(Service)</h1><p>如果想要将消息类型用在RPC(远程方法调用)系统中，可以在.proto文件中定义一个RPC服务接口，protocol buffer编译器将会根据所选择的不同语言生成服务接口代码及存根。如，想要定义一个RPC服务并具有一个方法，该方法能够接收 SearchRequest并返回一个SearchResponse，此时可以在.proto文件中进行如下定义：</p><pre><code>service SearchService {  rpc Search (SearchRequest) returns (SearchResponse);}123</code></pre><p>最直观的使用protocol buffer的RPC系统是<a href="https://github.com/grpc/grpc-experiments" target="_blank" rel="noopener">gRPC</a>一个由谷歌开发的语言和平台中的开源的PRC系统，gRPC在使用protocl buffer时非常有效，如果使用特殊的protocol buffer插件可以直接为您从.proto文件中产生相关的RPC代码。</p><p>如果你不想使用gRPC，也可以使用protocol buffer用于自己的RPC实现，你可以从<a href="https://developers.google.com/protocol-buffers/docs/proto?hl=zh-cn#services" target="_blank" rel="noopener">proto2语言指南中找到更多信息</a></p><p>还有一些第三方开发的PRC实现使用Protocol Buffer。参考<a href="https://github.com/google/protobuf/blob/master/docs/third_party.md" target="_blank" rel="noopener">第三方插件wiki</a>查看这些实现的列表。</p><h1 id="JSON-映射"><a href="#JSON-映射" class="headerlink" title="JSON 映射"></a>JSON 映射</h1><p>Proto3 支持JSON的编码规范，使他更容易在不同系统之间共享数据，在下表中逐个描述类型。</p><p>如果JSON编码的数据丢失或者其本身就是<code>null</code>，这个数据会在解析成protocol buffer的时候被表示成默认值。如果一个字段在protocol buffer中表示为默认值，体会在转化成JSON的时候编码的时候忽略掉以节省空间。具体实现可以提供在JSON编码中可选的默认值。</p><table><thead><tr><th>proto3</th><th>JSON</th><th>JSON示例</th><th>注意</th></tr></thead><tbody><tr><td>message</td><td>object</td><td>{“fBar”: v, “g”: null, …}</td><td>产生JSON对象，消息字段名可以被映射成lowerCamelCase形式，并且成为JSON对象键，null被接受并成为对应字段的默认值</td></tr><tr><td>enum</td><td>string</td><td>“FOO_BAR”</td><td>枚举值的名字在proto文件中被指定</td></tr><tr><td>map</td><td>object</td><td>{“k”: v, …}</td><td>所有的键都被转换成string</td></tr><tr><td>repeated V</td><td>array</td><td>[v, …]</td><td>null被视为空列表</td></tr><tr><td>bool</td><td>true, false</td><td>true, false</td><td></td></tr><tr><td>string</td><td>string</td><td>“Hello World!”</td><td></td></tr><tr><td>bytes</td><td>base64 string</td><td>“YWJjMTIzIT8kKiYoKSctPUB+”</td><td></td></tr><tr><td>int32, fixed32, uint32</td><td>number</td><td>1, -10, 0</td><td>JSON值会是一个十进制数，数值型或者string类型都会接受</td></tr><tr><td>int64, fixed64, uint64</td><td>string</td><td>“1”, “-10”</td><td>JSON值会是一个十进制数，数值型或者string类型都会接受</td></tr><tr><td>float, double</td><td>number</td><td>1.1, -10.0, 0, “NaN”, “Infinity”</td><td>JSON值会是一个数字或者一个指定的字符串如”NaN”,”infinity”或者”-Infinity”，数值型或者字符串都是可接受的，指数符号也可以接受</td></tr><tr><td>Any</td><td>object</td><td>{“@type”: “url”, “f”: v, … }</td><td>如果一个Any保留一个特上述的JSON映射，则它会转换成一个如下形式：<code>{&quot;@type&quot;: xxx, &quot;value&quot;: yyy}</code>否则，该值会被转换成一个JSON对象，<code>@type</code>字段会被插入所指定的确定的值</td></tr><tr><td>Timestamp</td><td>string</td><td>“1972-01-01T10:00:20.021Z”</td><td>使用RFC 339，其中生成的输出将始终是Z-归一化啊的，并且使用0，3，6或者9位小数</td></tr><tr><td>Duration</td><td>string</td><td>“1.000340012s”, “1s”</td><td>生成的输出总是0，3，6或者9位小数，具体依赖于所需要的精度，接受所有可以转换为纳秒级的精度</td></tr><tr><td>Struct</td><td>object</td><td>{ … }</td><td>任意的JSON对象，见struct.proto</td></tr><tr><td>Wrapper types</td><td>various types</td><td>2, “2”, “foo”, true, “true”, null, 0, …</td><td>包装器在JSON中的表示方式类似于基本类型，但是允许nulll，并且在转换的过程中保留null</td></tr><tr><td>FieldMask</td><td>string</td><td>“f.fooBar,h”</td><td>见fieldmask.proto</td></tr><tr><td>ListValue</td><td>array</td><td>[foo, bar, …]</td><td></td></tr><tr><td>Value</td><td>value</td><td></td><td>任意JSON值</td></tr><tr><td>NullValue</td><td>null</td><td></td><td>JSON null</td></tr></tbody></table><h1 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h1><p>在定义.proto文件时能够标注一系列的options。Options并不改变整个文件声明的含义，但却能够影响特定环境下处理方式。完整的可用选项可以在google/protobuf/descriptor.proto找到。</p><p>一些选项是文件级别的，意味着它可以作用于最外范围，不包含在任何消息内部、enum或服务定义中。一些选项是消息级别的，意味着它可以用在消息定义的内部。当然有些选项可以作用在域、enum类型、enum值、服务类型及服务方法中。到目前为止，并没有一种有效的选项能作用于所有的类型。</p><p>如下就是一些常用的选择：</p><ul><li><code>java_package</code> (文件选项) :这个选项表明生成java类所在的包。如果在.proto文件中没有明确的声明java_package，就采用默认的包名。当然了，默认方式产生的 java包名并不是最好的方式，按照应用名称倒序方式进行排序的。如果不需要产生java代码，则该选项将不起任何作用。如：</li></ul><pre><code>option java_package = &quot;com.example.foo&quot;;1</code></pre><ul><li><code>java_outer_classname</code> (文件选项): 该选项表明想要生成Java类的名称。如果在.proto文件中没有明确的java_outer_classname定义，生成的class名称将会根据.proto文件的名称采用驼峰式的命名方式进行生成。如（foo_bar.proto生成的java类名为FooBar.java）,如果不生成java代码，则该选项不起任何作用。如：</li></ul><pre><code>option java_outer_classname = &quot;Ponycopter&quot;;1</code></pre><ul><li><pre><code>optimize_for</code></pre><p>(文件选项): 可以被设置为 SPEED, CODE_SIZE,或者LITE_RUNTIME。这些值将通过如下的方式影响C++及java代码的生成：</p></li></ul><ul><li><code>SPEED (default)</code>: protocol buffer编译器将通过在消息类型上执行序列化、语法分析及其他通用的操作。这种代码是最优的。</li><li><code>CODE_SIZE</code>: protocol buffer编译器将会产生最少量的类，通过共享或基于反射的代码来实现序列化、语法分析及各种其它操作。采用该方式产生的代码将比SPEED要少得多， 但是操作要相对慢些。当然实现的类及其对外的API与SPEED模式都是一样的。这种方式经常用在一些包含大量的.proto文件而且并不盲目追求速度的 应用中。</li><li><code>LITE_RUNTIME</code>: protocol buffer编译器依赖于运行时核心类库来生成代码（即采用libprotobuf-lite 替代libprotobuf）。这种核心类库由于忽略了一 些描述符及反射，要比全类库小得多。这种模式经常在移动手机平台应用多一些。编译器采用该模式产生的方法实现与SPEED模式不相上下，产生的类通过实现 MessageLite接口，但它仅仅是Messager接口的一个子集。</li></ul><pre><code>option optimize_for = CODE_SIZE;1</code></pre><ul><li><code>cc_enable_arenas</code>(文件选项):对于C++产生的代码启用<a href="https://developers.google.com/protocol-buffers/docs/reference/arenas?hl=zh-cn" target="_blank" rel="noopener">arena allocation</a></li><li><code>objc_class_prefix</code>(文件选项):设置Objective-C类的前缀，添加到所有Objective-C从此.proto文件产生的类和枚举类型。没有默认值，所使用的前缀应该是苹果推荐的3-5个大写字符，注意2个字节的前缀是苹果所保留的。</li><li><code>deprecated</code>(字段选项):如果设置为<code>true</code>则表示该字段已经被废弃，并且不应该在新的代码中使用。在大多数语言中没有实际的意义。在java中，这回变成<code>@Deprecated</code>注释，在未来，其他语言的代码生成器也许会在字标识符中产生废弃注释，废弃注释会在编译器尝试使用该字段时发出警告。如果字段没有被使用你也不希望有新用户使用它，尝试使用保留语句替换字段声明。</li></ul><pre><code>int32 old_field = 6 [deprecated=true];1</code></pre><h2 id="自定义选项"><a href="#自定义选项" class="headerlink" title="自定义选项"></a>自定义选项</h2><p>ProtocolBuffers允许自定义并使用选项。该功能应该属于一个高级特性，对于大部分人是用不到的。如果你的确希望创建自己的选项，请参看<a href="https://developers.google.com/protocol-buffers/docs/proto?hl=zh-cn#customoptions" target="_blank" rel="noopener"> Proto2 Language Guide</a>。注意创建自定义选项使用了拓展，拓展只在proto3中可用。</p><h1 id="生成访问类"><a href="#生成访问类" class="headerlink" title="生成访问类"></a>生成访问类</h1><p>可以通过定义好的.proto文件来生成Java,Python,C++, Ruby, JavaNano, Objective-C,或者C# 代码，需要基于.proto文件运行protocol buffer编译器protoc。如果你没有安装编译器，下载<a href="https://developers.google.com/protocol-buffers/docs/downloads?hl=zh-cn" target="_blank" rel="noopener">安装包</a>并遵照README安装。对于Go,你还需要安装一个特殊的代码生成器插件。你可以通过GitHub上的<a href="https://github.com/golang/protobuf/" target="_blank" rel="noopener">protobuf库</a>找到安装过程</p><p>通过如下方式调用protocol编译器：</p><pre><code>protoc --proto_path=IMPORT_PATH --cpp_out=DST_DIR --java_out=DST_DIR --python_out=DST_DIR --go_out=DST_DIR --ruby_out=DST_DIR --javanano_out=DST_DIR --objc_out=DST_DIR --csharp_out=DST_DIR path/to/file.proto1</code></pre><ul><li><p><code>IMPORT_PATH</code>声明了一个.proto文件所在的解析import具体目录。如果忽略该值，则使用当前目录。如果有多个目录则可以多次调用<code>--proto_path</code>，它们将会顺序的被访问并执行导入。<code>-I=IMPORT_PATH</code>是<code>--proto_path</code>的简化形式。</p></li><li><p>当然也可以提供一个或多个输出路径：</p></li></ul><ul><li><code>--cpp_out</code> 在目标目录DST_DIR中产生C++代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/cpp-generated?hl=zh-cn" target="_blank" rel="noopener">C++代码生成参考</a>中查看更多。</li><li><code>--java_out</code> 在目标目录DST_DIR中产生Java代码，可以在 <a href="https://developers.google.com/protocol-buffers/docs/reference/java-generated?hl=zh-cn" target="_blank" rel="noopener">Java代码生成参考</a>中查看更多。</li><li><code>--python_out</code> 在目标目录 DST_DIR 中产生Python代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/python-generated?hl=zh-cn" target="_blank" rel="noopener">Python代码生成参考</a>中查看更多。</li><li><code>--go_out</code> 在目标目录 DST_DIR 中产生Go代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/go-generated?hl=zh-cn" target="_blank" rel="noopener">GO代码生成参考</a>中查看更多。</li><li><code>--ruby_out</code>在目标目录 DST_DIR 中产生Go代码，参考正在制作中。</li><li><code>--javanano_out</code>在目标目录DST_DIR中生成JavaNano，JavaNano代码生成器有一系列的选项用于定制自定义生成器的输出：你可以通过生成器的<a href="https://github.com/google/protobuf/tree/master/javanano" target="_blank" rel="noopener">README</a>查找更多信息，JavaNano参考正在制作中。</li><li><code>--objc_out</code>在目标目录DST_DIR中产生Object代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/objective-c-generated?hl=zh-cn" target="_blank" rel="noopener">Objective-C代码生成参考</a>中查看更多。</li><li><code>--csharp_out</code>在目标目录DST_DIR中产生Object代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/csharp-generated?hl=zh-cn" target="_blank" rel="noopener">C#代码生成参考</a>中查看更多。</li><li><code>--php_out</code>在目标目录DST_DIR中产生Object代码，可以在<a href="https://developers.google.com/protocol-buffers/docs/reference/php-generated?hl=zh-cn" target="_blank" rel="noopener">PHP代码生成参考</a>中查看更多。</li></ul><p>作为一个方便的拓展，如果DST_DIR以.zip或者.jar结尾，编译器会将输出写到一个ZIP格式文件或者符合JAR标准的.jar文件中。注意如果输出已经存在则会被覆盖，编译器还没有智能到可以追加文件。<br>- 你必须提议一个或多个.proto文件作为输入，多个.proto文件可以只指定一次。虽然文件路径是相对于当前目录的，每个文件必须位于其IMPORT_PATH下，以便每个文件可以确定其规范的名称。</p><p>本文转自：<a href="https://blog.csdn.net/u011518120/article/details/54604615" target="_blank" rel="noopener">https://blog.csdn.net/u011518120/article/details/54604615</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;英文原文：&lt;br&gt;&lt;a href=&quot;https://developers.google.com/protocol-buffers/docs/proto3?hl=zh-cn#generating&quot; target=&quot;_blank&quot; rel=&quot;noope
+      
+    
+    </summary>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go使用base64编码</title>
+    <link href="https://zengwu.com.cn/p/a4fc4ca7.html"/>
+    <id>https://zengwu.com.cn/p/a4fc4ca7.html</id>
+    <published>2021-09-27T18:00:42.000Z</published>
+    <updated>2021-10-09T14:03:04.013Z</updated>
+    
+    <content type="html"><![CDATA[<p>Go中的系统库中提供了<code>encoding/base64</code>编码/解码的内置支持.</p><p><code>encoding/base64</code>提供了四种模式的编码/解码</p><ul><li>StdEncoding：常规编码</li><li>URLEncoding：URL safe 编码</li><li>RawStdEncoding：常规编码，末尾不补 =</li><li>RawURLEncoding：URL safe 编码，末尾不补 =</li></ul><p>其中，URL safe 编码，相当于是替换掉字符串中的特殊字符，+ 和 /。</p><p>各种模式的编码/解码测试用例如下:</p><pre><code class="line-numbers language-go">package mainimport (    &quot;encoding/base64&quot;    &quot;fmt&quot;)func main() {    msg := []byte(&quot;Hello world. 你好，世界！&quot;)    encoded := base64.StdEncoding.EncodeToString(msg)    fmt.Println(encoded)    // SGVsbG8gd29ybGQuIOS9oOWlve+8jOS4lueVjO+8gQ==    decoded, _ := base64.StdEncoding.DecodeString(encoded)    fmt.Println(string(decoded))    // Hello world. 你好，世界！    encoded = base64.RawStdEncoding.EncodeToString(msg)    fmt.Println(encoded)    // SGVsbG8gd29ybGQuIOS9oOWlve+8jOS4lueVjO+8gQ    decoded, _ = base64.RawStdEncoding.DecodeString(encoded)    fmt.Println(string(decoded))    // Hello world. 你好，世界！    encoded = base64.URLEncoding.EncodeToString(msg)    fmt.Println(encoded)    // SGVsbG8gd29ybGQuIOS9oOWlve-8jOS4lueVjO-8gQ==    decoded, _ = base64.URLEncoding.DecodeString(encoded)    fmt.Println(string(decoded))    // Hello world. 你好，世界！    encoded = base64.RawURLEncoding.EncodeToString(msg)    fmt.Println(encoded)    // SGVsbG8gd29ybGQuIOS9oOWlve-8jOS4lueVjO-8gQ    decoded, _ = base64.RawURLEncoding.DecodeString(encoded)    fmt.Println(string(decoded))    // Hello world. 你好，世界！}</code></pre><p>本文参考：<a href="https://syaning.github.io/go-pkgs/encoding/base64.html" target="_blank" rel="noopener">https://syaning.github.io/go-pkgs/encoding/base64.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Go中的系统库中提供了&lt;code&gt;encoding/base64&lt;/code&gt;编码/解码的内置支持.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;encoding/base64&lt;/code&gt;提供了四种模式的编码/解码&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;StdEncoding：常规编码&lt;/li&gt;
+&lt;l
+      
+    
+    </summary>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
+    
+  </entry>
+  
+</feed>

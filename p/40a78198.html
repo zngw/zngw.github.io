@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="/js/src/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+
+
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="软件使用," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="过愙" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="在游戏中经常需要用到各种字体，但是一些字体都是比较大的。我们只需要提取自己需要的一些字符就行了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用sfntly提取ttf字体">
+<meta property="og:url" content="https://zengwu.com.cn/p/40a78198.html">
+<meta property="og:site_name" content="过愙">
+<meta property="og:description" content="在游戏中经常需要用到各种字体，但是一些字体都是比较大的。我们只需要提取自己需要的一些字符就行了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/guoke3915/zw/raw/master/p/40a78198/19826068-f1b78c208df63802.png">
+<meta property="article:published_time" content="2019-11-06T13:15:55.000Z">
+<meta property="article:modified_time" content="2020-02-24T13:42:14.232Z">
+<meta property="article:author" content="过客">
+<meta property="article:tag" content="软件使用">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/guoke3915/zw/raw/master/p/40a78198/19826068-f1b78c208df63802.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":0,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zengwu.com.cn/p/40a78198.html"/>
+
+
+<link rel="stylesheet" href="/js/src/prism.css">
+
+
+
+
+
+
+  <title>使用sfntly提取ttf字体 | 过愙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f759423ed17e6f82c79790450fa6ab7e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">过愙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">编程有风险，入坑需谨慎</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br />
+            
+            热度
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photos/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-camera-retro"></i> <br />
+            
+            相册
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/40a78198.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">使用sfntly提取ttf字体</h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T21:15:55+08:00">
+                2019-11-06
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2019-11-06</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">软件使用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  23
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/40a78198.html" class="zngw_visitors" data-flag-title="使用sfntly提取ttf字体">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>在游戏中经常需要用到各种字体，但是一些字体都是比较大的。我们只需要提取自己需要的一些字符就行了。</p>
+<a id="more"></a></li>
+<li><p>sfntly是一款谷歌开源的字体提取工具<br>下载地址：<a href="https://github.com/googlefonts/sfntly" target="_blank" rel="noopener">https://github.com/googlefonts/sfntly</a></p>
+</li>
+<li><p>编译<br>用Intellij IDEA打开java工程目录，设置Artifacts为SfntTool，直接编译<br><img src="//gitee.com/guoke3915/zw/raw/master/p/40a78198/19826068-f1b78c208df63802.png" alt></p>
+</li>
+<li><p>找到Artifacts输出目录中的sfntly.jar</p>
+</li>
+<li><p>查看说明<br><code>java -jar sfntly.jar -h</code></p>
+<pre><code class="line-numbers language-powershell">F:\sfntly-master\java\classes\artifacts\sfntly_jar&gt;java -jar sfntly.jar -h
+Subset [-?|-h|-help] [-b] [-s string] fontfile outfile
+Prototype font subsetter
+      -?,-help        print this help information
+      -s,-string       String to subset
+      -b,-bench        Benchmark (run 10000 iterations)
+      -h,-hints        Strip hints
+      -w,-woff         Output WOFF format
+      -e,-eot  Output EOT format
+      -x,-mtx  Enable Microtype Express compression for EOT format
+F:\sfntly-master\java\classes\artifacts\sfntly_jar&gt;</code></pre>
+</li>
+<li><p>提取字体</p>
+</li>
+</ul>
+<p><code>java -jar sfnttool.jar -s &#39;需要提取的字体&#39; 源字体库 导出的最终字体库</code></p>
+<pre><code class="line-numbers language-powershell">F:\sfntly-master\java\classes\artifacts\sfntly_jar&gt;java -jar sfntly.jar  -s &#39;这是一段测试文字&#39; Alibaba-PuHuiTi-Medium.ttf Ali.ttf</code></pre>
+<ul>
+<li>附常用的6500个常用字</li>
+</ul>
+<pre><code class="line-numbers language-none">的一国在人了有中是年和大业不为发会工经上地市要个产这出行作生家以成到日民来我部对进多全建他公开们场展时理新方主企资实学报制政济用同于法高长现本月定化加动合品重关机分力自外者区能设后就等体下万元社过前面农也得与说之员而务利电文事可种总改三各好金第司其从平代当天水市提商十管内小技位目起海所立已通入量子问度北保心还科委都术使明着次将增基名向门应里美由规今题记点计去强两些表系办教正条最达特革收二期并程厂如道际及西口京华任调性导组东路活广意比投决交统党南安此领结营项情解议义山先车然价放世间因共院步物界集把持无但城相书村求治取原处府研质信四运县军件育局干队团又造形级标联专少费效据手施权江近深更认果格几看没职服台式益想数单样只被亿老受优常销志战流很接乡头给至难观指创证织论别五协变风批见究支那查张精林每转划准做需传争税构具百或才积势举必型易视快李参回引镇首推思完消值该走装众责备州供包副极整确知贸己环话反身选亚么带采王策真女谈严斯况色打德告仅它气料神率识劳境源青护列兴许户马港则节款拉直案股光较河花根布线土克再群医清速律她族历非感占续师何影功负验望财类货约艺售连纪按讯史示象养获石食抓富模始住赛客越闻央席坚份士热限米银息校均房周游千失八检足配存九命尔即防钱评复考依断范础油照段落访未额双让切须儿便空往你层低奖注黄英承远版维算破铁乐边初满病响药助致善突爱容香称购届余素请白宣健牌促培竞巴稳继紧字困刘旅声超随例担友号显却监材且春居适除红半买充陈火搞图阳六察试太什执片古七球修尽控讲排粮武预亲挥卖审措荣洲卫希店良属险曾围域令站苏龙念罗吨器汇康减习演普田班待星飞写矿轻扩言章汽靠毛终仍景置底福止离泽波兰核降训逐票菜座献钢眼损宁像苦印融独湖早予夫编换欧努著顾征升态套介送某斗状画留航派室临兵补宝略黑综云差纳密贫剧犯阿击遇岁阶烈督吃丰馆招害官树听庭另沙私针胜贷网愿托缺园假酒音巨既判输讨测读洋括筑欢刚庆久陆找楼激晚绝压故互签汉草木亩短绍迎吸警藏疗贵纷授登探索湾宏录申诉秀序顺死卡歌午孩桥喜川邓扬津温船库订练候退违否彩棉帮拿罪币角召灾妇杨奋绩虽煤免笔够永圳停奥鲜朝吴岛觉移尼急博贯拥束左细舞幅语俄奇般简拍脑债固威券追筹刻映繁伟甚饭右彻烟沿街血冲洪植誉刊玉厅救潮迅伍怎付倍顿述播励斤乎纸振旧障鼓艰呼吉男绿尚夏亏季松哈祖典韩遍夜轮板抗摄杂皮贡借幕罚伤岸扶乱曲脱践危澳童散味叶累谢孙邮雄兼微呢谁惠偿署择染答块徐鱼赞课盛延瑞怀堂驻零辆齐胡途封似润守毕坦母雨败朱污趋械纺租灵拓残含握跨衣储瓦蒙鉴析竟骨档秘禁赵宾异伊智钟键辉跃冷倒庄毒仪哪涉泛宗鹏归岗雷礼尤休泰疾肥珠叫牛宜抵挂寻父攻佳塞架符裁虑肉启丽露鲁秋昌估射册若宽厚盾硬末轨饮勤茶诗郑冠涨篇泥唱纯坡熟浙晓抢丝锦载笑勇杰患乌坐雪戏背塔翻沈遗聚渠哥享迹森辽衡掌牧附操赶览野盟殊仁错萨夺梅误词董潜卷矛腐亮冒盖旗井凡震峰坏倾距壮惊盘梁摆径忠冰峡丹避珍乘刑扎透迫箱莫跑穿祝乏厦渐软询折浪朋敢诚弱疑邀沉端床络疆缩脚甘贴勒荒唐静缓侵句尊塑肃怕耕痛援劣伙挑洗暴冬龄乔餐肯廉跟阵伐悉忘闭奔恢宋泉杯渡吗奉婚赴恩盐掉洁亡洛聘蔬混摩抽鸡剂胆麦谋雅废贺羊阔唯捐返隆穷辛猪帐饰郭颁灯绕诸伴顶祥谓恶番敏旦劲缴麻屋跳码鞋扣迈忙趣盈棋勃敬辑摊旺纠炼梦偏渔牙侨黎赔裕宫谷概稿柱弹殖秩凭拨幸洞伪沟姓遭涌陶迁诺拔畅忧胞丁蓄贝舍腾杀煌圆伦横薄畜毫豪弟呈佛邦您墨徽惯循蓝烧触陕拖伯盲宪净卢炭籍秦粉妻爆欣释玩俊欠蛋猛迪苗暂貌遵锡楚桂昆杜皇醒燃凤截铺液撤胶慢杭虚辞曼毅咨俗糖忽芳姐耗妈谊浦频阻允宅窗默胀弃倡灭甲症埃滨赏莱拒淡坛陵绘虎竹赢锋篮迷纽轿贩递娘圈挖炉替幼乃郊颇戴滑徒崇涛焦凝墙吧炎刀玻寿履圣昨酸朗媒桑铜仲亦诞揭纵漫愈辟赠旱奶泳枪骗虫池镜浓拆艾扫娱钻碍寒迟邻曹盗穆豆赚晨浩彭耳瓜扭脸燕摇寄仿炮晋泪欲饱壁锁刷柬诊磨捕寨滚膨孔添帝辖炸旨吁址驶抱嘉拜扰袋佩阴辈锅赖剩押怪浮枚栏毁柳恐敦孟旁仓岩伸岭耐懂捷璃溪暖纤汗疫巧旋侧冶陪鸣瓶纲挤旬舆喝陷缘稻饲滩隔慰朴隐灌拟偷闲赫恰慧蒋闹邹牵柴刺滞彰俱勘填琛尝贾搬淮奏荷滋覆役秒踏巩摸荡辅惜柜肖颗搏氏姑弄姜君舒兑宇割哲摘钦逃漠忆敌宿啊凌耀闯阅贪赤汪悲抑瓷冯厉粗菲琴堡斌掘稀衰驾雕牢氛驱妥悄郎巡臣羽灰癌颖姆漏袭贤鸟暗茂孤惩榜袁桌卓傅剑堆兆狠轰拳妹绒裂潘兄洽叹涵贿侯岚熊绪阁尾碑尖腿涂栽坝犹铸肩闪诱辩芬睡奠伏妙乙绸廷夕恒梯赁霞攀枝译描湘磁吕硕爸肝峻葡衷搭唤薪挺逝狗蔡宴蓬撞铝牲舰胁崛桃斜丧烂屏砖墓详逾函跌抚插戈凉啤脉滥赋柏堤腰泊寺尘蒂削仙踪冻汤睛艳荐劫框廊惑页拼堪携丈乳挪谱舶埔遥菌塘氧晶洒株颜虹岳胸忍甜匹瞩懈爷丛莲叙鸿逢抬嘴弘炒喷吊窝衔吹霸仔垦胎慎脏歧疏悠慕漂杆萍舟吐玲凯戒盼偶盆慨弊箭茅衫罐串辐腹钩碰昂酬晰姿彼锻飘嫁竣缝蹈悬紫浅缆喊昔驰湿剪侦坑姚魏扑挣焕皆狂泡骤堵膜禽锐芝帽擅沪晤婆埋劝碗玛顷鸭娃豫匆魂哭庞亭屡逼尺撒鹿讼弥坊碎缔霍壤萄铃稍丘肿烦苹庙雇汛孝辰吞汰怨酿耶咱欺丢琼棚披渴屈弗疲帕昭盒仰萧牺撑抛鼠纱翼兹骑糊契铭淘顽撰乒淑妆窑柔姻苍谨卿灿栋敲窃菊郁催眉邱揽鼎韦肤娜俏呀拚寸爬悟尿罢圭葬聪沃肠厕慈恋绵橡圾垃翁粤脂歹憾阐甸巷蜂轴艘垄衬阜惨冀幽厘崭筋寓迄渗碘碧赌袖奈崔悦捞剥孕逆婴脆缅艇谭笼儒粒诈遣垂磋卸帜枣幢淀帆蛇宰殿猎叔夹帅沧魅俩牟钓葛罕渤汕溢擦袱嫩桶殷酷呆卧暑骄幻囊掀醉牡饼扇蒸赣俭椅枢彦樊吾仗彬砂绳巾喀勋愁碱谦壳轧潭浆挽邢啥焊钞烤廖猫狱腔喻御蕴坎魔刮瘤茫竭莉链淫愤纹咸睐睹裤夸滴雾搜拘龚凶茨傲鞍鹤蚀颈翠卉汁冈狮隧弯胃沛募琳疼蚕泼磷捧炳绣朵涯掏奎聂孜韵浑翔魄掩斥敞腊愧粘丑溉斑啦柯谐烯禄浴涝鬼薛瘦挡昏鹅湛逻虾沂辱叉鼻厨鲍鞭辣潇乓肺尹颂邵澜桐鹰妨闽屠畏翰塌亟寂赂犬聊暨垫泄漆旭蕾坪涤挫佐瞄拦硫棒杏爽碳畔熙襄祸乾淹臂莎辜阎庸砍捉勾垒衍坤噪毯倪扮铅遏哀愉瑶咬嫌闸恳齿杠怒兽浇肇鄂溶哄棵盯梨灶屯狭陋啡浸淋濒脊戚勉膏氨墅沸挨蔓抄芒秉刹饶厢咖魁骚缚遂恨跻螺辨菇帷凰椒汝瞬淄舱馈桩炬誓卜麟岂兔眠泵拐肚匪芦匈霉蜜荆雁窄秧枯仆嘱壶谅哨肌贬叠稽岐沫肆醇菱彪躺摔膀甫逊凑渊喂藤砸悔杉霜厄忌桔筒丙臭拾芜禹丸蟹嘛俞翅尸澄骂睦馨郝贮陌钧轩赃笋歉逸歪巍萃崖窟踢锣萎庐剖籽甩饥苑恼渣痕莞硅晴巢瘫缠隶筛穴昼埠宠肢饿仑逮兢趟糕妮邪抹俑萌匠扔酱葱礁掺雀髓悼挚蔚枫庚伞侃僵捆蒜溜傻蔗谜斋蝶沾闷驳耿槽黔吓肾芽栗朽荫榆皖曰徊奴迭僻蓉靖氟滔羡愚尧俺徘罩磊镑舌曙纶粪匙钉佼扯踊躲猴纬咽酝挠宛瑰歇抒茧穗祭鑫趁痴裙猜耘碌锈晒潍弦稼狼拢梧芯眷哑宙厌逛谴邯呵蜡寥钥耸媳熏蚁惕颠娟亨吟蒲梭瞻渝喉遮慌夷韶焰尉珊胖蕉粹裹琦秽侠奸挝绑曝棍婉镶熬傍燥氯骆晃鸽疯琢聋瑟暇绥禅溃腺垮阀撼煮佣滕淤蹲栖硝睁荟荧抖坟芭臻锭晖倦倘喘邑锤惧荔毗觅矮恭钙氮缸瞧颤萝佑怡瘾寡烹摧棠缪雏韧喇兜坯坷贞仇缉帘竖糟猖懒凿洼喧谣驼烫锌椰崩沥汾磅霖棘扛彗矩瞒陇绎诫斐卵铮钾宵簿秤畴斧擂剔躁冤讳寅焚漳鳖哺耻僧琅粟怖咏蜀淳柑缕烁氢蔽琪泣阮镀殴虞虐炊搁诀掠坠屿髦酋躯吵遐寞仕稚僚楠矶筝彝叮熔槐潢芹郸匾咋玄裔陡哗怜襟刃脾嵌拱慷痪跋孚峪钊滇苟晕墩膝羞乍腻詹讶敷肴莹衢柿朔袜枕烘匀歼泻樱吻翟堰苯隙娇獗汲蛙斩靡沁乞姨翩沼嘎畸矫骏薯绚窜藻矗皂楷腕篷徇耽娼犁榻茄棕汹峨蹄昧奢涩灼踩粥拣旷簇溯攒沓呕梳搅砌纫渭澡撕漓葆辍肪祁鞠蛮捏诵娣岱瀑啸裸鸦瑛躬舜忱豹纂恤惟赐俯犀媚嫂嗓蚊茬驭缀皱凳钮蚂姬扒嫖跪凹揣尬沦尴豁玫殡淌叭唇啃裘卑琐矢拯忡勿盎茵椎脖拂骅葫迢薇龟绞眶沐傣浊舅叛浚窘栓酶笛泌榄惹铲碟捡恪酯滤匿酵砚贼匮熠鳞麓镁氓苇廓巫踵竿蘑翘梓贻鳗帼冉泓狐涟崎窍瑜讽逗铎掷璀泗浏陲醋苛攘璧瀚哩暮矣蚌悖扼漯烛蝴屑墟俘侣庇陀煎秸弓捣譬炜炯拌扁彤锚禾侮秆绮嚣樟咐枉窦桦寇哉狸耍馒驹隋冕疮咄妄峙娄溥腑钠栩糙滦呐鲻娶祺刨褒橙茹谎抉慑媛橄戎迩雯璨雍惶扳桢霓账梗炕裴韬杖痹缤沽燎煞删辙爵缭劈烨槌媲凛莆颅锯膳澎坞瓣婷絮酌涡唁秃禺膊棣芸忻炽榨篆憨戍圩爹蹊饪胺贱睫蝇惫拇赈泾盏弧剿硒毓皓菏灸湄炙祠荻捍嚼朦屹紊藜驴寝兮隘祈榕臧蝉绢瞎闵鳌娥藉娅烽楂摒凄凸熄孵叩渎胳匡袍卒怠桓莽倩泸藕陨辗骋峭冥饺亢圃颐擒铵鳄簧愣璜钰拙瘠靳隽罹岑镭榴恕毋囤汀绽窖筷擎猿诲碾夭筐邃藩诬芙胚哇垣胧帖殉毙壑绰憋亥涅屁璞缮侍倚稠棺棱葵诣笨橱寰郡垢徕眺胰谆窥霄栉舸蹦坂瞪珲釉跤挟侄肘嘲刁缎嚷痒敛祛绅孰痫闺椿噶恍伶峦酥萦苎癫涪锲蜚拎嵩昊娴涣烙璋笃囚祯篱讴舷纭锄巅卦摹眸柄踞焉辄褚褐湃夙堕岔惦疚谍奕羚帧澈濮捎漾吼锰趴菩簸仃渲札谙咕桨咀郴咳呜蛟拧莘驯庵弼逞蹬姥撂镍晏疡爪骥楞钳懋寐淇琉杞菠铨翌靶侗瑙馅丐痊娓侈苓聆睿偌釜噬曦燮哟瑾瞿璇拮憬鹊勺憧嗜啼檐柚呱渍镌妃溺鸥粕沱榭隅毡禧瞅鲸淆阪茁渺瞥茜瘟礴伺谛锹蔼虔莺迸磕赡泱栈甄镐抠嬉诿甬绊饵谬梢颍揪琶褥佟腥辊溅琵鄯拴喃笙酰粱卤芮膛斓潼鸵侥讷婿吆羁嗣蜒栅疙拷戳镛芷钛蜿铀夯摞雌酣荼蝎锥姊瓢祀玺弛犷哦茸鱿绷茎惋亘珑莓掂迥鲤殃瘩叨螃奄腈疟沭钨昕膺涿糠氰揉狩檀悍缫哮衙瑚潞谤搀洱涓袤痰乖冗芋甭骸幌涮俨敖槛狄牒恺雹赎庶熨蛛佰蓦鄱煽腌黯疤倔剌斡诽锵筱妍掖铿脐捅弈邸湟眯赦拄啪玮轶蛾麋炫赊靴箔菁撬裳戌缨蝗撇奚瀛噩怯蓓匕咚瞰佬泞扉皋晾麒姗跚瘀鄙猕拭鲟祷脯砺驿陛瘁搓舵汞哼胫珀邬磺馏馍铢诧涧吏苔潺邳烷囿斟滁殆酚狡孺恬沅铬湍啧囱蒿鹃柠漱胥妖洙珂茉蹒圻鬓搂葩佘渥诙袒捂瞠妓铐澧袂馁汐匣逍谚窒蔑糯汶壹岖盔嘘迂嘀锢讥吭抨屎獭褪咫稷迦檬塬蠢蓟咎皿驮俐坍惭垛鹭鸾蹴撩诠恙臃遨睬踌浒搪郧竺翡宦冽憩萱拽卞槟躇蘸肋呛濡酮眨撮矸垸蛀黛涸脓徙撷曳峥渚镖钴骊袅磐掣沌埂嘿琏楣豚诡悸麝煦矾羲唉溧呻覃兖吱惰羹钝枸姣颓铣梆骇淅孢叱谧泯谟恃薹筵鏖栾鹜哽掬辘茗瓯绛筠铤袄殚梵挎遴榈蜕癣垠厮幄偕焱攥裨炖旮旯蔺骡娩伫猝窿虏屉缜咒筏骼璐剃涕猗淼侬阙嗅鸳嘈霏珩沮捺硼荃驷漩嘻眩掰伽脍婪煜鹄壕崂翎痞兀婺鸯楹咤徜嫉篓烃铂咪掐匝杼蕃箍荤砾嘶皑宕荪哎汴貂邡淦蕙弩堑惬偃徉箴赘啻凋穹酗憎芥唾闫晔苞昶甙笺吝蕊鳝衅猩薰昱趾淞坳怅翱汩琥岌阑粼羌霆篡塾酉裱韭唠廿闰攸黝蛤厥荞瑕柘祚疵愕蕨牦飨疹嗷癖芪漕隍徨逵泠嵘嗡岫岷擞陂颊咔卯婶椭惘歙幺臆叽缰睽勐暄弋痔秭煲琮嘟犊玖怦丕溴罂瓮丞惮癜晦攫镰镯柞舫铆蹼妩熹铱褂丫笆妒噢噙琬冼荀蟾捶嗒町嫣肮皎旖恣钚砥吩茯馥钎甥嗦蜗浔谒辫亳彷珏咯淖妊佤玷嘹崴於辕贲扈伎旎孽耙娠戊冢跷砷焘羔圪耄钼悻荥唑稞邝莅杷醛嗽唆拗碴馋胱琨茏糜懦骞蜘嚓怵抡唢腆涎灏臼墒暹椽牍钒猾榔懵枇樵锶籼箫漪帚钵赓捻郅儋烬锂剽锑鄢鄞臾喳胄耋阱笠瓴啬杳萤莠嶂浜傩遒轼睢倜矽仉唬旌酪腼罄嬗畲祟桅悴讹憔龋嵊绶邕忖箩咆晌愫猷帛麾莒觑吮蟋庥懊阂蒯阡腮潸晟蟀臀罔骁崽绉粽忿肛蠡遛蜓煊蚜坻滹銮悯鼐撵噼忐湮侏粳矍铄坨铉盂锗阖溟俟忑赝鬃敝宸哆靓揩瘸鲅篝氦嚎浃缙飚锷癸柩蛎濂榷鲨钡盹鲫诘诩迤桎遁尕梏楫赳飒锃雉怆痼劾痢喽霹昙畹胭佚狈瘪姹吠铧谏雳咙畦荠娑褶忏惚痉橘漉诏呗晁惆砀馄戟峁昵拈蠕虱洵鹦蛹铛挛倏澍濉钅噜咛俳磬蜷霎肽砼聿怔砭谌箕蹶孪蔷糅挞饨惴禀淙哒枷楝闾蜻嗖淬垩矜郗蚤嫦喋镉饯髋潦镂簌偎鹉岙踱诃籁宓膘飙涞耆荏渑豌琰俎绌埭幡赅锆崮碣珞腋滢蓖伉馗聩幔锨蓥鹑砝酩枰鞘苋粑蹭倌犟俪嶙砻嵋滂葺苒枭翊婀飓阚喟傈藐蜃怂稣亵诒蜇岜霁瞌沏卅舀鹌俸嵇蟒汨砰鞣唏陉佯恿竽瘴祉焙诋濠螂叻垅谩朐稔芍瞳惺萸盅啄眈偻爿蟠炔垭噎蛰擘锏茭悌喔谑峋妪恽韫褓镳饽杈戛鸠萋襁榫霭苄跺杲嗨珉哌娆孀恸缄夔佗饷苷郜鼾颌訇谲溘咧褛逄颦洮逶嫡蠹碓烩醴栎鎏瓤伢蔫怿甾摈畈镣螨秣搔盱痍搐蹉佃绂疽骝霾悚缃懿咂奘轱邗蚝瘘醚湎瞑掮羟仨砣郢砧鳟跛踝轲窠郦踉躏戮篾骐鳍蹂郯跎倭诅鄄褴阆缈嗯妞沤跄箐苕窕楔饴峄腴圄谕揍踹罡佝颔觊篑鲢綦妾镗啕蚬窈揖眙蟑诛钗绯讣睾媾嗬祜镢囹苜坭蛐髯搡叟蹋觎捱碉呋罘荚鹫岿寮扪焖狞鳅嗄嗤擀痂嗟颉蚧儆锴龛嗑锟俚枥懑讫橇嗪虬跆骧陟灞恻涔酐鸪牯钜萘鲶缥曜蚓诤埕墀麸蝠蛊遑厩趄沔耦疱匍揿蚯讪唰舔呷蓿鹧膑刍耷鞑裆趸孑鲲绫埝嘭舢鸢螯吡蝙疸匐桁铠羸鲈囵唛仫庖劭郓骜粲峒腓鹳鳜蚶囫茴峤蟆蘖癯纾僳皙隰缬馐谪捭汊碜塍艮睑狍苫篦蜍锉沣诰晗喙麂謇蹇觐啾踽邈壬燧娲猥歆镒茔昝赭狰孳哧舛噔鹗蚣逅洹腱锒纰蛆蕤姝邰纣嘣钹衩婵孱蹿鲷萼椁浣镓遽赉趔蕲剜邂仡氤獐幛俾铋嗔茌氡诂豢桧畿倥捋仞忒疃浯蜈榛偬稗菖鲳厝踮叼痱貉玑婕琚疴掳钤垧氵黠跹怏揄氲铡濯芾笈崆钕菽隼傥仝囗芗埙簪暧桉镝蚪蜉藁笳菅龃喹橹抿啮蹑逖唔樨巽揶黟訾钣嵯凼恫掇剁珙沆噱揆耒铌泅疝葳隗滟龉钺殒蒡觇黜澹酊垡奂珈濑馕馊嚏痿岘氩茱滓焯抻豉敕掸碲靛摁淝鳏盥皈鲑颢犄翦铰椐胯屺邛庹猬蓊骛浠桠胤鸩痣蛭噌杵啜靼啶煅枋觥毂刽蝈蘅芨戬醮疖忾骷洌呤荦觞谡瀣蝣糌倬碚蹙痘砘绀虢蕻肓蛔唧桀蝌侩棂樯挈轫巳崧蓑藓鳕瑗帙馔豺痤郇殓髅轳逯嗫戕嚅蛳琊嘤疣蚱钯钿碇咣毽迳喱逦廪邙囡匏扦亻咝凇纨涠庠溆醺炀烊肄龈谀锱瘢枞皴贰晷闳斛屐讦婧苣蔻绺渌瑁螟叵颀穑膻羧螳绦誊蜥楦恂靥咿翳瓒枳啭樽嫒婊搽铒跗凫菡篁髻裾栲癞蓼氖孬喏砒姘衽缛嵬挹缢慵呦箸蹩槎榇舂嗲胴谔岢圹娌潋蛉酃鲵鲇娉亓碛芊忪谇笤韪勰呓俣圜愠仄炷毖筚伧棰磴滏篙肱笕堇馑荩榘哐傀崃罱痨儡鹂檩垴仵檄芎阉刈壅馀庾妯躅獒阊笞饬钏硐椴泔硌鹘鳇豇狙戡莨啉辇臬殇舐黍薮眭佻嗵煨莴蚴妤瘐擢蛏蹰龊辏绐氘骶莪珐缟聒讧岬胛桷谰戾撸鸬雒嘧囔铍骈掊茕噻铯柁艉龌硖罅魇酽咦嶷羿轸趵荸薜踟玳啖蔸槁鲛疥砬唳弭曩黏镊泮霈淠柒颧瘙痧辋郄燹泫郾鹞钇殪痈甑踯翥婢檗柽啐菪嶝腭嗝剐笏蟥戢阄噘撅尻贶辚蜢颞忸胼阕竦焐揠邺鳙啁稹徵诌隹舨哔卟伥苌鹚箪缍锇蝮诟洄浍诨犍硷噤垲郐椤嫫伲脲殍噗溱箬厍钽钍恹鬻爰砦蓁胝颛褙鳊邴铖镫腚钭颚鲂悱狒佶偈堀绔醪坜疠椋犸暝佞哝瞟荨芩逡溽裟挲抟暾崦芫荑薏莸欤栀斫镞嗳鸨跸骠俦谠簟棼驸掼倨橛犒邋耧蝼虻铙郫汔诮楸阒绻叁臊钐腧闩菘阗忝橐翕阋踅窨鹬鼋樾錾吒旃弁侪坼蚩嘬糍骢氐呃榧玢绋蚨钆岣菰罟嘏埚绗嚯藿笄袈羯肼暌啷蒗蜊獠鬣熳黾乜镆怩驽旆髂仟芡谯恁鳃艄莳艏趿遢鲐醍僮氽刎芴喑墉昀箦鄣摺钲贽缵鏊锛瓿廛瘳亍遄褡垌椟酆砩桴赙坩臌曷跽湫榉黧猁钌镏缦殁赧埤悭缱衾鲭铩猞眚铈谥耜飕饕餮骰乇绾鹇鲞爻蜴镱铟莜祗濞镔逋谄谶酲茺樗憷莼撺柢阏砜垓旰妫衮嗥郏鞯徼孓钪侉夼跬铼嫘蟊茆睨怄蹁谝嘌綮嫱筇犰穰铷筲哂炻豕秫笥涑铊帏闱鋈舾屣狎哓噫璎铕宥阈豸辎趑龇捌秕荜愎窆镲谗踔苁酢呔聃镦屙鲱鬲膈铪醐獾鲩虺葭牮礓苴讵颏裉诳栌氇镙哞柰袢帔睥苤嫔笸氆佥箧跫蚋鲥扌狲桫溏铽殄脘洧肟绡咻洫癔洇嵛磔胗肫赀眦吖瑷埯畚妣飑豳髌砗铳楮蔟毳锝堞疔葑缶菔疳彀胍磙顸薅翮猢怙蒺廑妗髁醌粝魉旒蝥缗衲呸醅芘蚍圮榀萁苘逑诎劬蕖朊剡蟮椹饣酞帑葶菟魍庑葸氙谖鞅狺夤嬴瘿饔雩鹆橼赜潴骓缁诹怍杓艹檫媸氚呲殂矬笪迨纛簦玎苊轭匚鼢呒缑诖炅鲧唿戽鬟恚袷瘕枧洚桕雎蠲剀诓瘌镧铑鳓蓠呖跞裢裣埒捩鲮熘嵝瘰镘脒腩筢耪辔牝嘁蛴戗蛩巯悫葚熵绱蛸螫毹妁纟嗾鳎绨粜菀沩鼯牾螅顼泶蕈鼹繇苡悒廴吲喁卣牖笮舴罾棹鸷碡锕嗌媪龅甏箅傧啵鹁晡氅魑篪怛籴礅蒽珥钫绠觚鸹涫颃篌锪蠖乩咭赍嵴铗湔槿赆僦皲佧箜蒉缧酹嘞疬臁膦泷蒌泺荬颟旄泖镅蠓冖幂耱襻鼙攵炝愀蘧氍犭禳桡糁馓酾槊狻锬羰鼗鹈畋髫萜堍璺怃崤囟睚痖菸餍徭瘗唷圉蜮砟谵澶朕摭轵诼笫廒聱庳髀笾龀裎雠蝽腠妲刂铥黩怼沲蘩趺苻拊阝鲋戆纥哏鲠笱瞽庋簋刿掴猓蚵槲觳萑癀蟪钬虮掎鲣囝裥踺茳糨鹪狷麇芤刳愦髡悃缡鲡鳢奁墚尥柃胪镥脔杩劢墁玟蝻呶搦湓罴蜱俜鲆皤镨槭镪黢洳枘芟埏渖筮殳飧溻饧樘醣酡圬粞觋莶霰榍薤髹曛疋迓衤欹佾埸霪茚鼬伛瘵骣畛卮轾彘觯锺邾槠谘嵫髭蕞犴鞴畀滗煸褊冫孛羼耖褫彳艟辶茈璁爨榱萏坫鸫篼簖裰哚蹯瀵怫陔筻廾蛄绲崞蜾盍荭黉糇骺後鲎煳鹕冱瓠逭漶耠镬齑殛鲚跏蛱搛缣鹣僬噍衿缂喾狯纩栝蛞稂塄嫠詈蠊鹩躐鹨簏膂脶嬷昴瞀浼艨祢縻蘼芈糸宀眄鹋杪咩愍麽瘼鍪硇猱茑脬蟛貔仳犏钋芑葜愆锓蠼筌鬈蚺荛埽潲诜埘弑嗍蒴鸶缌澌姒蔌睃缇梃彖鼍芄隈鲔硪忤痦欷僖醯鼷跣枵忄擤勖痃碹谳轺铘圯纡窬窳饫蓣瀹趱驵缯揸笊絷跖舯螽籀舳粢驺陬阼揞菝魃癍鹎坌狴萆嬖襞碥髟鳔醭螬馇虿瘥惝怊鸱螭瘛帱徂汆脞瘅忉羝睇瓞鲽岽胨芏佴燔偾稃郛莩幞澉槔袼搿茛鞲觏酤牿鲴宄匦呙馘焓瘊虍岵鹱咴隳缋溷夥剞洎恝蒹谫僭艽挢敫卺冂扃锔窭锩觖劂氪骒哙悝蝰诔苈篥娈瞵锍栊癃舻辂稆猡蛑甍艋敉眇蠛侔镎肭艿蛲疒陧衄锘堋庀擗甓螵钷攴桤褰凵肷锖鞒吣黥俅蝤璩悛辁肜颡谂礻摅汜溲嗉荽闼骀炱螗耥裼铫莛亠箨蕹迕杌寤穸饩舄禊猃绁渫廨獬硎荇鸺貅糈揎镟獯讠厣罨蛘鳐崾舣媵尢蚰侑狳螈龠昃痄搌浈埴夂黹酎橥丶缒窀菹锿砹茇勹邶鐾舭忭缏灬瘭踣钸礤骖黪艚锸猹镡躔蒇冁鬯屮枨眵傺搋巛舡楱镩鹾戥觌阽铞垤揲蹀耵髑憝鸸鲕篚镄鲼唪祓艴黻黼鳆尜戤塥哿虼遘桄丨胲醢撖嚆薨堠烀轷锾缳擐哕阍劐攉丌墼蕺彐芰哜戋趼楗耩喈卩鲒骱刭弪獍鬏鞫犋屦醵桊爝捃胩锎蒈莰闶钶锞眍筘阃漤铹栳耢仂泐檑轹蔹懔垆锊倮蠃鞔硭漭猸鹛钔瞢礞喵苠鳘貊貘毪坶攮猊嬲肀聍甯狃耨孥胬恧蒎锫陴氕丿裒镤蜞岍搴箝慊椠蜣硗劁缲檎螓圊檠謦銎赇鼽糗麴鸲磲畎狨蝾薷襦颥蓐脎毵磉鳋唼歃彡骟滠矧胂蓍鲺贳搠厶兕锼螋瞍觫赕铴瑭慝掭祧龆蜩鲦茼酴煺柝腽軎阌阢诶菥蓰柙祆筅葙蟓魈躞砉醑儇岈砑珧酏劓堙撄潆舁蝓燠眢箢掾刖狁拶唣迮帻谮哳齄膪嫜忮骘膣踬荮瘃麈疰丬浞禚觜耔腙鄹鲰躜撙胙</code></pre>
+
+      
+    </div>
+    
+    
+    
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    过客
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zengwu.com.cn/p/40a78198.html" title="使用sfntly提取ttf字体">https://zengwu.com.cn/p/40a78198.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC 4.0 BY-SA</a> 版权协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    
+      <div class="post-tags">
+        
+          <a href="/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" rel="tag"><i class="fa fa-tag"></i> 软件使用</a>
+        
+      </div>
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward-wepay.png" alt="过客 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward-alipay.png" alt="过客 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+        
+
+  <div class="popular-posts-header">相关推荐</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\98fa4bbc.html" rel="bookmark">win10开机默认开启小键盘</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\57233631.html" rel="bookmark">Win 2012 远程卡在“正在加密远程连接”</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\9dd52052.html" rel="bookmark">将 .pem 文件与 .ppk 互相转换</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\f41fb63a.html" rel="bookmark">阿里云盘分享文件格式</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\f72f6493.html" rel="bookmark">网页内容无法复制</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/p/3f8d17e0.html" rel="next" title="JS实现悬浮导航制作">
+                  <i class="fa fa-chevron-left"></i> JS实现悬浮导航制作
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/p/31fe234b.html" rel="prev" title="iOS-设置自定义的系统默认字体">
+                  iOS-设置自定义的系统默认字体 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "right",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src="/static/api/js/share.js?cdnversion="+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      
+        <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+            <a href="/">
+                <img class="site-author-image" itemprop="image"
+                  src="/images/avatar.png"
+                  alt="过客" />
+              </a>
+            
+              <p class="site-author-name" itemprop="name">过客</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/index.html">
+              
+                  <span class="site-state-item-count">323</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zngw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/a51cd2236c13" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:guoke@zngw.icu" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://zengwu3915.lofter.com" target="_blank" title="乐乎">
+                      
+                        <i class="fa fa-fw fa-camera-retro"></i>乐乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa fa-history" aria-hidden="true"></i>
+              <a href="/archives/index.html" target='inline'>近期文章</a>
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    11-02
+                    <a href="/p/58e1b8b4.html" title="也谈“过客”">也谈“过客”</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    11-01
+                    <a href="/p/536760e1.html" title="Linux下读写NTFS格式">Linux下读写NTFS格式</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-30
+                    <a href="/p/874c58c2.html" title="股市中的过客">股市中的过客</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-29
+                    <a href="/p/c66a286f.html" title="go读取docx文档">go读取docx文档</a>
+                </div><br/>
+              
+                <div class='pull-left' style="white-space:nowrap" >
+                    10-27
+                    <a href="/p/4d81b25b.html" title="Ubuntu 20.04 安装 Nats">Ubuntu 20.04 安装 Nats</a>
+                </div><br/>
+              
+            </ul>
+            </div>
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-">
+              <div class="links-of-blogroll-title">
+                <i class="fa fa-signal" aria-hidden="true"></i>
+                <a href="/top/index.html" target='inline'>热门推荐</a>
+              </div>
+              <ul id="zngw_top" class="zngw_top links-of-blogroll-list"></ul>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="post-meta-divider">|</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过客</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">全站字数&#58;</span>
+    
+    <span title="全站字数">305k</span>
+  </div>
+  
+
+<span id="sitetime"></span>
+<script language=javascript>
+  var sitetime = document.getElementById("sitetime")
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+
+    let start = new Date("2019-09-04");
+    let today = new Date();
+    
+    let d1 = today.getDate();
+    let m1 = today.getMonth()+1;
+    let y1 = today.getFullYear();
+    let d2 = start.getDate();
+    let m2 = start.getMonth()+1;
+    let y2 = start.getFullYear();
+
+    var getMonthDays = function (y, m) {
+        var aMonthDays = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (m == 2 && ((y % 400 == 0) || (y % 4 == 0 && y % 100 != 0))) {
+            return 29;
+        }
+        return aMonthDays[m];
+    };
+
+    let y, m, d
+    let tempD = 0
+    let tmpM = 0
+    let tmpY = 0
+
+    if (d1 >= d2) {
+      d = d1 - d2
+    } else {
+      tmpM = -1
+      d = getMonthDays(y2, m2) + d1 - d2
+    }
+
+    if (m1 + tmpM >= m2) {
+      m = m1 + tmpM - m2
+    } else {
+      tmpY = -1
+      m = 12 + m1 + tmpM - m2
+    }
+    y = y1 + tmpY - y2
+       
+    let str = "";
+    if (y > 0) {
+      str = y + '年 ' + ("0"+m).substr(-2) + "月 " + ("0"+(d + 1)).substr(-2) + '天 '
+    }else if (m > 0) {
+      str =  m + "月 " + ("0"+(d + 1)).substr(-2) + '天 '
+    }else if (d > 0) {
+      str =  (d + 1) + '天 '
+    }
+
+		sitetime.innerHTML=" 我已在此等候你 "+str+("0"+today.getHours()).substr(-2) + '时 ' + ("0"+today.getMinutes()).substr(-2) + '分 ' + ("0"+today.getSeconds()).substr(-2) + '秒'
+	}
+ 
+  if(sitetime){
+	  siteTime();
+  }
+</script>
+
+<div>
+  
+
+  
+    <span id="/" class="zngw_totals" data-flag-title="过愙">
+      <span class="post-meta-divider" style="margin:0 0">第</span>
+      <span class="gk-uv-count"></span>
+      <span class="post-meta-divider" style="margin:0 0">位朋友,</span>
+
+      <span class="post-meta-divider" style="margin:0 0">历经</span>
+      <span class="gk-totals-count"></span>
+      <span class="post-meta-divider" style="margin:0 0">次回眸才与你相遇</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+    <span class="post-meta-divider"><a target="_blank" href="http://beian.miit.gov.cn/">湘ICP备20003596号</a></span>
+  
+
+  <script type="text/javascript" src="/js/src/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"></script>
+  <script>
+    function post(url, postInfo, success, fail) {
+      axios.post(url, postInfo)
+        .then((resp) => {
+          if (success) {
+            success(resp.data)
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          if (fail) {
+            fail(error)
+          }
+        })
+    }
+
+    function showTime() {
+      var entries = [];
+      var $visitors = $(".zngw_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+      if(entries.length == 0){
+        return
+      }
+
+      let postData = {
+        user: 'guoke3915',
+        url: entries
+      }
+
+      post('/count'+'/get', postData, function(results){
+        var COUNT_CONTAINER_REF = '.zngw-visitors-count';
+        if (results==null || results.length === 0) {
+          $visitors.find(COUNT_CONTAINER_REF).text(0);
+          return;
+        }
+
+        for (var i = 0; i < results.length; i++) {
+          var item = results[i];
+          var element = document.getElementById(item.url);
+
+          $(element).find(COUNT_CONTAINER_REF).text(item.time);
+        }
+        for(var i = 0; i < entries.length; i++) {
+          var url = entries[i];
+          var element = document.getElementById(url);
+          var countSpan = $(element).find(COUNT_CONTAINER_REF);
+          if( countSpan.text() == '') {
+            countSpan.text(0);
+          }
+        }
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function addCount() {
+      var $visitors = $(".zngw_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        url: url,
+        title: title,
+        host:window.location.host
+      }
+
+      post('/count'+'/add', postData, function(results){
+        var COUNT_CONTAINER_REF = '.zngw-visitors-count';
+        var $element = $(document.getElementById(url));
+        $element.find(COUNT_CONTAINER_REF).text(results.time);
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function addTotals() {
+      var $visitors = $(".zngw_totals");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        url: url,
+        title: title,
+        host:window.location.host
+      }
+
+      post('/count'+'/add', postData, function(results){
+        var $element = $(document.getElementById(url));
+        $element.find('.gk-totals-count').text(results.time);
+        $element.find('.gk-uv-count').text(results.uv);
+      },function(err){
+        console.log(err);		//=>3
+      })
+    }
+
+    function showTop() {
+      var $visitors = $(".zngw_top");
+      var url = $visitors.attr('id').trim();
+
+      let postData = {
+        user: 'guoke3915',
+        limit: 6
+      }
+
+      post('/count'+'/top', postData,function(results){
+        var index = 0;
+        for (var i = 0; i < results.length; i++) {
+          var item = results[i];
+          if(item.url!=='/'){
+            index++;
+            var content="<li class='pull-left' style='text-align: left; width:175px; overflow:hidden; white-space:nowrap '><font color='#EE0000'>"+index+" </font><a href='.."+item.url+"' rel='section' title='" +item.title+ "'>"+item.title+"</a></li><li class='pull-right'><font color='#519ABA'>"+item.time+"</font></li><br>"
+            
+            document.getElementById(url).innerHTML+=content
+          }
+        }
+      }, function(err){
+        console.error(error);
+      })
+    }
+
+    $(function() {
+      if ($('.zngw_top').length == 1) {
+        showTop();
+      }
+
+      if ($('.zngw_totals').length == 1) {
+        addTotals();
+      }
+
+      if ($('.zngw_visitors').length == 1) {
+        addCount();
+      } else if ($('.post-title-link').length > 1) {
+        showTime();
+      }
+    });
+  </script>
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1278604389&web_id=1278604389" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/js/src/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/js/src/jquery.fancybox.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+<script src="/js/src/prism.min.js" async></script>
+
+
+  
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+  
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+  <script type="text/javascript" src="/js/src/copyright.min.js"></script>
+</body>
+</html>
