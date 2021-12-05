@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>将阿里云盘映射成本地磁盘</title>
+    <url>/p/26da89a5.html</url>
+    <content><![CDATA[<p>　　阿里云盘的不限速，可以使用<a href="https://www.aliyundrive.com/s/Q1pJjzfAVxD" target="_blank" rel="noopener">CloudDrive工具</a>将它映射成本地磁盘。</p>
+<h2 id="1、注册阿里去盘账号"><a href="#1、注册阿里去盘账号" class="headerlink" title="1、注册阿里去盘账号"></a>1、注册阿里去盘账号</h2><p><a href="https://pages.aliyundrive.com/mobile-page/web/beinvited.html?code=f01dcaf" target="_blank" rel="noopener">点击连接</a>可以用手机号注册阿里云盘账号，并下载APP</p>
+<h2 id="2、-下载安装"><a href="#2、-下载安装" class="headerlink" title="2、 下载安装"></a>2、 下载安装</h2><p>下载<a href="https://www.aliyundrive.com/s/Q1pJjzfAVxD" target="_blank" rel="noopener">CloudDrive工具</a>，直接双击安装。</p>
+<h2 id="3、注册登录"><a href="#3、注册登录" class="headerlink" title="3、注册登录"></a>3、注册登录</h2><p>安装后直接打开<strong><a href="http://localhost:9798/" target="_blank" rel="noopener">http://localhost:9798</a></strong>，先注册一个账号登录</p>
+<h2 id="4、选择登录网盘"><a href="#4、选择登录网盘" class="headerlink" title="4、选择登录网盘"></a>4、选择登录网盘</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-f251eba5d5f60d25.png" alt></p>
+<h2 id="5、用阿里云盘扫码登录"><a href="#5、用阿里云盘扫码登录" class="headerlink" title="5、用阿里云盘扫码登录"></a>5、用阿里云盘扫码登录</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-717b11203f47b654.png" alt></p>
+<h2 id="6、挂载到本地"><a href="#6、挂载到本地" class="headerlink" title="6、挂载到本地"></a>6、挂载到本地</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-b1ea2a84c9a21c0c.png" alt></p>
+<h2 id="7、设置本地挂载盘符"><a href="#7、设置本地挂载盘符" class="headerlink" title="7、设置本地挂载盘符"></a>7、设置本地挂载盘符</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-bd1bd192cff8be47.png" alt></p>
+<h2 id="8、查看本地电脑就可以看到磁盘了"><a href="#8、查看本地电脑就可以看到磁盘了" class="headerlink" title="8、查看本地电脑就可以看到磁盘了"></a>8、查看本地电脑就可以看到磁盘了</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-c0c90a07a31e5094.png" alt></p>
+<h1 id="安全风险提示"><a href="#安全风险提示" class="headerlink" title="安全风险提示"></a>安全风险提示</h1><p>CloudDrive是由网友个人开发，该项并未开源。存在网盘资源外泄的风险，如果你网盘的内有重要文件或者有自动同步相册，不建议使用此工具，可以创建小号来使用。</p>
+<p>还有就是挂载后在磁盘内删除文件，是永久性删除，不会存放在回收站。</p>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>bat中的enabledelayedexpansion</title>
+    <url>/p/c1edbab3.html</url>
+    <content><![CDATA[<p>  在使用bat批处理中，在if或for中给全局变量重新赋值的时候会遇到赋值不上的情况。如：</p>
+<pre><code class="line-numbers language-bat">@echo off
+
+set param=0
+if not &quot;%1x&quot;==&quot;x&quot; (
+    set param=%1
+)
+
+echo %param%</code></pre>
+<p>这段代码是判断启动批处理时，如果有命令行参数，将第一个参数传给param，如果命令行没有参数则用最初设定的0值，然后输出param。但是，有时你会发现，即使传了命令行参数，最终输出的param依然是空值。</p>
+<p>为了确保参数能准确的赋上值，我们可以用enabledelayedexpansion来设置<code>延迟环境变量扩展</code>,这样就能<strong>稳稳</strong>的得到正确的赋值了。</p>
+<pre><code class="line-numbers language-bat">@echo off
+
+set param=0
+
+setlocal EnableDelayedExpansion
+if not &quot;%1x&quot;==&quot;x&quot; (
+    set param=%1
+)
+endlocal &amp; set param=%param%
+
+echo %param%</code></pre>
+<p>稍微解析一下<code>setlocal enabledelayedexpansion</code>，就是设置本地为延迟扩展。其实也就是：延迟变量，全称”延迟环境变量扩展”, 在cmd执行命令前会对脚本进行预处理，其中有一个过程是变量识别过程，在这个过程中，如果有两个%括起来的如%value%类似这样的变量，就会对其进行识别，并且查找这个变量对应的值，再而将值替换掉这个变量，这个替换值的过程,就叫做变量扩展，然后再执行命令。</p>
+<p>如果不设置这个，对变量再次赋值，由于机器性能或环境的关系，可能会导致再次赋值没有赋上的错误。</p>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx配置跨域</title>
+    <url>/p/afe6edd9.html</url>
+    <content><![CDATA[<p>在网页中请求其他域名数据时出现了<code>No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource</code>错误时，基本上可以确定是跨域问题。 只要在返回数据的header中加入<code>&#39;Access-Control-Allow-Origin *</code>就可以了。但是一些静态网页可以在Nginx转发的时候将header参数添加上去就可以了。</p>
+<p>修改Nginx的配置，在需要的 location中添加</p>
+<pre><code class="line-numbers language-conf">location / {  
+    add_header Access-Control-Allow-Origin *;
+
+    // 其他配置
+} </code></pre>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>软件使用</tag>
+        <tag>Ubuntu</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>curl发送POST请求</title>
     <url>/p/e334394.html</url>
     <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>curl 是常用的命令行工具，用来请求 Web 服务器。它的名字就是客户端（client）的 URL 工具的意思。它的功能非常强大，命令行参数多达几十种。如果熟练的话，完全可以取代 Postman 这一类的图形界面工具。</p>
@@ -934,28 +1014,6 @@ systemctl enable redis-server.service</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu 20.04安装Docker</title>
-    <url>/p/35ea3f99.html</url>
-    <content><![CDATA[<h2 id="一、卸载旧版本"><a href="#一、卸载旧版本" class="headerlink" title="一、卸载旧版本"></a>一、卸载旧版本</h2><pre><code class="line-numbers language-bash">sudo apt-get remove docker docker-engine docker.io containerd runc</code></pre>
-<h2 id="二、使用官方安装脚本中的阿里云镜像自动安装"><a href="#二、使用官方安装脚本中的阿里云镜像自动安装" class="headerlink" title="二、使用官方安装脚本中的阿里云镜像自动安装"></a>二、使用官方安装脚本中的阿里云镜像自动安装</h2><pre><code class="line-numbers language-bash">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></pre>
-<h2 id="三、启动Docker"><a href="#三、启动Docker" class="headerlink" title="三、启动Docker"></a>三、启动Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl start docker</code></pre>
-<h2 id="四、停止Docker"><a href="#四、停止Docker" class="headerlink" title="四、停止Docker"></a>四、停止Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl stop docker.socket</code></pre>
-<p>注意：停止时需要如果使用<code>sudo systemctl stop docker</code>是停止不了的，还会警告</p>
-<pre><code class="line-numbers language-bash">root@ubuntu:~# systemctl stop docker
-Warning: Stopping docker.service, but it can still be activated by:
-  docker.socket</code></pre>
-<p>原因是Docker 有两个服务进程文件，可以通过<code>cd /lib/systemd/system/ &amp;&amp; ll|grep docker</code>查看，分别是<code>docker.service unit file</code> 和 <code>docker.socket unit file</code>，上面的警告意味着如果你试图停止docker服务，但docker.socket unit file还处于激活状态。</p>
-<h2 id="五、设置开机启动"><a href="#五、设置开机启动" class="headerlink" title="五、设置开机启动"></a>五、设置开机启动</h2><pre><code class="line-numbers language-bash">sudo systemctl enable docker</code></pre>
-<h2 id="六、显示版本"><a href="#六、显示版本" class="headerlink" title="六、显示版本"></a>六、显示版本</h2><pre><code class="line-numbers language-bash">docker version</code></pre>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker中pull microsoft/dotnet报错</title>
     <url>/p/cf0371b3.html</url>
     <content><![CDATA[<h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>今天在一台新的服务器中pull microsoft/dotnet的时候报错了</p>
@@ -1014,6 +1072,28 @@ microsoft/dotnet:runtime-deps -&gt; mcr.microsoft.com/dotnet/runtime-deps:2.1</c
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu 20.04安装Docker</title>
+    <url>/p/35ea3f99.html</url>
+    <content><![CDATA[<h2 id="一、卸载旧版本"><a href="#一、卸载旧版本" class="headerlink" title="一、卸载旧版本"></a>一、卸载旧版本</h2><pre><code class="line-numbers language-bash">sudo apt-get remove docker docker-engine docker.io containerd runc</code></pre>
+<h2 id="二、使用官方安装脚本中的阿里云镜像自动安装"><a href="#二、使用官方安装脚本中的阿里云镜像自动安装" class="headerlink" title="二、使用官方安装脚本中的阿里云镜像自动安装"></a>二、使用官方安装脚本中的阿里云镜像自动安装</h2><pre><code class="line-numbers language-bash">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></pre>
+<h2 id="三、启动Docker"><a href="#三、启动Docker" class="headerlink" title="三、启动Docker"></a>三、启动Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl start docker</code></pre>
+<h2 id="四、停止Docker"><a href="#四、停止Docker" class="headerlink" title="四、停止Docker"></a>四、停止Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl stop docker.socket</code></pre>
+<p>注意：停止时需要如果使用<code>sudo systemctl stop docker</code>是停止不了的，还会警告</p>
+<pre><code class="line-numbers language-bash">root@ubuntu:~# systemctl stop docker
+Warning: Stopping docker.service, but it can still be activated by:
+  docker.socket</code></pre>
+<p>原因是Docker 有两个服务进程文件，可以通过<code>cd /lib/systemd/system/ &amp;&amp; ll|grep docker</code>查看，分别是<code>docker.service unit file</code> 和 <code>docker.socket unit file</code>，上面的警告意味着如果你试图停止docker服务，但docker.socket unit file还处于激活状态。</p>
+<h2 id="五、设置开机启动"><a href="#五、设置开机启动" class="headerlink" title="五、设置开机启动"></a>五、设置开机启动</h2><pre><code class="line-numbers language-bash">sudo systemctl enable docker</code></pre>
+<h2 id="六、显示版本"><a href="#六、显示版本" class="headerlink" title="六、显示版本"></a>六、显示版本</h2><pre><code class="line-numbers language-bash">docker version</code></pre>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu 20.04修改ip</title>
     <url>/p/f798f8e0.html</url>
     <content><![CDATA[<p>ubuntu从17.10开始，已放弃在/etc/network/interfaces里固定IP的配置，即使配置也不会生效，而是改成netplan方式 ，配置写在/etc/netplan/00-installer-config.yaml或者类似名称的yaml文件里</p>
@@ -1045,25 +1125,6 @@ network:
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu 20.04修改ip</title>
-    <url>/p/f798f8e0.html</url>
-    <content><![CDATA[<h2 id="使用root账号本地登录"><a href="#使用root账号本地登录" class="headerlink" title="使用root账号本地登录"></a>使用root账号本地登录</h2><p>ubuntu系统默认root用户是不能登录的，密码也是空的。</p>
-<p>如果要使用root用户登录，必须先为root用户设置密码</p>
-<pre><code class="line-numbers language-bash">sudo passwd root</code></pre>
-<p>先输入当前用户密码启动管理员权限，然后再输入二次root新密码。</p>
-<h2 id="使用root账号ssh远程登录"><a href="#使用root账号ssh远程登录" class="headerlink" title="使用root账号ssh远程登录"></a>使用root账号ssh远程登录</h2><pre><code class="line-numbers language-bash">sudo vim /etc/ssh/sshd_config</code></pre>
-<p>找到<code>PermitRootLogin</code>修改配置为<code>PermitRootLogin yes</code></p>
-<p>重新ssh使修改配置生效</p>
-<pre><code class="line-numbers language-bash">sudo  systemctl  restart  ssh</code></pre>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安装Ubuntu Server版</title>
     <url>/p/c1e67b27.html</url>
     <content><![CDATA[<h2 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h2><p>先去<a href="https://cn.ubuntu.com/download" target="_blank" rel="noopener">Ubuntu中国站</a>下载最新长期支持版本：<a href="https://releases.ubuntu.com/20.04/ubuntu-20.04.3-live-server-amd64.iso" target="_blank" rel="noopener">Ubuntu Server 20.04.3 LTS</a>。</p>
@@ -1081,6 +1142,25 @@ network:
 <h2 id="10、设置用户秘密"><a href="#10、设置用户秘密" class="headerlink" title="10、设置用户秘密"></a>10、设置用户秘密</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-37bf58c8df267c9c.png" alt></p>
 <h2 id="11、选择软件包"><a href="#11、选择软件包" class="headerlink" title="11、选择软件包"></a>11、选择软件包</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-bf7d0d4fe0462028.png" alt></p>
 <h2 id="12、等待系统安装"><a href="#12、等待系统安装" class="headerlink" title="12、等待系统安装"></a>12、等待系统安装</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-d9686d387dd11b71.png" alt></p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 20.04修改ip</title>
+    <url>/p/f798f8e0.html</url>
+    <content><![CDATA[<h2 id="使用root账号本地登录"><a href="#使用root账号本地登录" class="headerlink" title="使用root账号本地登录"></a>使用root账号本地登录</h2><p>ubuntu系统默认root用户是不能登录的，密码也是空的。</p>
+<p>如果要使用root用户登录，必须先为root用户设置密码</p>
+<pre><code class="line-numbers language-bash">sudo passwd root</code></pre>
+<p>先输入当前用户密码启动管理员权限，然后再输入二次root新密码。</p>
+<h2 id="使用root账号ssh远程登录"><a href="#使用root账号ssh远程登录" class="headerlink" title="使用root账号ssh远程登录"></a>使用root账号ssh远程登录</h2><pre><code class="line-numbers language-bash">sudo vim /etc/ssh/sshd_config</code></pre>
+<p>找到<code>PermitRootLogin</code>修改配置为<code>PermitRootLogin yes</code></p>
+<p>重新ssh使修改配置生效</p>
+<pre><code class="line-numbers language-bash">sudo  systemctl  restart  ssh</code></pre>
 ]]></content>
       <categories>
         <category>Ubuntu</category>
@@ -1130,6 +1210,43 @@ We have an FAQ to help with your information and planning needs, as you figure o
       </categories>
       <tags>
         <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android中使用GAID</title>
+    <url>/p/632f98fb.html</url>
+    <content><![CDATA[<p>在Android系统中，也有一个广告ID类似于iOS系统中的IDFA，这个就是基于Google Play Services的GAID了。但是国产手机的Andoird系统都是阉割掉了Google Play Services，所以是获取不到GAID的。</p>
+<h2 id="设置依赖"><a href="#设置依赖" class="headerlink" title="设置依赖"></a>设置依赖</h2><p>在gradle中添加google sdk组件</p>
+<pre><code> implementation group: &#39;com.google.android.gms&#39;, name: &#39;play-services-ads&#39;, version: &#39;15.0.0&#39;</code></pre><h2 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h2><pre><code class="line-numbers language-java"> //获取 GAID
+public String getGAID(){
+        String gaid= &quot;&quot;;
+        AdvertisingIdClient.Info adInfo = null ;
+        try {
+            adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
+        } catch (IOException e) {
+            // Unrecoverable error connecting to Google Play services (e.g.,
+            // the old version of the service doesn&#39;t support getting AdvertisingId).
+            Log.e(&quot;getGAID&quot;, &quot;IOException&quot;);
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // Google Play services is not available entirely.
+            Log.e(&quot;getGAID&quot;, &quot;GooglePlayServicesNotAvailableException&quot;);
+        } catch (Exception e) {
+            Log.e(&quot;getGAID&quot;, &quot;Exception:&quot;+e.toString());
+            // Encountered a recoverable error connecting to Google Play services.
+        }
+        if (adInfo!= null){
+            gaid= adInfo.getId();
+            Log.w(&quot;getGAID&quot;, &quot;gaid:&quot;+gaid);
+        }
+        return gaid;
+    }</code></pre>
+<p>注意，此方法需要在子线程执行，不然会报错。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1446,43 +1563,6 @@ public class MiitHelper implements IIdentifierListener {
 
     ....
 }</code></pre>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android中使用GAID</title>
-    <url>/p/632f98fb.html</url>
-    <content><![CDATA[<p>在Android系统中，也有一个广告ID类似于iOS系统中的IDFA，这个就是基于Google Play Services的GAID了。但是国产手机的Andoird系统都是阉割掉了Google Play Services，所以是获取不到GAID的。</p>
-<h2 id="设置依赖"><a href="#设置依赖" class="headerlink" title="设置依赖"></a>设置依赖</h2><p>在gradle中添加google sdk组件</p>
-<pre><code> implementation group: &#39;com.google.android.gms&#39;, name: &#39;play-services-ads&#39;, version: &#39;15.0.0&#39;</code></pre><h2 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h2><pre><code class="line-numbers language-java"> //获取 GAID
-public String getGAID(){
-        String gaid= &quot;&quot;;
-        AdvertisingIdClient.Info adInfo = null ;
-        try {
-            adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
-        } catch (IOException e) {
-            // Unrecoverable error connecting to Google Play services (e.g.,
-            // the old version of the service doesn&#39;t support getting AdvertisingId).
-            Log.e(&quot;getGAID&quot;, &quot;IOException&quot;);
-        } catch (GooglePlayServicesNotAvailableException e) {
-            // Google Play services is not available entirely.
-            Log.e(&quot;getGAID&quot;, &quot;GooglePlayServicesNotAvailableException&quot;);
-        } catch (Exception e) {
-            Log.e(&quot;getGAID&quot;, &quot;Exception:&quot;+e.toString());
-            // Encountered a recoverable error connecting to Google Play services.
-        }
-        if (adInfo!= null){
-            gaid= adInfo.getId();
-            Log.w(&quot;getGAID&quot;, &quot;gaid:&quot;+gaid);
-        }
-        return gaid;
-    }</code></pre>
-<p>注意，此方法需要在子线程执行，不然会报错。</p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -16409,6 +16489,23 @@ vector&lt;string&gt; split(const string &amp;str, const string &amp;pattern)
       </tags>
   </entry>
   <entry>
+    <title>Android 9.0 应用请求http请求无法访问网络</title>
+    <url>/p/baddbcad.html</url>
+    <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>前两天Android Studio打包时，sdk版本从27 升级到29，发现原来的http请求访问不了。原来是在Android (9.0)+系统的设备上，如果应用使用的是非加密的明文流量的http网络请求，则会导致该应用无法进行网络请求，https则不会受影响</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="1-将SDK版本降为27及以下"><a href="#1-将SDK版本降为27及以下" class="headerlink" title="1. 将SDK版本降为27及以下"></a>1. 将SDK版本降为27及以下</h2><h2 id="2-将http协议改为https协议"><a href="#2-将http协议改为https协议" class="headerlink" title="2. 将http协议改为https协议"></a>2. 将http协议改为https协议</h2><h2 id="3-修改工程配置"><a href="#3-修改工程配置" class="headerlink" title="3. 修改工程配置"></a>3. 修改工程配置</h2><p>修改工程AndroidManifest文件中的application标签内添加</p>
+<pre><code>&lt;application
+...
+  android:usesCleartextTraffic=&quot;true&quot;
+...
+/&gt;</code></pre>]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Android Studio Gradle工程路径太长</title>
     <url>/p/55b12ce9.html</url>
     <content><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>用cocos creator生成了一个gradle 的 android工程，项目本身目录就比较深，再加上默认的生成路径又是一大堆，最后用Android Studio打开的时候，目录已经很长很长了。再然后就编译出错了</p>
@@ -16429,23 +16526,6 @@ vector&lt;string&gt; split(const string &amp;str, const string &amp;pattern)
     }
 }</code></pre><p>然后，重新用Android Studio打开项目就可以了</p>
 ]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android 9.0 应用请求http请求无法访问网络</title>
-    <url>/p/baddbcad.html</url>
-    <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>前两天Android Studio打包时，sdk版本从27 升级到29，发现原来的http请求访问不了。原来是在Android (9.0)+系统的设备上，如果应用使用的是非加密的明文流量的http网络请求，则会导致该应用无法进行网络请求，https则不会受影响</p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="1-将SDK版本降为27及以下"><a href="#1-将SDK版本降为27及以下" class="headerlink" title="1. 将SDK版本降为27及以下"></a>1. 将SDK版本降为27及以下</h2><h2 id="2-将http协议改为https协议"><a href="#2-将http协议改为https协议" class="headerlink" title="2. 将http协议改为https协议"></a>2. 将http协议改为https协议</h2><h2 id="3-修改工程配置"><a href="#3-修改工程配置" class="headerlink" title="3. 修改工程配置"></a>3. 修改工程配置</h2><p>修改工程AndroidManifest文件中的application标签内添加</p>
-<pre><code>&lt;application
-...
-  android:usesCleartextTraffic=&quot;true&quot;
-...
-/&gt;</code></pre>]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -22153,6 +22233,20 @@ public class SendQQMail {
       </tags>
   </entry>
   <entry>
+    <title>一片伤心画不成</title>
+    <url>/p/cb1d4911.html</url>
+    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
+<a id="more"></a>
+<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>最孤独的代码</title>
     <url>/p/3b6f45f6.html</url>
     <content><![CDATA[<p><img src="//gitee.com/guoke3915/zw/raw/master/p/3b6f45f6/1581852769139.png" alt></p>
@@ -22166,20 +22260,6 @@ int main()
     printf(&quot;I miss you.\n&quot;);
 }</code></pre>
 <p>两个世界，<br>一封失信，<br>短暂相陪，<br>长久回忆。<br>唯留心头一句：“想你！”倏然打印。<br>进程却已抹去。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一片伤心画不成</title>
-    <url>/p/cb1d4911.html</url>
-    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
-<a id="more"></a>
-<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -26292,6 +26372,124 @@ func RemoveFile(fileId string) (err error) {
       </tags>
   </entry>
   <entry>
+    <title>CocosCreator获取和设置剪切版</title>
+    <url>/p/65217fdd.html</url>
+    <content><![CDATA[<h2 id="Android-原生环境"><a href="#Android-原生环境" class="headerlink" title="Android 原生环境"></a>Android 原生环境</h2><p>在Android环境中，可以使用<code>android.content.ClipboardManager</code>来复制和粘贴数据</p>
+<pre><code class="line-numbers language-java">// 获取黏贴版内容
+public static String getPasteBoardContent(final long delayTime) {
+        result = &quot;&quot;;
+        long deadLine = delayTime + SystemClock.elapsedRealtime();
+        AppActivity.appActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                android.content.ClipboardManager clipboardManager = (android.content.ClipboardManager) AppActivity.appActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboardManager == null) {
+
+                } else if (!clipboardManager.hasPrimaryClip()) {
+
+                } else if (!clipboardManager.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+
+                } else {
+                    result = clipboardManager.getPrimaryClip().getItemAt(0).getText().toString();
+                }
+            }
+        });
+        while (result.isEmpty()) {
+            if (SystemClock.elapsedRealtime() &gt; deadLine) {
+                break;
+            }
+        }
+        return result;
+    }
+
+// 设置黏贴版内容
+public static void setPasteBoardContent(final String str) {
+        AppActivity.appActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                android.content.ClipboardManager clipboardManager = (android.content.ClipboardManager) AppActivity.appActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboardManager != null) {
+                    ClipData clipdata = ClipData.newPlainText(AppActivity.appActivity.getPackageName(), str);
+                    clipboardManager.setPrimaryClip(clipdata);
+                }
+            }
+        });
+    }</code></pre>
+<h2 id="iOS-原生环境"><a href="#iOS-原生环境" class="headerlink" title="iOS 原生环境"></a>iOS 原生环境</h2><p>在iOS环境中，可以使用<code>UIPasteboard</code>来复制和粘贴数据</p>
+<pre><code class="line-numbers language-oc">// 获取黏贴版内容
++(NSString*) getPasteBoardContent{
+    UIPasteboard *pasteboard=[UIPasteboard generalPasteboard];
+    NSString* result=@&quot;&quot;;
+
+    double version=[[[UIDevice currentDevice]systemVersion]doubleValue];
+    if(version&gt;= 10.0)
+    {
+        if([pasteboard hasStrings])
+        {
+            result=pasteboard.string;
+        }
+    }
+    else
+    {
+        result=pasteboard.string;
+    }
+    return result;
+}
+
+// 设置黏贴版内容
++(void)setPasteBoardContent:(NSString*)data{
+    UIPasteboard *pasteboard=[UIPasteboard generalPasteboard];
+    [pasteboard setString:data];
+}</code></pre>
+<h2 id="H5-网页环境"><a href="#H5-网页环境" class="headerlink" title="H5 网页环境"></a>H5 网页环境</h2><p>在网上中复制粘贴是最麻烦的，要考虑到不同系统不同浏览器的情况，复制（设置剪切版）稍微还好一点，但是要获取剪切版的内容就太麻烦了，暂时还未找到兼容性很好的方法。</p>
+<pre><code class="line-numbers language-js">//设置剪切板
+    public SetPasteBoardContent(content) {
+        if (cc.sys.os == cc.sys.OS_IOS) {
+            let inputObj = document.createElement(&quot;input&quot;);
+            inputObj.value = content;
+            document.body.appendChild(inputObj);
+            inputObj.select();
+            inputObj.setSelectionRange(0, inputObj.value.length);
+            document.execCommand(&#39;Copy&#39;);
+            document.body.removeChild(inputObj);
+        } else {
+            let domObj = document.createElement(&quot;span&quot;);
+            domObj.innerHTML = content;
+            document.body.appendChild(domObj);
+            let selection = window.getSelection();
+            let range = document.createRange();
+            range.selectNodeContents(domObj);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand(&#39;Copy&#39;);
+            document.body.removeChild(domObj);
+        }
+    }</code></pre>
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CocosCreator H5 判断手机横竖屏</title>
+    <url>/p/d41a8cab.html</url>
+    <content><![CDATA[<p>在CocosCreator中，如果使用<code>cc.view.getFrameSize()</code>或<code>cc.view.getCanvasSize()</code>的长宽比只能判断cc.view是横竖屏状态，如果在编译的时候设备方向设定为<code>Landscape</code>时，无论手机是横竖屏，通过 <code>cc.view.getFrameSize()</code>或<code>cc.view.getCanvasSize()</code>获取的长宽比都是宽屏状态。<br>这时我们要判断手机横竖屏的话，可以使用<code>window.orientation</code>的角度是否为正负90来判断是否横屏。</p>
+<pre><code class="line-numbers language-js">// 是否横屏
+void isMobileLandscape(){
+    return (window.orientation == 90 || window.orientation == -90)
+}</code></pre>
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Win7安装msi提示受限</title>
     <url>/p/da941989.html</url>
     <content><![CDATA[<p>非Administrator账号在安装msi程序时，提示“本次操作由于这台计算机的限制而被取消。请与您的系统管理员联系。”</p>
@@ -28281,77 +28479,6 @@ sudo cp src/redis-cli /usr/local/bin/</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
-    <url>/p/355346b3.html</url>
-    <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
-<pre><code class="line-numbers language-bash">#!/bin/bash
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
-
-sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-
-cd /
-mkdir data
-cd data
-mkdir db
-mkdir log
-
-mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
-
-read -p &quot;Enter your account:&quot; account
-read -p &quot;Enter your password:&quot; password
-mongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;
-
-ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`
-for id in $ID
-do
-kill -9 $id
-done
-
-mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-<h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol>
-<li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre>
-</li>
-<li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre>
-</li>
-<li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre>
-</li>
-<li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre>
-</li>
-<li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /
-mkdir data
-cd data
-mkdir db
-mkdir log</code></pre>
-</li>
-<li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-</li>
-<li>创建帐号<pre><code class="line-numbers language-bash">mongo
-use admin
-db.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })
-db.auth(&quot;root&quot;,&quot;123456&quot;)
-exit</code></pre>
-</li>
-<li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo
-root      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
-root      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongo
-kill 11737</code></pre>
-</li>
-<li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-        <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CentOS-7中离线安装MongoDB</title>
     <url>/p/65eba897.html</url>
     <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
@@ -28505,6 +28632,77 @@ systemctl enable mongodb.service</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
+    <url>/p/355346b3.html</url>
+    <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
+<pre><code class="line-numbers language-bash">#!/bin/bash
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
+
+sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+
+cd /
+mkdir data
+cd data
+mkdir db
+mkdir log
+
+mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
+
+read -p &quot;Enter your account:&quot; account
+read -p &quot;Enter your password:&quot; password
+mongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;
+
+ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`
+for id in $ID
+do
+kill -9 $id
+done
+
+mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+<h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol>
+<li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre>
+</li>
+<li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre>
+</li>
+<li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre>
+</li>
+<li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre>
+</li>
+<li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /
+mkdir data
+cd data
+mkdir db
+mkdir log</code></pre>
+</li>
+<li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+</li>
+<li>创建帐号<pre><code class="line-numbers language-bash">mongo
+use admin
+db.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })
+db.auth(&quot;root&quot;,&quot;123456&quot;)
+exit</code></pre>
+</li>
+<li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo
+root      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
+root      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongo
+kill 11737</code></pre>
+</li>
+<li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>MongoDB</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu安装npm(nodejs)环境</title>
     <url>/p/b387666f.html</url>
     <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
@@ -28604,6 +28802,38 @@ nvm alias default v10.16.3</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>MongoDB 忘记密码</title>
+    <url>/p/d9c741f4.html</url>
+    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
+<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
+<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
+<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>停止服务<code>kill 9564</code> 进程ID</li>
+<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
+use admin                      # 切换到系统帐户表
+db.system.users.find()         # 查看当前帐户（密码有加密过）
+db.system.users.remove({})     # 删除所有帐户
+db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
+</li>
+<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
+<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
+<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
+<li>注释掉<code>authorization:enabled</code></li>
+<li>重启MongoDB服务<code>service mongodb restart</code></li>
+<li>同上运行命令删除账户</li>
+<li>恢复 <code>authorization:enabled</code></li>
+<li>重启 mongodb 服务<code>service mongodb restart</code></li>
+</ul>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>WIN10远程连接报错：你的凭据不工作</title>
     <url>/p/3296f49.html</url>
     <content><![CDATA[<ol>
@@ -28627,6 +28857,32 @@ nvm alias default v10.16.3</code></pre>
         <category>Windows</category>
       </categories>
       <tags>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10 安装 MongoDB</title>
+    <url>/p/3172944f.html</url>
+    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
+<a id="more"></a>
+<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
+<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
+:: 创建MongoDB服务 
+:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
+:: 数据目录 D:\MongoDB\Server\4.2\data
+:: 外网可访问 --bind_ip_all
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
+:: 启动服务
+net start MongoDB</code></pre>
+<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
+<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
         <tag>Window</tag>
       </tags>
   </entry>
@@ -28668,64 +28924,6 @@ Windows Registry Editor Version 5.00
       </categories>
       <tags>
         <tag>软件使用</tag>
-        <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MongoDB 忘记密码</title>
-    <url>/p/d9c741f4.html</url>
-    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
-<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
-<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
-<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>停止服务<code>kill 9564</code> 进程ID</li>
-<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
-use admin                      # 切换到系统帐户表
-db.system.users.find()         # 查看当前帐户（密码有加密过）
-db.system.users.remove({})     # 删除所有帐户
-db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
-</li>
-<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
-<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
-<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
-<li>注释掉<code>authorization:enabled</code></li>
-<li>重启MongoDB服务<code>service mongodb restart</code></li>
-<li>同上运行命令删除账户</li>
-<li>恢复 <code>authorization:enabled</code></li>
-<li>重启 mongodb 服务<code>service mongodb restart</code></li>
-</ul>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Win10 安装 MongoDB</title>
-    <url>/p/3172944f.html</url>
-    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
-<a id="more"></a>
-<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
-<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
-:: 创建MongoDB服务 
-:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
-:: 数据目录 D:\MongoDB\Server\4.2\data
-:: 外网可访问 --bind_ip_all
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
-:: 启动服务
-net start MongoDB</code></pre>
-<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
-<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>MongoDB</tag>
         <tag>Window</tag>
       </tags>
   </entry>

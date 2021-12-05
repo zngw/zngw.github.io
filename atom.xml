@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2021-11-21T09:19:51.716Z</updated>
+  <updated>2021-12-05T10:01:35.689Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,99 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>将阿里云盘映射成本地磁盘</title>
+    <link href="https://zengwu.com.cn/p/26da89a5.html"/>
+    <id>https://zengwu.com.cn/p/26da89a5.html</id>
+    <published>2022-01-01T08:30:55.000Z</published>
+    <updated>2021-12-05T10:01:35.689Z</updated>
+    
+    <content type="html"><![CDATA[<p>　　阿里云盘的不限速，可以使用<a href="https://www.aliyundrive.com/s/Q1pJjzfAVxD" target="_blank" rel="noopener">CloudDrive工具</a>将它映射成本地磁盘。</p><h2 id="1、注册阿里去盘账号"><a href="#1、注册阿里去盘账号" class="headerlink" title="1、注册阿里去盘账号"></a>1、注册阿里去盘账号</h2><p><a href="https://pages.aliyundrive.com/mobile-page/web/beinvited.html?code=f01dcaf" target="_blank" rel="noopener">点击连接</a>可以用手机号注册阿里云盘账号，并下载APP</p><h2 id="2、-下载安装"><a href="#2、-下载安装" class="headerlink" title="2、 下载安装"></a>2、 下载安装</h2><p>下载<a href="https://www.aliyundrive.com/s/Q1pJjzfAVxD" target="_blank" rel="noopener">CloudDrive工具</a>，直接双击安装。</p><h2 id="3、注册登录"><a href="#3、注册登录" class="headerlink" title="3、注册登录"></a>3、注册登录</h2><p>安装后直接打开<strong><a href="http://localhost:9798/" target="_blank" rel="noopener">http://localhost:9798</a></strong>，先注册一个账号登录</p><h2 id="4、选择登录网盘"><a href="#4、选择登录网盘" class="headerlink" title="4、选择登录网盘"></a>4、选择登录网盘</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-f251eba5d5f60d25.png" alt></p><h2 id="5、用阿里云盘扫码登录"><a href="#5、用阿里云盘扫码登录" class="headerlink" title="5、用阿里云盘扫码登录"></a>5、用阿里云盘扫码登录</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-717b11203f47b654.png" alt></p><h2 id="6、挂载到本地"><a href="#6、挂载到本地" class="headerlink" title="6、挂载到本地"></a>6、挂载到本地</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-b1ea2a84c9a21c0c.png" alt></p><h2 id="7、设置本地挂载盘符"><a href="#7、设置本地挂载盘符" class="headerlink" title="7、设置本地挂载盘符"></a>7、设置本地挂载盘符</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-bd1bd192cff8be47.png" alt></p><h2 id="8、查看本地电脑就可以看到磁盘了"><a href="#8、查看本地电脑就可以看到磁盘了" class="headerlink" title="8、查看本地电脑就可以看到磁盘了"></a>8、查看本地电脑就可以看到磁盘了</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-c0c90a07a31e5094.png" alt></p><h1 id="安全风险提示"><a href="#安全风险提示" class="headerlink" title="安全风险提示"></a>安全风险提示</h1><p>CloudDrive是由网友个人开发，该项并未开源。存在网盘资源外泄的风险，如果你网盘的内有重要文件或者有自动同步相册，不建议使用此工具，可以创建小号来使用。</p><p>还有就是挂载后在磁盘内删除文件，是永久性删除，不会存放在回收站。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;　　阿里云盘的不限速，可以使用&lt;a href=&quot;https://www.aliyundrive.com/s/Q1pJjzfAVxD&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CloudDrive工具&lt;/a&gt;将它映射成本地磁盘。&lt;/p&gt;
+&lt;h2 id=&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>bat中的enabledelayedexpansion</title>
+    <link href="https://zengwu.com.cn/p/c1edbab3.html"/>
+    <id>https://zengwu.com.cn/p/c1edbab3.html</id>
+    <published>2021-12-05T09:37:55.000Z</published>
+    <updated>2021-12-05T09:47:21.217Z</updated>
+    
+    <content type="html"><![CDATA[<p>  在使用bat批处理中，在if或for中给全局变量重新赋值的时候会遇到赋值不上的情况。如：</p><pre><code class="line-numbers language-bat">@echo offset param=0if not &quot;%1x&quot;==&quot;x&quot; (    set param=%1)echo %param%</code></pre><p>这段代码是判断启动批处理时，如果有命令行参数，将第一个参数传给param，如果命令行没有参数则用最初设定的0值，然后输出param。但是，有时你会发现，即使传了命令行参数，最终输出的param依然是空值。</p><p>为了确保参数能准确的赋上值，我们可以用enabledelayedexpansion来设置<code>延迟环境变量扩展</code>,这样就能<strong>稳稳</strong>的得到正确的赋值了。</p><pre><code class="line-numbers language-bat">@echo offset param=0setlocal EnableDelayedExpansionif not &quot;%1x&quot;==&quot;x&quot; (    set param=%1)endlocal &amp; set param=%param%echo %param%</code></pre><p>稍微解析一下<code>setlocal enabledelayedexpansion</code>，就是设置本地为延迟扩展。其实也就是：延迟变量，全称”延迟环境变量扩展”, 在cmd执行命令前会对脚本进行预处理，其中有一个过程是变量识别过程，在这个过程中，如果有两个%括起来的如%value%类似这样的变量，就会对其进行识别，并且查找这个变量对应的值，再而将值替换掉这个变量，这个替换值的过程,就叫做变量扩展，然后再执行命令。</p><p>如果不设置这个，对变量再次赋值，由于机器性能或环境的关系，可能会导致再次赋值没有赋上的错误。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;  在使用bat批处理中，在if或for中给全局变量重新赋值的时候会遇到赋值不上的情况。如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;line-numbers language-bat&quot;&gt;@echo off
+
+set param=0
+if not &amp;quot;%1x&amp;q
+      
+    
+    </summary>
+    
+    
+      <category term="Windows" scheme="https://zengwu.com.cn/categories/Windows/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx配置跨域</title>
+    <link href="https://zengwu.com.cn/p/afe6edd9.html"/>
+    <id>https://zengwu.com.cn/p/afe6edd9.html</id>
+    <published>2021-11-21T09:57:33.000Z</published>
+    <updated>2021-12-05T09:47:21.217Z</updated>
+    
+    <content type="html"><![CDATA[<p>在网页中请求其他域名数据时出现了<code>No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource</code>错误时，基本上可以确定是跨域问题。 只要在返回数据的header中加入<code>&#39;Access-Control-Allow-Origin *</code>就可以了。但是一些静态网页可以在Nginx转发的时候将header参数添加上去就可以了。</p><p>修改Nginx的配置，在需要的 location中添加</p><pre><code class="line-numbers language-conf">location / {      add_header Access-Control-Allow-Origin *;    // 其他配置} </code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在网页中请求其他域名数据时出现了&lt;code&gt;No &amp;#39;Access-Control-Allow-Origin&amp;#39; header is present on the requested resource&lt;/code&gt;错误时，基本上可以确定是跨域问题。 只要在返回数
+      
+    
+    </summary>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
   
   <entry>
     <title>curl发送POST请求</title>
@@ -449,32 +542,6 @@
   </entry>
   
   <entry>
-    <title>Ubuntu 20.04安装Docker</title>
-    <link href="https://zengwu.com.cn/p/35ea3f99.html"/>
-    <id>https://zengwu.com.cn/p/35ea3f99.html</id>
-    <published>2021-10-22T01:33:54.000Z</published>
-    <updated>2021-11-02T14:25:46.240Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、卸载旧版本"><a href="#一、卸载旧版本" class="headerlink" title="一、卸载旧版本"></a>一、卸载旧版本</h2><pre><code class="line-numbers language-bash">sudo apt-get remove docker docker-engine docker.io containerd runc</code></pre><h2 id="二、使用官方安装脚本中的阿里云镜像自动安装"><a href="#二、使用官方安装脚本中的阿里云镜像自动安装" class="headerlink" title="二、使用官方安装脚本中的阿里云镜像自动安装"></a>二、使用官方安装脚本中的阿里云镜像自动安装</h2><pre><code class="line-numbers language-bash">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></pre><h2 id="三、启动Docker"><a href="#三、启动Docker" class="headerlink" title="三、启动Docker"></a>三、启动Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl start docker</code></pre><h2 id="四、停止Docker"><a href="#四、停止Docker" class="headerlink" title="四、停止Docker"></a>四、停止Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl stop docker.socket</code></pre><p>注意：停止时需要如果使用<code>sudo systemctl stop docker</code>是停止不了的，还会警告</p><pre><code class="line-numbers language-bash">root@ubuntu:~# systemctl stop dockerWarning: Stopping docker.service, but it can still be activated by:  docker.socket</code></pre><p>原因是Docker 有两个服务进程文件，可以通过<code>cd /lib/systemd/system/ &amp;&amp; ll|grep docker</code>查看，分别是<code>docker.service unit file</code> 和 <code>docker.socket unit file</code>，上面的警告意味着如果你试图停止docker服务，但docker.socket unit file还处于激活状态。</p><h2 id="五、设置开机启动"><a href="#五、设置开机启动" class="headerlink" title="五、设置开机启动"></a>五、设置开机启动</h2><pre><code class="line-numbers language-bash">sudo systemctl enable docker</code></pre><h2 id="六、显示版本"><a href="#六、显示版本" class="headerlink" title="六、显示版本"></a>六、显示版本</h2><pre><code class="line-numbers language-bash">docker version</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;一、卸载旧版本&quot;&gt;&lt;a href=&quot;#一、卸载旧版本&quot; class=&quot;headerlink&quot; title=&quot;一、卸载旧版本&quot;&gt;&lt;/a&gt;一、卸载旧版本&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;line-numbers language-bash&quot;&gt;sudo ap
-      
-    
-    </summary>
-    
-    
-      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
-    
-    
-      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Docker中pull microsoft/dotnet报错</title>
     <link href="https://zengwu.com.cn/p/cf0371b3.html"/>
     <id>https://zengwu.com.cn/p/cf0371b3.html</id>
@@ -502,59 +569,6 @@
       <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
     
       <category term="Linux" scheme="https://zengwu.com.cn/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Ubuntu 20.04修改ip</title>
-    <link href="https://zengwu.com.cn/p/f798f8e0.html"/>
-    <id>https://zengwu.com.cn/p/f798f8e0.html</id>
-    <published>2021-10-21T01:27:13.000Z</published>
-    <updated>2021-11-02T14:25:46.239Z</updated>
-    
-    <content type="html"><![CDATA[<p>ubuntu从17.10开始，已放弃在/etc/network/interfaces里固定IP的配置，即使配置也不会生效，而是改成netplan方式 ，配置写在/etc/netplan/00-installer-config.yaml或者类似名称的yaml文件里</p><pre><code class="line-numbers language-bash">root@ubuntu:~# ls /etc/netplan/00-installer-config.yaml</code></pre><p>然后编辑 <strong>sudo vim /etc/netplan/00-installer-config.yaml</strong>文件修改ip配置。这是一个yml文件遵循yaml语法规则。具体配置如下：</p><pre><code class="line-numbers language-yml"># This is the network config written by &#39;subiquity&#39;network:  ethernets:    ens160:                            #配置的网卡的名称      addresses:      - 192.168.0.121/24               #配置的静态ip地址和掩码      dhcp4: no                        #关闭DHCP，如果需要打开DHCP则写yes      gateway4: 192.168.0.1            #网关地址      nameservers:        addresses:        - 192.168.0.1                  #DNS服务器地址，多个DNS服务器地址需要用英文逗号分隔开        search:        - localhost                    #本地域名解析  version: 2</code></pre><p>使配置的ip地址生效</p><pre><code class="line-numbers language-bash">sudo netplan apply</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;ubuntu从17.10开始，已放弃在/etc/network/interfaces里固定IP的配置，即使配置也不会生效，而是改成netplan方式 ，配置写在/etc/netplan/00-installer-config.yaml或者类似名称的yaml文件里&lt;/p&gt;
-&lt;
-      
-    
-    </summary>
-    
-    
-      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
-    
-    
-      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Ubuntu 20.04修改ip</title>
-    <link href="https://zengwu.com.cn/p/f798f8e0.html"/>
-    <id>https://zengwu.com.cn/p/f798f8e0.html</id>
-    <published>2021-10-18T16:31:55.000Z</published>
-    <updated>2021-11-02T14:25:46.242Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="使用root账号本地登录"><a href="#使用root账号本地登录" class="headerlink" title="使用root账号本地登录"></a>使用root账号本地登录</h2><p>ubuntu系统默认root用户是不能登录的，密码也是空的。</p><p>如果要使用root用户登录，必须先为root用户设置密码</p><pre><code class="line-numbers language-bash">sudo passwd root</code></pre><p>先输入当前用户密码启动管理员权限，然后再输入二次root新密码。</p><h2 id="使用root账号ssh远程登录"><a href="#使用root账号ssh远程登录" class="headerlink" title="使用root账号ssh远程登录"></a>使用root账号ssh远程登录</h2><pre><code class="line-numbers language-bash">sudo vim /etc/ssh/sshd_config</code></pre><p>找到<code>PermitRootLogin</code>修改配置为<code>PermitRootLogin yes</code></p><p>重新ssh使修改配置生效</p><pre><code class="line-numbers language-bash">sudo  systemctl  restart  ssh</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;使用root账号本地登录&quot;&gt;&lt;a href=&quot;#使用root账号本地登录&quot; class=&quot;headerlink&quot; title=&quot;使用root账号本地登录&quot;&gt;&lt;/a&gt;使用root账号本地登录&lt;/h2&gt;&lt;p&gt;ubuntu系统默认root用户是不能登录的，密码也是空的。
-      
-    
-    </summary>
-    
-    
-      <category term="Ubuntu" scheme="https://zengwu.com.cn/categories/Ubuntu/"/>
-    
-    
-      <category term="Ubuntu" scheme="https://zengwu.com.cn/tags/Ubuntu/"/>
     
   </entry>
   
