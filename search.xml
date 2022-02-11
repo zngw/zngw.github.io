@@ -89,8 +89,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Win中修改文件系统属性</title>
-    <url>/p/70eb6c81.html</url>
+    <title>netsh命令实现端口转发</title>
+    <url>/p/397c12f5.html</url>
     <content><![CDATA[<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>win10在samba分享时只能使用默认的端口139和445，但如果用了非139或445的端口将无法访问，但是可以使用netsh命令来映射将分享端口映射成139和445。不过先要禁用本地的LanmanServer 服务，不然映射端口时会报端口被占用错误。</p>
 <pre><code class="line-numbers language-bat">sc config LanmanServer start= disabled
 net stop LanmanServer</code></pre>
@@ -3603,6 +3603,28 @@ systemctl enable redis-server.service</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu 20.04安装Docker</title>
+    <url>/p/35ea3f99.html</url>
+    <content><![CDATA[<h2 id="一、卸载旧版本"><a href="#一、卸载旧版本" class="headerlink" title="一、卸载旧版本"></a>一、卸载旧版本</h2><pre><code class="line-numbers language-bash">sudo apt-get remove docker docker-engine docker.io containerd runc</code></pre>
+<h2 id="二、使用官方安装脚本中的阿里云镜像自动安装"><a href="#二、使用官方安装脚本中的阿里云镜像自动安装" class="headerlink" title="二、使用官方安装脚本中的阿里云镜像自动安装"></a>二、使用官方安装脚本中的阿里云镜像自动安装</h2><pre><code class="line-numbers language-bash">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></pre>
+<h2 id="三、启动Docker"><a href="#三、启动Docker" class="headerlink" title="三、启动Docker"></a>三、启动Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl start docker</code></pre>
+<h2 id="四、停止Docker"><a href="#四、停止Docker" class="headerlink" title="四、停止Docker"></a>四、停止Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl stop docker.socket</code></pre>
+<p>注意：停止时需要如果使用<code>sudo systemctl stop docker</code>是停止不了的，还会警告</p>
+<pre><code class="line-numbers language-bash">root@ubuntu:~# systemctl stop docker
+Warning: Stopping docker.service, but it can still be activated by:
+  docker.socket</code></pre>
+<p>原因是Docker 有两个服务进程文件，可以通过<code>cd /lib/systemd/system/ &amp;&amp; ll|grep docker</code>查看，分别是<code>docker.service unit file</code> 和 <code>docker.socket unit file</code>，上面的警告意味着如果你试图停止docker服务，但docker.socket unit file还处于激活状态。</p>
+<h2 id="五、设置开机启动"><a href="#五、设置开机启动" class="headerlink" title="五、设置开机启动"></a>五、设置开机启动</h2><pre><code class="line-numbers language-bash">sudo systemctl enable docker</code></pre>
+<h2 id="六、显示版本"><a href="#六、显示版本" class="headerlink" title="六、显示版本"></a>六、显示版本</h2><pre><code class="line-numbers language-bash">docker version</code></pre>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker中pull microsoft/dotnet报错</title>
     <url>/p/cf0371b3.html</url>
     <content><![CDATA[<h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>今天在一台新的服务器中pull microsoft/dotnet的时候报错了</p>
@@ -3661,28 +3683,6 @@ microsoft/dotnet:runtime-deps -&gt; mcr.microsoft.com/dotnet/runtime-deps:2.1</c
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu 20.04安装Docker</title>
-    <url>/p/35ea3f99.html</url>
-    <content><![CDATA[<h2 id="一、卸载旧版本"><a href="#一、卸载旧版本" class="headerlink" title="一、卸载旧版本"></a>一、卸载旧版本</h2><pre><code class="line-numbers language-bash">sudo apt-get remove docker docker-engine docker.io containerd runc</code></pre>
-<h2 id="二、使用官方安装脚本中的阿里云镜像自动安装"><a href="#二、使用官方安装脚本中的阿里云镜像自动安装" class="headerlink" title="二、使用官方安装脚本中的阿里云镜像自动安装"></a>二、使用官方安装脚本中的阿里云镜像自动安装</h2><pre><code class="line-numbers language-bash">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></pre>
-<h2 id="三、启动Docker"><a href="#三、启动Docker" class="headerlink" title="三、启动Docker"></a>三、启动Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl start docker</code></pre>
-<h2 id="四、停止Docker"><a href="#四、停止Docker" class="headerlink" title="四、停止Docker"></a>四、停止Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl stop docker.socket</code></pre>
-<p>注意：停止时需要如果使用<code>sudo systemctl stop docker</code>是停止不了的，还会警告</p>
-<pre><code class="line-numbers language-bash">root@ubuntu:~# systemctl stop docker
-Warning: Stopping docker.service, but it can still be activated by:
-  docker.socket</code></pre>
-<p>原因是Docker 有两个服务进程文件，可以通过<code>cd /lib/systemd/system/ &amp;&amp; ll|grep docker</code>查看，分别是<code>docker.service unit file</code> 和 <code>docker.socket unit file</code>，上面的警告意味着如果你试图停止docker服务，但docker.socket unit file还处于激活状态。</p>
-<h2 id="五、设置开机启动"><a href="#五、设置开机启动" class="headerlink" title="五、设置开机启动"></a>五、设置开机启动</h2><pre><code class="line-numbers language-bash">sudo systemctl enable docker</code></pre>
-<h2 id="六、显示版本"><a href="#六、显示版本" class="headerlink" title="六、显示版本"></a>六、显示版本</h2><pre><code class="line-numbers language-bash">docker version</code></pre>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu 20.04修改ip</title>
     <url>/p/f798f8e0.html</url>
     <content><![CDATA[<p>ubuntu从17.10开始，已放弃在/etc/network/interfaces里固定IP的配置，即使配置也不会生效，而是改成netplan方式 ，配置写在/etc/netplan/00-installer-config.yaml或者类似名称的yaml文件里</p>
@@ -3714,6 +3714,25 @@ network:
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu 20.04修改ip</title>
+    <url>/p/f798f8e0.html</url>
+    <content><![CDATA[<h2 id="使用root账号本地登录"><a href="#使用root账号本地登录" class="headerlink" title="使用root账号本地登录"></a>使用root账号本地登录</h2><p>ubuntu系统默认root用户是不能登录的，密码也是空的。</p>
+<p>如果要使用root用户登录，必须先为root用户设置密码</p>
+<pre><code class="line-numbers language-bash">sudo passwd root</code></pre>
+<p>先输入当前用户密码启动管理员权限，然后再输入二次root新密码。</p>
+<h2 id="使用root账号ssh远程登录"><a href="#使用root账号ssh远程登录" class="headerlink" title="使用root账号ssh远程登录"></a>使用root账号ssh远程登录</h2><pre><code class="line-numbers language-bash">sudo vim /etc/ssh/sshd_config</code></pre>
+<p>找到<code>PermitRootLogin</code>修改配置为<code>PermitRootLogin yes</code></p>
+<p>重新ssh使修改配置生效</p>
+<pre><code class="line-numbers language-bash">sudo  systemctl  restart  ssh</code></pre>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安装Ubuntu Server版</title>
     <url>/p/c1e67b27.html</url>
     <content><![CDATA[<h2 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h2><p>先去<a href="https://cn.ubuntu.com/download" target="_blank" rel="noopener">Ubuntu中国站</a>下载最新长期支持版本：<a href="https://releases.ubuntu.com/20.04/ubuntu-20.04.3-live-server-amd64.iso" target="_blank" rel="noopener">Ubuntu Server 20.04.3 LTS</a>。</p>
@@ -3731,25 +3750,6 @@ network:
 <h2 id="10、设置用户秘密"><a href="#10、设置用户秘密" class="headerlink" title="10、设置用户秘密"></a>10、设置用户秘密</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-37bf58c8df267c9c.png" alt></p>
 <h2 id="11、选择软件包"><a href="#11、选择软件包" class="headerlink" title="11、选择软件包"></a>11、选择软件包</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-bf7d0d4fe0462028.png" alt></p>
 <h2 id="12、等待系统安装"><a href="#12、等待系统安装" class="headerlink" title="12、等待系统安装"></a>12、等待系统安装</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/c1e67b27/19826068-d9686d387dd11b71.png" alt></p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu 20.04修改ip</title>
-    <url>/p/f798f8e0.html</url>
-    <content><![CDATA[<h2 id="使用root账号本地登录"><a href="#使用root账号本地登录" class="headerlink" title="使用root账号本地登录"></a>使用root账号本地登录</h2><p>ubuntu系统默认root用户是不能登录的，密码也是空的。</p>
-<p>如果要使用root用户登录，必须先为root用户设置密码</p>
-<pre><code class="line-numbers language-bash">sudo passwd root</code></pre>
-<p>先输入当前用户密码启动管理员权限，然后再输入二次root新密码。</p>
-<h2 id="使用root账号ssh远程登录"><a href="#使用root账号ssh远程登录" class="headerlink" title="使用root账号ssh远程登录"></a>使用root账号ssh远程登录</h2><pre><code class="line-numbers language-bash">sudo vim /etc/ssh/sshd_config</code></pre>
-<p>找到<code>PermitRootLogin</code>修改配置为<code>PermitRootLogin yes</code></p>
-<p>重新ssh使修改配置生效</p>
-<pre><code class="line-numbers language-bash">sudo  systemctl  restart  ssh</code></pre>
 ]]></content>
       <categories>
         <category>Ubuntu</category>
@@ -3799,6 +3799,43 @@ We have an FAQ to help with your information and planning needs, as you figure o
       </categories>
       <tags>
         <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android中使用GAID</title>
+    <url>/p/632f98fb.html</url>
+    <content><![CDATA[<p>在Android系统中，也有一个广告ID类似于iOS系统中的IDFA，这个就是基于Google Play Services的GAID了。但是国产手机的Andoird系统都是阉割掉了Google Play Services，所以是获取不到GAID的。</p>
+<h2 id="设置依赖"><a href="#设置依赖" class="headerlink" title="设置依赖"></a>设置依赖</h2><p>在gradle中添加google sdk组件</p>
+<pre><code> implementation group: &#39;com.google.android.gms&#39;, name: &#39;play-services-ads&#39;, version: &#39;15.0.0&#39;</code></pre><h2 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h2><pre><code class="line-numbers language-java"> //获取 GAID
+public String getGAID(){
+        String gaid= &quot;&quot;;
+        AdvertisingIdClient.Info adInfo = null ;
+        try {
+            adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
+        } catch (IOException e) {
+            // Unrecoverable error connecting to Google Play services (e.g.,
+            // the old version of the service doesn&#39;t support getting AdvertisingId).
+            Log.e(&quot;getGAID&quot;, &quot;IOException&quot;);
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // Google Play services is not available entirely.
+            Log.e(&quot;getGAID&quot;, &quot;GooglePlayServicesNotAvailableException&quot;);
+        } catch (Exception e) {
+            Log.e(&quot;getGAID&quot;, &quot;Exception:&quot;+e.toString());
+            // Encountered a recoverable error connecting to Google Play services.
+        }
+        if (adInfo!= null){
+            gaid= adInfo.getId();
+            Log.w(&quot;getGAID&quot;, &quot;gaid:&quot;+gaid);
+        }
+        return gaid;
+    }</code></pre>
+<p>注意，此方法需要在子线程执行，不然会报错。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -4115,43 +4152,6 @@ public class MiitHelper implements IIdentifierListener {
 
     ....
 }</code></pre>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android中使用GAID</title>
-    <url>/p/632f98fb.html</url>
-    <content><![CDATA[<p>在Android系统中，也有一个广告ID类似于iOS系统中的IDFA，这个就是基于Google Play Services的GAID了。但是国产手机的Andoird系统都是阉割掉了Google Play Services，所以是获取不到GAID的。</p>
-<h2 id="设置依赖"><a href="#设置依赖" class="headerlink" title="设置依赖"></a>设置依赖</h2><p>在gradle中添加google sdk组件</p>
-<pre><code> implementation group: &#39;com.google.android.gms&#39;, name: &#39;play-services-ads&#39;, version: &#39;15.0.0&#39;</code></pre><h2 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h2><pre><code class="line-numbers language-java"> //获取 GAID
-public String getGAID(){
-        String gaid= &quot;&quot;;
-        AdvertisingIdClient.Info adInfo = null ;
-        try {
-            adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
-        } catch (IOException e) {
-            // Unrecoverable error connecting to Google Play services (e.g.,
-            // the old version of the service doesn&#39;t support getting AdvertisingId).
-            Log.e(&quot;getGAID&quot;, &quot;IOException&quot;);
-        } catch (GooglePlayServicesNotAvailableException e) {
-            // Google Play services is not available entirely.
-            Log.e(&quot;getGAID&quot;, &quot;GooglePlayServicesNotAvailableException&quot;);
-        } catch (Exception e) {
-            Log.e(&quot;getGAID&quot;, &quot;Exception:&quot;+e.toString());
-            // Encountered a recoverable error connecting to Google Play services.
-        }
-        if (adInfo!= null){
-            gaid= adInfo.getId();
-            Log.w(&quot;getGAID&quot;, &quot;gaid:&quot;+gaid);
-        }
-        return gaid;
-    }</code></pre>
-<p>注意，此方法需要在子线程执行，不然会报错。</p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -30793,6 +30793,44 @@ DNS2=114.114.114.114         #</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>CentOS7 安装Docker</title>
+    <url>/p/39d97234.html</url>
+    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
+sudo yum -y update
+
+## 卸载旧版本
+sudo yum remove docker  docker-common docker-selinux docker-engine
+&lt;!-- more --&gt;
+## 安装需要的软件包
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
+
+## 安装container-selinux
+yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
+
+## 设置yum源
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+## 安装
+sudo yum -y install docker-ce
+
+## 设置开机启动
+sudo systemctl enable docker
+
+## 启动docker
+sudo systemctl start docker
+
+## 显示版本
+docker version</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS 7 关闭selinux</title>
     <url>/p/c2b74a9a.html</url>
     <content><![CDATA[<ol>
@@ -30856,44 +30894,6 @@ SELINUXTYPE=targeted</code></pre>
       </categories>
       <tags>
         <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CentOS7 安装Docker</title>
-    <url>/p/39d97234.html</url>
-    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
-sudo yum -y update
-
-## 卸载旧版本
-sudo yum remove docker  docker-common docker-selinux docker-engine
-&lt;!-- more --&gt;
-## 安装需要的软件包
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
-
-## 安装container-selinux
-yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
-
-## 设置yum源
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-## 安装
-sudo yum -y install docker-ce
-
-## 设置开机启动
-sudo systemctl enable docker
-
-## 启动docker
-sudo systemctl start docker
-
-## 显示版本
-docker version</code></pre>
-]]></content>
-      <categories>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -31473,6 +31473,47 @@ net start MongoDB</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>将VS Code 添加到友键菜单</title>
+    <url>/p/ab6cd228.html</url>
+    <content><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p>
+<a id="more"></a>
+<p>vs code 程序为：”C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\Code.exe”</p>
+<pre><code class="line-numbers language-regex">Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\VSCode]
+@=&quot;Open with VS Code&quot;
+&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;
+
+[HKEY_CLASSES_ROOT\*\shell\VSCode\command]
+@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%1\&quot;&quot;
+
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\shell\VSCode]
+@=&quot;Open with VS Code&quot;
+&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;
+
+[HKEY_CLASSES_ROOT\Directory\shell\VSCode\command]
+@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;
+
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode]
+@=&quot;Open with VS Code&quot;
+&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode\command]
+@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;</code></pre>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>WIN10远程连接报错：你的凭据不工作</title>
     <url>/p/3296f49.html</url>
     <content><![CDATA[<ol>
@@ -31529,47 +31570,6 @@ db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
       </categories>
       <tags>
         <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>将VS Code 添加到友键菜单</title>
-    <url>/p/ab6cd228.html</url>
-    <content><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p>
-<a id="more"></a>
-<p>vs code 程序为：”C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\Code.exe”</p>
-<pre><code class="line-numbers language-regex">Windows Registry Editor Version 5.00
-
-[HKEY_CLASSES_ROOT\*\shell\VSCode]
-@=&quot;Open with VS Code&quot;
-&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;
-
-[HKEY_CLASSES_ROOT\*\shell\VSCode\command]
-@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%1\&quot;&quot;
-
-Windows Registry Editor Version 5.00
-
-[HKEY_CLASSES_ROOT\Directory\shell\VSCode]
-@=&quot;Open with VS Code&quot;
-&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;
-
-[HKEY_CLASSES_ROOT\Directory\shell\VSCode\command]
-@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;
-
-Windows Registry Editor Version 5.00
-
-[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode]
-@=&quot;Open with VS Code&quot;
-&quot;Icon&quot;=&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe&quot;
-
-[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode\command]
-@=&quot;\&quot;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\&quot; \&quot;%V\&quot;&quot;</code></pre>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>软件使用</tag>
-        <tag>Window</tag>
       </tags>
   </entry>
   <entry>

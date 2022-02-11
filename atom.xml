@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2022-02-11T03:02:31.667Z</updated>
+  <updated>2022-02-11T03:03:32.296Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zengwu.com.cn/p/e95d9ea.html"/>
     <id>https://zengwu.com.cn/p/e95d9ea.html</id>
     <published>2022-02-10T02:29:52.000Z</published>
-    <updated>2022-02-11T03:02:31.667Z</updated>
+    <updated>2022-02-11T03:03:32.296Z</updated>
     
     <content type="html"><![CDATA[<p>在Java类中，我们可以使用反射中的getDeclaredFields()或者getFields()方法来获取属性和值。</p><ul><li>getFields()：获取某个类的所有的public字段，其中是包括父类的public字段的。</li><li>getDeclaredFields()：获取某个类的自身的所有字段，不包括父类的字段。</li></ul><p>比如测试类：</p><pre><code class="line-numbers language-java">public class Test {    public int id;    public String name;}</code></pre><p>获取类的属性和值</p><pre><code class="line-numbers language-java">public class Application {    public static void main(String[] args) throws Exception {        Test test = new Test();        test.id = 1;        test.name = &quot;guoke&quot;;        // 遍历输出属性        Field[] fields =  test.getClass().getDeclaredFields();        for( int i = 0; i &lt; fields.length; i++){            Field f = fields[i];            System.out.println(&quot;属性名：&quot;+f.getName()+&quot;,属性值：&quot;+f.get(test));        }    }}</code></pre><p>设置类的属性值，比如做一个类成员属性深拷贝</p><pre><code class="line-numbers language-java">public class Test {    public int id;    public String name;    public void copy(Test obj){        try {            Field[] fields =  obj.getClass().getDeclaredFields();            for( int i = 0; i &lt; fields.length; i++){                Field f = fields[i];                f.set(this, f.get(obj));            }        } catch (Exception e) {            Log.error(e);        }    }}</code></pre><p>测试：</p><pre><code class="line-numbers language-java">public class Application {    public static void main(String[] args) throws Exception {        Test test = new Test();        test.id = 1;        test.name = &quot;guoke&quot;;        Test test1 = new Test();        test1.copy(test);    }}</code></pre>]]></content>
     
@@ -50,7 +50,7 @@
     <link href="https://zengwu.com.cn/p/2acf1e35.html"/>
     <id>https://zengwu.com.cn/p/2acf1e35.html</id>
     <published>2022-02-09T01:22:41.000Z</published>
-    <updated>2022-02-11T02:55:01.119Z</updated>
+    <updated>2022-02-11T03:03:32.297Z</updated>
     
     <content type="html"><![CDATA[<p>使用nginx转发的OwnCloud网盘，在上传大文件的时候出现了<code>ochttpstatuserrordomain 413</code>错误。在网上查询了一下资料，发现nginx默认上传大小是1MB，大于1MB的文件就会报413错误。</p><p>找到nginx的配置文件，在<code>server</code>中或在<code>server 的 location</code>配置中，添加<code>client_max_body_size  1g;</code>,后面的数字是需要的大小，这里为1g。</p><pre><code class="line-numbers language-conf">    server {        listen 80;        server_name adb.abc.com;        location / {            root   html;            index  index.html index.htm;            client_max_body_size  1g; # 改为需要的大小!        }    }</code></pre><p>然后重启nginx或重新加载nginx配置</p><pre><code class="line-numbers language-bash">nginx/sbin/nginx -s reload</code></pre>]]></content>
     
@@ -73,11 +73,11 @@
   </entry>
   
   <entry>
-    <title>Win中修改文件系统属性</title>
-    <link href="https://zengwu.com.cn/p/70eb6c81.html"/>
-    <id>https://zengwu.com.cn/p/70eb6c81.html</id>
+    <title>netsh命令实现端口转发</title>
+    <link href="https://zengwu.com.cn/p/397c12f5.html"/>
+    <id>https://zengwu.com.cn/p/397c12f5.html</id>
     <published>2022-02-05T07:02:55.000Z</published>
-    <updated>2022-01-29T03:59:41.191Z</updated>
+    <updated>2022-02-11T03:14:14.848Z</updated>
     
     <content type="html"><![CDATA[<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>win10在samba分享时只能使用默认的端口139和445，但如果用了非139或445的端口将无法访问，但是可以使用netsh命令来映射将分享端口映射成139和445。不过先要禁用本地的LanmanServer 服务，不然映射端口时会报端口被占用错误。</p><pre><code class="line-numbers language-bat">sc config LanmanServer start= disablednet stop LanmanServer</code></pre><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>netsh命令可以实现端口转发，即时生效，随意修改删除，不影响其他ip映射 </p><h2 id="添加端口转发"><a href="#添加端口转发" class="headerlink" title="添加端口转发"></a>添加端口转发</h2><pre><code class="line-numbers language-bat">netsh interface portproxy add v4tov4 listenport=5139 connectaddress=192.168.31.55 connectport=139netsh interface portproxy add v4tov4 listenport=5445 connectaddress=192.168.31.55 connectport=445</code></pre><p>将192.168.31.55服务器中非默认端口共享端口5139、5445映射成本地的139和445端口</p><h2 id="查看所有端口转发"><a href="#查看所有端口转发" class="headerlink" title="查看所有端口转发"></a>查看所有端口转发</h2><pre><code class="line-numbers language-bat">netsh interface portproxy show all</code></pre><h2 id="删除端口"><a href="#删除端口" class="headerlink" title="删除端口"></a>删除端口</h2><pre><code class="line-numbers language-bat">netsh interface portproxy delete v4tov4 listenaddress=192.168.31.55 listenport=5139  netsh interface portproxy delete v4tov4 listenaddress=192.168.31.55 listenport=5  </code></pre>]]></content>
     

@@ -124,7 +124,7 @@
 
 
 
-  <meta name="keywords" content="Golang,MongoDB," />
+  <meta name="keywords" content="软件使用,Window," />
 
 
 
@@ -139,23 +139,19 @@
 
 
 
-<meta name="description" content="MongoDB GridFS介绍GridFS 用于存储和恢复那些超过16M（BSON文件限制）的文件(如：图片、音频、视频等)。">
+<meta name="description" content="起因win10在samba分享时只能使用默认的端口139和445，但如果用了非139或445的端口将无法访问，但是可以使用netsh命令来映射将分享端口映射成139和445。不过先要禁用本地的LanmanServer 服务，不然映射端口时会报端口被占用错误。 sc config LanmanServer start&#x3D; disabled net stop LanmanServer 说明netsh命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go操作mongoDB GridFS增删查">
-<meta property="og:url" content="https://zengwu.com.cn/p/446643ac.html">
+<meta property="og:title" content="netsh命令实现端口转发">
+<meta property="og:url" content="https://zengwu.com.cn/p/397c12f5.html">
 <meta property="og:site_name" content="过愙">
-<meta property="og:description" content="MongoDB GridFS介绍GridFS 用于存储和恢复那些超过16M（BSON文件限制）的文件(如：图片、音频、视频等)。">
+<meta property="og:description" content="起因win10在samba分享时只能使用默认的端口139和445，但如果用了非139或445的端口将无法访问，但是可以使用netsh命令来映射将分享端口映射成139和445。不过先要禁用本地的LanmanServer 服务，不然映射端口时会报端口被占用错误。 sc config LanmanServer start&#x3D; disabled net stop LanmanServer 说明netsh命令">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/guoke3915/zw/raw/master/p/446643ac/19826068-9aae5aa04ab0c20d.png">
-<meta property="og:image" content="https://gitee.com/guoke3915/zw/raw/master/p/446643ac/19826068-3cb6c990a1b21777.png">
-<meta property="og:image" content="https://gitee.com/guoke3915/zw/raw/master/p/446643ac/19826068-4f50ba8bfb9d4fdc.png">
-<meta property="article:published_time" content="2019-11-30T15:56:55.000Z">
-<meta property="article:modified_time" content="2020-02-27T04:11:51.936Z">
+<meta property="article:published_time" content="2022-02-05T07:02:55.000Z">
+<meta property="article:modified_time" content="2022-02-11T03:14:14.848Z">
 <meta property="article:author" content="过客">
-<meta property="article:tag" content="Golang">
-<meta property="article:tag" content="MongoDB">
+<meta property="article:tag" content="软件使用">
+<meta property="article:tag" content="Window">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/guoke3915/zw/raw/master/p/446643ac/19826068-9aae5aa04ab0c20d.png">
 
 
 
@@ -185,7 +181,7 @@
 
 
 
-  <link rel="canonical" href="https://zengwu.com.cn/p/446643ac.html"/>
+  <link rel="canonical" href="https://zengwu.com.cn/p/397c12f5.html"/>
 
 
 <link rel="stylesheet" href="/js/src/prism.css">
@@ -195,7 +191,7 @@
 
 
 
-  <title>Go操作mongoDB GridFS增删查 | 过愙</title>
+  <title>netsh命令实现端口转发 | 过愙</title>
   
 
 
@@ -386,7 +382,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/446643ac.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/397c12f5.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -403,7 +399,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Go操作mongoDB GridFS增删查</h2>
+          <h2 class="post-title" itemprop="name headline">netsh命令实现端口转发</h2>
         
 
         <div class="post-meta">
@@ -416,8 +412,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-30T23:56:55+08:00">
-                2019-11-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-05T15:02:55+08:00">
+                2022-02-05
               </time>
             
 
@@ -432,7 +428,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2019-11-30</span>
+               <span class="post-meta-item-text"> 2022-02-05</span>
             
           </span>
 
@@ -449,8 +445,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">Golang</span>
+                  <a href="/categories/Windows/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">Windows</span>
                   </a>
                 </span>
 
@@ -471,7 +467,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k
+                  224
                 </span>
               
 
@@ -487,7 +483,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  1
                 </span>
               
             
@@ -501,7 +497,7 @@
 
             
             
-              <span id="/p/446643ac.html" class="zngw_visitors" data-flag-title="Go操作mongoDB GridFS增删查">
+              <span id="/p/397c12f5.html" class="zngw_visitors" data-flag-title="netsh命令实现端口转发">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -532,242 +528,16 @@
       
 
       
-        <h2 id="MongoDB-GridFS介绍"><a href="#MongoDB-GridFS介绍" class="headerlink" title="MongoDB GridFS介绍"></a>MongoDB GridFS介绍</h2><p>GridFS 用于存储和恢复那些超过16M（BSON文件限制）的文件(如：图片、音频、视频等)。</p>
-<a id="more"></a>
-<p>GridFS 会将大文件对象分割成多个小的chunk(文件片段),一般为256k/个,每个chunk将作为MongoDB的一个文档(document)被存储在chunks集合中。<br>GridFS 用两个集合来存储一个文件：fs.files与fs.chunks。<br>每个文件的实际内容被存在chunks(二进制数据)中,和文件有关的meta数据(filename,content_type,还有用户自定义的属性)将会被存在files集合中。<br><img src="//gitee.com/guoke3915/zw/raw/master/p/446643ac/19826068-9aae5aa04ab0c20d.png" alt="GridFS文件内容"></p>
-<p><img src="//gitee.com/guoke3915/zw/raw/master/p/446643ac/19826068-3cb6c990a1b21777.png" alt=" fs.files 集合"><br><img src="//gitee.com/guoke3915/zw/raw/master/p/446643ac/19826068-4f50ba8bfb9d4fdc.png" alt="fs.chunks 集合"></p>
-<h2 id="go中使用"><a href="#go中使用" class="headerlink" title="go中使用"></a>go中使用</h2><ol>
-<li>增加文件</li>
-</ol>
-<pre><code class="line-numbers language-go">// 输入文件名，将文件保存在MongoDB GridFS中，返回文件ID和错误码
-func SaveFile(filename string) (fileId string, err error) {
-    // 连接数据库
-    session, err := mgo.Dial(&quot;mongodb://root:guoke3915@127.0.0.1:3717/admin&quot;)
-    defer session.Close()
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    // 获取Test库
-    db := session.DB(&quot;Test&quot;)
-
-    // 在file前缀的GridFS中创建新文件
-    file, err := db.GridFS(&quot;file&quot;).Create(filename)
-    if err != nil {
-        return
-    }
-    defer file.Close()
-
-    // 读取文件内容
-    data, err := os.OpenFile(filename, os.O_RDWR, 0666)
-    if err != nil {
-        return
-    }
-    defer data.Close()
-
-    // 写入GridFS文件，这里也可以直接用[]byte字节流的文件
-    _, err = io.Copy(file, data)
-    if err != nil {
-        return
-    }
-
-    // 以字符串形式返回文件ID
-    fileId = file.Id().(bson.ObjectId).Hex()
-    return
-}</code></pre>
-<ol start="2">
-<li>查询文件</li>
-</ol>
-<pre><code class="line-numbers language-go">// 输入数据库中文件ID和要保存的文件名，将数据库在文件存回本地，返回错误码
-func LoadFile(fileId, filename string) (err error) {
-    // 连接数据库
-    session, err := mgo.Dial(&quot;mongodb://root:guoke3915@127.0.0.1:3717/admin&quot;)
-    defer session.Close()
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    // 获取Test库
-    db := session.DB(&quot;Test&quot;)
-
-    // 通过文件名获取文件，文件名不唯一，如果存在同名的，返回最后上传的那一个
-    // file, err := db.GridFS(&quot;file&quot;).Open(filename)
-    // 通过文件ID获取文件，因为文件ID是唯一的
-    file, err := db.GridFS(&quot;file&quot;).OpenId(bson.ObjectIdHex(fileId))
-    if err != nil {
-        return
-    }
-    defer file.Close()
-
-    // 读取文件内容
-    data, err := os.OpenFile(filename, os.O_CREATE, 0666)
-    if err != nil {
-        return
-    }
-    defer data.Close()
-
-    // 将数据写入文件
-    _, err = io.Copy(data, file)
-    if err != nil {
-        return
-    }
-
-    return
-}</code></pre>
-<ol start="3">
-<li>删除文件</li>
-</ol>
-<pre><code class="line-numbers language-go">// 删除文件，输入文件ID
-func RemoveFile(fileId string) (err error) {
-    // 连接数据库
-    session, err := mgo.Dial(&quot;mongodb://root:guoke3915@127.0.0.1:3717/admin&quot;)
-    defer session.Close()
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    // 获取Test库
-    db := session.DB(&quot;Test&quot;)
-
-    // 如果是文件名删，则删除所有同名的文件
-    // err = db.GridFS(&quot;file&quot;).Remove(filename)
-    // 通过文件ID删除文件
-    err = db.GridFS(&quot;file&quot;).RemoveId(bson.ObjectIdHex(fileId))
-    return
-}</code></pre>
-<ol start="4">
-<li>完整代码测试</li>
-</ol>
-<pre><code class="line-numbers language-go">package main
-
-import (
-    &quot;fmt&quot;
-    &quot;gopkg.in/mgo.v2&quot;
-    &quot;gopkg.in/mgo.v2/bson&quot;
-    &quot;io&quot;
-    &quot;os&quot;
-)
-
-func main() {
-    fileId, err := SaveFile(&quot;test.txt&quot;)
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    fmt.Println(fileId)
-
-    err = LoadFile(fileId, &quot;test1.txt&quot;)
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    err = RemoveFile(fileId)
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-}
-
-// 输入文件名，将文件保存在MongoDB GridFS中，返回文件ID和错误码
-func SaveFile(filename string) (fileId string, err error) {
-    // 连接数据库
-    session, err := mgo.Dial(&quot;mongodb://root:guoke3915@127.0.0.1:3717/admin&quot;)
-    defer session.Close()
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    // 获取Test库
-    db := session.DB(&quot;Test&quot;)
-
-    // 在file前缀的GridFS中创建新文件
-    file, err := db.GridFS(&quot;file&quot;).Create(filename)
-    if err != nil {
-        return
-    }
-    defer file.Close()
-
-    // 读取文件内容
-    data, err := os.OpenFile(filename, os.O_RDWR, 0666)
-    if err != nil {
-        return
-    }
-    defer data.Close()
-
-    // 写入GridFS文件，这里也可以直接用[]byte字节流的文件
-    _, err = io.Copy(file, data)
-    if err != nil {
-        return
-    }
-
-    // 以字符串形式返回文件ID
-    fileId = file.Id().(bson.ObjectId).Hex()
-    return
-}
-
-// 输入数据库中文件ID和要保存的文件名，将数据库在文件存回本地，返回错误码
-func LoadFile(fileId, filename string) (err error) {
-    // 连接数据库
-    session, err := mgo.Dial(&quot;mongodb://root:guoke3915@127.0.0.1:3717/admin&quot;)
-    defer session.Close()
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    // 获取Test库
-    db := session.DB(&quot;Test&quot;)
-
-    // 通过文件名获取文件，文件名不唯一，如果存在同名的，返回最后上传的那一个
-    // file, err := db.GridFS(&quot;file&quot;).Open(filename)
-    // 通过文件ID获取文件，因为文件ID是唯一的
-    file, err := db.GridFS(&quot;file&quot;).OpenId(bson.ObjectIdHex(fileId))
-    if err != nil {
-        return
-    }
-    defer file.Close()
-
-    // 读取文件内容
-    data, err := os.OpenFile(filename, os.O_CREATE, 0666)
-    if err != nil {
-        return
-    }
-    defer data.Close()
-
-    // 将数据写入文件
-    _, err = io.Copy(data, file)
-    if err != nil {
-        return
-    }
-
-    return
-}
-
-// 删除文件，输入文件ID
-func RemoveFile(fileId string) (err error) {
-    // 连接数据库
-    session, err := mgo.Dial(&quot;mongodb://root:guoke3915@127.0.0.1:3717/admin&quot;)
-    defer session.Close()
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    // 获取Test库
-    db := session.DB(&quot;Test&quot;)
-
-    // 如果是文件名删，则删除所有同名的文件
-    // err = db.GridFS(&quot;file&quot;).Remove(filename)
-    // 通过文件ID删除文件
-    err = db.GridFS(&quot;file&quot;).RemoveId(bson.ObjectIdHex(fileId))
-    return
-}</code></pre>
+        <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>win10在samba分享时只能使用默认的端口139和445，但如果用了非139或445的端口将无法访问，但是可以使用netsh命令来映射将分享端口映射成139和445。不过先要禁用本地的LanmanServer 服务，不然映射端口时会报端口被占用错误。</p>
+<pre><code class="line-numbers language-bat">sc config LanmanServer start= disabled
+net stop LanmanServer</code></pre>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>netsh命令可以实现端口转发，即时生效，随意修改删除，不影响其他ip映射 </p>
+<h2 id="添加端口转发"><a href="#添加端口转发" class="headerlink" title="添加端口转发"></a>添加端口转发</h2><pre><code class="line-numbers language-bat">netsh interface portproxy add v4tov4 listenport=5139 connectaddress=192.168.31.55 connectport=139
+netsh interface portproxy add v4tov4 listenport=5445 connectaddress=192.168.31.55 connectport=445</code></pre>
+<p>将192.168.31.55服务器中非默认端口共享端口5139、5445映射成本地的139和445端口</p>
+<h2 id="查看所有端口转发"><a href="#查看所有端口转发" class="headerlink" title="查看所有端口转发"></a>查看所有端口转发</h2><pre><code class="line-numbers language-bat">netsh interface portproxy show all</code></pre>
+<h2 id="删除端口"><a href="#删除端口" class="headerlink" title="删除端口"></a>删除端口</h2><pre><code class="line-numbers language-bat">netsh interface portproxy delete v4tov4 listenaddress=192.168.31.55 listenport=5139  
+netsh interface portproxy delete v4tov4 listenaddress=192.168.31.55 listenport=5  </code></pre>
 
       
     </div>
@@ -783,7 +553,7 @@ func RemoveFile(fileId string) (err error) {
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://zengwu.com.cn/p/446643ac.html" title="Go操作mongoDB GridFS增删查">https://zengwu.com.cn/p/446643ac.html</a>
+    <a href="https://zengwu.com.cn/p/397c12f5.html" title="netsh命令实现端口转发">https://zengwu.com.cn/p/397c12f5.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -797,9 +567,9 @@ func RemoveFile(fileId string) (err error) {
     
       <div class="post-tags">
         
-          <a href="/tags/Golang/index.html" rel="tag"><i class="fa fa-tag"></i> Golang</a>
+          <a href="/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" rel="tag"><i class="fa fa-tag"></i> 软件使用</a>
         
-          <a href="/tags/MongoDB/index.html" rel="tag"><i class="fa fa-tag"></i> MongoDB</a>
+          <a href="/tags/Window/index.html" rel="tag"><i class="fa fa-tag"></i> Window</a>
         
       </div>
     
@@ -846,35 +616,35 @@ func RemoveFile(fileId string) (err error) {
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\63c73dd7.html" rel="bookmark">Goland 中排序</a></div>
+      <div class="popular-posts-title"><a href="\p\98fa4bbc.html" rel="bookmark">win10开机默认开启小键盘</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\fb7b7ba5.html" rel="bookmark">go切片遍历</a></div>
+      <div class="popular-posts-title"><a href="\p\8bdd650d.html" rel="bookmark">VS Code unins000尝试在目标目录创建文件时出错</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\e1f6cbaf.html" rel="bookmark">天天基金免费开放数据</a></div>
+      <div class="popular-posts-title"><a href="\p\3f21b9a4.html" rel="bookmark">SVN仓库版本回退</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\cb26872e.html" rel="bookmark">go解析html</a></div>
+      <div class="popular-posts-title"><a href="\p\c1edbab3.html" rel="bookmark">bat中的enabledelayedexpansion</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\b18ade1e.html" rel="bookmark">go读写文件</a></div>
+      <div class="popular-posts-title"><a href="\p\afe6edd9.html" rel="bookmark">Nginx配置跨域</a></div>
       
     </li>
   
@@ -893,8 +663,8 @@ func RemoveFile(fileId string) (err error) {
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/p/4fbd252f.html" rel="next" title="MongoDB查询内嵌数组的统计值">
-                  <i class="fa fa-chevron-left"></i> MongoDB查询内嵌数组的统计值
+                <a href="/p/3d8979b.html" rel="next" title="软raid中使用">
+                  <i class="fa fa-chevron-left"></i> 软raid中使用
                 </a>
               
             </div>
@@ -903,8 +673,8 @@ func RemoveFile(fileId string) (err error) {
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/p/c6a5e268.html" rel="prev" title="Go 中使用Kafka">
-                  Go 中使用Kafka <i class="fa fa-chevron-right"></i>
+                <a href="/p/2acf1e35.html" rel="prev" title="Nginx上传时报413错误">
+                  Nginx上传时报413错误 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -1156,7 +926,7 @@ func RemoveFile(fileId string) (err error) {
 
             
               
-                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB-GridFS介绍"><span class="nav-text">MongoDB GridFS介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go中使用"><span class="nav-text">go中使用</span></a></li></ol></div>
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加端口转发"><span class="nav-text">添加端口转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看所有端口转发"><span class="nav-text">查看所有端口转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除端口"><span class="nav-text">删除端口</span></a></li></ol></div>
               
             
           </div>
