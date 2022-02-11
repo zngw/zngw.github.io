@@ -147,7 +147,7 @@
 <meta property="og:description" content="在Linux中安装好subversion服务器后，使用的是svn协议，要让他使用http&#x2F;https协议可以借助Nginx+httpd。 一、安装配置svn服务前面有讲过，这里就不再复述了CentOS中svn服务器安装与使用 假设有svn仓库:  test1: &#x2F;home&#x2F;svn&#x2F;test1 test2: &#x2F;home&#x2F;svn&#x2F;test2 两仓库的账号和权限认证文件都为：&#x2F;home&#x2F;svn&#x2F;pass">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-18T18:45:55.000Z">
-<meta property="article:modified_time" content="2021-07-31T17:42:43.253Z">
+<meta property="article:modified_time" content="2022-01-23T08:18:15.173Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="CentOS">
 <meta name="twitter:card" content="summary">
@@ -466,7 +466,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  734
+                  744
                 </span>
               
 
@@ -630,6 +630,7 @@ server {
     }
 }</code></pre>
 <h1 id="重新加载Nginx配置"><a href="#重新加载Nginx配置" class="headerlink" title="重新加载Nginx配置"></a>重新加载Nginx配置</h1><pre><code class="line-numbers language-bash">nginx -s reload</code></pre>
+<h1 id="设置权限"><a href="#设置权限" class="headerlink" title="设置权限"></a>设置权限</h1><pre><code class="line-numbers language-bash">chown apache:apache -R /home/svn</code></pre>
 <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>在流量器中直接输入 <code>http://svn.zngw.icu/test1</code> 可以弹出账号登录页面，登录成功可以访问网页版的svn。用svn客户端checkout <code>http://svn.zngw.icu/test1</code> 就可以下载test1项目</p>
 
       
@@ -707,35 +708,35 @@ server {
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\ad3ba5cd.html" rel="bookmark">shell脚本PING记录延迟高于指定值</a></div>
+      <div class="popular-posts-title"><a href="\p\73bd51fc.html" rel="bookmark">CentOS7 中 yum 安装 MongoDB</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\afe6edd9.html" rel="bookmark">Nginx配置跨域</a></div>
+      <div class="popular-posts-title"><a href="\p\3d8979b.html" rel="bookmark">软raid中使用</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\f5ce4608.html" rel="bookmark">ssh端口映射</a></div>
+      <div class="popular-posts-title"><a href="\p\99740f5d.html" rel="bookmark">centos单目录挂载多块硬盘</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\536760e1.html" rel="bookmark">Linux下读写NTFS格式</a></div>
+      <div class="popular-posts-title"><a href="\p\584473bf.html" rel="bookmark">vsftpd建立虚拟用户</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\cf0371b3.html" rel="bookmark">Docker中pull microsoft/dotnet报错</a></div>
+      <div class="popular-posts-title"><a href="\p\2413d045.html" rel="bookmark">vsftpd单用户多目录的配置</a></div>
       
     </li>
   
@@ -884,7 +885,7 @@ server {
               
                 <a href="/archives/index.html">
               
-                  <span class="site-state-item-count">337</span>
+                  <span class="site-state-item-count">369</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -906,7 +907,7 @@ server {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -960,28 +961,28 @@ server {
               
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    01-01
-                    <a href="/p/26da89a5.html" title="将阿里云盘映射成本地磁盘">将阿里云盘映射成本地磁盘</a>
+                    02-10
+                    <a href="/p/e95d9ea.html" title="Java遍历对象的属性和值">Java遍历对象的属性和值</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    12-05
-                    <a href="/p/c1edbab3.html" title="bat中的enabledelayedexpansion">bat中的enabledelayedexpansion</a>
+                    02-09
+                    <a href="/p/2acf1e35.html" title="Nginx上传时报413错误">Nginx上传时报413错误</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-21
-                    <a href="/p/afe6edd9.html" title="Nginx配置跨域">Nginx配置跨域</a>
+                    02-05
+                    <a href="/p/70eb6c81.html" title="Win中修改文件系统属性">Win中修改文件系统属性</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-19
-                    <a href="/p/e334394.html" title="curl发送POST请求">curl发送POST请求</a>
+                    02-05
+                    <a href="/p/3d8979b.html" title="软raid中使用">软raid中使用</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-18
-                    <a href="/p/334d5fc9.html" title="Java中byte数组和String字符串相互转换">Java中byte数组和String字符串相互转换</a>
+                    02-04
+                    <a href="/p/91fa3804.html" title="CentOS 7 系统备份与恢复">CentOS 7 系统备份与恢复</a>
                 </div><br/>
               
             </ul>
@@ -1017,7 +1018,7 @@ server {
 
             
               
-                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、安装配置svn服务"><span class="nav-text">一、安装配置svn服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、安装httpd"><span class="nav-text">二、安装httpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、配置httpd"><span class="nav-text">三、配置httpd</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添svn-conf配置"><span class="nav-text">添svn.conf配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置http用户名密码认证文件-home-svn-passwdfile"><span class="nav-text">配置http用户名密码认证文件 &#x2F;home&#x2F;svn&#x2F;passwdfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-etc-httpd-conf-httpd-conf"><span class="nav-text">配置&#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置防火墙和Selinux"><span class="nav-text">设置防火墙和Selinux</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、重启httpd"><span class="nav-text">四、重启httpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、配置nginx"><span class="nav-text">五、配置nginx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重新加载Nginx配置"><span class="nav-text">重新加载Nginx配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-text">测试</span></a></li></ol></div>
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、安装配置svn服务"><span class="nav-text">一、安装配置svn服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、安装httpd"><span class="nav-text">二、安装httpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、配置httpd"><span class="nav-text">三、配置httpd</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添svn-conf配置"><span class="nav-text">添svn.conf配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置http用户名密码认证文件-home-svn-passwdfile"><span class="nav-text">配置http用户名密码认证文件 &#x2F;home&#x2F;svn&#x2F;passwdfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-etc-httpd-conf-httpd-conf"><span class="nav-text">配置&#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置防火墙和Selinux"><span class="nav-text">设置防火墙和Selinux</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、重启httpd"><span class="nav-text">四、重启httpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、配置nginx"><span class="nav-text">五、配置nginx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重新加载Nginx配置"><span class="nav-text">重新加载Nginx配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置权限"><span class="nav-text">设置权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-text">测试</span></a></li></ol></div>
               
             
           </div>
@@ -1037,7 +1038,7 @@ server {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
   <span class="post-meta-divider">|</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -1052,7 +1053,7 @@ server {
     
       <span class="post-meta-item-text">全站字数&#58;</span>
     
-    <span title="全站字数">309.2k</span>
+    <span title="全站字数">327.2k</span>
   </div>
   
 
@@ -1144,7 +1145,7 @@ server {
   
 
   <script type="text/javascript" src="/js/src/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"></script>
+  <script src="/js/src/axios-0.19.2/axios.min.js"></script>
   <script>
     function post(url, postInfo, success, fail) {
       axios.post(url, postInfo)

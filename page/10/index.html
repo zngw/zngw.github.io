@@ -381,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/b7955d87.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/fc1a7f47.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -400,7 +400,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/b7955d87.html" itemprop="url">Linux查询进程信息脚本</a></h2>
+                <a class="post-title-link" href="/p/fc1a7f47.html" itemprop="url">iptables限制连接频率</a></h2>
         
 
         <div class="post-meta">
@@ -413,8 +413,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-03T18:38:23+08:00">
-                2021-07-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-19T09:28:32+08:00">
+                2021-08-19
               </time>
             
 
@@ -429,7 +429,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-07-03</span>
+               <span class="post-meta-item-text"> 2021-08-19</span>
             
           </span>
 
@@ -468,7 +468,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1k
+                  2k
                 </span>
               
 
@@ -484,7 +484,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  8
                 </span>
               
             
@@ -498,7 +498,7 @@
 
             
             
-              <span id="/p/b7955d87.html" class="zngw_visitors" data-flag-title="Linux查询进程信息脚本">
+              <span id="/p/fc1a7f47.html" class="zngw_visitors" data-flag-title="iptables限制连接频率">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -531,25 +531,12 @@
       
         
           
-          一、通过进程ID查询
-将脚本保存为pid.sh文件
-
-# !bin/bash
-
-# 命令行参数获取进程ID
-P=$1
-
-# 命令行无参数，手动输入
-if [ ! $P ]; then
-  read -p &quot;请输入查询的PID：&quot; P
-fi
-
-# 判断进程是否存在
-n=`ps -a
+          一、起因前面暴力破解我frp转发远程登录的小伙伴还在，每天查看日志都能发现有一大堆的连接日志。一直让它这样折腾下去也不是办法，于是打算就用iptables来限制一下连接频率。
+二、实现把每个尝试远程登录的客户端 IP 记录在一个临时列表中，只要列表中的 IP一小时以内，尝试登录次数达到3次（包括密码
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/b7955d87.html#more" rel="contents">
+            <a class="btn" href="/p/fc1a7f47.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -596,7 +583,7 @@ n=`ps -a
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/4dacdda1.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/9d8a3d6.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -615,7 +602,7 @@ n=`ps -a
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/4dacdda1.html" itemprop="url">CentOS7修改主机名</a></h2>
+                <a class="post-title-link" href="/p/9d8a3d6.html" itemprop="url">CentOS 7 安装nats server</a></h2>
         
 
         <div class="post-meta">
@@ -628,8 +615,8 @@ n=`ps -a
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-02T00:07:00+08:00">
-                2021-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-18T08:35:11+08:00">
+                2021-08-18
               </time>
             
 
@@ -644,7 +631,7 @@ n=`ps -a
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-07-02</span>
+               <span class="post-meta-item-text"> 2021-08-18</span>
             
           </span>
 
@@ -683,7 +670,208 @@ n=`ps -a
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  42
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/9d8a3d6.html" class="zngw_visitors" data-flag-title="CentOS 7 安装nats server">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1、介绍nats是一个开源的，云原生的消息系统。核心基于EventMachine开发，原理是基于消息发布订阅机制，每台服务器上的每个模块会根据自己的消息类别向MessageBus发布多个消息主题，而同时也向自己需要交互的模块，按照需要的主题订阅消息。能够达到每秒8-11百万个消息，整个程序很小只有3
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/p/9d8a3d6.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+        
+
+
+    
+
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/df5eff21.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/p/df5eff21.html" itemprop="url">svn sqlit:attempt to write a readonly database</a></h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-17T04:42:55+08:00">
+                2021-08-17
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2021-08-17</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CentOS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">CentOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  315
                 </span>
               
 
@@ -713,7 +901,7 @@ n=`ps -a
 
             
             
-              <span id="/p/4dacdda1.html" class="zngw_visitors" data-flag-title="CentOS7修改主机名">
+              <span id="/p/df5eff21.html" class="zngw_visitors" data-flag-title="svn sqlit:attempt to write a readonly database">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -746,12 +934,14 @@ n=`ps -a
       
         
           
-          [root@localhost ~]$ hostnamectl set-hostname zngw             # 使用这个命令会立即生效且重启也生效
-[root@localhost~]$ hostname                                         
+          在CentOS上导入了一个svn仓库后,发现提交文件出现了post commit FS processing had error: sqlite:attempt to write a readonly database 的报错提示。
+
+这是svn仓库中的db内某些文件的权限不对，无法写入导致的。
+解
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/4dacdda1.html#more" rel="contents">
+            <a class="btn" href="/p/df5eff21.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -798,7 +988,7 @@ n=`ps -a
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/28861ff9.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/af61435e.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -817,7 +1007,7 @@ n=`ps -a
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/28861ff9.html" itemprop="url">阿里云域名动态DDNS配置</a></h2>
+                <a class="post-title-link" href="/p/af61435e.html" itemprop="url">遛车</a></h2>
         
 
         <div class="post-meta">
@@ -830,8 +1020,8 @@ n=`ps -a
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-30T00:10:18+08:00">
-                2021-06-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-16T00:07:23+08:00">
+                2021-08-16
               </time>
             
 
@@ -846,7 +1036,7 @@ n=`ps -a
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-06-30</span>
+               <span class="post-meta-item-text"> 2021-08-16</span>
             
           </span>
 
@@ -863,8 +1053,8 @@ n=`ps -a
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E9%9A%8F%E7%AC%94/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">随笔</span>
                   </a>
                 </span>
 
@@ -885,7 +1075,208 @@ n=`ps -a
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  216
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/af61435e.html" class="zngw_visitors" data-flag-title="遛车">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          见过遛猫遛狗遛娃的，遛车的没见过吧。现在家离公司又近，上班走路几分钟就到了，也用不着开车，天气又热加上疫情关系周末也没有出去玩。转眼间就过去一个月了，前二天收到短信说车上电瓶电压过低，请即使启动车子充电，周末了正好把车开出去遛遛，最后把车开出去在小区外，一圈、二圈、三圈的遛了半个多小时。当初买车的时
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/p/af61435e.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+        
+
+
+    
+
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/d72d4123.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/p/d72d4123.html" itemprop="url">CentOS安装kafka</a></h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-15T02:18:55+08:00">
+                2021-08-15
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2021-08-15</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CentOS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">CentOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
                 </span>
               
 
@@ -915,7 +1306,7 @@ n=`ps -a
 
             
             
-              <span id="/p/28861ff9.html" class="zngw_visitors" data-flag-title="阿里云域名动态DDNS配置">
+              <span id="/p/d72d4123.html" class="zngw_visitors" data-flag-title="CentOS安装kafka">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -948,15 +1339,14 @@ n=`ps -a
       
         
           
-          一、设置阿里云域名管理账号为了安全，我们新建一个子账号，仅编程访问且只有域名修改的权限。
-1.1 登录阿里云控制台1.2 在产品与服务中搜“访问控制”
-1.3 创建新用户，只勾选编程访问。这里要记住AccessKeyID和AccessKey Secret，后面需要用到。
-
-1.4 添加DNS管理权限
+          前面写到过在Docker中安装kafka，今天讲讲直接在直接在主机上安装kafka。
+1、安装JDK1.8直接用yum安装，还可以省去配置的麻烦。
+yum install -y java-1.8.0-openjdk
+2. 下载kafka去官网：http://kafka.apache.org/down
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/28861ff9.html#more" rel="contents">
+            <a class="btn" href="/p/d72d4123.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1003,7 +1393,7 @@ n=`ps -a
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/684f404f.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/8123553c.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -1022,7 +1412,7 @@ n=`ps -a
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/684f404f.html" itemprop="url">CentOS 7 最小安装后安装图形页面</a></h2>
+                <a class="post-title-link" href="/p/8123553c.html" itemprop="url">暴力破解一个16位密码需要多长时间</a></h2>
         
 
         <div class="post-meta">
@@ -1035,8 +1425,8 @@ n=`ps -a
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-27T20:15:55+08:00">
-                2021-06-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-14T18:18:55+08:00">
+                2021-08-14
               </time>
             
 
@@ -1051,7 +1441,7 @@ n=`ps -a
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-06-27</span>
+               <span class="post-meta-item-text"> 2021-08-14</span>
             
           </span>
 
@@ -1090,7 +1480,7 @@ n=`ps -a
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  113
+                  178
                 </span>
               
 
@@ -1120,7 +1510,7 @@ n=`ps -a
 
             
             
-              <span id="/p/684f404f.html" class="zngw_visitors" data-flag-title="CentOS 7 最小安装后安装图形页面">
+              <span id="/p/8123553c.html" class="zngw_visitors" data-flag-title="暴力破解一个16位密码需要多长时间">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -1153,16 +1543,12 @@ n=`ps -a
       
         
           
-          最初安装CentOS的时候，默认选择了最小安装，但是想用图形页面了，可以再安装图形页面。
-1. 直接使用命令安装yum -y groupinstall &quot;GNOME Desktop&quot;
-2. 查看和设置默认运行# 查看默认开机页面
-systemctl get-default
-
-# 
+          最近在公司电脑上用了frp内网穿透开了一个远程桌面，方便周末放便在家里连上去。查看了一下最近的frp日志，发现有人在暴力破解我电脑的密码。
+我设定的系统密码是16位大小写+数字+合法特殊符号的无规律字符。算一下，这一种密码的什为abcdefghijklmnopqrstuvwxyzABCDEFGHIJ
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/684f404f.html#more" rel="contents">
+            <a class="btn" href="/p/8123553c.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1209,7 +1595,7 @@ systemctl get-default
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/b7b3b90b.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/b054683d.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -1228,7 +1614,7 @@ systemctl get-default
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/b7b3b90b.html" itemprop="url">CentOS 挂载新硬盘</a></h2>
+                <a class="post-title-link" href="/p/b054683d.html" itemprop="url">nginx禁止未绑定的域名访问</a></h2>
         
 
         <div class="post-meta">
@@ -1241,8 +1627,8 @@ systemctl get-default
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-26T15:15:55+08:00">
-                2021-06-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-13T10:00:27+08:00">
+                2021-08-13
               </time>
             
 
@@ -1257,7 +1643,7 @@ systemctl get-default
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-06-26</span>
+               <span class="post-meta-item-text"> 2021-08-13</span>
             
           </span>
 
@@ -1296,7 +1682,7 @@ systemctl get-default
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  292
                 </span>
               
 
@@ -1312,7 +1698,7 @@ systemctl get-default
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  1
                 </span>
               
             
@@ -1326,7 +1712,7 @@ systemctl get-default
 
             
             
-              <span id="/p/b7b3b90b.html" class="zngw_visitors" data-flag-title="CentOS 挂载新硬盘">
+              <span id="/p/b054683d.html" class="zngw_visitors" data-flag-title="nginx禁止未绑定的域名访问">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -1359,15 +1745,17 @@ systemctl get-default
       
         
           
-          CentOS中新加了一块硬盘，默认是发现不了的，需要挂载到系统中。这里将新硬盘挂载到/data目录下.
-查看硬盘状态使用fdisk -l开查看但钱状态下磁盘情况，这里新硬盘的标识为/dev/sdb，因为硬盘之前在win中使用过，所以这里的磁盘标签类型：dos。
-fdisk -l
+          禁止所有未授权域名及IP访问添加一条default_server的规则，如下：
+server {
+    listen 80 default_server;
+    listen 443 ssl default_server;
+    server_name _;
 
-磁盘 /dev/s
+    ssl_certific
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/b7b3b90b.html#more" rel="contents">
+            <a class="btn" href="/p/b054683d.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1414,7 +1802,7 @@ fdisk -l
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/eb3047f5.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/ea258294.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -1433,7 +1821,7 @@ fdisk -l
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/eb3047f5.html" itemprop="url">DNSmasq安装与配置</a></h2>
+                <a class="post-title-link" href="/p/ea258294.html" itemprop="url">Docker中修改MySQL密码</a></h2>
         
 
         <div class="post-meta">
@@ -1446,8 +1834,8 @@ fdisk -l
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-20T15:17:55+08:00">
-                2021-06-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-12T08:55:43+08:00">
+                2021-08-12
               </time>
             
 
@@ -1462,7 +1850,7 @@ fdisk -l
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-06-20</span>
+               <span class="post-meta-item-text"> 2021-08-12</span>
             
           </span>
 
@@ -1501,7 +1889,7 @@ fdisk -l
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6.4k
+                  344
                 </span>
               
 
@@ -1517,7 +1905,7 @@ fdisk -l
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  28
+                  1
                 </span>
               
             
@@ -1531,7 +1919,7 @@ fdisk -l
 
             
             
-              <span id="/p/eb3047f5.html" class="zngw_visitors" data-flag-title="DNSmasq安装与配置">
+              <span id="/p/ea258294.html" class="zngw_visitors" data-flag-title="Docker中修改MySQL密码">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -1564,12 +1952,13 @@ fdisk -l
       
         
           
-          一、起因现在很多路由都支持自定义hosts，可以将局域网中的域名解析到自定义的IP中，但是公司用了华为ASG当路由， 这个就不能自定义hosts了，所以可以局域网中搭建一个内网DNS服务器，然后将华为ASC的DNS配置成内网DNS服务器IP就可以了。
-二、DNSmasq的简介这里用轻量的Dnsmas
+          问题描述MySQL是安装在Docker中的，项目中使用的都是非root账号登录的MySQL且没有mysql库的权限,时间一长就把root的密码给忘记了.
+修改密码步骤1. 通过docker exec命令进入容器内#  mysql-5.7 为数据库容器名
+docker exec -it  mysql-
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/eb3047f5.html#more" rel="contents">
+            <a class="btn" href="/p/ea258294.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1616,7 +2005,7 @@ fdisk -l
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/20b1f90d.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/345f39ad.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -1635,7 +2024,7 @@ fdisk -l
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/20b1f90d.html" itemprop="url">跨平台共享鼠标Synergy</a></h2>
+                <a class="post-title-link" href="/p/345f39ad.html" itemprop="url">iPhone敲击背面打开健康码</a></h2>
         
 
         <div class="post-meta">
@@ -1648,8 +2037,8 @@ fdisk -l
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-19T20:42:55+08:00">
-                2021-06-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-11T17:57:41+08:00">
+                2021-08-11
               </time>
             
 
@@ -1664,7 +2053,7 @@ fdisk -l
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-06-19</span>
+               <span class="post-meta-item-text"> 2021-08-11</span>
             
           </span>
 
@@ -1681,8 +2070,8 @@ fdisk -l
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">软件使用</span>
+                  <a href="/categories/iOS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -1703,7 +2092,7 @@ fdisk -l
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  198
+                  220
                 </span>
               
 
@@ -1733,7 +2122,7 @@ fdisk -l
 
             
             
-              <span id="/p/20b1f90d.html" class="zngw_visitors" data-flag-title="跨平台共享鼠标Synergy">
+              <span id="/p/345f39ad.html" class="zngw_visitors" data-flag-title="iPhone敲击背面打开健康码">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -1766,12 +2155,16 @@ fdisk -l
       
         
           
-          前面用了ShareMouse，后面发现最新版5.0.49 free版只能使用半小时，半小时后需要重启软件才可以继续用半小时，后面发现Synergy free版本除了ssl加密外可以使用全部功能。
-Mac 客户端1. 打开dmg镜像，将“Synergy.app”拖入应用程序中2. 在”安全性与隐私”的
+          最近因疫情的原因，健康码使用越来越频繁了，坐个公交、进个商城写字楼都要查一下，为了方便，iPhone可以设定敲击手机背面二/三下就打开健康码。
+1. 找到快捷指令，并新建快捷指令
+2.  在弹出的新建页面划到最下面，找到支付宝中的健康码
+3.  确认健康码指令
+4. 给指令命个名，并完成添加
+5. 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/20b1f90d.html#more" rel="contents">
+            <a class="btn" href="/p/345f39ad.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1818,7 +2211,7 @@ Mac 客户端1. 打开dmg镜像，将“Synergy.app”拖入应用程序中2. �
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/f4f49873.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/ef33ca7f.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -1837,7 +2230,7 @@ Mac 客户端1. 打开dmg镜像，将“Synergy.app”拖入应用程序中2. �
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/f4f49873.html" itemprop="url">将samba共享目录映射为本地文件夹</a></h2>
+                <a class="post-title-link" href="/p/ef33ca7f.html" itemprop="url">nginx -s reload不生效问题</a></h2>
         
 
         <div class="post-meta">
@@ -1850,8 +2243,8 @@ Mac 客户端1. 打开dmg镜像，将“Synergy.app”拖入应用程序中2. �
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-17T18:31:55+08:00">
-                2021-06-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-11T02:18:53+08:00">
+                2021-08-11
               </time>
             
 
@@ -1866,7 +2259,7 @@ Mac 客户端1. 打开dmg镜像，将“Synergy.app”拖入应用程序中2. �
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-06-17</span>
+               <span class="post-meta-item-text"> 2021-08-11</span>
             
           </span>
 
@@ -1883,8 +2276,8 @@ Mac 客户端1. 打开dmg镜像，将“Synergy.app”拖入应用程序中2. �
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Windows/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">Windows</span>
+                  <a href="/categories/CentOS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">CentOS</span>
                   </a>
                 </span>
 
@@ -1905,7 +2298,7 @@ Mac 客户端1. 打开dmg镜像，将“Synergy.app”拖入应用程序中2. �
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  123
+                  79
                 </span>
               
 
@@ -1935,7 +2328,7 @@ Mac 客户端1. 打开dmg镜像，将“Synergy.app”拖入应用程序中2. �
 
             
             
-              <span id="/p/f4f49873.html" class="zngw_visitors" data-flag-title="将samba共享目录映射为本地文件夹">
+              <span id="/p/ef33ca7f.html" class="zngw_visitors" data-flag-title="nginx -s reload不生效问题">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -1968,423 +2361,12 @@ Mac 客户端1. 打开dmg镜像，将“Synergy.app”拖入应用程序中2. �
       
         
           
-          在win的文件夹操作中可以装samba目录映射成一个新的磁盘，但是，如果在映射成一个磁盘中的目录，可以用mklink命令来实现。
-1.管理员权限运行cmd.exe2. 运行mklinkE:
-mklink /D Share \\192.168.0.55\share
-说明
-E: 切换到E盘，在E盘根目录
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/p/f4f49873.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-        
-
-
-    
-
-    
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/71be3b15.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="过客">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="过愙">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/p/71be3b15.html" itemprop="url">鼠标共享ShareMouse</a></h2>
-        
-
-        <div class="post-meta">
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-16T12:42:55+08:00">
-                2021-06-16
-              </time>
-            
-
-            
-              <span class="post-meta-item-text post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-text post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-               <span class="post-meta-item-text"> 2021-06-16</span>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">软件使用</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          <div class="post-wordcount">
-            
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  174
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            
-
-            
-              
-            
-
-            
-            
-
-            
-            
-              <span id="/p/71be3b15.html" class="zngw_visitors" data-flag-title="鼠标共享ShareMouse">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-eye"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读&#58;</span>
-                
-                <span class="zngw-visitors-count"></span>
-              </span>
-            
-          </div>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          微软推出了官方的鼠标键盘共享软件(Mouse without Borders)，但是，这个不能跨系统只能在局域中win系统中使用。
-但是要跨win和mac，可以使用ShareMouse
-下载win和mac二个客户端，并分别在二个系统中安装对应的软件。
-windows设置windows中直接安装就可以
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/p/71be3b15.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-        
-
-
-    
-
-    
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/8fc869f.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="过客">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="过愙">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/p/8fc869f.html" itemprop="url">关闭QQ浏览器安全警告</a></h2>
-        
-
-        <div class="post-meta">
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-04T10:25:10+08:00">
-                2021-06-04
-              </time>
-            
-
-            
-              <span class="post-meta-item-text post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-text post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-               <span class="post-meta-item-text"> 2021-06-04</span>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">软件使用</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          <div class="post-wordcount">
-            
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  120
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            
-
-            
-              
-            
-
-            
-            
-
-            
-            
-              <span id="/p/8fc869f.html" class="zngw_visitors" data-flag-title="关闭QQ浏览器安全警告">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-eye"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读&#58;</span>
-                
-                <span class="zngw-visitors-count"></span>
-              </span>
-            
-          </div>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          感觉QQ浏览器安全警告有点过了，去阿里云盘下载自己上传的文件，结果QQ浏览器给我提示访问网站包含有害程序被拦截无法下载
-1、 点击右上角的三,打开设置页面
-2、进入安全设置,将下面的勾选框安需取消掉就行了.如果是下载阿里云盘的东西，去掉勾选网站安全云检测和下载云安全
+          nginx -s reload 重新加载配置的时候,可能会不生效。这个很大的可能是配置文件出错了。所以呢，我们可以先用nginx -t先来测试配置文件是否正确,如果有问题先改正后就可以用nginx -s reload再来重新加载了。
 
           
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/8fc869f.html#more" rel="contents">
+            <a class="btn" href="/p/ef33ca7f.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2422,7 +2404,7 @@ windows设置windows中直接安装就可以
 
   
  <nav class="pagination">
-   <a class="extend prev" rel="prev" href="/page/9/index.html"><i class="fa fa-angle-left" aria-label="accessibility.prev_page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/index.html">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/index.html">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/index.html">34</a><a class="extend next" rel="next" href="/page/11/index.html"><i class="fa fa-angle-right" aria-label="accessibility.next_page"></i></a>
+   <a class="extend prev" rel="prev" href="/page/9/index.html"><i class="fa fa-angle-left" aria-label="accessibility.prev_page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/index.html">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/index.html">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/index.html">37</a><a class="extend next" rel="next" href="/page/11/index.html"><i class="fa fa-angle-right" aria-label="accessibility.next_page"></i></a>
  </nav>
 
           </div>
@@ -2474,7 +2456,7 @@ windows设置windows中直接安装就可以
               
                 <a href="/archives/index.html">
               
-                  <span class="site-state-item-count">337</span>
+                  <span class="site-state-item-count">369</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2496,7 +2478,7 @@ windows设置windows中直接安装就可以
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2550,28 +2532,28 @@ windows设置windows中直接安装就可以
               
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    01-01
-                    <a href="/p/26da89a5.html" title="将阿里云盘映射成本地磁盘">将阿里云盘映射成本地磁盘</a>
+                    02-10
+                    <a href="/p/e95d9ea.html" title="Java遍历对象的属性和值">Java遍历对象的属性和值</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    12-05
-                    <a href="/p/c1edbab3.html" title="bat中的enabledelayedexpansion">bat中的enabledelayedexpansion</a>
+                    02-09
+                    <a href="/p/2acf1e35.html" title="Nginx上传时报413错误">Nginx上传时报413错误</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-21
-                    <a href="/p/afe6edd9.html" title="Nginx配置跨域">Nginx配置跨域</a>
+                    02-05
+                    <a href="/p/70eb6c81.html" title="Win中修改文件系统属性">Win中修改文件系统属性</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-19
-                    <a href="/p/e334394.html" title="curl发送POST请求">curl发送POST请求</a>
+                    02-05
+                    <a href="/p/3d8979b.html" title="软raid中使用">软raid中使用</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-18
-                    <a href="/p/334d5fc9.html" title="Java中byte数组和String字符串相互转换">Java中byte数组和String字符串相互转换</a>
+                    02-04
+                    <a href="/p/91fa3804.html" title="CentOS 7 系统备份与恢复">CentOS 7 系统备份与恢复</a>
                 </div><br/>
               
             </ul>
@@ -2610,7 +2592,7 @@ windows设置windows中直接安装就可以
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
   <span class="post-meta-divider">|</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -2625,7 +2607,7 @@ windows设置windows中直接安装就可以
     
       <span class="post-meta-item-text">全站字数&#58;</span>
     
-    <span title="全站字数">309.2k</span>
+    <span title="全站字数">327.2k</span>
   </div>
   
 
@@ -2717,7 +2699,7 @@ windows设置windows中直接安装就可以
   
 
   <script type="text/javascript" src="/js/src/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"></script>
+  <script src="/js/src/axios-0.19.2/axios.min.js"></script>
   <script>
     function post(url, postInfo, success, fail) {
       axios.post(url, postInfo)

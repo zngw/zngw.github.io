@@ -1,6 +1,1717 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java遍历对象的属性和值</title>
+    <url>/p/e95d9ea.html</url>
+    <content><![CDATA[<p>在Java类中，我们可以使用反射中的getDeclaredFields()或者getFields()方法来获取属性和值。</p>
+<ul>
+<li>getFields()：获取某个类的所有的public字段，其中是包括父类的public字段的。</li>
+<li>getDeclaredFields()：获取某个类的自身的所有字段，不包括父类的字段。</li>
+</ul>
+<p>比如测试类：</p>
+<pre><code class="line-numbers language-java">public class Test {
+    public int id;
+    public String name;
+}</code></pre>
+<p>获取类的属性和值</p>
+<pre><code class="line-numbers language-java">public class Application {
+    public static void main(String[] args) throws Exception {
+        Test test = new Test();
+        test.id = 1;
+        test.name = &quot;guoke&quot;;
+
+        // 遍历输出属性
+        Field[] fields =  test.getClass().getDeclaredFields();
+        for( int i = 0; i &lt; fields.length; i++){
+            Field f = fields[i];
+            System.out.println(&quot;属性名：&quot;+f.getName()+&quot;,属性值：&quot;+f.get(test));
+        }
+    }
+}</code></pre>
+<p>设置类的属性值，比如做一个类成员属性深拷贝</p>
+<pre><code class="line-numbers language-java">public class Test {
+    public int id;
+    public String name;
+
+    public void copy(Test obj){
+        try {
+            Field[] fields =  obj.getClass().getDeclaredFields();
+            for( int i = 0; i &lt; fields.length; i++){
+                Field f = fields[i];
+                f.set(this, f.get(obj));
+            }
+        } catch (Exception e) {
+            Log.error(e);
+        }
+    }
+}</code></pre>
+<p>测试：</p>
+<pre><code class="line-numbers language-java">public class Application {
+    public static void main(String[] args) throws Exception {
+        Test test = new Test();
+        test.id = 1;
+        test.name = &quot;guoke&quot;;
+
+        Test test1 = new Test();
+        test1.copy(test);
+    }
+}</code></pre>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx上传时报413错误</title>
+    <url>/p/2acf1e35.html</url>
+    <content><![CDATA[<p>使用nginx转发的OwnCloud网盘，在上传大文件的时候出现了<code>ochttpstatuserrordomain 413</code>错误。在网上查询了一下资料，发现nginx默认上传大小是1MB，大于1MB的文件就会报413错误。</p>
+<p>找到nginx的配置文件，在<code>server</code>中或在<code>server 的 location</code>配置中，添加<code>client_max_body_size  1g;</code>,后面的数字是需要的大小，这里为1g。</p>
+<pre><code class="line-numbers language-conf">    server {
+        listen 80;
+        server_name adb.abc.com;
+        location / {
+            root   html;
+            index  index.html index.htm;
+            client_max_body_size  1g; # 改为需要的大小!
+        }
+    }</code></pre>
+<p>然后重启nginx或重新加载nginx配置</p>
+<pre><code class="line-numbers language-bash">nginx/sbin/nginx -s reload</code></pre>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win中修改文件系统属性</title>
+    <url>/p/70eb6c81.html</url>
+    <content><![CDATA[<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>win10在samba分享时只能使用默认的端口139和445，但如果用了非139或445的端口将无法访问，但是可以使用netsh命令来映射将分享端口映射成139和445。不过先要禁用本地的LanmanServer 服务，不然映射端口时会报端口被占用错误。</p>
+<pre><code class="line-numbers language-bat">sc config LanmanServer start= disabled
+net stop LanmanServer</code></pre>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>netsh命令可以实现端口转发，即时生效，随意修改删除，不影响其他ip映射 </p>
+<h2 id="添加端口转发"><a href="#添加端口转发" class="headerlink" title="添加端口转发"></a>添加端口转发</h2><pre><code class="line-numbers language-bat">netsh interface portproxy add v4tov4 listenport=5139 connectaddress=192.168.31.55 connectport=139
+netsh interface portproxy add v4tov4 listenport=5445 connectaddress=192.168.31.55 connectport=445</code></pre>
+<p>将192.168.31.55服务器中非默认端口共享端口5139、5445映射成本地的139和445端口</p>
+<h2 id="查看所有端口转发"><a href="#查看所有端口转发" class="headerlink" title="查看所有端口转发"></a>查看所有端口转发</h2><pre><code class="line-numbers language-bat">netsh interface portproxy show all</code></pre>
+<h2 id="删除端口"><a href="#删除端口" class="headerlink" title="删除端口"></a>删除端口</h2><pre><code class="line-numbers language-bat">netsh interface portproxy delete v4tov4 listenaddress=192.168.31.55 listenport=5139  
+netsh interface portproxy delete v4tov4 listenaddress=192.168.31.55 listenport=5  </code></pre>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>软raid中使用</title>
+    <url>/p/3d8979b.html</url>
+    <content><![CDATA[<p>软raid中是通过软件层面来模拟实现raid的相关功能，从而达到与硬件raid相同的功能。在Linux中通常是使用md模块来实现软件raid。</p>
+<h1 id="一、安装mdadm"><a href="#一、安装mdadm" class="headerlink" title="一、安装mdadm"></a>一、安装mdadm</h1><pre><code class="line-numbers language-bash">yum -y install mdadm</code></pre>
+<h1 id="二、显示硬盘和分区信息"><a href="#二、显示硬盘和分区信息" class="headerlink" title="二、显示硬盘和分区信息"></a>二、显示硬盘和分区信息</h1><p>在VM虚拟机中完成测试，sda为系统盘，sdb、sdc、sdd、sde为四个制作raid的硬盘。</p>
+<pre><code class="line-numbers language-bash">lsblk 
+NAME            MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda               8:0    0   20G  0 disk 
+├─sda1            8:1    0    1G  0 part /boot
+└─sda2            8:2    0   19G  0 part 
+  ├─centos-root 253:0    0   17G  0 lvm  /
+  └─centos-swap 253:1    0    2G  0 lvm  [SWAP]
+sdb               8:16   0   20G  0 disk 
+sdc               8:32   0   20G  0 disk 
+sdd               8:48   0   20G  0 disk 
+sde               8:64   0   20G  0 disk </code></pre>
+<h1 id="三、格式化硬盘"><a href="#三、格式化硬盘" class="headerlink" title="三、格式化硬盘"></a>三、格式化硬盘</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# fdisk /dev/sdb
+欢迎使用 fdisk (util-linux 2.23.2)。
+
+更改将停留在内存中，直到您决定将更改写入磁盘。
+使用写入命令前请三思。
+
+Device does not contain a recognized partition table
+使用磁盘标识符 0xef090fa6 创建新的 DOS 磁盘标签。
+
+命令(输入 m 获取帮助)：n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): 
+Using default response p
+分区号 (1-4，默认 1)：
+起始 扇区 (2048-41943039，默认为 2048)：
+将使用默认值 2048
+Last 扇区, +扇区 or +size{K,M,G} (2048-41943039，默认为 41943039)：
+将使用默认值 41943039
+分区 1 已设置为 Linux 类型，大小设为 20 GiB
+
+命令(输入 m 获取帮助)：l
+
+ 0  空              24  NEC DOS         81  Minix / 旧 Linu bf  Solaris        
+ 1  FAT12           27  隐藏的 NTFS Win 82  Linux 交换 / So c1  DRDOS/sec (FAT-
+ 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT-
+ 3  XENIX usr       3c  PartitionMagic  84  OS/2 隐藏的 C:  c6  DRDOS/sec (FAT-
+ 4  FAT16 &lt;32M      40  Venix 80286     85  Linux 扩展      c7  Syrinx         
+ 5  扩展            41  PPC PReP Boot   86  NTFS 卷集       da  非文件系统数据 
+ 6  FAT16           42  SFS             87  NTFS 卷集       db  CP/M / CTOS / .
+ 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux 纯文本    de  Dell 工具      
+ 8  AIX             4e  QNX4.x 第2部分  8e  Linux LVM       df  BootIt         
+ 9  AIX 可启动      4f  QNX4.x 第3部分  93  Amoeba          e1  DOS 访问       
+ a  OS/2 启动管理器 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O        
+ b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor      
+ c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad 休 eb  BeOS fs        
+ e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         ee  GPT            
+ f  W95 扩展 (LBA)  54  OnTrackDM6      a6  OpenBSD         ef  EFI (FAT-12/16/
+10  OPUS            55  EZ-Drive        a7  NeXTSTEP        f0  Linux/PA-RISC  
+11  隐藏的 FAT12    56  Golden Bow      a8  Darwin UFS      f1  SpeedStor      
+12  Compaq 诊断     5c  Priam Edisk     a9  NetBSD          f4  SpeedStor      
+14  隐藏的 FAT16 &lt;3 61  SpeedStor       ab  Darwin 启动     f2  DOS 次要       
+16  隐藏的 FAT16    63  GNU HURD or Sys af  HFS / HFS+      fb  VMware VMFS    
+17  隐藏的 HPFS/NTF 64  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE 
+18  AST 智能睡眠    65  Novell Netware  b8  BSDI swap       fd  Linux raid 自动
+1b  隐藏的 W95 FAT3 70  DiskSecure 多启 bb  Boot Wizard 隐  fe  LANstep        
+1c  隐藏的 W95 FAT3 75  PC/IX           be  Solaris 启动    ff  BBT            
+1e  隐藏的 W95 FAT1 80  旧 Minix       
+
+命令(输入 m 获取帮助)：t
+已选择分区 1
+Hex 代码(输入 L 列出所有代码)：fd
+已将分区“Linux”的类型更改为“Linux raid autodetect”
+
+命令(输入 m 获取帮助)：p
+
+磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区
+Units = 扇区 of 1 * 512 = 512 bytes
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：dos
+磁盘标识符：0xef090fa6
+
+   设备 Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048    41943039    20970496   fd  Linux raid autodetect
+
+命令(输入 m 获取帮助)：w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+正在同步磁盘。</code></pre>
+<p>这里要注意一点的是修改硬盘格式为<code>fd  Linux raid 自动</code> 修改同步格式化sdc、sdd、sde三个硬盘。</p>
+<h1 id="四、创建raid"><a href="#四、创建raid" class="headerlink" title="四、创建raid"></a>四、创建raid</h1><pre><code class="line-numbers language-bash">mdadm --create /dev/md5 --auto yes --level 5 -n4 /dev/sd{b,c,d,e}</code></pre>
+<ul>
+<li>-C/–create:新建阵列</li>
+<li>-a/–auto:允许mdadm创建设备文件，一般常用参数-a yes一次性创建</li>
+<li>-l/–levle:RAID模式，支持RAID0/1/4/5/6/10等</li>
+<li>-n/–raid-devices=:创建阵列中活动磁盘的数量</li>
+<li>/dev/md0:阵列的设备名称</li>
+<li>/dev/sd{b,c,d,e}1：创建阵列中的物理磁盘分区信息</li>
+</ul>
+<h1 id="五、查看阵列状态"><a href="#五、查看阵列状态" class="headerlink" title="五、查看阵列状态"></a>五、查看阵列状态</h1><pre><code class="line-numbers language-bash">cat /proc/mdstat 
+Personalities : [raid1] [raid10] [raid6] [raid5] [raid4] 
+md5 : active raid5 sde[4] sdd[2] sdc[1] sdb[0]
+      62862336 blocks super 1.2 level 5, 512k chunk, algorithm 2 [4/3] [UUU_]
+      [=====&gt;...............]  recovery = 25.7% (5400192/20954112) finish=1.2min speed=200007K/sec
+
+unused devices: &lt;none&gt;</code></pre>
+<h1 id="六、创建md0配置文件"><a href="#六、创建md0配置文件" class="headerlink" title="六、创建md0配置文件"></a>六、创建md0配置文件</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# echo DEVICE /dev/sd{b,c,d,e} &gt;&gt; /etc/mdadm.conf
+[root@localhost ~]# mdadm -Evs &gt;&gt; /etc/mdadm.conf 
+[root@localhost ~]# cat /etc/mdadm.conf
+DEVICE /dev/sdb1 /dev/sdc1 /dev/sdd1
+ARRAY /dev/md/0  level=raid1 metadata=1.2 num-devices=4 UUID=afe6977f:2d213295:513422e5:70099cb9 name=localhost.localdomain:0
+   devices=/dev/sdb1,/dev/sdc1,/dev/sdd1
+DEVICE /dev/sdb /dev/sdc /dev/sdd /dev/sde
+ARRAY /dev/md/5  level=raid5 metadata=1.2 num-devices=4 UUID=ba5caeb6:401904f5:674ddc67:c4f95242 name=localhost.localdomain:5
+   devices=/dev/sdb,/dev/sdc,/dev/sdd,/dev/sde</code></pre>
+<h1 id="七、格式化RAID分区"><a href="#七、格式化RAID分区" class="headerlink" title="七、格式化RAID分区"></a>七、格式化RAID分区</h1><pre><code class="line-numbers language-bash">mkfs -t ext4 /dev/md5</code></pre>
+<h1 id="八、挂载"><a href="#八、挂载" class="headerlink" title="八、挂载"></a>八、挂载</h1><pre><code class="line-numbers language-bash">mkdir /data
+mount /dev/md5 /data</code></pre>
+<p>开机自动挂载</p>
+<pre><code class="line-numbers language-bash">vim /etc/fstab
+
+/dev/md5 /data ext4 defaults 0 0</code></pre>
+<h1 id="九、测试"><a href="#九、测试" class="headerlink" title="九、测试"></a>九、测试</h1><pre><code class="line-numbers language-bash"># 模拟/dev/sdc故障
+mdadm /dev/md5 -f /dev/sdc
+
+# 显示信息
+mdadm -D /dev/md5
+/dev/md5:
+           Version : 1.2
+     Creation Time : Mon Jan 24 19:04:38 2022
+        Raid Level : raid5
+        Array Size : 62862336 (59.95 GiB 64.37 GB)
+     Used Dev Size : 20954112 (19.98 GiB 21.46 GB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Mon Jan 24 19:17:38 2022
+             State : clean, degraded 
+    Active Devices : 3
+   Working Devices : 3
+    Failed Devices : 1
+     Spare Devices : 0
+
+            Layout : left-symmetric
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+              Name : localhost.localdomain:5  (local to host localhost.localdomain)
+              UUID : ba5caeb6:401904f5:674ddc67:c4f95242
+            Events : 20
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync   /dev/sdb
+       -       0        0        1      removed
+       2       8       48        2      active sync   /dev/sdd
+       4       8       64        3      active sync   /dev/sde
+
+       1       8       32        -      faulty   /dev/sdc</code></pre>
+<p>更换硬盘，格式化硬盘，恢复数据</p>
+<pre><code class="line-numbers language-bash"># 移除损坏硬盘
+mdadm /dev/md5 --remove /dev/sdc
+
+# 添加新硬盘
+mdadm /dev/md5 --add /dev/sdc
+
+# 查看状态等待恢复完成
+mdadm -D /dev/md5</code></pre>
+<h1 id="十、添加新硬盘"><a href="#十、添加新硬盘" class="headerlink" title="十、添加新硬盘"></a>十、添加新硬盘</h1><p>添加一块硬盘<code>/dev/sdf</code>，格式化</p>
+<pre><code class="line-numbers language-bash"># 添加硬盘
+mdadm /dev/md5 -a /dev/sdf
+
+# 扩容硬盘
+mdadm -G /dev/md5 -n5
+
+# 查看状态等待扩容完成
+mdadm -D /dev/md5</code></pre>
+<blockquote>
+<p>注：数据无价，扩容时最好做好备份。</p>
+</blockquote>
+<h1 id="十一、重装系统后恢复"><a href="#十一、重装系统后恢复" class="headerlink" title="十一、重装系统后恢复"></a>十一、重装系统后恢复</h1><p>先安装mdadm软件，再使用下面命令自动检测并安装所有的 md 硬盘</p>
+<pre><code class="line-numbers language-bash">mdadm --assemble --scan</code></pre>
+<p>可以查看结果存在5块硬盘并恢复成功</p>
+<pre><code class="line-numbers language-bash">mdadm: /dev/md/5 has been started with 5 drives.</code></pre>
+<h1 id="十二、删除软RAID"><a href="#十二、删除软RAID" class="headerlink" title="十二、删除软RAID"></a>十二、删除软RAID</h1><pre><code class="line-numbers language-bash"># 卸载挂载点
+umount /dev/md5
+
+# 停止软件RAID设备
+mdadm -S /dev/md5
+
+# 删除RAID中的磁盘
+mdadm --misc --zero-superblock /dev/sd{b,c,d,e}
+
+# 删除mdadm配置文件
+rm -f /etc/mdadm.conf
+
+# 删除/etc/fstab中的挂载信息</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS 7 系统备份与恢复</title>
+    <url>/p/91fa3804.html</url>
+    <content><![CDATA[<h1 id="一、备份"><a href="#一、备份" class="headerlink" title="一、备份"></a>一、备份</h1><h2 id="1-使用tar命令备份"><a href="#1-使用tar命令备份" class="headerlink" title="1. 使用tar命令备份"></a>1. 使用tar命令备份</h2><p>tar打包命令的特点：</p>
+<ul>
+<li>保留权限</li>
+<li>适合备份整个目录</li>
+<li>可以选择不同的压缩方式</li>
+<li>如果选择不压缩还能实现增量备份，部份还原，参考man tar</li>
+</ul>
+<p>因为Linux类系统不像windows,它不会限制ROOT用户存取任何东西，因此完全可以把一个分区上全部文件都存放入一个TAR文件中。</p>
+<h2 id="2-备份步骤"><a href="#2-备份步骤" class="headerlink" title="2. 备份步骤"></a>2. 备份步骤</h2><ol>
+<li><p>使用root用户登录</p>
+</li>
+<li><p>进入根目录<code>cd /</code></p>
+</li>
+<li><p>使用<code>tar</code>命令备份</p>
+</li>
+</ol>
+<pre><code class="line-numbers language-bash">tar cvpzf backup.tgz / --exclude=/proc --exclude=/lost+found --exclude=/mnt --exclude=/sys --exclude=backup.tgz</code></pre>
+<h2 id="3-说明"><a href="#3-说明" class="headerlink" title="3. 说明"></a>3. 说明</h2><p>下面详解下这个命令： </p>
+<ul>
+<li>tar 是用于打包文件的命令。 </li>
+<li>cvpfz 是tar的选项，分别是<code>创建档案文件</code>、<code>保持权限</code>(保留所有东西原来的权限)、<code>使用gzip来减小文件尺寸</code>。 </li>
+<li>backup.gz 是我们作为备份文件的文件名。 </li>
+<li><code>/</code> 是我们要备份的目录，/代表的是整个文件系统。</li>
+<li>–exclude 排除目录：<blockquote>
+<ol>
+<li>例如<code>/proc</code>、<code>/lost+ found</code>、<code>/sys</code>。</li>
+<li>当然<code>backup.gz</code>这个备份文件本身必须排除在外，不然就无限循环了。</li>
+<li>另外如果不把<code>/mnt</code>排 除在外，那么挂载在<code>/mnt</code>上的其它分区也会被备份。</li>
+<li>另外需要确认一下<code>/media</code>上没有挂载任何东西(例如光盘、移动硬盘)，如果有挂载东西， 必须把<code>/media</code>也排除在外。 </li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p>执行备份命令后，如果文件比较多可能需要很长时间，备份完成后，在文件系统的根目录将生成一个名为<code>backup.tgz</code>的文件，它的尺寸有可能非常大。</p>
+<h1 id="二、恢复"><a href="#二、恢复" class="headerlink" title="二、恢复"></a>二、恢复</h1><p>恢复系统其实非常简单，就是把之前打包的文件覆盖回去就是了。如果系统损坏不能进入了，可以先安装一个最小化安装，配置相同的磁盘设备，然后再用<code>backup.tgz</code>恢复</p>
+<p>首先登陆为root用户，然后把之前备份的文件<code>backup.tgz</code>拷贝到分区的根目录下。<br>Linux中可以在一个运行的系统中恢复系统，不需要用boot-cd来专门引导。当然如果系统已经无法启动， 那就只能先重装一下系统，再来恢复。</p>
+<h2 id="1-tar恢复"><a href="#1-tar恢复" class="headerlink" title="1. tar恢复"></a>1. tar恢复</h2><p>使用下面的命令来恢复系统</p>
+<pre><code class="line-numbers language-bash">tar xvpfz backup.tgz -C /</code></pre>
+<h2 id="2-新建备份时排除的文件夹"><a href="#2-新建备份时排除的文件夹" class="headerlink" title="2. 新建备份时排除的文件夹"></a>2. 新建备份时排除的文件夹</h2><p>恢复命令结束时，你的工作还没完成，别忘了重新创建那些在备份时被排除在外的目录：</p>
+<pre><code class="line-numbers language-bash">mkdir proc
+mkdir lost+found
+mkdir mnt
+mkdir sys</code></pre>
+<ul>
+<li>/proc 权限：文件所有者：root群组：root 所有者：读取 执行 群组：读取 执行 其它：读取 执行</li>
+<li>/lost+found 权限：文件所有者：root群组：root 所有者：读取 写入 执行 群组：读取 执行 其它：读取 执行</li>
+<li>/mnt 权限：文件所有者：root群组：root 所有者：读取 写入 执行 群组：读取 执行 其它：读取 执行</li>
+<li>/sys 权限：文件所有者：root群组：root 所有者：读取 写入 执行 群组：读取 执行 其它：读取 执行</li>
+</ul>
+<h2 id="3-恢复为原来的-SELinux-Type"><a href="#3-恢复为原来的-SELinux-Type" class="headerlink" title="3. 恢复为原来的 SELinux Type"></a>3. 恢复为原来的 SELinux Type</h2><pre><code class="line-numbers language-bash">restorecon -Rv /</code></pre>
+<p>解释：restorecon：恢复为原来的 SELinux Type参数：</p>
+<ul>
+<li>-R：连同子目录一起修改</li>
+<li>-v：将过程显示到屏幕上</li>
+</ul>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MongoDB聚合管道——累加器（转）</title>
+    <url>/p/c9e1223.html</url>
+    <content><![CDATA[<h1 id="累加器（Accumulators）"><a href="#累加器（Accumulators）" class="headerlink" title="累加器（Accumulators）"></a>累加器（Accumulators）</h1><p>累加器本来只能使用与$groud下，但是版本3.2或以上，部分累加器还能使用于$project。当在$group中使用时，累加器是针对每个分组使用的；当在$project中使用时，累加器则是针对每个字面量起作用。</p>
+<h2 id="常用累加器"><a href="#常用累加器" class="headerlink" title="常用累加器"></a>常用累加器</h2><table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>简述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$sum</td>
+<td>求和操作符，v3.2+可以用于$group或是$poject</td>
+</tr>
+<tr>
+<td>$avg</td>
+<td>求均值操作符，v3.2+可以用于$group或是$poject</td>
+</tr>
+<tr>
+<td>$first</td>
+<td>用于返回分组的第一个值，只能用于$group</td>
+</tr>
+<tr>
+<td>$last</td>
+<td>用于返回分组的最后一个值，只能用于$group</td>
+</tr>
+<tr>
+<td>$max</td>
+<td>用于返回分组的最大值，v3.2+可以用于$group或是$poject</td>
+</tr>
+<tr>
+<td>$min</td>
+<td>用于返回分组的最小值，v3.2+可以用于$group或是$poject</td>
+</tr>
+</tbody></table>
+<h3 id="sum-求和操作符"><a href="#sum-求和操作符" class="headerlink" title="$sum 求和操作符"></a>$sum 求和操作符</h3><p>用法：</p>
+<ul>
+<li>$group下使用</li>
+</ul>
+<pre><code class="line-numbers language-gams">{ $sum: &lt;expression&gt; }</code></pre>
+<ul>
+<li>$project下使用：</li>
+</ul>
+<pre><code class="line-numbers language-pf">{ $sum: &lt;expression&gt; }
+    or
+{ $sum: [ &lt;expression1&gt;, &lt;expression2&gt; ... ]  }</code></pre>
+<p>说明：</p>
+<table>
+<thead>
+<tr>
+<th>列子</th>
+<th>值</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>{ $sum :  }</code></td>
+<td>只含数字</td>
+<td>所有值的和</td>
+</tr>
+<tr>
+<td><code>{ $sum :  }</code></td>
+<td>含数字和非数字</td>
+<td>所有数字值的和</td>
+</tr>
+<tr>
+<td><code>{ $sum :  }</code></td>
+<td>非数字或不存在</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<blockquote>
+<p>请看后面的综合示例</p>
+</blockquote>
+<h3 id="avg-求均值操作符"><a href="#avg-求均值操作符" class="headerlink" title="$avg 求均值操作符"></a>$avg 求均值操作符</h3><p>用法：</p>
+<ul>
+<li>$group下使用</li>
+</ul>
+<pre><code class="line-numbers language-mel">{ $avg: &lt;expression&gt; }</code></pre>
+<ul>
+<li>$project下使用：</li>
+</ul>
+<pre><code class="line-numbers language-pf">{ $avg: &lt;expression&gt; }
+    or
+{ $avg: [ &lt;expression1&gt;, &lt;expression2&gt; ... ]  }</code></pre>
+<p>举例：</p>
+<blockquote>
+<p>请看后面的综合示例</p>
+</blockquote>
+<h3 id="first-求第一值操作符"><a href="#first-求第一值操作符" class="headerlink" title="$first 求第一值操作符"></a>$first 求第一值操作符</h3><p>用法：</p>
+<pre><code class="line-numbers language-mel">{ $first: &lt;expression&gt; }</code></pre>
+<p>举例：<br>假设数据：</p>
+<pre><code class="line-numbers language-scheme">[
+    { _id: 1, name: &#39;kate&#39;, class: &#39;a&#39; },
+    { _id: 2, name: &#39;jack&#39;, class: &#39;a&#39; },
+    { _id: 3, name: &#39;kent&#39;, class: &#39;b&#39; },
+]</code></pre>
+<p>操作：</p>
+<pre><code class="line-numbers language-bash">db.collection.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: &quot;$class&quot;,
+           firstPersonName: { $first: &quot;$name&quot; }
+         }
+     }
+   ]
+)</code></pre>
+<p>结果：</p>
+<pre><code class="line-numbers language-scheme">[
+    { _id: &#39;a&#39;, firstPersonName: &#39;kate&#39; },
+    { _id: &#39;b&#39;, firstPersonName: &#39;kent&#39; },
+]</code></pre>
+<h3 id="last-求最后值操作符"><a href="#last-求最后值操作符" class="headerlink" title="$last 求最后值操作符"></a>$last 求最后值操作符</h3><p>用法：</p>
+<pre><code class="line-numbers language-mel">{ $last: &lt;expression&gt; }</code></pre>
+<p>举例：<br>假设数据：</p>
+<pre><code class="line-numbers language-scheme">[
+    { _id: 1, name: &#39;kate&#39;, class: &#39;a&#39; },
+    { _id: 2, name: &#39;jack&#39;, class: &#39;a&#39; },
+    { _id: 3, name: &#39;kent&#39;, class: &#39;b&#39; },
+]</code></pre>
+<p>操作：</p>
+<pre><code class="line-numbers language-bash">db.collection.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: &quot;$class&quot;,
+           firstPersonName: { $last: &quot;$name&quot; }
+         }
+     }
+   ]
+)</code></pre>
+<p>结果：</p>
+<pre><code class="line-numbers language-scheme">[
+    { _id: &#39;a&#39;, firstPersonName: &#39;jack&#39; },
+    { _id: &#39;b&#39;, firstPersonName: &#39;kent&#39; },
+]</code></pre>
+<h3 id="max-求最大值操作符"><a href="#max-求最大值操作符" class="headerlink" title="$max 求最大值操作符"></a>$max 求最大值操作符</h3><p>用法：</p>
+<ul>
+<li>$group下使用</li>
+</ul>
+<pre><code class="line-numbers language-gams">{ $max: &lt;expression&gt; }</code></pre>
+<ul>
+<li>$project下使用：</li>
+</ul>
+<pre><code class="line-numbers language-pf">{ $max: &lt;expression&gt; }
+    or
+{ $max: [ &lt;expression1&gt;, &lt;expression2&gt; ... ]  }</code></pre>
+<p>举例：</p>
+<blockquote>
+<p>请看后面的综合示例</p>
+</blockquote>
+<h3 id="min-求最小值操作符"><a href="#min-求最小值操作符" class="headerlink" title="$min 求最小值操作符"></a>$min 求最小值操作符</h3><p>用法：</p>
+<ul>
+<li>$group下使用</li>
+</ul>
+<pre><code class="line-numbers language-gams">{ $min: &lt;expression&gt; }</code></pre>
+<ul>
+<li>$project下使用：</li>
+</ul>
+<pre><code class="line-numbers language-pf">{ $min: &lt;expression&gt; }
+    or
+{ $min: [ &lt;expression1&gt;, &lt;expression2&gt; ... ]  }</code></pre>
+<p>举例：</p>
+<blockquote>
+<p>请看后面的综合示例</p>
+</blockquote>
+<h2 id="综合示例"><a href="#综合示例" class="headerlink" title="综合示例"></a>综合示例</h2><p>假设有一个关于成绩的集合</p>
+<pre><code class="line-numbers language-scheme">[
+    { _id: 1, name: &#39;kate&#39;, score: 80, class: &#39;a&#39;, subject: &#39;A&#39; },
+    { _id: 2, name: &#39;kate&#39;, score: 60, class: &#39;a&#39;, subject: &#39;B&#39; },
+    { _id: 3, name: &#39;jack&#39;, score: 90, class: &#39;a&#39;, subject: &#39;A&#39; },
+    { _id: 4, name: &#39;jack&#39;, score: 60, class: &#39;a&#39;, subject: &#39;B&#39; },
+    { _id: 5, name: &#39;nick&#39;, score: 80, class: &#39;b&#39;, subject: &#39;A&#39; },
+    { _id: 6, name: &#39;nick&#39;, score: 90, class: &#39;b&#39;, subject: &#39;B&#39; },
+    { _id: 7, name: &#39;kent&#39;, score: 50, class: &#39;b&#39;, subject: &#39;A&#39; },
+    { _id: 7, name: &#39;kent&#39;, score: 30, class: &#39;b&#39;, subject: &#39;B&#39; },
+]</code></pre>
+<h3 id="示例一"><a href="#示例一" class="headerlink" title="示例一"></a>示例一</h3><p>需求：</p>
+<ul>
+<li>获取各科目的最高分</li>
+<li>获取各科目的最低分</li>
+<li>获取各科目的平均分</li>
+</ul>
+<p>操作：</p>
+<pre><code class="line-numbers language-nsis">db.collection.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: &quot;$subject&quot;,
+           maxScore: { $max: &#39;$score&#39; },
+           minScore: { $min: &#39;$score&#39; },
+           avgScore: { $avg: &#39;$score&#39; },
+         }
+     }
+   ]
+)</code></pre>
+<p>结果：</p>
+<pre><code class="line-numbers language-yaml">[
+    { _id: &#39;A&#39;, maxScore: 90, minScore: 50, avgScore: 75 },
+    { _id: &#39;B&#39;, maxScore: 90, minScore: 30, avgScore: 60 },
+]</code></pre>
+<h3 id="示例二"><a href="#示例二" class="headerlink" title="示例二"></a>示例二</h3><p>需求：</p>
+<ul>
+<li>获取每人的总分</li>
+<li>从高到低排序</li>
+</ul>
+<p>操作：</p>
+<pre><code class="line-numbers language-nsis">db.collection.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: &quot;$name&quot;,
+           totalScore: { $sum: &#39;$score&#39; }
+         }
+     },
+     {
+        $sort: { totalScore: -1 } 
+     },
+     {
+        $project: {
+            _id: 0,
+            name: &#39;$_id&#39;,
+            totalScore: 1,
+        }
+     }
+   ]
+)</code></pre>
+<p>结果：</p>
+<pre><code class="line-numbers language-scheme">[
+    { name: &#39;nick&#39;, totalScore: 170 },
+    { name: &#39;jack&#39;, totalScore: 150 },
+    { name: &#39;kate&#39;, totalScore: 140 },
+    { name: &#39;kent&#39;, totalScore: 80 }
+]</code></pre>
+<p>本文转自：<a href="https://segmentfault.com/a/1190000010971393" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010971393</a></p>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB、</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MongoDB聚合管道——阶段操作（转）</title>
+    <url>/p/ff066a46.html</url>
+    <content><![CDATA[<h1 id="阶段操作符（Stage-Operators）"><a href="#阶段操作符（Stage-Operators）" class="headerlink" title="阶段操作符（Stage Operators）"></a>阶段操作符（Stage Operators）</h1><p>阶段操作符是使用于db.collection.aggregate方法里面，数组参数中的第一层。</p>
+<pre><code class="line-numbers language-stylus">db.collection.aggregate( [ { 阶段操作符：表述 }, { 阶段操作符：表述 }, ... ] )</code></pre>
+<h1 id="常用阶段操作符"><a href="#常用阶段操作符" class="headerlink" title="常用阶段操作符"></a>常用阶段操作符</h1><table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>简述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$match</td>
+<td>匹配操作符，用于对文档集合进行筛选</td>
+</tr>
+<tr>
+<td>$project</td>
+<td>投射操作符，用于重构每一个文档的字段，可以提取字段，重命名字段，甚至可以对原有字段进行操作后新增字段</td>
+</tr>
+<tr>
+<td>$sort</td>
+<td>排序操作符，用于根据一个或多个字段对文档进行排序</td>
+</tr>
+<tr>
+<td>$limit</td>
+<td>限制操作符，用于限制返回文档的数量</td>
+</tr>
+<tr>
+<td>$skip</td>
+<td>跳过操作符，用于跳过指定数量的文档</td>
+</tr>
+<tr>
+<td>$count</td>
+<td>统计操作符，用于统计文档的数量</td>
+</tr>
+<tr>
+<td>$group</td>
+<td>分组操作符，用于对文档集合进行分组</td>
+</tr>
+<tr>
+<td>$unwind</td>
+<td>拆分操作符，用于将数组中的每一个值拆分为单独的文档</td>
+</tr>
+<tr>
+<td>$lookup</td>
+<td>连接操作符，用于连接同一个数据库中另一个集合，并获取指定的文档，类似于populate</td>
+</tr>
+</tbody></table>
+<p><a href="https://link.segmentfault.com/?enc=U9rNUMMzyQJbzEETukzckw%3D%3D.PcBwoxbmhxdZLbHCIh9vzCveN3ACu0ic%2B8QCr6Nu1KYZwMcU1PWki5ZNoSEKYS0MQCLrtXqZDOdRNXLz7OdAKQ%3D%3D" target="_blank" rel="noopener">更多操作符介绍详见官网：https://docs.mongodb.com/manual/reference/operator/aggregation/</a></p>
+<h1 id="阶段操作符详解"><a href="#阶段操作符详解" class="headerlink" title="阶段操作符详解"></a>阶段操作符详解</h1><p>假设有一个保存用户的集合Users，一个文章的集合Articles，数据大致如下：<br>users:</p>
+<pre><code class="line-numbers language-yaml">[
+    { name: &#39;John&#39;, age: 16, sex: male, city: guangzhou, _id: 1, ...},
+    { name: &#39;Rose&#39;, age: 18, sex: female, city: beijing, _id: 2, ...},
+    { name: &#39;Jack&#39;, age: 29, sex: male, city: guangzhou, _id: 3, ...},
+    { name: &#39;Allen&#39;, age: 18, sex: female, city: beijing, _id: 4, ...},
+    { name: &#39;Cruz&#39;, age: 22, sex: male, city: guangzhou, _id: 5, ...},
+    { name: &#39;Peter&#39;, age: 18, sex: male, city: guangzhou, _id: 6, ...},
+    { name: &#39;Kelly&#39;, age: 23, sex: female, city: shanghai, _id: 7, ...},
+    ...
+]</code></pre>
+<p>articles:</p>
+<pre><code class="line-numbers language-scheme">[
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, ... },
+    { title: &#39;this is article B&#39;, author: &#39;Jack&#39;, _id: 2, ... },
+    { title: &#39;this is article C&#39;, author: &#39;Rose&#39;, _id: 3, ... },
+    { title: &#39;this is article D&#39;, author: &#39;John&#39;, _id: 4, ... },
+    { title: &#39;this is article E&#39;, author: &#39;John&#39;, _id: 5, ... },
+    ...
+]</code></pre>
+<h2 id="match-匹配操作符"><a href="#match-匹配操作符" class="headerlink" title="$match 匹配操作符"></a>$match 匹配操作符</h2><h5 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h5><blockquote>
+<p>用于重构每一个文档的字段，可以提取字段，重命名字段，甚至可以对原有字段进行操作后新增字段</p>
+</blockquote>
+<h5 id="用法"><a href="#用法" class="headerlink" title="用法:"></a>用法:</h5><pre><code class="line-numbers language-pf">{ $match: { &lt;query&gt; } }</code></pre>
+<h5 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h5><ul>
+<li>查询用户年龄是18岁的用户</li>
+</ul>
+<pre><code class="line-numbers language-stata">db.users.aggregate([{ $match : { age : &quot;18&quot; } }]);</code></pre>
+<h2 id="project-投射操作符"><a href="#project-投射操作符" class="headerlink" title="$project 投射操作符"></a>$project 投射操作符</h2><h5 id="说明：-1"><a href="#说明：-1" class="headerlink" title="说明："></a>说明：</h5><blockquote>
+<p>用于对文档集合进行筛选</p>
+</blockquote>
+<h5 id="用法-1"><a href="#用法-1" class="headerlink" title="用法:"></a>用法:</h5><pre><code class="line-numbers language-pf">{ $project: { &lt;specification(s)&gt; } }</code></pre>
+<p>specification的规则</p>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;字段名&gt;: 1 or true</td>
+<td>选择需要返回什么字段</td>
+</tr>
+<tr>
+<td>_id: 0 or false</td>
+<td>不返回_id(默认返回)</td>
+</tr>
+<tr>
+<td>&lt;字段名&gt;: 表达式</td>
+<td>使用表达式，可以用于重命名字段，或对其值进行操作，或新增字段</td>
+</tr>
+<tr>
+<td>&lt;字段名&gt;: 0 or false</td>
+<td>选择需要不返回什么字段，注意：当使用这种用法时，就不要用上面的方法</td>
+</tr>
+</tbody></table>
+<h5 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h5><ul>
+<li>用户集合投射用户姓名</li>
+<li>不返回_id</li>
+</ul>
+<pre><code class="line-numbers language-stata">db.users.aggregate([{ $project : { name: 1 } }]);</code></pre>
+<h5 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h5><ul>
+<li>将_id重命名为userId</li>
+<li>不返回<em>id</em></li>
+</ul>
+<pre><code class="line-numbers language-nsis">db.users.aggregate([{ $project : { ueserId: &#39;$_id&#39;, _id: 0 } }]);</code></pre>
+<h5 id="示例3："><a href="#示例3：" class="headerlink" title="示例3："></a>示例3：</h5><ul>
+<li>返回新字段username,并使用表达式让它的值为name的大写。</li>
+</ul>
+<pre><code class="line-numbers language-nestedtext">db.users.aggregate([ 
+    { 
+        $project : {
+            name: 1, 
+            username: { $toUpper: &#39;$name&#39; }, 
+            _id: 0 
+        } 
+    } 
+]);</code></pre>
+<blockquote>
+<p>关于管道表达式：最简单的“$project”表达式是包含和排除字段(如: { name: 1 })，以及字段名称$fieldname(如: { userId: ‘$_id’ })。除此以外，还可以使用表达式操作符(如: $toUpper)构成更丰富的表达式，将多个字面量和变量组合在一起使用，得到更多有意思的值，更多表达式操作符的说明及使用在另外的篇章中详细阐述。</p>
+</blockquote>
+<h2 id="sort-排序操作符"><a href="#sort-排序操作符" class="headerlink" title="$sort 排序操作符"></a>$sort 排序操作符</h2><h5 id="说明：-2"><a href="#说明：-2" class="headerlink" title="说明："></a>说明：</h5><blockquote>
+<p>用于根据一个或多个字段对文档进行排序</p>
+</blockquote>
+<h5 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-pf">{ $sort: { &lt;field1&gt;: &lt;sort order&gt;, &lt;field2&gt;: &lt;sort order&gt; ... } }</code></pre>
+<h5 id="示例：-1"><a href="#示例：-1" class="headerlink" title="示例："></a>示例：</h5><ul>
+<li>users集合按照年龄age从低到高排序</li>
+</ul>
+<pre><code class="line-numbers language-stata">db.users.aggregate([{ $sort : { age: 1 } }]);</code></pre>
+<h2 id="limit-限制操作符"><a href="#limit-限制操作符" class="headerlink" title="$limit 限制操作符"></a>$limit 限制操作符</h2><h5 id="说明：-3"><a href="#说明：-3" class="headerlink" title="说明："></a>说明：</h5><blockquote>
+<p>用于限制返回文档的数量</p>
+</blockquote>
+<h5 id="用法：-1"><a href="#用法：-1" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-gams">{ $limit: &lt;positive integer&gt; }</code></pre>
+<h5 id="示例：-2"><a href="#示例：-2" class="headerlink" title="示例："></a>示例：</h5><ul>
+<li>返回5篇article</li>
+</ul>
+<pre><code class="line-numbers language-stata">db.articles.aggregate({ $limit : 3 });</code></pre>
+<h2 id="skip-跳过操作符"><a href="#skip-跳过操作符" class="headerlink" title="$skip 跳过操作符"></a>$skip 跳过操作符</h2><h5 id="说明：-4"><a href="#说明：-4" class="headerlink" title="说明："></a>说明：</h5><blockquote>
+<p>用于跳过指定数量的文档</p>
+</blockquote>
+<h5 id="用法：-2"><a href="#用法：-2" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-gams">{ $skip: &lt;positive integer&gt; }</code></pre>
+<h5 id="示例：-3"><a href="#示例：-3" class="headerlink" title="示例："></a>示例：</h5><ul>
+<li>跳过1个文档</li>
+</ul>
+<pre><code class="line-numbers language-stata">db.users.aggregate([{ $skip : 1 }]);</code></pre>
+<h2 id="count-统计操作符"><a href="#count-统计操作符" class="headerlink" title="$count 统计操作符"></a>$count 统计操作符</h2><h5 id="说明：-5"><a href="#说明：-5" class="headerlink" title="说明："></a>说明：</h5><blockquote>
+<p>用于统计文档的数量</p>
+</blockquote>
+<h5 id="用法：-3"><a href="#用法：-3" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-applescript">{ $count: &lt;string&gt; }</code></pre>
+<blockquote>
+<p>string是统计之后输出统计结果的字段名</p>
+</blockquote>
+<h5 id="示例：-4"><a href="#示例：-4" class="headerlink" title="示例："></a>示例：</h5><ul>
+<li>统计文章的总数，以totalArticle返回</li>
+</ul>
+<pre><code class="line-numbers language-ada">db.articles.aggregate([{ totalArticle : 1 }]);</code></pre>
+<h2 id="group-分组操作符"><a href="#group-分组操作符" class="headerlink" title="$group 分组操作符"></a>$group 分组操作符</h2><h5 id="说明：-6"><a href="#说明：-6" class="headerlink" title="说明："></a>说明：</h5><blockquote>
+<p>用于对文档集合进行分组</p>
+</blockquote>
+<h5 id="用法：-4"><a href="#用法：-4" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-pf">{ $group: { _id: &lt;expression&gt;, &lt;field1&gt;: { &lt;accumulator1&gt; : &lt;expression1&gt; }, ... } }</code></pre>
+<blockquote>
+<p>_id是必须的，用作分组的依据条件</p>
+</blockquote>
+<h5 id="示例：-5"><a href="#示例：-5" class="headerlink" title="示例："></a>示例：</h5><ul>
+<li>将用户(users)按性别（sex）分组</li>
+</ul>
+<pre><code class="line-numbers language-crmsh">db.users.aggregate([{ $group : { _id: &#39;$sex&#39; } }]);</code></pre>
+<p>返回结果：</p>
+<pre><code class="line-numbers language-scheme">[
+  { _id: &#39;male&#39; },
+  { _id: &#39;female&#39; }
+]</code></pre>
+<h5 id="进阶示例："><a href="#进阶示例：" class="headerlink" title="进阶示例："></a>进阶示例：</h5><ul>
+<li>将用户(users)按性别（sex）分组</li>
+<li>分组后使用计算各自性别的平均年龄</li>
+<li>统计不同的性别的人数，并以count返回</li>
+</ul>
+<pre><code class="line-numbers language-nsis">db.users.aggregate([
+    { 
+        $group : {
+            _id: &#39;$sex&#39;, 
+            avgAge: { $avg: &#39;$age&#39; }, 
+            conut: { $sum: 1 } 
+        } 
+    }
+]);</code></pre>
+<p>返回结果：</p>
+<pre><code class="line-numbers language-sqf">[
+  { _id: &#39;male&#39;, avgAge: &lt;男性平均年龄&gt;, count: &lt;男性人数&gt; },
+  { _id: &#39;female&#39;, avgAge: &lt;女性平均年龄&gt;, count: &lt;女性人数&gt; }
+]</code></pre>
+<blockquote>
+<p>此处用到的表达式 { $avg: ‘$age’ } 用于求平均年龄，$avg是求均值的操作符，$sum用于汇总， 都只能在$group中使用的累加器，mongoDB3.2以上版本则还可以在$project中使用，详细会在另外的篇章中阐述。</p>
+</blockquote>
+<h2 id="unwind-拆分操作符"><a href="#unwind-拆分操作符" class="headerlink" title="$unwind 拆分操作符"></a>$unwind 拆分操作符</h2><h5 id="说明：-7"><a href="#说明：-7" class="headerlink" title="说明："></a>说明：</h5><blockquote>
+<p>用于将数组中的每一个值拆分为单独的文档</p>
+</blockquote>
+<h5 id="用法：-5"><a href="#用法：-5" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-pf">{ $unwind: &lt;field path&gt; }</code></pre>
+<h5 id="3-2-版本的用法："><a href="#3-2-版本的用法：" class="headerlink" title="3.2+版本的用法："></a>3.2+版本的用法：</h5><blockquote>
+<p>增加icludeArrayIndex,preserveNullAndEmptyArrays两个可选配置</p>
+</blockquote>
+<pre><code class="line-numbers language-xquery">{
+  $unwind:
+    {
+      path: &lt;field path&gt;,
+      includeArrayIndex: &lt;string&gt;,
+      preserveNullAndEmptyArrays: &lt;boolean&gt;
+    }
+}</code></pre>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>path</td>
+<td>string</td>
+<td>必填，数组的字段名，指定需要拆分的字段</td>
+</tr>
+<tr>
+<td>includeArrayIndex</td>
+<td>string</td>
+<td>可选，定义返回的字段名，返回的值是拆分前值在原数组的位置</td>
+</tr>
+<tr>
+<td>preserveNullAndEmptyArrays</td>
+<td>boolean</td>
+<td>可选，配置在path的值为空或缺失的情况下是否拆分， 默认false</td>
+</tr>
+</tbody></table>
+<h5 id="示例：-6"><a href="#示例：-6" class="headerlink" title="示例："></a>示例：</h5><p>假设articles文档集合是这样：</p>
+<pre><code class="line-numbers language-ada">{ title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]}
+db.articles.aggregate([{ $unwind: &#39;$comments&#39; }]);</code></pre>
+<p>结果：</p>
+<pre><code class="line-numbers language-scheme">[
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;a&#39;},
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;b&#39;},
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;c&#39;},
+]</code></pre>
+<h5 id="进阶示例（v3-2-）："><a href="#进阶示例（v3-2-）：" class="headerlink" title="进阶示例（v3.2+）："></a>进阶示例（v3.2+）：</h5><p>假设articles文档集合是这样：</p>
+<pre><code class="line-numbers language-scheme">[
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;] }
+    { title: &#39;this is article B&#39;, author: &#39;Jack&#39;, _id: 2 },
+    { title: &#39;this is article C&#39;, author: &#39;Amy&#39;, _id: 3, comments: [] },
+    { title: &#39;this is article D&#39;, author: &#39;Lam&#39;, _id: 4, comments: null },
+]</code></pre>
+<p>操作：</p>
+<pre><code class="line-numbers language-nsis">db.articles.aggregate([
+    { 
+        $unwind: {
+            path: &#39;$comments&#39;,
+            includeArrayIndex: &#39;arrayIndex&#39;,
+        }
+    }
+]);</code></pre>
+<p>结果：</p>
+<pre><code class="line-numbers language-scheme">[
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;a&#39;, arrayIndex: NumberLong(0) },
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;b&#39;, arrayIndex: NumberLong(1) },
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;c&#39;, arrayIndex: NumberLong(2) },
+]</code></pre>
+<p>操作：</p>
+<pre><code class="line-numbers language-nsis">db.articles.aggregate([
+    { 
+        $unwind: {
+            path: &#39;$comments&#39;,
+            preserveNullAndEmptyArrays: true,
+        }
+    }
+]);</code></pre>
+<p>结果：</p>
+<pre><code class="line-numbers language-scheme">[
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;a&#39; },
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;b&#39; },
+    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;c&#39; },
+    { title: &#39;this is article B&#39;, author: &#39;Jack&#39;, _id: 2 },
+    { title: &#39;this is article C&#39;, author: &#39;Amy&#39;, _id: 3 },
+    { title: &#39;this is article C&#39;, author: &#39;Amy&#39;, _id: 3, comments: null }
+]</code></pre>
+<h2 id="lookup-连接操作符"><a href="#lookup-连接操作符" class="headerlink" title="$lookup 连接操作符"></a>$lookup 连接操作符</h2><h5 id="说明：-8"><a href="#说明：-8" class="headerlink" title="说明："></a>说明：</h5><blockquote>
+<p>用于连接同一个数据库中另一个集合，并获取指定的文档，类似于populate</p>
+</blockquote>
+<h5 id="用法：-6"><a href="#用法：-6" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-smali">{
+   $lookup:
+     {
+       from: &lt;collection to join&gt;,
+       localField: &lt;field from the input documents&gt;,
+       foreignField: &lt;field from the documents of the &quot;from&quot; collection&gt;,
+       as: &lt;output array field&gt;
+     }
+}</code></pre>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>from</td>
+<td>需要关联的集合名</td>
+</tr>
+<tr>
+<td>localField</td>
+<td>本集合中需要查找的字段</td>
+</tr>
+<tr>
+<td>foreignField</td>
+<td>另外一个集合中需要关联的字段</td>
+</tr>
+<tr>
+<td>as</td>
+<td>输出的字段名</td>
+</tr>
+</tbody></table>
+<h5 id="示例：-7"><a href="#示例：-7" class="headerlink" title="示例："></a>示例：</h5><ul>
+<li>ariticles中的author关联到user表</li>
+<li>authoer字段返回详细的用户的信息</li>
+</ul>
+<pre><code class="line-numbers language-dts">db.articles.aggregate([
+  {
+    $lookup:
+      {
+        from: &quot;users&quot;,
+        localField: &quot;author&quot;,
+        foreignField: &quot;name&quot;,
+        as: &quot;author&quot;
+      }
+  }
+])</code></pre>
+<p>结果：</p>
+<pre><code class="line-numbers language-json">[
+    { 
+        title: &#39;this is article A&#39;, 
+        author: { 
+            name: &#39;John&#39;,
+            age: 16,
+            sex: male,
+            city: guangzhou,
+            _id: 1, 
+            ...
+        }, 
+        _id: 1, 
+        ... 
+    },
+    { 
+        title: &#39;this is article B&#39;, 
+        author: { 
+            name: &#39;Jack&#39;,
+            age: 29,
+            sex: male,
+            city: guangzhou,
+            _id: 3, 
+            ...
+        }, 
+        _id: 2, 
+        ... 
+    },
+    { 
+        title: &#39;this is article C&#39;, 
+        author: { 
+            name: &#39;Rose&#39;,
+            age: 18,
+            sex: male,
+            city: beijing,
+            _id: 2, 
+            ...
+        }, 
+        _id: 3, 
+        ... 
+    },
+    { 
+        title: &#39;this is article D&#39;, 
+        author: { 
+            name: &#39;John&#39;,
+            age: 16,
+            sex: male,
+            city: guangzhou,
+            _id: 1, 
+            ...
+        },
+        _id: 4, 
+        ... 
+    },
+    { 
+        title: &#39;this is article E&#39;, 
+        author: { 
+            name: &#39;John&#39;,
+            age: 16,
+            sex: male,
+            city: guangzhou,
+            _id: 1,
+            ...
+        },
+        _id: 5, 
+        ... 
+    },
+    ...
+]</code></pre>
+<h1 id="综合示例"><a href="#综合示例" class="headerlink" title="综合示例"></a>综合示例</h1><h5 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h5><p>找出发表文章最多的5位作者，按发表文章排序，显示他的发表文章的总次数，和他自己的信息</p>
+<ul>
+<li>文章按照作者分组,统计次数</li>
+<li>按照次数从高到低排序</li>
+<li>截取头5名</li>
+<li>关联用户信息</li>
+<li>不输出文章_id</li>
+</ul>
+<h5 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h5><pre><code class="line-numbers language-stata">db.articles.aggregate([
+  {
+    $group:
+      {
+        _id: &quot;$author&quot;,
+        count: { $sum: 1 },
+      }
+  }, 
+  {
+        $sort: { count: -1 }
+  },
+  {
+      $skip: 5
+  },
+  {
+      $lookup:
+        {
+          from: &quot;users&quot;,
+          localField: &quot;author&quot;,
+          foreignField: &quot;name&quot;,
+          as: &quot;author&quot;
+        }
+  },
+  {
+      $project: {
+          _id: 0,
+      }
+  }
+])</code></pre>
+<p>本文转自：<a href="https://segmentfault.com/a/1190000010826809" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010826809</a></p>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MongoDB聚合管道（转）</title>
+    <url>/p/57334785.html</url>
+    <content><![CDATA[<blockquote>
+<p>前言：一般查询可以通过find方法，但如果是比较复杂的查询或者数据统计的话，find可能就无能为力了，这时也许你需要的是aggregate.</p>
+</blockquote>
+<h4 id="什么是聚合管道-aggregation-pipeline"><a href="#什么是聚合管道-aggregation-pipeline" class="headerlink" title="什么是聚合管道(aggregation pipeline)"></a>什么是聚合管道(aggregation pipeline)</h4><p>英文文档中是aggregation pipeline，直译为聚合管道，它可以对数据文档进行变换和组合。聚合管道是基于数据流概念，数据进入管道经过一个或多个stage，每个stage对数据进行操作（筛选，投射，分组，排序，限制或跳过）后输出最终结果。</p>
+<h4 id="官方示例"><a href="#官方示例" class="headerlink" title="官方示例"></a>官方示例</h4><p><a href="https://link.segmentfault.com/?enc=nGq%2B58xxu%2FqvzX1gTPrpkw%3D%3D.d6r3E2%2BZxPonC8U5yv1fTL6hzQQVha%2FrcHI47n9WMICGOJArR%2BI9a99k9bKdsx4ct%2BHBjW0ffVE5j%2F6mIk3pIg%3D%3D" target="_blank" rel="noopener">示例来源：https://docs.mongodb.com/manual/core/aggregation-pipeline/</a></p>
+<h5 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h5><ul>
+<li><p>orders是一个文档集合</p>
+</li>
+<li><p>aggregate是聚合方法，参数是数组，每个数组元素的就是一个stage，对数据进行处理，处理完流到下一个stage</p>
+</li>
+<li><p>$match是匹配操作符，筛选出status是A的文档</p>
+</li>
+<li><p>$group是分组操作符，以cust_id为分组条件，相同的cust_id分为同组</p>
+</li>
+<li><p>$sum是算术操作符，{ $sum: ‘$amount’ }表示分组后，计算amount的总和。</p>
+</li>
+</ul>
+<h4 id="管道操作符介绍"><a href="#管道操作符介绍" class="headerlink" title="管道操作符介绍"></a>管道操作符介绍</h4><p>mongoDB中有许多操作符，在aggregate中每个stage可以使用的操作符叫做管道操作符，以下列举比较常用的管道操作符：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>简述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$project</td>
+<td>投射操作符，用于重构每一个文档的字段，可以提取字段，重命名字段，甚至可以对原有字段进行操作后新增字段</td>
+</tr>
+<tr>
+<td>$match</td>
+<td>匹配操作符，用于对文档集合进行筛选</td>
+</tr>
+<tr>
+<td>$group</td>
+<td>分组操作符，用于对文档集合进行分组</td>
+</tr>
+<tr>
+<td>$unwind</td>
+<td>拆分操作符，用于将数组中的每一个值拆分为单独的文档</td>
+</tr>
+<tr>
+<td>$sort</td>
+<td>排序操作符，用于根据一个或多个字段对文档进行排序</td>
+</tr>
+<tr>
+<td>$limit</td>
+<td>限制操作符，用于限制返回文档的数量</td>
+</tr>
+<tr>
+<td>$skip</td>
+<td>跳过操作符，用于跳过指定数量的文档</td>
+</tr>
+<tr>
+<td>$lookup</td>
+<td>连接操作符，用于连接同一个数据库中另一个集合，并获取指定的文档，类似于populate</td>
+</tr>
+<tr>
+<td>$count</td>
+<td>统计操作符，用于统计文档的数量</td>
+</tr>
+</tbody></table>
+<p><a href="https://link.segmentfault.com/?enc=Fr7OeMU5AQisREwgpK12QQ%3D%3D.6hO48tvacoxmBCk1%2FtlUYnl%2BiAZB0iqj2HOsi9MwAp6Vup88zMHz5BnuHXKAX%2BuGEt49Gt4I%2Fl4gffyhZRtX1A%3D%3D" target="_blank" rel="noopener">更多操作符介绍详见官网：https://docs.mongodb.com/manual/reference/operator/aggregation/</a></p>
+<blockquote>
+<p>操作符先简单介绍一下，因为里面还可以大有文章，留在下一篇。</p>
+</blockquote>
+<h4 id="管道操作符的分类"><a href="#管道操作符的分类" class="headerlink" title="管道操作符的分类"></a>管道操作符的分类</h4><p>管道操作符可以分为三类：</p>
+<ol>
+<li><p>阶段操作符（Stage Operators）</p>
+</li>
+<li><p>表达式操作符（Expression Operators）</p>
+</li>
+<li><p>累加器（Accumulators）</p>
+</li>
+</ol>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>db.collection.aggregate([])是聚合管道查询使用的方法，参数是数组，每个数组元素就是一个stage，stage中运用操作符对数据进行处理后再交由下一个stage，直到没有下个stage，就输出最终的结果，而数据的处理则是通过使用操作符，本文先简单介绍了一下有哪些常用的操作符，下一篇再详细说明。</p>
+<p>本文转自：<a href="https://segmentfault.com/a/1190000010618355" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010618355</a></p>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB、</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos单目录挂载多块硬盘</title>
+    <url>/p/99740f5d.html</url>
+    <content><![CDATA[<p>同一目录无法重复挂载，后挂载的会覆盖之前挂载的磁盘。但是现在需要将2块磁盘并行挂载到同一目录。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li><strong>PV（Physical Volume）- 物理卷</strong><br>物理卷在逻辑卷管理中处于最底层，它可以是实际物理硬盘上的分区，也可以是整个物理硬盘，也可以是raid设备。</li>
+<li><strong>VG（Volumne Group）- 卷组</strong><br>卷组建立在物理卷之上，一个卷组中至少要包括一个物理卷，在卷组建立之后可动态添加物理卷到卷组中。一个逻辑卷管理系统工程中可以只有一个卷组，也可以拥有多个卷组。</li>
+<li><strong>LV（Logical Volume）- 逻辑卷</strong><br>逻辑卷建立在卷组之上，卷组中的未分配空间可以用于建立新的逻辑卷，逻辑卷建立后可以动态地扩展和缩小空间。系统中的多个逻辑卷可以属于同一个卷组，也可以属于不同的多个卷组</li>
+<li><strong>PE（Physical Extent）- 物理块</strong></li>
+</ul>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><h3 id="1-查看磁盘"><a href="#1-查看磁盘" class="headerlink" title="1. 查看磁盘"></a>1. 查看磁盘</h3><p>使用<code>fdisk -l</code>查看是否有空余的磁盘可用。可以看到有二块4T磁盘分别为：/dev/sdb 、/dev/sdc</p>
+<h3 id="2-创建分区"><a href="#2-创建分区" class="headerlink" title="2. 创建分区"></a>2. 创建分区</h3><p>分别为2块硬盘创建分区，需要注意的是，与挂载单块磁盘不同，创建分区后需要修改分区类型。</p>
+<pre><code class="line-numbers language-bash">fdisk /dev/sdb
+# 依次输入n 回车 回车 回车 t l 31 w
+
+fdisk /dev/sdc
+# 依次输入n 回车 回车 回车 t l 31 w</code></pre>
+<ul>
+<li>n：创建分区，回车选择默认分区和大小使用全部硬盘</li>
+<li>t：修改分区类型，回车选择默认分区</li>
+<li>l：列出所有分区类型，</li>
+<li>31：指Linux LVM，不同版本前的数字不一样，从l显示的列表中找到Linux LVM类型就行了。</li>
+<li>w：保存并退出</li>
+</ul>
+<pre><code class="line-numbers language-bash">[root@zngw ~]# fdisk /dev/sdc
+WARNING: fdisk GPT support is currently new, and therefore in an experimental phase. Use at your own discretion.
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition number (1-128, default 2): 
+First sector (34-7814037134, default 2048): 
+Last sector, +sectors or +size{K,M,G,T,P} (2048-7814037134, default 7814037134): 
+Created partition 1
+
+
+Command (m for help): t
+Selected partition 1
+Partition type (type L to list all types): l
+  1 EFI System                     C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+  2 MBR partition scheme           024DEE41-33E7-11D3-9D69-0008C781F39F
+  3 Intel Fast Flash               D3BFE2DE-3DAF-11DF-BA40-E3A556D89593
+  4 BIOS boot                      21686148-6449-6E6F-744E-656564454649
+  5 Sony boot partition            F4019732-066E-4E12-8273-346C5641494F
+  6 Lenovo boot partition          BFBFAFE7-A34F-448A-9A5B-6213EB736C22
+  7 PowerPC PReP boot              9E1A2D38-C612-4316-AA26-8B49521E5A8B
+  8 ONIE boot                      7412F7D5-A156-4B13-81DC-867174929325
+  9 ONIE config                    D4E6E2CD-4469-46F3-B5CB-1BFF57AFC149
+ 10 Microsoft reserved             E3C9E316-0B5C-4DB8-817D-F92DF00215AE
+ 11 Microsoft basic data           EBD0A0A2-B9E5-4433-87C0-68B6B72699C7
+ 12 Microsoft LDM metadata         5808C8AA-7E8F-42E0-85D2-E1E90434CFB3
+ 13 Microsoft LDM data             AF9B60A0-1431-4F62-BC68-3311714A69AD
+ 14 Windows recovery environment   DE94BBA4-06D1-4D40-A16A-BFD50179D6AC
+ 15 IBM General Parallel Fs        37AFFC90-EF7D-4E96-91C3-2D7AE055B174
+ 16 Microsoft Storage Spaces       E75CAF8F-F680-4CEE-AFA3-B001E56EFC2D
+ 17 HP-UX data                     75894C1E-3AEB-11D3-B7C1-7B03A0000000
+ 18 HP-UX service                  E2A1E728-32E3-11D6-A682-7B03A0000000
+ 19 Linux swap                     0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
+ 20 Linux filesystem               0FC63DAF-8483-4772-8E79-3D69D8477DE4
+ 21 Linux server data              3B8F8425-20E0-4F3B-907F-1A25A76F98E8
+ 22 Linux root (x86)               44479540-F297-41B2-9AF7-D131D5F0458A
+ 23 Linux root (ARM)               69DAD710-2CE4-4E3C-B16C-21A1D49ABED3
+ 24 Linux root (x86-64)            4F68BCE3-E8CD-4DB1-96E7-FBCAF984B709
+ 25 Linux root (ARM-64)            B921B045-1DF0-41C3-AF44-4C6F280D3FAE
+ 26 Linux root    (IA-64)             993D8D3D-F80E-4225-855A-9DAF8ED7EA97
+ 27 Linux reserved                 8DA63339-0007-60C0-C436-083AC8230908
+ 28 Linux home                     933AC7E1-2EB4-4F13-B844-0E14E2AEF915
+ 29 Linux RAID                     A19D880F-05FC-4D3B-A006-743F0F84911E
+ 30 Linux extended boot            BC13C2FF-59E6-4262-A352-B275FD6F7172
+ 31 Linux LVM                      E6D6D379-F507-44C2-A23C-238F2A3DF928
+ 32 FreeBSD data                   516E7CB4-6ECF-11D6-8FF8-00022D09712B
+ 33 FreeBSD boot                   83BD6B9D-7F41-11DC-BE0B-001560B84F0F
+ 34 FreeBSD swap                   516E7CB5-6ECF-11D6-8FF8-00022D09712B
+ 35 FreeBSD UFS                    516E7CB6-6ECF-11D6-8FF8-00022D09712B
+ 36 FreeBSD ZFS                    516E7CBA-6ECF-11D6-8FF8-00022D09712B
+ 37 FreeBSD Vinum                  516E7CB8-6ECF-11D6-8FF8-00022D09712B
+ 38 Apple HFS/HFS+                 48465300-0000-11AA-AA11-00306543ECAC
+ 39 Apple UFS                      55465300-0000-11AA-AA11-00306543ECAC
+ 40 Apple RAID                     52414944-0000-11AA-AA11-00306543ECAC
+ 41 Apple RAID offline             52414944-5F4F-11AA-AA11-00306543ECAC
+ 42 Apple boot                     426F6F74-0000-11AA-AA11-00306543ECAC
+ 43 Apple label                    4C616265-6C00-11AA-AA11-00306543ECAC
+ 44 Apple TV recovery              5265636F-7665-11AA-AA11-00306543ECAC
+ 45 Apple Core storage             53746F72-6167-11AA-AA11-00306543ECAC
+ 46 Solaris boot                   6A82CB45-1DD2-11B2-99A6-080020736631
+ 47 Solaris root                   6A85CF4D-1DD2-11B2-99A6-080020736631
+ 48 Solaris /usr &amp; Apple ZFS       6A898CC3-1DD2-11B2-99A6-080020736631
+ 49 Solaris swap                   6A87C46F-1DD2-11B2-99A6-080020736631
+ 50 Solaris backup                 6A8B642B-1DD2-11B2-99A6-080020736631
+ 51 Solaris /var                   6A8EF2E9-1DD2-11B2-99A6-080020736631
+ 52 Solaris /home                  6A90BA39-1DD2-11B2-99A6-080020736631
+ 53 Solaris alternate sector       6A9283A5-1DD2-11B2-99A6-080020736631
+ 54 Solaris reserved 1             6A945A3B-1DD2-11B2-99A6-080020736631
+ 55 Solaris reserved 2             6A9630D1-1DD2-11B2-99A6-080020736631
+ 56 Solaris reserved 3             6A980767-1DD2-11B2-99A6-080020736631
+ 57 Solaris reserved 4             6A96237F-1DD2-11B2-99A6-080020736631
+ 58 Solaris reserved 5             6A8D2AC7-1DD2-11B2-99A6-080020736631
+ 59 NetBSD swap                    49F48D32-B10E-11DC-B99B-0019D1879648
+ 60 NetBSD FFS                     49F48D5A-B10E-11DC-B99B-0019D1879648
+ 61 NetBSD LFS                     49F48D82-B10E-11DC-B99B-0019D1879648
+ 62 NetBSD concatenated            2DB519C4-B10E-11DC-B99B-0019D1879648
+ 63 NetBSD encrypted               2DB519EC-B10E-11DC-B99B-0019D1879648
+ 64 NetBSD RAID                    49F48DAA-B10E-11DC-B99B-0019D1879648
+ 65 ChromeOS kernel                FE3A2A5D-4F32-41A7-B725-ACCC3285A309
+ 66 ChromeOS root fs               3CB8E202-3B7E-47DD-8A3C-7FF2A13CFCEC
+ 67 ChromeOS reserved              2E0A753D-9E48-43B0-8337-B15192CB1B5E
+ 68 MidnightBSD data               85D5E45A-237C-11E1-B4B3-E89A8F7FC3A7
+ 69 MidnightBSD boot               85D5E45E-237C-11E1-B4B3-E89A8F7FC3A7
+ 70 MidnightBSD swap               85D5E45B-237C-11E1-B4B3-E89A8F7FC3A7
+ 71 MidnightBSD UFS                0394EF8B-237E-11E1-B4B3-E89A8F7FC3A7
+ 72 MidnightBSD ZFS                85D5E45D-237C-11E1-B4B3-E89A8F7FC3A7
+ 73 MidnightBSD Vinum              85D5E45C-237C-11E1-B4B3-E89A8F7FC3A7
+ 74 Ceph Journal                   45B0969E-9B03-4F30-B4C6-B4B80CEFF106
+ 75 Ceph Encrypted Journal         45B0969E-9B03-4F30-B4C6-5EC00CEFF106
+ 76 Ceph OSD                       4FBD7E29-9D25-41B8-AFD0-062C0CEFF05D
+ 77 Ceph crypt OSD                 4FBD7E29-9D25-41B8-AFD0-5EC00CEFF05D
+ 78 Ceph disk in creation          89C57F98-2FE5-4DC0-89C1-F3AD0CEFF2BE
+ 79 Ceph crypt disk in creation    89C57F98-2FE5-4DC0-89C1-5EC00CEFF2BE
+ 80 OpenBSD data                   824CC7A0-36A8-11E3-890A-952519AD3F61
+ 81 QNX6 file system               CEF5A9AD-73BC-4601-89F3-CDEEEEE321A1
+ 82 Plan 9 partition               C91818F9-8025-47AF-89D2-F030D7000C2C
+
+Partition type (type L to list all types): 31
+Changed type of partition &#39;Linux filesystem&#39; to &#39;Linux LVM&#39;
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.</code></pre>
+<h3 id="3-查看创建的分区"><a href="#3-查看创建的分区" class="headerlink" title="3. 查看创建的分区"></a>3. 查看创建的分区</h3><p><code>fdisk -l</code>查看分区类型为Linux LVM则表示成功。</p>
+<h3 id="4-创建PV"><a href="#4-创建PV" class="headerlink" title="4. 创建PV"></a>4. 创建PV</h3><pre><code class="line-numbers language-bash">pvcreate /dev/sdb1 /dev/sdc1
+  Physical volume &quot;/dev/sdb1&quot; successfully created.
+  Physical volume &quot;/dev/sdc1&quot; successfully created.</code></pre>
+<h3 id="5-查看PV"><a href="#5-查看PV" class="headerlink" title="5. 查看PV"></a>5. 查看PV</h3><pre><code class="line-numbers language-bash">pvdisplay
+  --- Physical volume ---
+  PV Name               /dev/sda2
+  VG Name               centos
+  PV Size               &lt;110.79 GiB / not usable 4.00 MiB
+  Allocatable           yes 
+  PE Size               4.00 MiB
+  Total PE              28361
+  Free PE               1
+  Allocated PE          28360
+  PV UUID               TboH4i-K5H1-xgAc-OJ30-yd3p-43KD-hJSkyf
+
+  &quot;/dev/sdb1&quot; is a new physical volume of &quot;&lt;3.64 TiB&quot;
+  --- NEW Physical volume ---
+  PV Name               /dev/sdb1
+  VG Name               
+  PV Size               &lt;3.64 TiB
+  Allocatable           NO
+  PE Size               0   
+  Total PE              0
+  Free PE               0
+  Allocated PE          0
+  PV UUID               5fPy7S-IuHG-50Cb-HwGC-TF7f-tWsY-XkwfZi
+
+  &quot;/dev/sdc1&quot; is a new physical volume of &quot;&lt;3.64 TiB&quot;
+  --- NEW Physical volume ---
+  PV Name               /dev/sdc1
+  VG Name               
+  PV Size               &lt;3.64 TiB
+  Allocatable           NO
+  PE Size               0   
+  Total PE              0
+  Free PE               0
+  Allocated PE          0
+  PV UUID               bCyGex-lzGo-04NX-V4fO-k5Fy-nQGZ-pYihEJ</code></pre>
+<h3 id="6-创建VG-卷组"><a href="#6-创建VG-卷组" class="headerlink" title="6. 创建VG 卷组"></a>6. 创建VG 卷组</h3><p>lvm_data是vg组的名字，可以自定义</p>
+<pre><code class="line-numbers language-bash">vgcreate lvm_data /dev/sdb1 /dev/sdc1
+  Volume group &quot;lvm_data&quot; successfully created</code></pre>
+<h3 id="7-创建LV-逻辑卷"><a href="#7-创建LV-逻辑卷" class="headerlink" title="7. 创建LV 逻辑卷"></a>7. 创建LV 逻辑卷</h3><p>-L是指定大小(可以从fdisk -l中查看每个硬盘大小累加)、-n是自定义lv的名称</p>
+<pre><code class="line-numbers language-bash">lvcreate -L 7450G -n lvmdata_1 lvm_data
+  Logical volume &quot;lvmdata_1&quot; created.</code></pre>
+<h3 id="8-查看分区"><a href="#8-查看分区" class="headerlink" title="8. 查看分区"></a>8. 查看分区</h3><p>到这里分区就创建完成了，后面的步骤和挂载单块磁盘一样</p>
+<pre><code class="line-numbers language-bash">fdisk -l
+
+Disk /dev/mapper/lvm_data-lvmdata_1: 7999.4 GB, 7999376588800 bytes, 15623782400 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes</code></pre>
+<h3 id="9-格式化"><a href="#9-格式化" class="headerlink" title="9. 格式化"></a>9. 格式化</h3><pre><code class="line-numbers language-bash">mkfs.ext4 /dev/mapper/lvm_data-lvmdata_1</code></pre>
+<h3 id="10-挂载到目录"><a href="#10-挂载到目录" class="headerlink" title="10. 挂载到目录"></a>10. 挂载到目录</h3><p>将分区挂载到需要保存文件的目录即可。</p>
+<pre><code class="line-numbers language-bash">mount /dev/mapper/lvm_data-lvmdata_1 /data</code></pre>
+<h3 id="11-设备开机自动挂载"><a href="#11-设备开机自动挂载" class="headerlink" title="11. 设备开机自动挂载"></a>11. 设备开机自动挂载</h3><pre><code class="line-numbers language-bash">vim /etc/fstab
+
+/dev/mapper/lvm_data-lvmdata_1 /data ext4 defaults 0 0</code></pre>
+<ul>
+<li><p>第一列： 设备或磁盘分区</p>
+</li>
+<li><p>第二列： 挂载点</p>
+</li>
+<li><p>第三列： 设备类型或文件系统类型</p>
+</li>
+<li><p>第四列：<br>挂载选项，这里用来填写设置选项，各个选项用逗号隔开。详细选项请用命令 man mount 来查看。这里有个非常重要的关键字需要了解一下：defaults，它代表包含了选项rw,suid,dev,exec,auto,nouser和 async。</p>
+</li>
+<li><p>第五列： dump选项，此处为1的话，表示要将整个<file sysytem>里的内容备份；为0的话，表示不备份。现在很少用到dump这个工具，在这里一般选0。</file></p>
+</li>
+<li><p>第六列： 该选项用来指定如何使用fsck来检查硬盘。如果这里填0，则不检查；挂载点为 / 的（即根分区），必须在这里填写1，其他的都不能填写1。</p>
+</li>
+</ul>
+<h3 id="11-检查结果"><a href="#11-检查结果" class="headerlink" title="11. 检查结果"></a>11. 检查结果</h3><pre><code class="line-numbers language-bash">df -h
+Filesystem                      Size  Used Avail Use% Mounted on
+... 省略部分
+/dev/mapper/lvm_data-lvmdata_1  7.3T   93M  6.9T   1% /data</code></pre>
+<h2 id="删除逻辑卷"><a href="#删除逻辑卷" class="headerlink" title="删除逻辑卷"></a>删除逻辑卷</h2><pre><code class="line-numbers language-bash">umount /dev/mapper/lvm_data-lvmdata_1
+lvremove /dev/mapper/lvm_data-lvmdata_1
+vgremove lvm_data
+pvremove /dev/sdb
+pvremove /dev/sdc</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vsftpd建立虚拟用户</title>
+    <url>/p/584473bf.html</url>
+    <content><![CDATA[<h1 id="安装vsftpd"><a href="#安装vsftpd" class="headerlink" title="安装vsftpd"></a>安装vsftpd</h1><pre><code class="line-numbers language-bash">yum -y install pam pam-devel db4 db4-tcl
+yum -y install vsftpd</code></pre>
+<h1 id="配置vsftpd-conf"><a href="#配置vsftpd-conf" class="headerlink" title="配置vsftpd.conf"></a>配置vsftpd.conf</h1><pre><code class="line-numbers language-bash">vim /etc/vsftpd/vsftpd.conf
+
+#设成YES,允许匿名用户登陆
+anonymous_enable=NO
+
+#允许/禁止本地用户登陆 注意：主要是为虚拟宿主用户，如果该项目设定为NO那么所有虚拟用户将无法访问。
+local_enable=YES
+
+#设定可以进行写操作。
+write_enable=YES
+
+#设定上传后文件的权限掩码，文件644，文件夹755
+local_umask=022
+
+#设定开启目录标语功能
+dirmessage_enable=YES
+
+#设定开启日志记录功能。
+xferlog_enable=YES
+
+#设定端口20进行数据连接
+connect_from_port_20=YES
+
+#设定日志使用标准的记录格式
+xferlog_std_format=YES
+
+#开启独立进程vsftpd，不使用超级进程xinetd。设定该Vsftpd服务工作在StandAlone模式下。
+listen=YES
+
+#设定，启用pam认证，并指定认证文件名/etc/pam.d/vsftpd
+pam_service_name=vsftpd
+
+#设定userlist_file中的用户将不得使用FTP
+userlist_enable=YES
+
+#设定支持TCP Wrappers
+tcp_wrappers=YES
+
+#限制所有用户在主目录
+chroot_local_user=YES
+
+#设定启用虚拟用户功能
+guest_enable=YES
+
+#指定虚拟用户的宿主用户
+guest_username=guoke
+
+#设定虚拟用户的权限符合他们的宿主用户
+virtual_use_local_privs=YES
+
+#设定虚拟用户个人Vsftp的配置文件存放路径。也就是说，这个被指定的目录里，将存放每个Vsftp虚拟用户个性的配置文件，
+#一个需要注意的地方就是这些配置文件名必须和虚拟用户名相同。
+user_config_dir=/etc/vsftpd/vconf</code></pre>
+<h1 id="配置虚拟用户"><a href="#配置虚拟用户" class="headerlink" title="配置虚拟用户"></a>配置虚拟用户</h1><h2 id="创建虚拟用户名单文件"><a href="#创建虚拟用户名单文件" class="headerlink" title="创建虚拟用户名单文件"></a>创建虚拟用户名单文件</h2><p>创建虚拟用户名单文件，在其中加入用户的用户名和口令信息。格式很简单：“奇数行用户名，偶数行口令”。<br>virtusers文件格式如下：</p>
+<pre><code class="line-numbers language-bash">username
+password</code></pre>
+<h2 id="生成虚拟用户数据文件"><a href="#生成虚拟用户数据文件" class="headerlink" title="生成虚拟用户数据文件"></a>生成虚拟用户数据文件</h2><pre><code class="line-numbers language-bash">db_load -T -t hash -f /etc/vsftpd/virtusers /etc/vsftpd/virtusers.db</code></pre>
+<h2 id="设置认证文件PAM"><a href="#设置认证文件PAM" class="headerlink" title="设置认证文件PAM"></a>设置认证文件PAM</h2><p>编辑vsftpd的PAM验证配置文件，把原来的配置文件全部注释掉（不注释掉虚拟用户会登录不上），添加如下行</p>
+<pre><code class="line-numbers language-bash">cp /etc/pam.d/vsftpd /etc/pam.d/vsftpd.backup
+vim /etc/pam.d/vsftpd
+
+auth    sufficient      /lib64/security/pam_userdb.so    db=/etc/vsftpd/virtusers
+account sufficient      /lib64/security/pam_userdb.so    db=/etc/vsftpd/virtusers</code></pre>
+<p>以上两条是手动添加的，内容是对虚拟用户的安全和帐户权限进行验证。</p>
+<ul>
+<li>这里的auth是指对用户的用户名口令进行验证。</li>
+<li>这里的accout是指对用户的帐户有哪些权限哪些限制进行验证。</li>
+<li>其后的sufficient表示充分条件，也就是说，一旦在这里通过了验证，那么也就不用经过下面剩下的验证步骤了。相反，如果没有通过的话，也不会被系统立即挡之门外，因为sufficient的失败不决定整个验证的失败，意味着用户还必须将经历剩下来的验证审核。</li>
+<li>再后面的/lib/security/pam_userdb.so表示该条审核将调用pam_userdb.so这个库函数进行。</li>
+<li>最后的db=/etc/vsftpd/virtusers则指定了验证库函数将到这个指定的数据库中调用数据进行验证。</li>
+</ul>
+<h2 id="创建虚拟用户配置文件存放路径"><a href="#创建虚拟用户配置文件存放路径" class="headerlink" title="创建虚拟用户配置文件存放路径"></a>创建虚拟用户配置文件存放路径</h2><p>路径配置在<code>vsftpd.conf</code>文件的<code>user_config_dir</code>中</p>
+<pre><code class="line-numbers language-bash">mkdir /etc/vsftpd/vconf</code></pre>
+<h2 id="建立虚拟用户配置文件"><a href="#建立虚拟用户配置文件" class="headerlink" title="建立虚拟用户配置文件"></a>建立虚拟用户配置文件</h2><p>创建ftp的目录，设置属组属主为guoke，应为我们上面指定虚拟用户的宿主用户是guoke，这样ftp用户才有权限对目录进行操作。</p>
+<pre><code class="line-numbers language-bash"># 创建目录
+mkdir -p /data/ftp/username/
+
+# 设置目录权限
+chown guoke.guoke -R /data/ftp/username/
+chmod 755 /data/ftp/username/
+
+#编辑配置
+vim /etc/vsftpd/vconf/username
+
+#指定虚拟用户的具体主路径
+local_root=/data/ftp/username/
+
+#设定不允许匿名用户访问
+anonymous_enable=NO
+
+#设定允许写操作
+write_enable=YES
+
+#设定上传文件权限掩码
+local_umask=022
+
+#设定不允许匿名用户上传
+anon_upload_enable=NO
+
+#设定不允许匿名用户建立目录
+anon_mkdir_write_enable=NO</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vsftpd单用户多目录的配置</title>
+    <url>/p/2413d045.html</url>
+    <content><![CDATA[<p>　　在使用vsftpd过程中，我们会经常发现vsftpd在默认情况下一个用户（无论是系统用户还是虚拟用户）只能拥有一个目录，一般是根目录。如果此时再要向该用户添加其它目录的话，那么就无法直接添加了（在配置用户只能访问自身目录的情况下）。<br>　　一开始我想到了软连接的方式，结果是vsftpd不支持软连接，硬链接又不允许将硬链接指向目录。最后想到了<code>mount --bind</code>目录挂载来实现这个功能</p>
+<p>如：</p>
+<ul>
+<li>ftp用户目录：<code>/data/guoke</code></li>
+<li>其他目录： <code>/data/share</code></li>
+</ul>
+<pre><code class="line-numbers language-bash"># 创建ftp用户能访问的挂载目录
+mkdir /data/guoke/share
+
+# 将/data/share挂载到ftp用户目录中
+mount --bind /data/share /data/guoke/share</code></pre>
+<p>这里要注意一点的是 <code>/data/share</code>目录的权限，需要ftp用户有对应读写权限才可以读写。</p>
+<p>这样挂载后重启后就失效了，可以写到<code>/etc/rc.local</code>文件中</p>
+<pre><code class="line-numbers language-bash">vim /etc/rc.local
+
+#在最后添加
+mount --bind /data/share /data/guoke/share</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>frp外网穿透ftp服务</title>
+    <url>/p/bc3f68f0.html</url>
+    <content><![CDATA[<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>　　FTP协议有两种工作方式：PORT方式和PASV方式，中文意思为主动式和被动式。如果要用ftp外网穿透，需要使用被动模式。</p>
+<p>　　被动模式(PASV)连接过程是:客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，服务器在命令链路上用PASV命令告诉客户端：“我打开了XXXX端口，你过来连接我”。于是客户端向服务器的XXXX端口发送连接请求，建立一条数据链路来传送数据。<br>　　所以，在使用ftp的时候，不仅需要转发默认的21端口，还需要转发数据端口。</p>
+<h1 id="修改ftp服务器配置"><a href="#修改ftp服务器配置" class="headerlink" title="修改ftp服务器配置"></a>修改ftp服务器配置</h1><p>　　考虑到frp转发的情况，所以数据端口最好是固定的，所以这里需要修改ftp服务器的配置，这里以vsftpd服务为例。修改<code>vsftpd.conf</code>文件，固定被动模式端口范围</p>
+<pre><code class="line-numbers language-conf">vim /etc/vsftpd.vsftpd.conf
+
+# 修改
+pasv_enable=YES
+# 添加
+pasv_min_port=50000 
+pasv_max_port=50002 </code></pre>
+<p>这里只开启了50000、50001、50002三个端口，意思就是同时只能有三个用户连接，如果需要更多用户可以配置更多的端口。</p>
+<h1 id="修改frp配置"><a href="#修改frp配置" class="headerlink" title="修改frp配置"></a>修改frp配置</h1><p>在frp的配置中，需要添加默认端口21和被动数据端口50000、50001、50002四个端口配置</p>
+<pre><code class="line-numbers language-ini">[ftp]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 21
+remote_port = 2121
+
+[ftp1]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 50000
+remote_port = 50000
+
+[ftp2]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 50001
+remote_port = 50001
+
+[ftp3]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 50002
+remote_port = 50002</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Centos7安装搭建FTP服务器</title>
+    <url>/p/517c4c65.html</url>
+    <content><![CDATA[<h1 id="一、查看是否已经安装了vsftpd"><a href="#一、查看是否已经安装了vsftpd" class="headerlink" title="一、查看是否已经安装了vsftpd"></a>一、查看是否已经安装了vsftpd</h1><pre><code class="line-numbers language-bash">vsftpd -version</code></pre>
+<h1 id="二、安装vsftpd"><a href="#二、安装vsftpd" class="headerlink" title="二、安装vsftpd"></a>二、安装vsftpd</h1><pre><code class="line-numbers language-bash">yum install -y vsftpd</code></pre>
+<h1 id="三、新建FTP目录"><a href="#三、新建FTP目录" class="headerlink" title="三、新建FTP目录"></a>三、新建FTP目录</h1><p>创建的FTP目录 <code>/data/ftp</code></p>
+<pre><code class="line-numbers language-bash">mkdir -p /data/ftp</code></pre>
+<h1 id="四、创建新用户"><a href="#四、创建新用户" class="headerlink" title="四、创建新用户"></a>四、创建新用户</h1><p>guoke为你为该ftp创建的用户名，/data/ftp 为登录进去后的位置</p>
+<pre><code class="line-numbers language-bash">useradd -d /data/ftp -s /bin/bash guoke</code></pre>
+<h1 id="五、为新建的用户设置密码"><a href="#五、为新建的用户设置密码" class="headerlink" title="五、为新建的用户设置密码"></a>五、为新建的用户设置密码</h1><pre><code class="line-numbers language-bash">passwd guoke</code></pre>
+<h1 id="六、设置主目录"><a href="#六、设置主目录" class="headerlink" title="六、设置主目录"></a>六、设置主目录</h1><p>更改登录时看到的目录，看个人需要更改，如果第4步已设置好，此步可忽略</p>
+<pre><code class="line-numbers language-bash">usermod -d /data/ftp guoke</code></pre>
+<h1 id="七、设置目录权限"><a href="#七、设置目录权限" class="headerlink" title="七、设置目录权限"></a>七、设置目录权限</h1><p>将<code>/data/ftp</code>目录权限设置为<code>guoke</code>用户，否则ftp客户端将无法写入文件</p>
+<pre><code class="line-numbers language-bash">chown -Rc guoke. /data/ftp</code></pre>
+<h1 id="八、防火墙添加FTP服务"><a href="#八、防火墙添加FTP服务" class="headerlink" title="八、防火墙添加FTP服务"></a>八、防火墙添加FTP服务</h1><pre><code class="line-numbers language-bash">firewall-cmd --permanent --zone=public --add-service=ftp
+firewall-cmd --reload</code></pre>
+<h1 id="九、修改Selinux"><a href="#九、修改Selinux" class="headerlink" title="九、修改Selinux"></a>九、修改Selinux</h1><pre><code class="line-numbers language-bash">setsebool -P ftpd_full_access on</code></pre>
+<h1 id="十、配置只能访问自身目录"><a href="#十、配置只能访问自身目录" class="headerlink" title="十、配置只能访问自身目录"></a>十、配置只能访问自身目录</h1><p>vim /etc/vsftpd/vsftpd.conf</p>
+<pre><code class="line-numbers language-conf">#去掉前面的注释
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+local_umask=022
+dirmessage_enable=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+xferlog_std_format=YES
+ascii_upload_enable=YES
+ascii_download_enable=YES
+chroot_local_user=YES
+chroot_list_enable=NO
+chroot_list_file=/etc/vsftpd/chroot_list
+listen=NO
+
+#文件末尾添加
+pam_service_name=vsftpd
+userlist_enable=YES
+tcp_wrappers=YES
+allow_writeable_chroot=YES
+local_root=/data/ftp</code></pre>
+<p>在chroot_list中添加guoke用户</p>
+<pre><code class="line-numbers language-bash">vim /etc/vsftpd/chroot_list
+
+把ftp用户guoke写入
+
+保存</code></pre>
+<h1 id="十一、启动、重启"><a href="#十一、启动、重启" class="headerlink" title="十一、启动、重启"></a>十一、启动、重启</h1><pre><code class="line-numbers language-bash"># 启动
+systemctl start  vsftpd.service
+
+# 停止
+systemctl stop  vsftpd.service
+
+# 设置开机启动
+systemctl enable vsftpd.service</code></pre>
+<h1 id="十二、禁止ftp用户ssh登录"><a href="#十二、禁止ftp用户ssh登录" class="headerlink" title="十二、禁止ftp用户ssh登录"></a>十二、禁止ftp用户ssh登录</h1><p>由于需要限制ftp用户在自己的目录，在21端口下没有问题，但当ftp用户用sftp登录时，还是可以访问上级目录，于是禁止ftp用户ssh登录，切断22端口的通信。</p>
+<p>查看<code>/etc/shells</code>文件，看禁止登录的shell为<code>/usr/sbin/nologin</code>。如果没有，在文件后面添加</p>
+<pre><code class="line-numbers language-bash">usermod -s /usr/sbin/nologin guoke</code></pre>
+<p>如果要恢复guoke的ssh登录</p>
+<pre><code class="line-numbers language-bash">usermod -s /bin/bash guoke</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电脑远程开机</title>
+    <url>/p/87b37b63.html</url>
+    <content><![CDATA[<p>　　现在网上有一种远程开机卡，这个需要有PCI插槽，还要将线接入到电脑开机和重启的电源开关跳线上，还要依赖于开机卡运营商提供的APP，可能存在一定的不确定和安全隐患。<br>　　下面提供另一种只依赖于可以远程控制的智能插座的远程开机方法，这种办法操作起来非常简单：</p>
+<ul>
+<li>先按插座说明连接上wifi能用手机app控制插座通电/断电。</li>
+<li>然后进入电脑BIOS的电源设置，设置成通电后直接开机。现在的电脑主板都支持这个了，不同品牌的设置可能略有点不同。</li>
+<li>最后把电脑插到智能插座上，就可以完成远程开机了。</li>
+</ul>
+<p>这里要注意一点，插座断电不能立即通电，这样不一定会开机，需要等一二分钟然主板彻底断电后通电才能开机，有的插座可以设定功率低于多少自动断电的话就更好了，先确定一下关机状态下的功耗是多少，然后设置插座功耗在这个值稍微高一点的情况下自动断电。这样关机后插座就自动断电了，等下次直接将插座通电就可以开机了。</p>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>iPhone使用虚拟定位</title>
+    <url>/p/1a5742e7.html</url>
+    <content><![CDATA[<p>　　昨天数字人民币app在各应用商店上线了，但是只有几个指定试点地点可以注册，为了体验一下可以使用虚拟定位将自己的位置模拟到试点地区注册。</p>
+<h2 id="一、下载工具"><a href="#一、下载工具" class="headerlink" title="一、下载工具"></a>一、下载工具</h2><p>这里使用<a href="https://www.i4.cn/" target="_blank" rel="noopener">爱思助手</a>，直接去官网下载安装，不需要越狱也可以使用。</p>
+<h2 id="二、打开虚拟定位工具"><a href="#二、打开虚拟定位工具" class="headerlink" title="二、打开虚拟定位工具"></a>二、打开虚拟定位工具</h2><p>运行爱思肋手，用数据线连接上手机，在菜单栏依次找到 <code>工具箱</code> -&gt; <code>虚拟定位</code></p>
+<h2 id="三、修改位置"><a href="#三、修改位置" class="headerlink" title="三、修改位置"></a>三、修改位置</h2><p>在弹出的虚拟定位窗口，拖动地址，将位置选者到上海。  然后点击“修改虚拟定位”完成定位<br><img src="//gitee.com/guoke3915/zw/raw/master/p/1a5742e7/19826068-efa03c4b8b1fc8bf.png" alt></p>
+<h2 id="四、验证"><a href="#四、验证" class="headerlink" title="四、验证"></a>四、验证</h2><p>打开手机上的地图，会发现位置已经到了你设定的位置了。这个时候可以打开数字人民币APP来完成注册了，注册之后的使用就不需要定位了，可以畅快的体验，只是非试点区没有线下商店可以交易。</p>
+<h2 id="五、还原"><a href="#五、还原" class="headerlink" title="五、还原"></a>五、还原</h2><p>点击还原真实定位重启手机就可以恢复正常了。</p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C#中声明一个常量数组</title>
+    <url>/p/c006e26c.html</url>
+    <content><![CDATA[<p>　　想在C#类中声音一个常量数组，类型为int，里面有初始化的内容且不可更改。习惯性的写上了<code>public const int[] a = {1,2,3,4,5}</code>这样的格式，结果编译就给我报错了。后面尝试过在类中各种const，都是会报错的。<br>　　在C#中，只有byte、char、short、int、long、float、double、decimal、bool、string、enum等这些非引用类型可以定义为常量，其他的引用类型都是不可以的定义为常量的。但是可以用<code>readonly</code>来替代，如：<code>public readonly int[] a = { 1, 2, 3, 4, 5 };</code>，但是这样也有缺陷。不能给a重新赋值，但是可以修改数组a内的值。</p>
+<pre><code class="line-numbers language-C#">public readonly int[] a = { 1, 2, 3, 4, 5 };
+
+// 这样是会报错的，修改了a的值
+a = new int[]{4,5,6}
+
+// 但这样是可以的
+a[1] = 5</code></pre>
+<p>用C++中的指针来解析就是，a相当于是一个指向 { 1, 2, 3, 4, 5 }数组地址的指针，readonly只是表明a指向的地址不能改变，但是原地址内的数据是可以改变的。</p>
+]]></content>
+      <categories>
+        <category>CSharp(C#)</category>
+      </categories>
+      <tags>
+        <tag>CSharp(C#)</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>将阿里云盘映射成本地磁盘</title>
     <url>/p/26da89a5.html</url>
     <content><![CDATA[<p>　　阿里云盘的不限速，可以使用<a href="https://www.aliyundrive.com/s/Q1pJjzfAVxD" target="_blank" rel="noopener">CloudDrive工具</a>将它映射成本地磁盘。</p>
@@ -21,6 +1732,884 @@
       <tags>
         <tag>软件使用</tag>
         <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ImageMagick实现图集图片拆分</title>
+    <url>/p/9bf2f1af.html</url>
+    <content><![CDATA[<h1 id="一、起因"><a href="#一、起因" class="headerlink" title="一、起因"></a>一、起因</h1><p>有一个序列帧动画的图集和一个TexturePacker的json描述文件，需要将每一帧图片从图集中拆分下来。</p>
+<h1 id="二、下载安装ImageMagick"><a href="#二、下载安装ImageMagick" class="headerlink" title="二、下载安装ImageMagick"></a>二、下载安装ImageMagick</h1><p>先去<a href="https://imagemagick.org" target="_blank" rel="noopener">ImageMagick</a>官网下载对应系统中的版本安装</p>
+<h1 id="三、使用"><a href="#三、使用" class="headerlink" title="三、使用"></a>三、使用</h1><p>打开图集的json文件，能发现有类似的frames</p>
+<pre><code class="line-numbers language-json">{&quot;frames&quot;: [
+{
+    &quot;filename&quot;: &quot;chicken_1_0.png&quot;,
+    &quot;frame&quot;: {&quot;x&quot;:744,&quot;y&quot;:79,&quot;w&quot;:75,&quot;h&quot;:93},
+    &quot;rotated&quot;: true,
+    &quot;trimmed&quot;: true,
+    &quot;spriteSourceSize&quot;: {&quot;x&quot;:11,&quot;y&quot;:3,&quot;w&quot;:75,&quot;h&quot;:93},
+    &quot;sourceSize&quot;: {&quot;w&quot;:99,&quot;h&quot;:99}
+}
+...
+],
+}</code></pre>
+<p>从信息中可以读到单个图片信息：</p>
+<ul>
+<li>图片名:chicken_1_0.png</li>
+<li>在图集中的位置大小: {“x”:744,”y”:79,”w”:75,”h”:93},</li>
+<li>是否旋转90度(rotated)： 是</li>
+<li>单张图片中的位置大小: {“x”:11,”y”:3,”w”:75,”h”:93},</li>
+<li>单张图片的原始尺寸: {“w”:99,”h”:99}</li>
+</ul>
+<p>使用ImageMagick命令直接将子图片裁剪出来，放到一张99x99的新图片中，做-90度旋转和11,3的位移就可以了。</p>
+<pre><code class="line-numbers language-bash">magick chicken.png -crop 93x75+744+79 -rotate -90 -background none -gravity center -geometry +3+11 -extent 99x99 chicken_1_0.png</code></pre>
+<p>参数解析：</p>
+<ul>
+<li>源图片文件：chicken.png</li>
+<li>-crop：裁剪。参数格式为： 宽x长{+-x}{+-y}。参数取frame值93x75+744，因为旋转-90度，所以，这里长和宽是对调的。</li>
+<li>-rotate：旋转，顺时针为正，逆时针为负。rotated为true所以旋转-90度</li>
+<li>-background：填充背景色，默认为白色，这里使用none不填充，png的话就是纯透明色</li>
+<li>-gravity：参照点，会影响通过geometry、annotate、region等来定义坐标点，center为中心点 </li>
+<li>-geometry：移动，格式{+-x}{+-y}，将图片移动(x,y)个像素。取spriteSourceSize的(x、y)值国为旋转了-90度，所以x、y值对调(+3+11)</li>
+<li>-extent：填充，将图片填充到多大。宽x高。取sourceSize的w、h值（99x99）</li>
+<li>最后输出文件：chicken_1_0.png</li>
+</ul>
+<p>注：默认是按参数的顺序执行的，如果参数顺序反了输出的结果可能不是你想要的了</p>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>go切片遍历</title>
+    <url>/p/fb7b7ba5.html</url>
+    <content><![CDATA[<h2 id="顺序遍历"><a href="#顺序遍历" class="headerlink" title="顺序遍历"></a>顺序遍历</h2><p>对于切片的顺序遍历，一般使用<code>range</code>就可以了。</p>
+<pre><code class="line-numbers language-go">var nums = []int{10,20,30,40,50}
+for i, value := range nums {
+    // i为索引
+    // value 为切变值
+}</code></pre>
+<p>这里有一个问题需要注意一下，如果这里的切片nums不是基本数据类型而是结构体。range遍历出来的value值是拷贝值而并非原结构体，修改value中的值不会改变原切片中的值。如果要遍历修改，可以将切片的结构体改为指针，或都索引来取值。</p>
+<pre><code class="line-numbers language-go">    type Test struct {
+        A int
+        B string
+    }
+
+    t1 := Test{
+        A: 1,
+        B: &quot;1&quot;,
+    }
+
+    t2 := Test{
+        A: 2,
+        B: &quot;2&quot;,
+    }
+
+    var slice1 []Test
+    slice1 = append(slice1, t1)
+    slice1 = append(slice1, t2)
+
+    for i := range slice1 {
+        value := &amp;slice1[i]
+        if value.A == 1 {
+            value.A = 11
+        }
+    }
+
+    var slice2 []*Test
+    slice2 = append(slice2, &amp;t1)
+    slice2 = append(slice2, &amp;t2)
+
+    for _, value := range slice2 {
+        if value.A == 2 {
+            value.A = 22
+        }
+    }</code></pre>
+<h2 id="逆序遍历"><a href="#逆序遍历" class="headerlink" title="逆序遍历"></a>逆序遍历</h2><p>一般情况下逆序遍历思路就是for size-1到0.</p>
+<pre><code class="line-numbers language-go">    for i := len(nums) - 1; i &gt;= 0; i-- {
+        fmt.Println(nums[i])
+    }</code></pre>
+<p>二般的也可以使用range来遍历</p>
+<pre><code class="line-numbers language-go">for i := range nums {
+    fmt.Println(nums[len(nums)-i-1])
+}</code></pre>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>判断深度相等DeepEqual</title>
+    <url>/p/14f6e6ab.html</url>
+    <content><![CDATA[<h1 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h1><h2 id="1-不同类型的值不会深度相等"><a href="#1-不同类型的值不会深度相等" class="headerlink" title="1.不同类型的值不会深度相等"></a>1.不同类型的值不会深度相等</h2><p>Values of distinct types are never deeply equal.</p>
+<pre><code class="line-numbers language-go">type S1 struct {
+    Field int
+}
+type S2 struct {
+    Field int
+}
+
+func main() {
+    fmt.Println(reflect.DeepEqual(S1{1}, S2{1}))
+}</code></pre>
+<p>对应输出false</p>
+<h2 id="2-当两个数组的元素对应深度相等时，两个数组深度相等"><a href="#2-当两个数组的元素对应深度相等时，两个数组深度相等" class="headerlink" title="2.当两个数组的元素对应深度相等时，两个数组深度相等"></a>2.当两个数组的元素对应深度相等时，两个数组深度相等</h2><p>Array values are deeply equal when their corresponding elements are deeply equal.</p>
+<pre><code class="line-numbers language-go">func main() {
+    Array1 := []string{&quot;hello1&quot;, &quot;hello2&quot;}
+    Array2 := []string{&quot;hello1&quot;, &quot;hello2&quot;}
+
+    fmt.Println(reflect.DeepEqual(Array1, Array2))
+}</code></pre>
+<p>对应输出true</p>
+<h2 id="3-当两个相同结构体的所有字段对应深度相等的时候，两个结构体深度相等"><a href="#3-当两个相同结构体的所有字段对应深度相等的时候，两个结构体深度相等" class="headerlink" title="3.当两个相同结构体的所有字段对应深度相等的时候，两个结构体深度相等"></a>3.当两个相同结构体的所有字段对应深度相等的时候，两个结构体深度相等</h2><p>Struct values are deeply equal if their corresponding fields,both exported and unexported, are deeply equal.</p>
+<pre><code class="line-numbers language-go">type S struct {
+    Field1 int
+    field2 string
+}
+
+func main() {
+    s1 := S{Field1: 1, field2: &quot;hello&quot;}
+    s2 := S{Field1: 1, field2: &quot;hello&quot;}
+    fmt.Println(reflect.DeepEqual(s1, s2))
+}</code></pre>
+<p>对应输出true</p>
+<h2 id="4-当两个函数都为nil时，两个函数深度相等，其他情况不相等（相同函数也不相等）"><a href="#4-当两个函数都为nil时，两个函数深度相等，其他情况不相等（相同函数也不相等）" class="headerlink" title="4.当两个函数都为nil时，两个函数深度相等，其他情况不相等（相同函数也不相等）"></a>4.当两个函数都为nil时，两个函数深度相等，其他情况不相等（相同函数也不相等）</h2><p>Func values are deeply equal if both are nil; otherwise they are not deeply equal.</p>
+<pre><code class="line-numbers language-go">func main() {
+    f1 := func(a int) int {
+        return a * 2
+    }
+    fmt.Println(reflect.DeepEqual(f1, f1))
+    f1 = nil
+    fmt.Println(reflect.DeepEqual(f1, f1))
+}</code></pre>
+<p>对应输出false跟true</p>
+<h2 id="5-当两个interface的真实值深度相等时，两个interface深度相等"><a href="#5-当两个interface的真实值深度相等时，两个interface深度相等" class="headerlink" title="5.当两个interface的真实值深度相等时，两个interface深度相等"></a>5.当两个interface的真实值深度相等时，两个interface深度相等</h2><p>Interface values are deeply equal if they hold deeply equal concrete values.</p>
+<pre><code class="line-numbers language-go">func main() {
+    var i1 interface{}
+    i1 = &quot;hello&quot;
+    var i2 interface{}
+    i2 = &quot;hello&quot;
+    fmt.Println(reflect.DeepEqual(i1, i2))
+}</code></pre>
+<p>对应输出true</p>
+<h2 id="6-go中map的比较需要同时满足以下几个"><a href="#6-go中map的比较需要同时满足以下几个" class="headerlink" title="6.go中map的比较需要同时满足以下几个"></a>6.go中map的比较需要同时满足以下几个</h2><ul>
+<li>1.两个map都为nil或者都不为nil，并且长度要相等<br>they are both nil or both non-nil, they have the same length</li>
+<li>2.相同的map对象或者所有key要对应相同<br>either they are the same map object or their corresponding keys</li>
+<li>3.map对应的value也要深度相等<br>map to deeply equal values</li>
+</ul>
+<pre><code class="line-numbers language-go">func main() {
+    m1 := map[string]int{
+        &quot;a&quot;: 1,
+        &quot;b&quot;: 2,
+    }
+    m2 := map[string]int{
+        &quot;a&quot;: 1,
+        &quot;b&quot;: 2,
+    }
+    fmt.Println(reflect.DeepEqual(m1, m2))
+}</code></pre>
+<p>对应输出true</p>
+<h2 id="7-指针，满足以下其一即是深度相等"><a href="#7-指针，满足以下其一即是深度相等" class="headerlink" title="7.指针，满足以下其一即是深度相等"></a>7.指针，满足以下其一即是深度相等</h2><ul>
+<li>1.两个指针满足go的==操作符<br>Pointer values are deeply equal if they are equal using Go’s == operator</li>
+<li>2.两个指针指向的值是深度相等的<pre><code class="line-numbers language-go">func main() {
+  m1 := map[string]int{
+      &quot;a&quot;: 1,
+      &quot;b&quot;: 2,
+  }
+  m2 := map[string]int{
+      &quot;a&quot;: 1,
+      &quot;b&quot;: 2,
+  }
+  M1:=&amp;m1
+  M2:=&amp;m2
+  fmt.Println(reflect.DeepEqual(M1, M2))
+}</code></pre>
+</li>
+</ul>
+<p>对应输出true</p>
+<h2 id="8-切片，需要同时满足以下几点才是深度相等"><a href="#8-切片，需要同时满足以下几点才是深度相等" class="headerlink" title="8.切片，需要同时满足以下几点才是深度相等"></a>8.切片，需要同时满足以下几点才是深度相等</h2><ul>
+<li>1.两个切片都为nil或者都不为nil，并且长度要相等<br>they are both nil or both non-nil, they have the same length</li>
+<li>2.两个切片底层数据指向的第一个位置要相同或者底层的元素要深度相等<br>either they point to the same initial entry of the same underlying array (that is, &amp;x[0] == &amp;y[0]) or their corresponding elements (up to length) are deeply equal.<pre><code class="line-numbers language-gp">func main() {
+s1 :=[] int {1,2,3,4,5}
+s2 :=s1[0:3]
+s3 :=s1[0:3]
+fmt.Println(reflect.DeepEqual(s2, s3))
+s4 :=s1[1:4]
+fmt.Println(reflect.DeepEqual(s2, s4))
+}</code></pre>
+对应输出true,false</li>
+</ul>
+<p>注：空的切片跟nil切片是不深度相等的，例如</p>
+<pre><code class="line-numbers language-go">func main() {
+    s1 :=[]byte{}
+    s2 :=[]byte(nil)
+    fmt.Println(reflect.DeepEqual(s1, s2))
+}</code></pre>
+<p>对应输出false</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li>其他类型的值（numbers, bools, strings, channels）如果满足go的==操作符，则是深度相等的</li>
+<li>要注意不是所有的值都深度相等于自己，例如函数，以及嵌套包含这些值的结构体，数组等</li>
+<li>go如何避免递归循环判断结构体嵌套自身：通过使用一个visit(类型为map[visit]bool)标记访问<br>在reflect/deepequal.go中的deepValueEqual函数中有这么一段代码</li>
+</ul>
+<pre><code class="line-numbers language-go">if v1.CanAddr() &amp;&amp; v2.CanAddr() &amp;&amp; hard(v1.Kind()) {
+      addr1 := unsafe.Pointer(v1.UnsafeAddr())
+      addr2 := unsafe.Pointer(v2.UnsafeAddr())
+      //对指针进行比较排序，减少重复比较
+      if uintptr(addr1) &gt; uintptr(addr2) {
+          // Canonicalize order to reduce number of entries in visited.
+          // Assumes non-moving garbage collector.
+          addr1, addr2 = addr2, addr1
+      }
+
+      // Short circuit if references are already seen.
+      typ := v1.Type()
+      v := visit{addr1, addr2, typ}
+
+      //为已访问的话返回true
+      if visited[v] {
+          return true
+      }
+
+      //标记两个比较的变量为已访问
+      // Remember for later.
+      visited[v] = true
+  }</code></pre>
+<p>本文转自<a href="https://studygolang.com/articles/12944" target="_blank" rel="noopener">go语言中文网</a></p>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>天天基金免费开放数据</title>
+    <url>/p/e1f6cbaf.html</url>
+    <content><![CDATA[<p>各平台推荐的基金买了有大半年了也没见赚到钱，于是不想用平台推荐，自己把基金数居下过来去分析去筛选。</p>
+<h2 id="一、基金列表"><a href="#一、基金列表" class="headerlink" title="一、基金列表"></a>一、基金列表</h2><pre><code class="line-numbers language-url">http://fund.eastmoney.com/js/fundcode_search.js</code></pre>
+<p>返回的直接是js数组格式，如：</p>
+<pre><code class="line-numbers language-js">var r = [
+  [&quot;000001&quot;, &quot;HXCZHH&quot;,&quot;华夏成长混合&quot;,&quot;混合型&quot;,&quot;HUAXIACHENGZHANGHUNHE&quot; ],
+  [&quot;000002&quot;, &quot;HXCZHH&quot;, &quot;华夏成长混合(后端)&quot;,&quot;混合型&quot;,&quot;HUAXIACHENGZHANGHUNHE&quot;]
+...
+  [&quot;980003&quot;,&quot;TPYLGYGDCYZ&quot;,&quot;太平洋六个月滚动持有债&quot;,&quot;债券型-长债&quot;,&quot;TAIPINGYANGLIUGEYUEGUNDONGCHIYOUZHAI&quot;]];</code></pre>
+<p>变量r后面的值可以看做是一个json数据，可以去掉<code>var r =</code>后最后的<code>;</code>直接json序列化就可以获取数据了。</p>
+<pre><code class="line-numbers language-go">    resp, err := http.Get(http://fund.eastmoney.com/js/fundcode_search.js)
+    if err != nil {
+        return
+    }
+    defer resp.Body.Close()
+
+    body, err := ioutil.ReadAll(resp.Body)
+    if err != nil {
+        return
+    }
+
+    // 删除 .BOM 标识文本是 UTF-8 编码的
+    body = bytes.TrimPrefix(body, []byte(&quot;\xef\xbb\xbf&quot;))
+    data := string(body)
+
+    // 删除 var r = 和 ;
+    data = strings.Replace(data, &quot;var r = &quot;, &quot;&quot;, 1)
+    data = strings.Replace(data, &quot;;&quot;, &quot;&quot;, 1)
+
+    // 序列化成二维字符串数组
+    var array [][]string
+    err = json.Unmarshal([]byte(data), &amp;array)
+    if err != nil {
+        return
+    }</code></pre>
+<h2 id="二、基金详情"><a href="#二、基金详情" class="headerlink" title="二、基金详情"></a>二、基金详情</h2><pre><code class="line-numbers language-url">http://fund.eastmoney.com/pingzhongdata/000001.js</code></pre>
+<p>这里的000001换成需要下载的基金代码就行了。不过这个数据会稍微复杂一丢丢，如：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826068-f72d6054e71c91e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>解析思路为，先用<code>;</code>分割不同的js变量，再对每个js变量用<code>=</code>号分割，会得到变量名和变量值。直接判断变量名是否包含对应变量是什么了，后面的变量值根据前面变量名直接赋值或序列化成json</p>
+<pre><code class="line-numbers language-go">    id := &quot;000001&quot;  // 基金代码
+    resp, err := http.Get(fmt.Sprintf(&quot;http://fund.eastmoney.com/pingzhongdata/%s.js&quot;, id))
+    if err != nil {
+        return
+    }
+    defer resp.Body.Close()
+
+    body, err := ioutil.ReadAll(resp.Body)
+    if err != nil {
+        return
+    }
+
+    // 删除 .BOM 标识文本是 UTF-8 编码的
+    body = bytes.TrimPrefix(body, []byte(&quot;\xef\xbb\xbf&quot;))
+    data := string(body)
+
+    ds := strings.Split(data, &quot;;&quot;)
+    for _, d := range ds {
+        kv := strings.Split(d, &quot;=&quot;)
+        if len(kv) != 2 {
+            continue
+        }
+        k := kv[0]
+        v := strings.TrimSpace(kv[1])
+
+        if strings.Contains(k, &quot;stockCodes&quot;) {
+            //基金持仓股票代码
+            var StockCodes []string
+            err = json.Unmarshal([]byte(v), &amp;StockCodes)
+            if err != nil {
+                continue
+            }
+        } else if strings.Contains(k, &quot;syl_1n&quot;) {
+            // 近一年收益率
+            if len(v) &lt;= 2 {
+                continue
+            }
+            var Syl1n := v[1 : len(v)-2]
+        } else if strings.Contains(k, &quot;Data_netWorthTrend&quot;) {
+            type DataNWT struct {
+                Date         int64   `json:&quot;x&quot;`            // 日期(毫秒时间戳)
+                Value        float32 `json:&quot;y&quot;`            // 净值
+                EquityReturn float32 `json:&quot;equityReturn&quot;` // 净值回报
+                UnitMoney    string  `json:&quot;unitMoney&quot;`    // 每份派送金
+            }
+            // 单位净值走势
+            var arr [] DataNWT 
+            err = json.Unmarshal([]byte(v), &amp;arr )
+            if err != nil {
+                continue
+            }
+        } </code></pre>
+<h2 id="三、实时涨跌"><a href="#三、实时涨跌" class="headerlink" title="三、实时涨跌"></a>三、实时涨跌</h2><pre><code class="line-numbers language-url">https://fundgz.1234567.com.cn/js/000001.js</code></pre>
+<p>这个直接返回jsonp数据了</p>
+<pre><code class="line-numbers language-json">jsonpgz(
+    {
+        &quot;dwjz&quot;:&quot;1.1970&quot;,
+        &quot;fundcode&quot;:&quot;000001&quot;,
+        &quot;gsz&quot;:&quot;1.2031&quot;,
+        &quot;gszzl&quot;:&quot;0.51&quot;,
+        &quot;gztime&quot;:&quot;2021-12-22 15:00&quot;,
+        &quot;jzrq&quot;:&quot;2021-12-21&quot;,
+        &quot;name&quot;:&quot;华夏成长混合&quot;
+    }
+);</code></pre>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>go解析html</title>
+    <url>/p/cb26872e.html</url>
+    <content><![CDATA[<p>在go中可以使用goquery库来解析html，这个有点类似于jQuery的库，提供与 jQuery 相近的接口。</p>
+<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><pre><code class="line-numbers language-go">go get -u github.com/PuerkitoBio/goquery</code></pre>
+<h2 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h2><h3 id="1-创建goquery对象"><a href="#1-创建goquery对象" class="headerlink" title="1. 创建goquery对象"></a>1. 创建goquery对象</h3><p>使用<code>NewDocument</code>简单的创建，但不推荐这么用，建议使用http.Get()成功后，装body传给<code>NewDocumentFromReader</code>创建</p>
+<pre><code class="line-numbers language-go">doc, err := goquery.NewDocument(&quot;https://zengwu.com.cn&quot;)</code></pre>
+<p>使用<code>NewDocumentFromReader</code>创建还可以从本地文件或内存中构造对象</p>
+<pre><code class="line-numbers language-go">res, err := http.Get(&quot;https://zengwu.com.cn&quot;)
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer res.Body.Close()
+  if res.StatusCode != 200 {
+    log.Fatalf(&quot;status code error: %d %s&quot;, res.StatusCode, res.Status)
+  }
+
+  doc, err := goquery.NewDocumentFromReader(res.Body)
+  if err != nil {
+    log.Fatal(err)
+  }</code></pre>
+<h3 id="2-查找head中数据"><a href="#2-查找head中数据" class="headerlink" title="2. 查找head中数据"></a>2. 查找<code>head</code>中数据</h3><pre><code class="line-numbers language-html">&lt;html class=&quot;theme-next pisces use-motion&quot; lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;/&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1&quot;/&gt;
+  &lt;meta name=&quot;theme-color&quot; content=&quot;#222&quot;&gt;
+  ...
+</code></pre>
+<p>如有以上网页头数据，我们要找出<code>charset</code>编码</p>
+<pre><code class="line-numbers language-go">    // 查找head
+    head := doc.Find(&quot;head&quot;)
+
+    // 查找meta属性项charset
+    charset := head.Find(&quot;meta[charset]&quot;)
+
+    // 获取charset中的charset属性值
+    str, _ := charset.Attr(&quot;charset&quot;)
+
+    fmt.Println(str)</code></pre>
+<h3 id="3-查找html中的id"><a href="#3-查找html中的id" class="headerlink" title="3. 查找html中的id"></a>3. 查找html中的id</h3><pre><code class="line-numbers language-html">&lt;nav class=&quot;site-nav&quot;&gt;
+    &lt;ul id=&quot;menu&quot; class=&quot;menu&quot;&gt;
+        &lt;li class=&quot;menu-item menu-item-home&quot;&gt;
+          &lt;a href=&quot;/&quot; rel=&quot;section&quot;&gt;
+              &lt;i class=&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;/i&gt; &lt;br /&gt; 首页
+          &lt;/a&gt;
+        &lt;/li&gt;
+...</code></pre>
+<p>如有以上网页头数据，要找出id为<code>menu</code>的项</p>
+<pre><code class="line-numbers language-go">menu := doc.Find(&quot;#menu&quot;)</code></pre>
+<h3 id="4-查找html中的class"><a href="#4-查找html中的class" class="headerlink" title="4. 查找html中的class"></a>4. 查找html中的class</h3><p>还是上面代码，要找出nav class为<code>site-nav</code>的项</p>
+<pre><code class="line-numbers language-go">menu := doc.Find(&quot;nav.site-nav&quot;)</code></pre>
+<h3 id="5-查找所有div或列表数据"><a href="#5-查找所有div或列表数据" class="headerlink" title="5. 查找所有div或列表数据"></a>5. 查找所有div或列表数据</h3><pre><code class="line-numbers language-xml">&lt;div class=&quot;pull-left&quot; style=&quot;white-space:nowrap&quot;&gt;
+    01-01
+    &lt;a href=&quot;/p/26da89a5.html&quot; title=&quot;将阿里云盘映射成本地磁盘&quot;&gt;将阿里云盘映射成本地磁盘&lt;/a&gt;
+&lt;/div&gt;&lt;br&gt;
+
+&lt;div class=&quot;pull-left&quot; style=&quot;white-space:nowrap&quot;&gt;
+    12-05
+    &lt;a href=&quot;/p/c1edbab3.html&quot; title=&quot;bat中的enabledelayedexpansion&quot;&gt;bat中的enabledelayedexpansion&lt;/a&gt;
+&lt;/div&gt;&lt;br&gt;
+
+&lt;div class=&quot;pull-left&quot; style=&quot;white-space:nowrap&quot;&gt;
+    11-21
+    &lt;a href=&quot;/p/afe6edd9.html&quot; title=&quot;Nginx配置跨域&quot;&gt;Nginx配置跨域&lt;/a&gt;
+&lt;/div&gt;&lt;br&gt;
+
+&lt;div class=&quot;pull-left&quot; style=&quot;white-space:nowrap&quot;&gt;
+    11-19
+    &lt;a href=&quot;/p/e334394.html&quot; title=&quot;curl发送POST请求&quot;&gt;curl发送POST请求&lt;/a&gt;
+&lt;/div&gt;&lt;br&gt;
+
+&lt;div class=&quot;pull-left&quot; style=&quot;white-space:nowrap&quot;&gt;
+    11-18
+    &lt;a href=&quot;/p/334d5fc9.html&quot; title=&quot;Java中byte数组和String字符串相互转换&quot;&gt;Java中byte数组和String字符串相互转换&lt;/a&gt;
+&lt;/div&gt;&lt;br&gt;</code></pre>
+<p>找出所有class为pull-left的div，然后在每个div下搜索<a>，获取<a>的显示文本内容</a></a></p>
+<pre><code class="line-numbers language-go">    var txt = []string{}
+    doc.Find(&quot;div.pull-left&quot;).Each(func(i int, s *goquery.Selection) {
+        a := s.Find(&quot;a&quot;).Text()
+        txt = append(txt, a)
+    })
+
+    fmt.Println(txt)</code></pre>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>go读写文件</title>
+    <url>/p/b18ade1e.html</url>
+    <content><![CDATA[<h1 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h1><p>读取文件一般有三种方式，不同读取模式的优缺点不同。</p>
+<ul>
+<li>将文件整个读入内存。效率比较高，占用内存也最高</li>
+<li>按字节读取。读取方式比较灵活，若文件较大，可以读取需要的部分</li>
+<li>按行读取。一般用于文件日志文件读取</li>
+</ul>
+<h2 id="将文件整个读入内存"><a href="#将文件整个读入内存" class="headerlink" title="将文件整个读入内存"></a>将文件整个读入内存</h2><pre><code class="line-numbers language-go">package main
+
+import (
+   &quot;os&quot;
+   &quot;io/ioutil&quot;
+   &quot;fmt&quot;
+)
+
+func main() {
+   filepath := &quot;./log.txt&quot;
+   content ,err :=ioutil.ReadFile(filepath)
+   if err !=nil {
+      panic(err)
+   }
+   fmt.Println(string(content))
+}</code></pre>
+<h2 id="按字节读取"><a href="#按字节读取" class="headerlink" title="按字节读取"></a>按字节读取</h2><pre><code class="line-numbers language-go">package main
+
+import (
+   &quot;fmt&quot;
+   &quot;io&quot;
+   &quot;os&quot;
+)
+
+func main() {
+
+   file := &quot;./log.txt&quot;
+   f, err := os.Open(file)
+   if err != nil {
+      panic(err)
+   }
+   defer f.Close()
+
+   chunks := make([]byte, 0)
+   buf := make([]byte, 1024)
+   for {
+      n, err := f.Read(buf)
+      if err != nil &amp;&amp; err != io.EOF {
+         panic(err)
+      }
+      if 0 == n {
+         break
+      }
+      chunks = append(chunks, buf[:n]...)
+   }
+   fmt.Println(string(chunks))
+}</code></pre>
+<h2 id="按字行读取"><a href="#按字行读取" class="headerlink" title="按字行读取"></a>按字行读取</h2><pre><code class="line-numbers language-go">package main
+
+import (
+&quot;bufio&quot;
+&quot;fmt&quot;
+&quot;io&quot;
+&quot;io/ioutil&quot;
+&quot;os&quot;
+&quot;strings&quot;
+)
+
+func main() {
+    filepath := &quot;./log.txt&quot;
+    file, err := os.OpenFile(filepath, os.O_RDWR, 0666)
+    if err != nil {
+        fmt.Println(&quot;Open file error!&quot;, err)
+        return
+    }
+    defer file.Close()
+
+    stat, err := file.Stat()
+    if err != nil {
+        panic(err)
+    }
+    var size = stat.Size()
+    fmt.Println(&quot;file size=&quot;, size)
+
+    buf := bufio.NewReader(file)
+    for {
+        line, err := buf.ReadString(&#39;\n&#39;)
+        line = strings.TrimSpace(line)
+        fmt.Println(line)
+        if err != nil {
+            if err == io.EOF {
+                fmt.Println(&quot;File read ok!&quot;)
+                break
+            } else {
+                fmt.Println(&quot;Read file error!&quot;, err)
+                return
+            }
+        }
+    }
+}</code></pre>
+<h1 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h1><p>写入文件一般分为二种：</p>
+<ul>
+<li>写入整个文件，如果文件存在覆盖，不存在创建</li>
+<li>在文件尾部添加内容，一般用于日志流等</li>
+</ul>
+<h2 id="写入整个文件"><a href="#写入整个文件" class="headerlink" title="写入整个文件"></a>写入整个文件</h2><pre><code class="line-numbers language-go">package main
+
+import (
+   &quot;io/ioutil&quot;
+)
+
+func main() {
+
+   content := []byte(&quot;guoke\nzngw2\n&quot;)
+   err := ioutil.WriteFile(&quot;test.txt&quot;, content, 0644)
+   // 注意，如果写入的目录不存在会报错
+   if err != nil {
+      panic(err)
+   }
+}</code></pre>
+<h2 id="在文件尾部添加内容"><a href="#在文件尾部添加内容" class="headerlink" title="在文件尾部添加内容"></a>在文件尾部添加内容</h2><pre><code class="line-numbers language-go">package main
+
+import (
+&quot;fmt&quot;
+&quot;io&quot;
+&quot;os&quot;
+)
+
+func checkFileIsExist(filename string) bool {
+    if _, err := os.Stat(filename); os.IsNotExist(err) {
+        return false
+    }
+    return true
+}
+func main() {
+    var wireteString = &quot;guoke\nzngw2\n&quot;
+    var filename = &quot;./test.txt&quot;
+    var f *os.File
+    var err1 error
+    if checkFileIsExist(filename) { //如果文件存在
+        f, err1 = os.OpenFile(filename, os.O_APPEND, 0666) //打开文件
+        fmt.Println(&quot;文件存在&quot;)
+    } else {
+        f, err1 = os.Create(filename) //创建文件
+        fmt.Println(&quot;文件不存在&quot;)
+    }
+    defer f.Close()
+    n1, err1 := io.WriteString(f, wireteString) //写入文件(字符串)
+    if err1 != nil {
+        panic(err1)
+    }
+    fmt.Println(&quot;写入 %d 个字节&quot;, n1)
+
+    n2, err2 := f.Write([]byte(wireteString)) //写入文件(字节)
+    if err2 != nil {
+        panic(err1)
+    }
+    fmt.Println(&quot;写入 %d 个字节&quot;, n2)
+}</code></pre>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>go json.Unmarshal报错invalid character &#39; ï&#39; looking for beginning of value</title>
+    <url>/p/d3433f17.html</url>
+    <content><![CDATA[<p>　　从网站上获取的一个json字符串数据，使用json.Unmarshal序列化失败，报错<code>invalid character &#39;ï&#39; looking for beginning of value</code>。查看json字符串没问题，但是查看byte格式的数据时发现前缀有问题。</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/d3433f17/19826068-8935581745b7451c.png" alt></p>
+<p>　　在json数据中，可见的第一个字符串是<code>[</code>, 应该是91才对，但这里是239，组全一下后面的187，191。这不正是<code>\xef\xbb\xbf</code>， .BOM 标识文本是 UTF-8 编码的头字段啊。这应该是编码问题了，最简单的办法就是在接收到的byte组时，直接将前面的这三个字符删了就可以了</p>
+<pre><code class="line-numbers language-go">body = bytes.TrimPrefix(body, []byte(&quot;\xef\xbb\xbf&quot;))</code></pre>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVN仓库版本回退</title>
+    <url>/p/3f21b9a4.html</url>
+    <content><![CDATA[<p>当我们使用SVN增理备份和恢复时，如果不小心使用svnadmin load错了版本时，需要先装load错的版本删了再重新load正确的版本。查询过svnadmin 的命令，貌似没有发现删除或回退指定版本相关的命令，但是我们可以直接删改文件来实现这个功能。</p>
+<h2 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h2><p>我们要load的dump文件有</p>
+<ul>
+<li>test.0-10.dump</li>
+<li>test.11-15.dump</li>
+<li>test.16-25.dump</li>
+</ul>
+<p>由于操作失败，我们load test.0-10.dump后直接load了test.16-25.dump</p>
+<pre><code class="line-numbers language-bash">svnadmin load test &lt; test.0-10.dump
+svnadmin load test &lt; test.16-25.dump</code></pre>
+<p>这时候在load完 test.16-25.dump时会有如下提示</p>
+<pre><code>Committed new rev 11(loaded from original rev 16) &gt;&gt;&gt;</code></pre><p>此时查看svn show log会发现原来的16-25的版本号改为了11-20，直接跳过了11-15的版本号。如果再load 11-15的话就会装版本号的顺序弄反，导致仓库数据出错。</p>
+<p>此时我们需要先删除仓库中的11-20版本，再重新依次load <code>test.11-15.dump</code>和<code>test.16-25.dump</code></p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ul>
+<li>1、进入test仓库的db目录，删除<code>rep-cache.db</code>缓存数据文件</li>
+<li>2、修改<code>current</code>个文件，将版本号改为10</li>
+<li>3、删除db/revs/0/目录下10~20文件</li>
+<li>4、删除db/revprops/0/目录下10~20文件</li>
+</ul>
+<p>回滚完成了，这时候可以重新load正确的版本了。</p>
+<pre><code class="line-numbers language-bash">svnadmin load test &lt; test.11-15.dump
+svnadmin load test &lt; test.16-25.dump</code></pre>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>这种操作也可以删除svn仓库中的指定版本，彻底的毁尸灭迹，不在svn版本库中留下痕迹。</p>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>软件使用</tag>
+        <tag>Ubuntu</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL创建用户并授权</title>
+    <url>/p/76cb67f9.html</url>
+    <content><![CDATA[<p>在MySQL的线上环境中，如果存在多个项目或功能使用同一个数据库切使用的库或表不同时，一般会为不同的项目或功能创建不同的用户和只对需要的库有读或写的权限。</p>
+<h2 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h2><pre><code class="line-numbers language-sql">CREATE USER &#39;username&#39;@&#39;host&#39; IDENTIFIED BY &#39;password&#39;;</code></pre>
+<h2 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h2><pre><code class="line-numbers language-sql">DROP USER &#39;username&#39;@&#39;host&#39;;</code></pre>
+<ul>
+<li>username: 用户名</li>
+<li>host: 可以访问的主机，如果本地用<code>localhost</code>，远程使用<code>%</code></li>
+<li>password: 密码</li>
+</ul>
+<h2 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h2><pre><code class="line-numbers language-sql">GRANT privileges ON databasename.tablename TO &#39;username&#39;@&#39;host&#39;</code></pre>
+<h2 id="撤销用户权限"><a href="#撤销用户权限" class="headerlink" title="撤销用户权限"></a>撤销用户权限</h2><pre><code class="line-numbers language-sql">REVOKE privilege ON databasename.tablename FROM &#39;username&#39;@&#39;host&#39;;</code></pre>
+<ul>
+<li>privileges: 赋予的权限。如SELECT，INSERT，UPDATE等，如果要授予所的权限则使用ALL</li>
+<li>databasename: 授权的数据库，不限制数据库可以用’<em>.</em>‘</li>
+<li>tablename: 授权的表， 不限制表可以用<code>databasename.*</code></li>
+<li>‘username’@’host’: 标识授权的用户</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><pre><code class="line-numbers language-sql">// 创建本地账户zngw
+CREATE USER &#39;zngw&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;123456&#39;;
+
+// 创建远程账户zngw
+CREATE USER &#39;zngw&#39;@&#39;%&#39; IDENTIFIED BY &#39;123456&#39;;
+
+// 本地账户zngw完全操作guoke库
+GRANT ALL ON guoke.* TO &#39;zngw&#39;@&#39;localhost&#39;;
+
+// 远程账户zngw只读guoke库
+GRANT SELECT ON guoke.* TO &#39;zngw&#39;@&#39;%&#39;;</code></pre>
+]]></content>
+      <categories>
+        <category>MySQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>制作CentOS安装U盘</title>
+    <url>/p/51889ee4.html</url>
+    <content><![CDATA[<p>现在装系统用U盘的越来越多了，下面介绍一下制作一个CentOS的安装U盘。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
+<li>8G及以上的U盘</li>
+<li><a href="https://cn.ultraiso.net/xiazai.html" target="_blank" rel="noopener">UltraISO</a> 光盘映像制作软件，免费试用版就行了。</li>
+<li><a href="https://mirrors.aliyun.com/centos/7/isos/x86_64/" target="_blank" rel="noopener">CentOS iso镜像</a>下载自己需要的版本。</li>
+</ul>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1、打开iso镜像文件"><a href="#1、打开iso镜像文件" class="headerlink" title="1、打开iso镜像文件"></a>1、打开iso镜像文件</h3><p>启动UltraISO，文件-&gt; 打开 选择下载的CentOS ios镜像</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/51889ee4/19826068-58eb5fe050aa148f.png" alt></p>
+<h3 id="2、选择写入硬盘映像"><a href="#2、选择写入硬盘映像" class="headerlink" title="2、选择写入硬盘映像"></a>2、选择写入硬盘映像</h3><p>选择 启动 -&gt; 写入硬盘映像</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/51889ee4/19826068-bdff1b7d226915c8.png" alt></p>
+<h3 id="3、写入U盘"><a href="#3、写入U盘" class="headerlink" title="3、写入U盘"></a>3、写入U盘</h3><p>在硬盘驱动器选择要制作的U盘，写入方式选择<code>USB-HDD+</code>，如果U盘格式为NTFS，需要将U盘格式化为Fat32。确认后直接选择<code>写入</code></p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/51889ee4/19826068-aeb6c8e5f462a0cc.png" alt></p>
+<h3 id="4、等待写入完成"><a href="#4、等待写入完成" class="headerlink" title="4、等待写入完成"></a>4、等待写入完成</h3><p>等待写入完成，CentOS安装版就制作完成了。</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/51889ee4/19826068-cac1b960182eda40.png" alt></p>
+<h3 id="5、测试"><a href="#5、测试" class="headerlink" title="5、测试"></a>5、测试</h3><p>重启电脑，选择U盘启动，就可以看到CentOS的安装选项了</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/51889ee4/19826068-cd49821fbfe843f4.jpg" alt></p>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>冰封的记忆</title>
+    <url>/p/cea6f64d.html</url>
+    <content><![CDATA[<p>删除一段记忆并不是一件快乐的事，即使那是一段不快乐的记忆。还好，这个世上还有一种叫日记的东东，还有一种方法叫剪切。呵呵，那就不用删了，就剪切吧，把不开心、不快乐的事从大脑剪切到日记中来就行了。大脑暂时只保留快乐的、开心的事，等老了之后，再从日记中恢复所有的点点滴滴，那时再来慢慢品味人生中的酸甜苦辣吧…</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>瞎扯淡</title>
+    <url>/p/94a4ebdc.html</url>
+    <content><![CDATA[<p>与君一别十载,<br>悠悠十年离索,<br>十年心.<br>未曾废情,<br>魂牵梦萦,<br>夜夜思君.<br>鲛绡层层为君湿,<br>妾闻君欲与她人誓三生,<br>围巾为盟.<br>心死肝肠寸寸断,<br>唯有托梦于你,<br>望你早日回家,<br>断我相思情.</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>获取客户端真实IP</title>
+    <url>/p/a9cbf354.html</url>
+    <content><![CDATA[<p>在Java网站服务器中，要获取客户端的真实IP，一般有二种情况。</p>
+<h2 id="一、客户端直连服务器"><a href="#一、客户端直连服务器" class="headerlink" title="一、客户端直连服务器"></a>一、客户端直连服务器</h2><p>如果客户端直接连接服务器这些情况时最简单了，直接使用<code>HttpServletRequest</code> 中的 <code>getRemoteAddr();</code> 方法就可以获取到客户端的真实IP了。</p>
+<h2 id="二、通过Nginx、Apache等转发"><a href="#二、通过Nginx、Apache等转发" class="headerlink" title="二、通过Nginx、Apache等转发"></a>二、通过Nginx、Apache等转发</h2><p>首先需要配置转发服务器，在Header中添加X-Forwarded-For参数。</p>
+<h3 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h3><p>在nginx配置中，找到要转发的location中添加 <code>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</code></p>
+<pre><code>location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:8080/;
+    }
+</code></pre><h3 id="Apache配置"><a href="#Apache配置" class="headerlink" title="Apache配置"></a>Apache配置</h3><p>在http.conf添加配置</p>
+<pre><code class="line-numbers language-conf">RemoteIPHeader x-forwarded-for</code></pre>
+<p>这样设定好转发之后，X-Forwarded-For的值为一个或多个ip，用’,’分割，每次转发都会将源ip添加到最后，只要取第一个ip值就是客户端的真实IP了。</p>
+<h2 id="java代码"><a href="#java代码" class="headerlink" title="java代码"></a>java代码</h2><p>将上次两种情况合并一下</p>
+<pre><code class="line-numbers language-java">public static String getIp(HttpServletRequest request) {
+        if (request == null){
+            return &quot;&quot;;
+        }
+
+        String xForward = request.getHeader(&quot;X-Forwarded-For&quot;);
+        if (xForward == null) {
+            return request.getRemoteAddr();
+        }
+
+        String ip = &quot;&quot;;
+        String[] ipArr = xForward.split(&quot;,&quot;);
+        if (ipArr.length &gt; 0) {
+            ip = ipArr[0];
+        }
+
+        return ip;
+    }</code></pre>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>编译go版本proto3出现go_package错误</title>
+    <url>/p/3be1a96a.html</url>
+    <content><![CDATA[<p>在使用protobuf2升到protobuf3时，更新了proto-gen-go，编译proto文件进报了错误</p>
+<pre><code class="line-numbers language-bash">protoc-gen-go: unable to determine Go import path for &quot;proto/ipc.proto&quot;
+
+Please specify either:
+        • a &quot;go_package&quot; option in the .proto source file, or
+        • a &quot;M&quot; argument on the command line.
+
+See https://developers.google.com/protocol-buffers/docs/reference/go-generated#package for more information.
+
+--go_out: protoc-gen-go: Plugin failed with status code 1.</code></pre>
+<p>源文件为：</p>
+<pre><code class="line-numbers language-proto">syntax = &quot;proto3&quot;;
+
+package ipc;
+
+// 长连接Token验证请求
+message GameAuthReq {
+    string authToken = 1;    // Token
+    string serverId = 2;    // 登录服务器ID
+}
+
+...</code></pre>
+<p>编译命令为：</p>
+<pre><code class="line-numbers language-bash">protoc --go_out=. proto/ipc.proto</code></pre>
+<ul>
+<li>protoc-gen-go v1.27.1</li>
+<li>protoc        v3.12.3</li>
+</ul>
+<p>原因是protoc-gen-go版本过高，对源proto文件需要添加包名。在proto文件中添加<code>option go_package = &quot;/ipc&quot;;</code>就可以解决了。</p>
+<pre><code class="line-numbers language-proto">syntax = &quot;proto3&quot;;
+
+package ipc;
+option go_package = &quot;/ipc&quot;;
+
+// 长连接Token验证请求
+message GameAuthReq {
+    string authToken = 1;    // Token
+    string serverId = 2;    // 登录服务器ID
+}
+
+...</code></pre>
+<p>还有一种解决办法就是把protoc-gen-go版本退回到1.3.2及以下也可以解决。</p>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>protobuf报错 UnusedPrivateParameter</title>
+    <url>/p/2f04463c.html</url>
+    <content><![CDATA[<p>之前的项目用的是protobuf 2，后面将协议升级为 protobuf 3之后，发现编译的java文件中报错<code>UnusedPrivateParameter missing</code>。应该是java工程中导入的protobuf库的版本太低，网上查了一下，这个``至少需要3.8.0的版本才有，于是进入 <a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java" target="_blank" rel="noopener">maven 官网</a>发现有4.x的版本了，不过是rc版，这里选用稳定的3.19.1版本就可以了。修改pom.xml文件中protobuf版本号就可以了</p>
+<pre><code class="line-numbers language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.google.protobuf&lt;/groupId&gt;
+    &lt;artifactId&gt;protobuf-java&lt;/artifactId&gt;
+    &lt;version&gt;3.19.1&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1213,43 +3802,6 @@ We have an FAQ to help with your information and planning needs, as you figure o
       </tags>
   </entry>
   <entry>
-    <title>Android中使用GAID</title>
-    <url>/p/632f98fb.html</url>
-    <content><![CDATA[<p>在Android系统中，也有一个广告ID类似于iOS系统中的IDFA，这个就是基于Google Play Services的GAID了。但是国产手机的Andoird系统都是阉割掉了Google Play Services，所以是获取不到GAID的。</p>
-<h2 id="设置依赖"><a href="#设置依赖" class="headerlink" title="设置依赖"></a>设置依赖</h2><p>在gradle中添加google sdk组件</p>
-<pre><code> implementation group: &#39;com.google.android.gms&#39;, name: &#39;play-services-ads&#39;, version: &#39;15.0.0&#39;</code></pre><h2 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h2><pre><code class="line-numbers language-java"> //获取 GAID
-public String getGAID(){
-        String gaid= &quot;&quot;;
-        AdvertisingIdClient.Info adInfo = null ;
-        try {
-            adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
-        } catch (IOException e) {
-            // Unrecoverable error connecting to Google Play services (e.g.,
-            // the old version of the service doesn&#39;t support getting AdvertisingId).
-            Log.e(&quot;getGAID&quot;, &quot;IOException&quot;);
-        } catch (GooglePlayServicesNotAvailableException e) {
-            // Google Play services is not available entirely.
-            Log.e(&quot;getGAID&quot;, &quot;GooglePlayServicesNotAvailableException&quot;);
-        } catch (Exception e) {
-            Log.e(&quot;getGAID&quot;, &quot;Exception:&quot;+e.toString());
-            // Encountered a recoverable error connecting to Google Play services.
-        }
-        if (adInfo!= null){
-            gaid= adInfo.getId();
-            Log.w(&quot;getGAID&quot;, &quot;gaid:&quot;+gaid);
-        }
-        return gaid;
-    }</code></pre>
-<p>注意，此方法需要在子线程执行，不然会报错。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Android中使用OAID</title>
     <url>/p/a69bb014.html</url>
     <content><![CDATA[<h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><p>因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android 10及后续版本中非厂商系统应用将无法获取IMEI、MAC等设备信息。无法获取IMEI会在用户行为统计过程中对设备识别产生一定影响。近日移动安全联盟针对该问题联合国内手机厂商推出补充设备标准体系方案，选择OAID字段作为IMEI等的替代字段。OAID字段是由中国信通院联合华为、小米、OPPO、VIVO等厂商共同推出的设备识别字段，具有一定的权威性，可满足用户行为统计的使用场景。</p>
@@ -1563,6 +4115,43 @@ public class MiitHelper implements IIdentifierListener {
 
     ....
 }</code></pre>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android中使用GAID</title>
+    <url>/p/632f98fb.html</url>
+    <content><![CDATA[<p>在Android系统中，也有一个广告ID类似于iOS系统中的IDFA，这个就是基于Google Play Services的GAID了。但是国产手机的Andoird系统都是阉割掉了Google Play Services，所以是获取不到GAID的。</p>
+<h2 id="设置依赖"><a href="#设置依赖" class="headerlink" title="设置依赖"></a>设置依赖</h2><p>在gradle中添加google sdk组件</p>
+<pre><code> implementation group: &#39;com.google.android.gms&#39;, name: &#39;play-services-ads&#39;, version: &#39;15.0.0&#39;</code></pre><h2 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h2><pre><code class="line-numbers language-java"> //获取 GAID
+public String getGAID(){
+        String gaid= &quot;&quot;;
+        AdvertisingIdClient.Info adInfo = null ;
+        try {
+            adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
+        } catch (IOException e) {
+            // Unrecoverable error connecting to Google Play services (e.g.,
+            // the old version of the service doesn&#39;t support getting AdvertisingId).
+            Log.e(&quot;getGAID&quot;, &quot;IOException&quot;);
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // Google Play services is not available entirely.
+            Log.e(&quot;getGAID&quot;, &quot;GooglePlayServicesNotAvailableException&quot;);
+        } catch (Exception e) {
+            Log.e(&quot;getGAID&quot;, &quot;Exception:&quot;+e.toString());
+            // Encountered a recoverable error connecting to Google Play services.
+        }
+        if (adInfo!= null){
+            gaid= adInfo.getId();
+            Log.w(&quot;getGAID&quot;, &quot;gaid:&quot;+gaid);
+        }
+        return gaid;
+    }</code></pre>
+<p>注意，此方法需要在子线程执行，不然会报错。</p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -5843,6 +8432,7 @@ server {
     }
 }</code></pre>
 <h1 id="重新加载Nginx配置"><a href="#重新加载Nginx配置" class="headerlink" title="重新加载Nginx配置"></a>重新加载Nginx配置</h1><pre><code class="line-numbers language-bash">nginx -s reload</code></pre>
+<h1 id="设置权限"><a href="#设置权限" class="headerlink" title="设置权限"></a>设置权限</h1><pre><code class="line-numbers language-bash">chown apache:apache -R /home/svn</code></pre>
 <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>在流量器中直接输入 <code>http://svn.zngw.icu/test1</code> 可以弹出账号登录页面，登录成功可以访问网页版的svn。用svn客户端checkout <code>http://svn.zngw.icu/test1</code> 就可以下载test1项目</p>
 ]]></content>
       <categories>
@@ -16489,23 +19079,6 @@ vector&lt;string&gt; split(const string &amp;str, const string &amp;pattern)
       </tags>
   </entry>
   <entry>
-    <title>Android 9.0 应用请求http请求无法访问网络</title>
-    <url>/p/baddbcad.html</url>
-    <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>前两天Android Studio打包时，sdk版本从27 升级到29，发现原来的http请求访问不了。原来是在Android (9.0)+系统的设备上，如果应用使用的是非加密的明文流量的http网络请求，则会导致该应用无法进行网络请求，https则不会受影响</p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="1-将SDK版本降为27及以下"><a href="#1-将SDK版本降为27及以下" class="headerlink" title="1. 将SDK版本降为27及以下"></a>1. 将SDK版本降为27及以下</h2><h2 id="2-将http协议改为https协议"><a href="#2-将http协议改为https协议" class="headerlink" title="2. 将http协议改为https协议"></a>2. 将http协议改为https协议</h2><h2 id="3-修改工程配置"><a href="#3-修改工程配置" class="headerlink" title="3. 修改工程配置"></a>3. 修改工程配置</h2><p>修改工程AndroidManifest文件中的application标签内添加</p>
-<pre><code>&lt;application
-...
-  android:usesCleartextTraffic=&quot;true&quot;
-...
-/&gt;</code></pre>]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Android Studio Gradle工程路径太长</title>
     <url>/p/55b12ce9.html</url>
     <content><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>用cocos creator生成了一个gradle 的 android工程，项目本身目录就比较深，再加上默认的生成路径又是一大堆，最后用Android Studio打开的时候，目录已经很长很长了。再然后就编译出错了</p>
@@ -16526,6 +19099,23 @@ vector&lt;string&gt; split(const string &amp;str, const string &amp;pattern)
     }
 }</code></pre><p>然后，重新用Android Studio打开项目就可以了</p>
 ]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android 9.0 应用请求http请求无法访问网络</title>
+    <url>/p/baddbcad.html</url>
+    <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>前两天Android Studio打包时，sdk版本从27 升级到29，发现原来的http请求访问不了。原来是在Android (9.0)+系统的设备上，如果应用使用的是非加密的明文流量的http网络请求，则会导致该应用无法进行网络请求，https则不会受影响</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="1-将SDK版本降为27及以下"><a href="#1-将SDK版本降为27及以下" class="headerlink" title="1. 将SDK版本降为27及以下"></a>1. 将SDK版本降为27及以下</h2><h2 id="2-将http协议改为https协议"><a href="#2-将http协议改为https协议" class="headerlink" title="2. 将http协议改为https协议"></a>2. 将http协议改为https协议</h2><h2 id="3-修改工程配置"><a href="#3-修改工程配置" class="headerlink" title="3. 修改工程配置"></a>3. 修改工程配置</h2><p>修改工程AndroidManifest文件中的application标签内添加</p>
+<pre><code>&lt;application
+...
+  android:usesCleartextTraffic=&quot;true&quot;
+...
+/&gt;</code></pre>]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -17393,6 +19983,58 @@ FLUSH PRIVILEGES;</code></pre>
     server 192.168.0.55:8084;
 }</code></pre>
 <p>本文参考：<a href="https://www.cnblogs.com/yanggb/p/10895326.html" target="_blank" rel="noopener">https://www.cnblogs.com/yanggb/p/10895326.html</a></p>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux文件目录权限</title>
+    <url>/p/a5bbf9aa.html</url>
+    <content><![CDATA[<p>Linux中文件目录的权限分为三个群组，<code>拥有者</code>、<code>所在群组</code>、<code>其他组</code>，每个群组可以单独设置<code>读</code>、<code>写</code>、<code>执行</code>三种权限。</p>
+<p>一般用3位数字表示，如：777，644，640等</p>
+<ul>
+<li>第一位数字是 拥有者(User)</li>
+<li>第二位数字是 所在群组(Group)</li>
+<li>第三位数字是 其他群组(Other)</li>
+</ul>
+<p>数字的意义就是读写执行三个数字相加得来</p>
+<ul>
+<li>读 r = 4</li>
+<li>写 w = 2</li>
+<li>执行 x = 1</li>
+</ul>
+<p>解析：</p>
+<p>777：所有用户都有读、写、执行权限<br>644：只有拥有者有读写权限；而属组用户和其他用户只有读权限<br>640：只有拥有者有读写权限；而属组用户只有读，其他用户无权限</p>
+<p>修改权限命令</p>
+<pre><code class="line-numbers language-bash">:: 修改文件权限
+chmod 644 test.txt
+
+:: 修改目录
+chmod -R 640 guoke</code></pre>
+<p>用符号操作权限</p>
+<ul>
+<li>u：拥有者</li>
+<li>g：所在群组</li>
+<li>o：其他</li>
+<li>x：可执行</li>
+<li>w：写</li>
+<li>r：读</li>
+<li>+：添加权限</li>
+<li>-：删除权限</li>
+</ul>
+<pre><code class="line-numbers language-bash">:: 给gk.sh文件添加可执行权限，缺省为所有用户组
+chmod +x gk.sh
+
+:: 给gk.sh的拥有者和所在群组添加可执行权限
+chmod ug+x gk.sh
+
+:: 删除gk.sh 其他组的写入和可执行权限 
+chmod o-wx gk.sh
+</code></pre>
 ]]></content>
       <categories>
         <category>CentOS</category>
@@ -25524,24 +28166,27 @@ docker version</code></pre>
     <url>/p/9f838c2b.html</url>
     <content><![CDATA[<h2 id="淘宝"><a href="#淘宝" class="headerlink" title="淘宝"></a>淘宝</h2><h3 id="1-请求接口（GET）："><a href="#1-请求接口（GET）：" class="headerlink" title="1. 请求接口（GET）："></a>1. 请求接口（GET）：</h3><a id="more"></a>
 
-<p><a href="http://ip.taobao.com/service/getIpInfo.php?ip=119.35.6.120" target="_blank" rel="noopener">http://ip.taobao.com/service/getIpInfo.php?ip=<code>ip地址字串</code></a></p>
+<p><a href="https://ip.taobao.com/outGetIpInfo?ip=119.35.6.120&accessKey=alibaba-inc" target="_blank" rel="noopener">https://ip.taobao.com/outGetIpInfo?ip=IP地址&amp;accessKey=alibaba-inc</a></p>
 <h3 id="2-返回数据格式："><a href="#2-返回数据格式：" class="headerlink" title="2.  返回数据格式："></a>2.  返回数据格式：</h3><pre><code class="line-numbers language-json">{
-    &quot;code&quot;: 0,
-    &quot;data&quot;: {
-        &quot;ip&quot;: &quot;119.35.6.120&quot;,
-        &quot;country&quot;: &quot;中国&quot;,
-        &quot;area&quot;: &quot;&quot;,
-        &quot;region&quot;: &quot;广东&quot;,
-        &quot;city&quot;: &quot;广州&quot;,
-        &quot;county&quot;: &quot;XX&quot;,
-        &quot;isp&quot;: &quot;珠江宽频&quot;,
-        &quot;country_id&quot;: &quot;CN&quot;,
-        &quot;area_id&quot;: &quot;&quot;,
-        &quot;region_id&quot;: &quot;440000&quot;,
-        &quot;city_id&quot;: &quot;440100&quot;,
-        &quot;county_id&quot;: &quot;xx&quot;,
-        &quot;isp_id&quot;: &quot;1000331&quot;
-    }
+    &quot;data&quot;:
+    {
+        &quot;area&quot;:&quot;&quot;,
+        &quot;country&quot;:&quot;中国&quot;,
+        &quot;isp_id&quot;:&quot;1000331&quot;,
+        &quot;queryIp&quot;:&quot;119.35.6.120&quot;,
+        &quot;city&quot;:&quot;广州&quot;,
+        &quot;ip&quot;:&quot;119.35.6.120&quot;,
+        &quot;isp&quot;:&quot;珠江宽频&quot;,
+        &quot;county&quot;:&quot;&quot;,
+        &quot;region_id&quot;:&quot;440000&quot;,
+        &quot;area_id&quot;:&quot;&quot;,
+        &quot;county_id&quot;:null,
+        &quot;region&quot;:&quot;广东&quot;,
+        &quot;country_id&quot;:&quot;CN&quot;,
+        &quot;city_id&quot;:&quot;440100&quot;
+    },
+    &quot;msg&quot;:&quot;query success&quot;,
+    &quot;code&quot;:0
 }</code></pre>
 <h3 id="3-频次限制："><a href="#3-频次限制：" class="headerlink" title="3. 频次限制："></a>3. 频次限制：</h3><p>每个用户的访问频率需小于1qps</p>
 <h3 id="4-文档说明："><a href="#4-文档说明：" class="headerlink" title="4. 文档说明："></a>4. 文档说明：</h3><p><a href="http://ip.taobao.com/instructions.html" target="_blank" rel="noopener">http://ip.taobao.com/instructions.html</a></p>
@@ -28148,44 +30793,6 @@ DNS2=114.114.114.114         #</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>CentOS7 安装Docker</title>
-    <url>/p/39d97234.html</url>
-    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
-sudo yum -y update
-
-## 卸载旧版本
-sudo yum remove docker  docker-common docker-selinux docker-engine
-&lt;!-- more --&gt;
-## 安装需要的软件包
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
-
-## 安装container-selinux
-yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
-
-## 设置yum源
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-## 安装
-sudo yum -y install docker-ce
-
-## 设置开机启动
-sudo systemctl enable docker
-
-## 启动docker
-sudo systemctl start docker
-
-## 显示版本
-docker version</code></pre>
-]]></content>
-      <categories>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-        <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CentOS 7 关闭selinux</title>
     <url>/p/c2b74a9a.html</url>
     <content><![CDATA[<ol>
@@ -28249,6 +30856,44 @@ SELINUXTYPE=targeted</code></pre>
       </categories>
       <tags>
         <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS7 安装Docker</title>
+    <url>/p/39d97234.html</url>
+    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
+sudo yum -y update
+
+## 卸载旧版本
+sudo yum remove docker  docker-common docker-selinux docker-engine
+&lt;!-- more --&gt;
+## 安装需要的软件包
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
+
+## 安装container-selinux
+yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
+
+## 设置yum源
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+## 安装
+sudo yum -y install docker-ce
+
+## 设置开机启动
+sudo systemctl enable docker
+
+## 启动docker
+sudo systemctl start docker
+
+## 显示版本
+docker version</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -28802,35 +31447,29 @@ nvm alias default v10.16.3</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>MongoDB 忘记密码</title>
-    <url>/p/d9c741f4.html</url>
-    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
-<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
-<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
-<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>停止服务<code>kill 9564</code> 进程ID</li>
-<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
-<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
-use admin                      # 切换到系统帐户表
-db.system.users.find()         # 查看当前帐户（密码有加密过）
-db.system.users.remove({})     # 删除所有帐户
-db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
-</li>
-<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
-<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
-<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
-<li>注释掉<code>authorization:enabled</code></li>
-<li>重启MongoDB服务<code>service mongodb restart</code></li>
-<li>同上运行命令删除账户</li>
-<li>恢复 <code>authorization:enabled</code></li>
-<li>重启 mongodb 服务<code>service mongodb restart</code></li>
-</ul>
+    <title>Win10 安装 MongoDB</title>
+    <url>/p/3172944f.html</url>
+    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
+<a id="more"></a>
+<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
+<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
+:: 创建MongoDB服务 
+:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
+:: 数据目录 D:\MongoDB\Server\4.2\data
+:: 外网可访问 --bind_ip_all
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
+:: 启动服务
+net start MongoDB</code></pre>
+<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
+<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
 ]]></content>
       <categories>
         <category>MongoDB</category>
       </categories>
       <tags>
         <tag>MongoDB</tag>
+        <tag>Window</tag>
       </tags>
   </entry>
   <entry>
@@ -28861,29 +31500,35 @@ db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Win10 安装 MongoDB</title>
-    <url>/p/3172944f.html</url>
-    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
-<a id="more"></a>
-<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
-<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
-:: 创建MongoDB服务 
-:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
-:: 数据目录 D:\MongoDB\Server\4.2\data
-:: 外网可访问 --bind_ip_all
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
-:: 启动服务
-net start MongoDB</code></pre>
-<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
-<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
+    <title>MongoDB 忘记密码</title>
+    <url>/p/d9c741f4.html</url>
+    <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
+<pre><code class="line-numbers language-bash">ps -ef | grep mongod</code></pre>
+<h4 id="命令行参数启动"><a href="#命令行参数启动" class="headerlink" title="命令行参数启动"></a>命令行参数启动</h4><ul>
+<li>如果查看到的mongod后面带<code>-auth</code>参数启动的<br>如：<code>root       9564      1  0 06:28 ?        00:00:15 mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>停止服务<code>kill 9564</code> 进程ID</li>
+<li>去掉<code>-auth</code>参数重新启动<br>如：<code>mongod --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></li>
+<li>运行命令删除账户<pre><code class="line-numbers language-bash">mongo                          # 运行客户端
+use admin                      # 切换到系统帐户表
+db.system.users.find()         # 查看当前帐户（密码有加密过）
+db.system.users.remove({})     # 删除所有帐户
+db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
+</li>
+<li>恢复<code>-auth</code>参数运行<br>如：<code>mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log</code><h4 id="配置文件运行"><a href="#配置文件运行" class="headerlink" title="配置文件运行"></a>配置文件运行</h4></li>
+<li>如果参数没有<code>-auth</code>参数的，<code>vim /etc/mongod.conf</code></li>
+<li>如果不是默认位置，用<code>find / -name mongod.conf</code>搜索到配置文件</li>
+<li>注释掉<code>authorization:enabled</code></li>
+<li>重启MongoDB服务<code>service mongodb restart</code></li>
+<li>同上运行命令删除账户</li>
+<li>恢复 <code>authorization:enabled</code></li>
+<li>重启 mongodb 服务<code>service mongodb restart</code></li>
+</ul>
 ]]></content>
       <categories>
         <category>MongoDB</category>
       </categories>
       <tags>
         <tag>MongoDB</tag>
-        <tag>Window</tag>
       </tags>
   </entry>
   <entry>
@@ -28976,6 +31621,32 @@ package main</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>React环境搭建</title>
+    <url>/p/28a0bfec.html</url>
+    <content><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a>
+<ol>
+<li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li>
+<li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li>
+<li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li>
+<li>命令行cd进入项目目录</li>
+<li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-cli
+npm install babel-preset-react</code></pre>
+</li>
+<li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre>
+</li>
+<li>npm install （安装依赖）</li>
+<li>npm start （启动）</li>
+<li>打包可部署 npm run build （在dist目录下，部署的东西）</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>IOS ipa包企业证书签名手动替换</title>
     <url>/p/d4109bd2.html</url>
     <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>IOS安装包企业签名ipa包里面包含的是payload文件夹，文件夹中包含了资源文件和_CodeSignature签名文件夹以及embedded.mobileprovision证书配置文件，而其中关于ios授权签名的就是_CodeSignature签名文件夹和embedded.mobileprovision证书配置文件 只要替换这两个文件就搞定。<br>_CodeSignature签名文件夹 需要用 *.plist 授权文件去自动生成。</p>
@@ -29029,32 +31700,6 @@ package main</code></pre>
       </categories>
       <tags>
         <tag>iOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>React环境搭建</title>
-    <url>/p/28a0bfec.html</url>
-    <content><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a>
-<ol>
-<li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li>
-<li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li>
-<li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li>
-<li>命令行cd进入项目目录</li>
-<li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-cli
-npm install babel-preset-react</code></pre>
-</li>
-<li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre>
-</li>
-<li>npm install （安装依赖）</li>
-<li>npm start （启动）</li>
-<li>打包可部署 npm run build （在dist目录下，部署的东西）</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Window</tag>
       </tags>
   </entry>
   <entry>

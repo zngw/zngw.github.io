@@ -381,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/f0aeed1a.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/584473bf.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -400,7 +400,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/f0aeed1a.html" itemprop="url">go中使用SSH认证连接MongoDB</a></h2>
+                <a class="post-title-link" href="/p/584473bf.html" itemprop="url">vsftpd建立虚拟用户</a></h2>
         
 
         <div class="post-meta">
@@ -413,8 +413,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-07T19:25:55+08:00">
-                2021-11-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-25T01:33:52+08:00">
+                2022-01-25
               </time>
             
 
@@ -429,7 +429,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-11-07</span>
+               <span class="post-meta-item-text"> 2022-01-25</span>
             
           </span>
 
@@ -446,8 +446,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">Golang</span>
+                  <a href="/categories/CentOS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">CentOS</span>
                   </a>
                 </span>
 
@@ -468,7 +468,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  501
+                  981
                 </span>
               
 
@@ -484,7 +484,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             
@@ -498,7 +498,7 @@
 
             
             
-              <span id="/p/f0aeed1a.html" class="zngw_visitors" data-flag-title="go中使用SSH认证连接MongoDB">
+              <span id="/p/584473bf.html" class="zngw_visitors" data-flag-title="vsftpd建立虚拟用户">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -531,12 +531,18 @@
       
         
           
-          一、说明go连接MongoDB驱动库mongo-driver和mgo.v2库中都不支持ssh认证连接的。但是我们可以使用net库先与MongoDB数据库服务器建立ssh连接，然后再将MongoDB数据库所在服务器端口映射到本地连接中转发就可以了。
-二、使用下面以mongo-driver数据库驱动为例
+          安装vsftpdyum -y install pam pam-devel db4 db4-tcl
+yum -y install vsftpd
+配置vsftpd.confvim /etc/vsftpd/vsftpd.conf
+
+#设成YES,允许匿名用户登陆
+anonymous_enable=NO
+
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/f0aeed1a.html#more" rel="contents">
+            <a class="btn" href="/p/584473bf.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -583,7 +589,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/9c31a311.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/2413d045.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -602,7 +608,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/9c31a311.html" itemprop="url">C#使用SSH认证连接MongoDB</a></h2>
+                <a class="post-title-link" href="/p/2413d045.html" itemprop="url">vsftpd单用户多目录的配置</a></h2>
         
 
         <div class="post-meta">
@@ -615,8 +621,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-05T21:42:57+08:00">
-                2021-11-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-23T00:41:15+08:00">
+                2022-01-23
               </time>
             
 
@@ -631,7 +637,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-11-05</span>
+               <span class="post-meta-item-text"> 2022-01-23</span>
             
           </span>
 
@@ -648,8 +654,616 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSharp-C/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">CSharp(C#)</span>
+                  <a href="/categories/CentOS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">CentOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  273
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/2413d045.html" class="zngw_visitors" data-flag-title="vsftpd单用户多目录的配置">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          　　在使用vsftpd过程中，我们会经常发现vsftpd在默认情况下一个用户（无论是系统用户还是虚拟用户）只能拥有一个目录，一般是根目录。如果此时再要向该用户添加其它目录的话，那么就无法直接添加了（在配置用户只能访问自身目录的情况下）。　　一开始我想到了软连接的方式，结果是vsftpd不支持软连接，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/p/2413d045.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+        
+
+
+    
+
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/bc3f68f0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/p/bc3f68f0.html" itemprop="url">frp外网穿透ftp服务</a></h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-22T10:31:59+08:00">
+                2022-01-22
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2022-01-22</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CentOS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">CentOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  404
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/bc3f68f0.html" class="zngw_visitors" data-flag-title="frp外网穿透ftp服务">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          说明　　FTP协议有两种工作方式：PORT方式和PASV方式，中文意思为主动式和被动式。如果要用ftp外网穿透，需要使用被动模式。
+　　被动模式(PASV)连接过程是:客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，服务器在命令链路上用PAS
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/p/bc3f68f0.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+        
+
+
+    
+
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/517c4c65.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/p/517c4c65.html" itemprop="url">Centos7安装搭建FTP服务器</a></h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-21T02:33:56+08:00">
+                2022-01-21
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2022-01-21</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CentOS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">CentOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  423
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/517c4c65.html" class="zngw_visitors" data-flag-title="Centos7安装搭建FTP服务器">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          一、查看是否已经安装了vsftpdvsftpd -version
+二、安装vsftpdyum install -y vsftpd
+三、新建FTP目录创建的FTP目录 /data/ftp
+mkdir -p /data/ftp
+四、创建新用户guoke为你为该ftp创建的用户名，/data/ftp 为登
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/p/517c4c65.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+        
+
+
+    
+
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/87b37b63.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/p/87b37b63.html" itemprop="url">电脑远程开机</a></h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-08T00:47:28+08:00">
+                2022-01-08
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2022-01-08</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">软件使用</span>
                   </a>
                 </span>
 
@@ -700,7 +1314,7 @@
 
             
             
-              <span id="/p/9c31a311.html" class="zngw_visitors" data-flag-title="C#使用SSH认证连接MongoDB">
+              <span id="/p/87b37b63.html" class="zngw_visitors" data-flag-title="电脑远程开机">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -733,14 +1347,13 @@
       
         
           
-          一、环境在C#中可以使用Renci.SshNet和MongoDB.Driver通过SSH认证连接MongoDB数据库。
-先去NuGet程序包管理页面中，下载Renci.SshNet和MongoDB.Driver库
+          　　现在网上有一种远程开机卡，这个需要有PCI插槽，还要将线接入到电脑开机和重启的电源开关跳线上，还要依赖于开机卡运营商提供的APP，可能存在一定的不确定和安全隐患。　　下面提供另一种只依赖于可以远程控制的智能插座的远程开机方法，这种办法操作起来非常简单：
 
-二、使用可以先通过SshNet库使用SSH认证连接MongoDB所在的服务器，再用M
+先按插座说明连接上wifi能用手机app
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/9c31a311.html#more" rel="contents">
+            <a class="btn" href="/p/87b37b63.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -787,7 +1400,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/a6b55fd5.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/1a5742e7.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -806,7 +1419,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/a6b55fd5.html" itemprop="url">Java使用SSH连接MongoDB</a></h2>
+                <a class="post-title-link" href="/p/1a5742e7.html" itemprop="url">iPhone使用虚拟定位</a></h2>
         
 
         <div class="post-meta">
@@ -819,8 +1432,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-03T23:21:55+08:00">
-                2021-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-05T10:51:49+08:00">
+                2022-01-05
               </time>
             
 
@@ -835,7 +1448,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-11-03</span>
+               <span class="post-meta-item-text"> 2022-01-05</span>
             
           </span>
 
@@ -852,8 +1465,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/iOS/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -874,413 +1487,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  478
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            
-
-            
-              
-            
-
-            
-            
-
-            
-            
-              <span id="/p/a6b55fd5.html" class="zngw_visitors" data-flag-title="Java使用SSH连接MongoDB">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-eye"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读&#58;</span>
-                
-                <span class="zngw-visitors-count"></span>
-              </span>
-            
-          </div>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          一、环境在Java中可以使用mongodb-driver和com.jcraft来实现Java中使用SSH连接MongoDB。
-maven配置
-&lt;dependency&gt;
-    &lt;groupId&gt;org.mongodb&lt;/groupId&gt;
-    &lt;artif
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/p/a6b55fd5.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-        
-
-
-    
-
-    
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/58e1b8b4.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="过客">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="过愙">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/p/58e1b8b4.html" itemprop="url">也谈“过客”</a></h2>
-        
-
-        <div class="post-meta">
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-02T18:13:24+08:00">
-                2021-11-02
-              </time>
-            
-
-            
-              <span class="post-meta-item-text post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-text post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-               <span class="post-meta-item-text"> 2021-11-02</span>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          <div class="post-wordcount">
-            
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  828
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            
-
-            
-              
-            
-
-            
-            
-
-            
-            
-              <span id="/p/58e1b8b4.html" class="zngw_visitors" data-flag-title="也谈“过客”">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-eye"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读&#58;</span>
-                
-                <span class="zngw-visitors-count"></span>
-              </span>
-            
-          </div>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          　　曾经用了十多年的网名“过客”，但自己很少去深思这个词的含义。昨天一个网友留言道：每个人都是自己生命中的主角，而不只是过客。也许是每个人的生活以及对这个词的理解都不同吧…　　“过客”这个词在词典里解释为过路的人，在百度百科网络词汇中，过客：指在互联网上历来都是“客”源不断,从博客、威客、换客、维客
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/p/58e1b8b4.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-        
-
-
-    
-
-    
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/536760e1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="过客">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="过愙">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/p/536760e1.html" itemprop="url">Linux下读写NTFS格式</a></h2>
-        
-
-        <div class="post-meta">
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-01T00:05:43+08:00">
-                2021-11-01
-              </time>
-            
-
-            
-              <span class="post-meta-item-text post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-text post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-               <span class="post-meta-item-text"> 2021-11-01</span>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ubuntu/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">Ubuntu</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          <div class="post-wordcount">
-            
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  195
+                  282
                 </span>
               
 
@@ -1310,7 +1517,7 @@ maven配置
 
             
             
-              <span id="/p/536760e1.html" class="zngw_visitors" data-flag-title="Linux下读写NTFS格式">
+              <span id="/p/1a5742e7.html" class="zngw_visitors" data-flag-title="iPhone使用虚拟定位">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -1343,11 +1550,13 @@ maven配置
       
         
           
-          一、介绍在Linux上可以使用NTFS-3G来挂载NTFS格式的硬盘。NTFS-3G 是一个开源的软件，可以实现Linux、Free BSD、Mac OSX、NetBSD 和Haiku 等操作系统中的NTFS 读写支持。  它可以安全且快速地读写Windows 系统的NTFS 分区，而不用担心数据丢
+          　　昨天数字人民币app在各应用商店上线了，但是只有几个指定试点地点可以注册，为了体验一下可以使用虚拟定位将自己的位置模拟到试点地区注册。
+一、下载工具这里使用爱思助手，直接去官网下载安装，不需要越狱也可以使用。
+二、打开虚拟定位工具运行爱思肋手，用数据线连接上手机，在菜单栏依次找到 工具箱 -&g
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/536760e1.html#more" rel="contents">
+            <a class="btn" href="/p/1a5742e7.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1394,7 +1603,7 @@ maven配置
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/874c58c2.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/c006e26c.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -1413,7 +1622,7 @@ maven配置
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/874c58c2.html" itemprop="url">股市中的过客</a></h2>
+                <a class="post-title-link" href="/p/c006e26c.html" itemprop="url">C#中声明一个常量数组</a></h2>
         
 
         <div class="post-meta">
@@ -1426,8 +1635,8 @@ maven配置
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-30T21:39:00+08:00">
-                2021-10-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-03T16:05:59+08:00">
+                2022-01-03
               </time>
             
 
@@ -1442,7 +1651,7 @@ maven配置
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-10-30</span>
+               <span class="post-meta-item-text"> 2022-01-03</span>
             
           </span>
 
@@ -1459,8 +1668,8 @@ maven配置
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
+                  <a href="/categories/CSharp-C/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">CSharp(C#)</span>
                   </a>
                 </span>
 
@@ -1481,7 +1690,7 @@ maven配置
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  328
+                  275
                 </span>
               
 
@@ -1511,7 +1720,7 @@ maven配置
 
             
             
-              <span id="/p/874c58c2.html" class="zngw_visitors" data-flag-title="股市中的过客">
+              <span id="/p/c006e26c.html" class="zngw_visitors" data-flag-title="C#中声明一个常量数组">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -1544,11 +1753,11 @@ maven配置
       
         
           
-          　　工作十多年，手里有点小积蓄，之前存银行放余额宝发现利息都赶不上物价上涨。怎么样才能不亏呢？　　在四五月份的时候开始买基金，那时候白酒消费比较凶残，各平台推荐的也比较多，对于小白来说看着推荐的还长了，也就跟风进了一些白酒消费类和上证50指数基金，结果到七八月份的时候亏了10%左右。本想赚点零花钱的
+          　　想在C#类中声音一个常量数组，类型为int，里面有初始化的内容且不可更改。习惯性的写上了public const int[] a = {1,2,3,4,5}这样的格式，结果编译就给我报错了。后面尝试过在类中各种const，都是会报错的。　　在C#中，只有byte、char、short、int、l
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/874c58c2.html#more" rel="contents">
+            <a class="btn" href="/p/c006e26c.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1595,7 +1804,7 @@ maven配置
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/c66a286f.html">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/26da89a5.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="过客">
@@ -1614,7 +1823,7 @@ maven配置
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/p/c66a286f.html" itemprop="url">go读取docx文档</a></h2>
+                <a class="post-title-link" href="/p/26da89a5.html" itemprop="url">将阿里云盘映射成本地磁盘</a></h2>
         
 
         <div class="post-meta">
@@ -1627,8 +1836,8 @@ maven配置
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-29T22:47:31+08:00">
-                2021-10-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-01T16:30:55+08:00">
+                2022-01-01
               </time>
             
 
@@ -1643,7 +1852,416 @@ maven配置
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-               <span class="post-meta-item-text"> 2021-10-29</span>
+               <span class="post-meta-item-text"> 2022-01-01</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">软件使用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  241
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/26da89a5.html" class="zngw_visitors" data-flag-title="将阿里云盘映射成本地磁盘">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          　　阿里云盘的不限速，可以使用CloudDrive工具将它映射成本地磁盘。
+1、注册阿里去盘账号点击连接可以用手机号注册阿里云盘账号，并下载APP
+2、 下载安装下载CloudDrive工具，直接双击安装。
+3、注册登录安装后直接打开http://localhost:9798，先注册一个账号登录
+4
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/p/26da89a5.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+        
+
+
+    
+
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/9bf2f1af.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/p/9bf2f1af.html" itemprop="url">ImageMagick实现图集图片拆分</a></h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-28T18:07:28+08:00">
+                2021-12-28
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2021-12-28</span>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/index.html" itemprop="url" rel="index">
+                    <span itemprop="name">软件使用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <div class="post-wordcount">
+            
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  503
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            
+
+            
+              
+            
+
+            
+            
+
+            
+            
+              <span id="/p/9bf2f1af.html" class="zngw_visitors" data-flag-title="ImageMagick实现图集图片拆分">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-eye"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读&#58;</span>
+                
+                <span class="zngw-visitors-count"></span>
+              </span>
+            
+          </div>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          一、起因有一个序列帧动画的图集和一个TexturePacker的json描述文件，需要将每一帧图片从图集中拆分下来。
+二、下载安装ImageMagick先去ImageMagick官网下载对应系统中的版本安装
+三、使用打开图集的json文件，能发现有类似的frames
+{&quot;frames&qu
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/p/9bf2f1af.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+        
+
+
+    
+
+    
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/fb7b7ba5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="过愙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/p/fb7b7ba5.html" itemprop="url">go切片遍历</a></h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-27T08:51:52+08:00">
+                2021-12-27
+              </time>
+            
+
+            
+              <span class="post-meta-item-text post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-text post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+               <span class="post-meta-item-text"> 2021-12-27</span>
             
           </span>
 
@@ -1682,7 +2300,7 @@ maven配置
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  284
+                  270
                 </span>
               
 
@@ -1712,7 +2330,7 @@ maven配置
 
             
             
-              <span id="/p/c66a286f.html" class="zngw_visitors" data-flag-title="go读取docx文档">
+              <span id="/p/fb7b7ba5.html" class="zngw_visitors" data-flag-title="go切片遍历">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-eye"></i>
@@ -1745,617 +2363,17 @@ maven配置
       
         
           
-          介绍docx 是一个带有 xml 的 zip 文件,  srinathh/gooxml 是一个用于创建 Office Open XML 文档的库.这个库只支持office 2007以及之后的版本的文档,即只能读取.docx、.xlsx 和 .pptx,面不能读取.doc、.xls 和 .ppt
-安装
+          顺序遍历对于切片的顺序遍历，一般使用range就可以了。
+var nums = []int{10,20,30,40,50}
+for i, value := range nums {
+    // i为索引
+    // value 为切变值
+}
+这里有一个问题需要注意一下，如果这里的切片nums不是
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/p/c66a286f.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-        
-
-
-    
-
-    
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/4d81b25b.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="过客">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="过愙">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/p/4d81b25b.html" itemprop="url">Ubuntu 20.04 安装 Nats</a></h2>
-        
-
-        <div class="post-meta">
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-27T15:56:30+08:00">
-                2021-10-27
-              </time>
-            
-
-            
-              <span class="post-meta-item-text post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-text post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-               <span class="post-meta-item-text"> 2021-10-27</span>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ubuntu/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">Ubuntu</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          <div class="post-wordcount">
-            
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.2k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            
-
-            
-              
-            
-
-            
-            
-
-            
-            
-              <span id="/p/4d81b25b.html" class="zngw_visitors" data-flag-title="Ubuntu 20.04 安装 Nats">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-eye"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读&#58;</span>
-                
-                <span class="zngw-visitors-count"></span>
-              </span>
-            
-          </div>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1、介绍nats是一个开源的，云原生的消息系统。核心基于EventMachine开发，原理是基于消息发布订阅机制，每台服务器上的每个模块会根据自己的消息类别向MessageBus发布多个消息主题，而同时也向自己需要交互的模块，按照需要的主题订阅消息。能够达到每秒8-11百万个消息，整个程序很小只有3
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/p/4d81b25b.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-        
-
-
-    
-
-    
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/c01f879d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="过客">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="过愙">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/p/c01f879d.html" itemprop="url">go中国家新闻出版署实名认证</a></h2>
-        
-
-        <div class="post-meta">
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-25T15:27:37+08:00">
-                2021-10-25
-              </time>
-            
-
-            
-              <span class="post-meta-item-text post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-text post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-               <span class="post-meta-item-text"> 2021-10-25</span>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">Golang</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          <div class="post-wordcount">
-            
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  985
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            
-
-            
-              
-            
-
-            
-            
-
-            
-            
-              <span id="/p/c01f879d.html" class="zngw_visitors" data-flag-title="go中国家新闻出版署实名认证">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-eye"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读&#58;</span>
-                
-                <span class="zngw-visitors-count"></span>
-              </span>
-            
-          </div>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          随着网络游戏防沉迷系统的接入，实名认证验证也是一个必不可少的部分，网上有第三方的实名认证但基本上都收费，国家新闻出版署提供了免费的接口，不过需要自己去提交申请，获取应用标识 (APPID)、应用密钥 (Secret Key)、业务权限标识(BizId)，并将请求服务器的IP设为白名单后，就可以调用h
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/p/c01f879d.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-        
-
-
-    
-
-    
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zengwu.com.cn/p/618372ba.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="过客">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="过愙">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/p/618372ba.html" itemprop="url">Ubuntu 20.04 安装 Redis</a></h2>
-        
-
-        <div class="post-meta">
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-24T13:27:42+08:00">
-                2021-10-24
-              </time>
-            
-
-            
-              <span class="post-meta-item-text post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-text post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-               <span class="post-meta-item-text"> 2021-10-24</span>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ubuntu/index.html" itemprop="url" rel="index">
-                    <span itemprop="name">Ubuntu</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          <div class="post-wordcount">
-            
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  173
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            
-
-            
-              
-            
-
-            
-            
-
-            
-            
-              <span id="/p/618372ba.html" class="zngw_visitors" data-flag-title="Ubuntu 20.04 安装 Redis">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-eye"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读&#58;</span>
-                
-                <span class="zngw-visitors-count"></span>
-              </span>
-            
-          </div>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          在 Ubuntu 20.04 上安装 Redis 可以下载http://download.redis.io/redis-stable.tar.gz直接运行，但也可以使用apt来直接按装。Ubuntu 20.04 软件源中有Redis 5.0。
-sudo apt update
-sudo apt ins
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/p/618372ba.html#more" rel="contents">
+            <a class="btn" href="/p/fb7b7ba5.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2393,7 +2411,7 @@ sudo apt ins
 
   
  <nav class="pagination">
-   <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="accessibility.prev_page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/index.html">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/index.html">34</a><a class="extend next" rel="next" href="/page/3/index.html"><i class="fa fa-angle-right" aria-label="accessibility.next_page"></i></a>
+   <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="accessibility.prev_page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/index.html">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/index.html">37</a><a class="extend next" rel="next" href="/page/3/index.html"><i class="fa fa-angle-right" aria-label="accessibility.next_page"></i></a>
  </nav>
 
           </div>
@@ -2445,7 +2463,7 @@ sudo apt ins
               
                 <a href="/archives/index.html">
               
-                  <span class="site-state-item-count">337</span>
+                  <span class="site-state-item-count">369</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2467,7 +2485,7 @@ sudo apt ins
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2521,28 +2539,28 @@ sudo apt ins
               
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    01-01
-                    <a href="/p/26da89a5.html" title="将阿里云盘映射成本地磁盘">将阿里云盘映射成本地磁盘</a>
+                    02-10
+                    <a href="/p/e95d9ea.html" title="Java遍历对象的属性和值">Java遍历对象的属性和值</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    12-05
-                    <a href="/p/c1edbab3.html" title="bat中的enabledelayedexpansion">bat中的enabledelayedexpansion</a>
+                    02-09
+                    <a href="/p/2acf1e35.html" title="Nginx上传时报413错误">Nginx上传时报413错误</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-21
-                    <a href="/p/afe6edd9.html" title="Nginx配置跨域">Nginx配置跨域</a>
+                    02-05
+                    <a href="/p/70eb6c81.html" title="Win中修改文件系统属性">Win中修改文件系统属性</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-19
-                    <a href="/p/e334394.html" title="curl发送POST请求">curl发送POST请求</a>
+                    02-05
+                    <a href="/p/3d8979b.html" title="软raid中使用">软raid中使用</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    11-18
-                    <a href="/p/334d5fc9.html" title="Java中byte数组和String字符串相互转换">Java中byte数组和String字符串相互转换</a>
+                    02-04
+                    <a href="/p/91fa3804.html" title="CentOS 7 系统备份与恢复">CentOS 7 系统备份与恢复</a>
                 </div><br/>
               
             </ul>
@@ -2581,7 +2599,7 @@ sudo apt ins
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
   <span class="post-meta-divider">|</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -2596,7 +2614,7 @@ sudo apt ins
     
       <span class="post-meta-item-text">全站字数&#58;</span>
     
-    <span title="全站字数">309.2k</span>
+    <span title="全站字数">327.2k</span>
   </div>
   
 
@@ -2688,7 +2706,7 @@ sudo apt ins
   
 
   <script type="text/javascript" src="/js/src/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"></script>
+  <script src="/js/src/axios-0.19.2/axios.min.js"></script>
   <script>
     function post(url, postInfo, success, fail) {
       axios.post(url, postInfo)
