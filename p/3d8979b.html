@@ -147,7 +147,7 @@
 <meta property="og:description" content="软raid中是通过软件层面来模拟实现raid的相关功能，从而达到与硬件raid相同的功能。在Linux中通常是使用md模块来实现软件raid。 一、安装mdadmyum -y install mdadm 二、显示硬盘和分区信息在VM虚拟机中完成测试，sda为系统盘，sdb、sdc、sdd、sde为四个制作raid的硬盘。 lsblk  NAME            MAJ:MIN RM  SIZ">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-05T01:41:15.000Z">
-<meta property="article:modified_time" content="2022-01-29T04:19:40.903Z">
+<meta property="article:modified_time" content="2022-03-13T02:44:31.927Z">
 <meta property="article:author" content="过客">
 <meta property="article:tag" content="CentOS">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f759423ed17e6f82c79790450fa6ab7e";
+      hm.src = "//hm.baidu.com/hm.js?f759423ed17e6f82c79790450fa6ab7e";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -466,7 +466,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.6k
+                  1.9k
                 </span>
               
 
@@ -482,7 +482,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8
+                  9
                 </span>
               
             
@@ -541,7 +541,16 @@ sdb               8:16   0   20G  0 disk
 sdc               8:32   0   20G  0 disk 
 sdd               8:48   0   20G  0 disk 
 sde               8:64   0   20G  0 disk </code></pre>
-<h1 id="三、格式化硬盘"><a href="#三、格式化硬盘" class="headerlink" title="三、格式化硬盘"></a>三、格式化硬盘</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# fdisk /dev/sdb
+<h1 id="三、格式化硬盘"><a href="#三、格式化硬盘" class="headerlink" title="三、格式化硬盘"></a>三、格式化硬盘</h1><h2 id="2TB以内硬盘"><a href="#2TB以内硬盘" class="headerlink" title="2TB以内硬盘"></a>2TB以内硬盘</h2><pre><code class="line-numbers language-bash">fdisk /dev/sdb
+n 回车 回车 回车（或输入分区大小，建议预留100M空间） t l fd w</code></pre>
+<ul>
+<li>n：创建分区，回车选择默认分区和大小使用全部硬盘</li>
+<li>t：修改分区类型，回车选择默认分区</li>
+<li>l：列出所有分区类型</li>
+<li>fd：指raid分区，不同版本前的数字不一样，从l显示的列表中找到Linux raid auto类型就行了。</li>
+</ul>
+<p>完整操作实例</p>
+<pre><code class="line-numbers language-bash">[root@localhost ~]# fdisk /dev/sdb
 欢迎使用 fdisk (util-linux 2.23.2)。
 
 更改将停留在内存中，直到您决定将更改写入磁盘。
@@ -613,7 +622,43 @@ The partition table has been altered!
 
 Calling ioctl() to re-read partition table.
 正在同步磁盘。</code></pre>
-<p>这里要注意一点的是修改硬盘格式为<code>fd  Linux raid 自动</code> 修改同步格式化sdc、sdd、sde三个硬盘。</p>
+<h2 id="2TB以上"><a href="#2TB以上" class="headerlink" title="2TB以上"></a>2TB以上</h2><pre><code class="line-numbers language-bash">parted /dev/sdb
+mklabel gpt mkpart 回车 ext4 0GB 4000GB p q</code></pre>
+<ul>
+<li>mklabel:创建一个新的磁盘标签</li>
+<li>gpt: gpt分区</li>
+<li>mkpart: 创建分区</li>
+<li>ext4: 硬盘数据格式</li>
+<li>0GB: 开始位置</li>
+<li>4000GB: 结束位置</li>
+<li>p: 显示信息</li>
+<li>q: 保存退出</li>
+</ul>
+<pre><code class="line-numbers language-bash">[root@zngw ~]# parted /dev/sdb
+GNU Parted 3.1
+Using /dev/sdb
+Welcome to GNU Parted! Type &#39;help&#39; to view a list of commands.
+(parted) mklabel                                                          
+New disk label type? gpt                                                  
+Warning: The existing disk label on /dev/sdb will be destroyed and all data on this disk will be lost. Do you want to continue?
+Yes/No? y                                                                 
+(parted) mkpart                                                           
+Partition name?  []?                                                      
+File system type?  [ext2]? ext4                                           
+Start? 0GB                                                                
+End? 4000GB                                                               
+(parted) p                                                                
+Model: External USB3.0 DISK04 (scsi)
+Disk /dev/sdb: 4001GB
+Sector size (logical/physical): 512B/4096B
+Partition Table: gpt
+Disk Flags: 
+
+Number  Start   End     Size    File system  Name  Flags
+ 1      1049kB  4000GB  4000GB
+
+(parted) q                                                                
+Information: You may need to update /etc/fstab.</code></pre>
 <h1 id="四、创建raid"><a href="#四、创建raid" class="headerlink" title="四、创建raid"></a>四、创建raid</h1><pre><code class="line-numbers language-bash">mdadm --create /dev/md5 --auto yes --level 5 -n4 /dev/sd{b,c,d,e}</code></pre>
 <ul>
 <li>-C/–create:新建阵列</li>
@@ -630,7 +675,7 @@ md5 : active raid5 sde[4] sdd[2] sdc[1] sdb[0]
       [=====&gt;...............]  recovery = 25.7% (5400192/20954112) finish=1.2min speed=200007K/sec
 
 unused devices: &lt;none&gt;</code></pre>
-<h1 id="六、创建md0配置文件"><a href="#六、创建md0配置文件" class="headerlink" title="六、创建md0配置文件"></a>六、创建md0配置文件</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# echo DEVICE /dev/sd{b,c,d,e} &gt;&gt; /etc/mdadm.conf
+<h1 id="六、创建md5配置文件"><a href="#六、创建md5配置文件" class="headerlink" title="六、创建md5配置文件"></a>六、创建md5配置文件</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# echo DEVICE /dev/sd{b,c,d,e} &gt;&gt; /etc/mdadm.conf
 [root@localhost ~]# mdadm -Evs &gt;&gt; /etc/mdadm.conf 
 [root@localhost ~]# cat /etc/mdadm.conf
 DEVICE /dev/sdb1 /dev/sdc1 /dev/sdd1
@@ -701,7 +746,10 @@ mdadm /dev/md5 -a /dev/sdf
 mdadm -G /dev/md5 -n5
 
 # 查看状态等待扩容完成
-mdadm -D /dev/md5</code></pre>
+mdadm -D /dev/md5
+
+# 将/dev/md5分区扩容
+resize2fs /dev/md5</code></pre>
 <blockquote>
 <p>注：数据无价，扩容时最好做好备份。</p>
 </blockquote>
@@ -798,7 +846,28 @@ rm -f /etc/mdadm.conf
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\p\73bd51fc.html" rel="bookmark">CentOS7 中 yum 安装 MongoDB</a></div>
+      <div class="popular-posts-title"><a href="\p\24020ba2.html" rel="bookmark">CentOS中svn服务器安装与使用</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\139c8a02.html" rel="bookmark">centos 7 上测试网速</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\e24baf19.html" rel="bookmark">PM2启动和管理 jar</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\p\5e936033.html" rel="bookmark">linux下使用ipv6连接</a></div>
       
     </li>
   
@@ -806,27 +875,6 @@ rm -f /etc/mdadm.conf
       
       
       <div class="popular-posts-title"><a href="\p\91fa3804.html" rel="bookmark">CentOS 7 系统备份与恢复</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\p\584473bf.html" rel="bookmark">vsftpd建立虚拟用户</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\p\2413d045.html" rel="bookmark">vsftpd单用户多目录的配置</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\p\bc3f68f0.html" rel="bookmark">frp外网穿透ftp服务</a></div>
       
     </li>
   
@@ -975,7 +1023,7 @@ rm -f /etc/mdadm.conf
               
                 <a href="/archives/index.html">
               
-                  <span class="site-state-item-count">369</span>
+                  <span class="site-state-item-count">385</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1051,28 +1099,28 @@ rm -f /etc/mdadm.conf
               
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    02-10
-                    <a href="/p/e95d9ea.html" title="Java遍历对象的属性和值">Java遍历对象的属性和值</a>
+                    04-13
+                    <a href="/p/b378ee31.html" title="Win10开机默认开启数字小键盘">Win10开机默认开启数字小键盘</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    02-09
-                    <a href="/p/2acf1e35.html" title="Nginx上传时报413错误">Nginx上传时报413错误</a>
+                    04-11
+                    <a href="/p/1af38a39.html" title="iOS 提交审核报错 ERROR ITMS-90087">iOS 提交审核报错 ERROR ITMS-90087</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    02-05
-                    <a href="/p/397c12f5.html" title="netsh命令实现端口转发">netsh命令实现端口转发</a>
+                    04-05
+                    <a href="/p/2fafa45b.html" title="mac安装braw">mac安装braw</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    02-05
-                    <a href="/p/3d8979b.html" title="软raid中使用">软raid中使用</a>
+                    04-04
+                    <a href="/p/b31124f3.html" title="mac 10.9.5系统升级">mac 10.9.5系统升级</a>
                 </div><br/>
               
                 <div class='pull-left' style="white-space:nowrap" >
-                    02-04
-                    <a href="/p/91fa3804.html" title="CentOS 7 系统备份与恢复">CentOS 7 系统备份与恢复</a>
+                    04-03
+                    <a href="/p/2dd7582f.html" title="mac os无法登录appstore">mac os无法登录appstore</a>
                 </div><br/>
               
             </ul>
@@ -1108,7 +1156,7 @@ rm -f /etc/mdadm.conf
 
             
               
-                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、安装mdadm"><span class="nav-text">一、安装mdadm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、显示硬盘和分区信息"><span class="nav-text">二、显示硬盘和分区信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、格式化硬盘"><span class="nav-text">三、格式化硬盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、创建raid"><span class="nav-text">四、创建raid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、查看阵列状态"><span class="nav-text">五、查看阵列状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、创建md0配置文件"><span class="nav-text">六、创建md0配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、格式化RAID分区"><span class="nav-text">七、格式化RAID分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#八、挂载"><span class="nav-text">八、挂载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#九、测试"><span class="nav-text">九、测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十、添加新硬盘"><span class="nav-text">十、添加新硬盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十一、重装系统后恢复"><span class="nav-text">十一、重装系统后恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十二、删除软RAID"><span class="nav-text">十二、删除软RAID</span></a></li></ol></div>
+                <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、安装mdadm"><span class="nav-text">一、安装mdadm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、显示硬盘和分区信息"><span class="nav-text">二、显示硬盘和分区信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、格式化硬盘"><span class="nav-text">三、格式化硬盘</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2TB以内硬盘"><span class="nav-text">2TB以内硬盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2TB以上"><span class="nav-text">2TB以上</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、创建raid"><span class="nav-text">四、创建raid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、查看阵列状态"><span class="nav-text">五、查看阵列状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、创建md5配置文件"><span class="nav-text">六、创建md5配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、格式化RAID分区"><span class="nav-text">七、格式化RAID分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#八、挂载"><span class="nav-text">八、挂载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#九、测试"><span class="nav-text">九、测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十、添加新硬盘"><span class="nav-text">十、添加新硬盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十一、重装系统后恢复"><span class="nav-text">十一、重装系统后恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十二、删除软RAID"><span class="nav-text">十二、删除软RAID</span></a></li></ol></div>
               
             
           </div>
@@ -1143,7 +1191,7 @@ rm -f /etc/mdadm.conf
     
       <span class="post-meta-item-text">全站字数&#58;</span>
     
-    <span title="全站字数">327.2k</span>
+    <span title="全站字数">331.5k</span>
   </div>
   
 
@@ -1389,7 +1437,7 @@ rm -f /etc/mdadm.conf
 
 
   <div style="display: none;">
-    <script src="//s95.cnzz.com/z_stat.php?id=1278604389&web_id=1278604389" language="JavaScript"></script>
+    <script src="//s4.cnzz.com/z_stat.php?id=1278604389&web_id=1278604389" language="JavaScript"></script>
   </div>
 
 

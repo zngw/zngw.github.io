@@ -1,6 +1,458 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Win10开机默认开启数字小键盘</title>
+    <url>/p/b378ee31.html</url>
+    <content><![CDATA[<h2 id="打开注册表"><a href="#打开注册表" class="headerlink" title="打开注册表"></a>打开注册表</h2><p>按<code>Windows + R</code>打开运行窗口，输入<code>regedit</code>打开注册表编辑器</p>
+<h2 id="找到注册表"><a href="#找到注册表" class="headerlink" title="找到注册表"></a>找到注册表</h2><p>找到<code>计算机\HKEY_USERS\.DEFAULT\Control Panel\Keyboard</code>项中的<code>InitialKeyboardIndicators</code>值</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/b378ee31/19826068-73d08a1688123c6e.png" alt></p>
+<h2 id="修改值"><a href="#修改值" class="headerlink" title="修改值"></a>修改值</h2><p>将<code>InitialKeyboardIndicators</code>值由<code>2147483648</code>，修改为<code>2</code></p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/b378ee31/19826068-e41a3886ec04f805.png" alt></p>
+<p>InitialKeyboardIndicators值说明：</p>
+<ul>
+<li>0：在登录后关闭数字锁定</li>
+<li>1：禁用数字锁定</li>
+<li>2：在登录后开启数字锁定。（登录页面时还是关闭的）</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>iOS 提交审核报错 ERROR ITMS-90087</title>
+    <url>/p/1af38a39.html</url>
+    <content><![CDATA[<p>项目中加了Adjust  SDK，在打包提交审核的时候直接报错了。</p>
+<pre><code>ERROR ITMS-90087: &quot;Unsupported Architectures. The executable for yimiaozhaopin.app/Frameworks/AdjustSdk.framework contains unsupported architectures &#39;[x86_64, i386]&#39;.&quot;</code></pre><p>这是下载的``包中包含了x86_64, i386 架构，所以提交时会报错ERROR ITMS-90087。用script命令去掉framework 中的x86_64, i386 架构就可以了。</p>
+<p>先找到项目工程属性的<code>Build Phases</code>属性页，添加<code>Script Phase</code>，将下面脚本直接粘贴到脚本框中就可以了。</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/1af38a39/19826068-4d0c0d18a81027ba.png" alt></p>
+<pre><code>APP_PATH=&quot;${TARGET_BUILD_DIR}/${WRAPPER_NAME}&quot;
+
+# This script loops through the frameworks embedded in the application and
+
+# removes unused architectures.
+
+find &quot;$APP_PATH&quot; -name &#39;*.framework&#39; -type d | while read -r FRAMEWORK
+
+do
+
+FRAMEWORK_EXECUTABLE_NAME=$(defaults read &quot;$FRAMEWORK/Info.plist&quot; CFBundleExecutable)
+
+FRAMEWORK_EXECUTABLE_PATH=&quot;$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME&quot;
+
+echo &quot;Executable is $FRAMEWORK_EXECUTABLE_PATH&quot;
+
+EXTRACTED_ARCHS=()
+
+for ARCH in $ARCHS
+
+do
+
+echo &quot;Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME&quot;
+
+lipo -extract &quot;$ARCH&quot; &quot;$FRAMEWORK_EXECUTABLE_PATH&quot; -o &quot;$FRAMEWORK_EXECUTABLE_PATH-$ARCH&quot;
+
+EXTRACTED_ARCHS+=(&quot;$FRAMEWORK_EXECUTABLE_PATH-$ARCH&quot;)
+
+done
+
+echo &quot;Merging extracted architectures: ${ARCHS}&quot;
+
+lipo -o &quot;$FRAMEWORK_EXECUTABLE_PATH-merged&quot; -create &quot;${EXTRACTED_ARCHS[@]}&quot;
+
+rm &quot;${EXTRACTED_ARCHS[@]}&quot;
+
+echo &quot;Replacing original executable with thinned version&quot;
+
+rm &quot;$FRAMEWORK_EXECUTABLE_PATH&quot;
+
+mv &quot;$FRAMEWORK_EXECUTABLE_PATH-merged&quot; &quot;$FRAMEWORK_EXECUTABLE_PATH&quot;
+
+done</code></pre><p>本文参考：<a href="https://www.jianshu.com/p/c381a07cb758" target="_blank" rel="noopener">https://www.jianshu.com/p/c381a07cb758</a></p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mac安装braw</title>
+    <url>/p/2fafa45b.html</url>
+    <content><![CDATA[<h2 id="命令行安装"><a href="#命令行安装" class="headerlink" title="命令行安装"></a>命令行安装</h2><p>对于braw的安装，只要一条命令就可以了</p>
+<pre><code class="line-numbers language-bash">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&quot;</code></pre>
+<h2 id="安装慢或443问题"><a href="#安装慢或443问题" class="headerlink" title="安装慢或443问题"></a>安装慢或443问题</h2><p>由于安装源在github上，国内访问github有名种蛋疼的问题。</p>
+<p>通过<code>https://www.ipaddress.com</code>先查出<code>raw.githubusercontent.com</code>的真实ip，然后修改本地hosts文件添加直接解析</p>
+<pre><code class="line-numbers language-bash">:: 由于它是通过CDN的，可能不止一个ip，挑一个自己访问最快的ip解析就可以了，ip之后也可能会改变。
+185.199.108.133 raw.githubusercontent.com
+185.199.108.133 user-images.githubusercontent.com
+185.199.108.133 avatars2.githubusercontent.com
+185.199.108.133 avatars1.githubusercontent.com</code></pre>
+<p>然后再运行上面的命令安装brew。</p>
+<p>自己安装了好几次都卡在了<code>homebrew-core</code>下载上，有时是下不过来，有时直接报错了。</p>
+<pre><code>Cloning into &#39;/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core&#39;...
+fatal: unable to access &#39;https://github.com/Homebrew/homebrew-core/&#39;: LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54
+Error: Failure while executing; `git clone https://github.com/Homebrew/homebrew-core /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core` exited with 128.
+Error: Failure while executing; `/usr/local/bin/brew tap homebrew/core` exited with 1.</code></pre><p>这个，直接进入github网站<a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core</a>，点击直接下载zip包。</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/2fafa45b/19826068-905821c16135df24.png" alt></p>
+<p>然后把整个zip包解压，复制到<code>/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core</code>目录下。</p>
+<p>最后诊断一下</p>
+<pre><code>brew doctor
+brew -v</code></pre>]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mac 10.9.5系统升级</title>
+    <url>/p/b31124f3.html</url>
+    <content><![CDATA[<h2 id="1-先检查兼容性"><a href="#1-先检查兼容性" class="headerlink" title="1. 先检查兼容性"></a>1. 先检查兼容性</h2><p>进入苹果官方网<a href="http://support.apple.com/zh-cn/HT211683" target="_blank" rel="noopener">http://support.apple.com/zh-cn/HT211683</a>，找到兼容性检查，查看对应的系统最低硬件要求<br><img src="//gitee.com/guoke3915/zw/raw/master/p/b31124f3/19826068-d7ff40539bd4835f.png" alt></p>
+<h2 id="2-备份数据"><a href="#2-备份数据" class="headerlink" title="2. 备份数据"></a>2. 备份数据</h2><p>正常情况下来，系统更新后会保持原数据不变，但不排除出错数据丢失的情况，所要，重要的数据先到移动硬盘或网盘备份一下。</p>
+<h2 id="3-下载系统安装包"><a href="#3-下载系统安装包" class="headerlink" title="3. 下载系统安装包"></a>3. 下载系统安装包</h2><p>找到对应的系统后，在 Mac 上使用 Safari 浏览器点击对应的macOS，会自动跳转到Appstore中对应的系统安装包下载。只要下安装就可以了</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/b31124f3/19826068-cb6c537f8e9f2c40.png" alt></p>
+<h2 id="4-等待安装完成"><a href="#4-等待安装完成" class="headerlink" title="4. 等待安装完成"></a>4. 等待安装完成</h2><p>中间可能会重启几次，等待安装完成，系统就更新成功啦</p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mac os无法登录appstore</title>
+    <url>/p/2dd7582f.html</url>
+    <content><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在一台老的macbook air（10.9.5系统）上，发现 appstore无法登录，每次输入正确的密码手机也能收到二次验证，但是直接提示密码错误，并没有让你输入二次验证码的地方。</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><ol>
+<li>第一次正常输入账号密码点登录，这时会返回密码错误，但手机会同时收到二次验证吗。</li>
+<li>把验证码添加到apple ID的密码后面，再次点登录，就可以成功登录了。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>svn命令行使用</title>
+    <url>/p/475253dd.html</url>
+    <content><![CDATA[<h2 id="1、检出-（svn-co）"><a href="#1、检出-（svn-co）" class="headerlink" title="1、检出 （svn co）"></a>1、检出 （svn co）</h2><p>命令：<code>svn co url path</code></p>
+<ul>
+<li>url：服务器svn项目地址</li>
+<li>path：本地存放目录，如果不写path，默认会在当前目录创建</li>
+</ul>
+<p>例如：</p>
+<pre><code>svn co svn://192.168.31.55/svn/test test</code></pre><h2 id="2、更新（svn-up）"><a href="#2、更新（svn-up）" class="headerlink" title="2、更新（svn up）"></a>2、更新（svn up）</h2><p>命令：<code>svn up -r m path</code></p>
+<ul>
+<li>m：指定的版本号，如果没有则更新到最新版本</li>
+<li>path：指定更新的目录或文件，如果没有则更新当前目录</li>
+</ul>
+<p>例如：</p>
+<pre><code># 更新当前目录，若当前目录为svn项目根目录则更新所有
+svn up 
+
+# 更新指定文件到指定版本
+svn update -r 55 test.txt</code></pre><h2 id="3、查看文件或者目录状态（svn-st）"><a href="#3、查看文件或者目录状态（svn-st）" class="headerlink" title="3、查看文件或者目录状态（svn st）"></a>3、查看文件或者目录状态（svn st）</h2><p>命令：svn st -v path</p>
+<ul>
+<li>?：不在svn的控制中</li>
+<li>M：内容被修改</li>
+<li>C：发生冲突</li>
+<li>A：预定加入到版本库</li>
+<li>K：被锁定</li>
+<li>-v：显示目录下的文件和子目录的状态，无-v则正常状态不显示</li>
+</ul>
+<p>例如：</p>
+<pre><code>svn st
+svn st -v</code></pre><h2 id="4、添加文件（svn-add）"><a href="#4、添加文件（svn-add）" class="headerlink" title="4、添加文件（svn add）"></a>4、添加文件（svn add）</h2><p>命令：<code>svn add file</code></p>
+<ul>
+<li>file：需要添加的文件，可以使用*通配符匹配多个。</li>
+</ul>
+<p>例如：</p>
+<pre><code># 添加单个文件
+svn add a.txt
+
+# 添加同类型文件
+svn add *.txt
+
+# 添加所有版本控制外的新文件
+svn st | awk &#39;{if ( $1 == &quot;?&quot;) { print $2}}&#39; | xargs svn add</code></pre><h2 id="5、删除文件（svn-del）"><a href="#5、删除文件（svn-del）" class="headerlink" title="5、删除文件（svn del）"></a>5、删除文件（svn del）</h2><p>命令：<code>svn del path -m &quot;msg&quot;</code></p>
+<ul>
+<li>path：要删除的文件和目录</li>
+<li>-m： 删除备注说明，可缺省</li>
+</ul>
+<p>例如：</p>
+<pre><code># 删除当个文件
+svn del test.txt
+
+# 删除本地不存在的所有文件
+svn st | grep &#39;^\!&#39; | tr &#39;^\!&#39; &#39; &#39; | sed &#39;s/[ ]*//&#39; | sed &#39;s/[ ]/\\ /g&#39; | xargs svn del</code></pre><h2 id="6、提交（svn-ci）"><a href="#6、提交（svn-ci）" class="headerlink" title="6、提交（svn ci）"></a>6、提交（svn ci）</h2><p>命令：<code>svn ci -m &quot;msg&quot;</code></p>
+<ul>
+<li>-m： 删除备注说明</li>
+</ul>
+<h2 id="7、查看日志（svn-log-path）"><a href="#7、查看日志（svn-log-path）" class="headerlink" title="7、查看日志（svn log path）"></a>7、查看日志（svn log path）</h2><p>命令：<code>svn log path</code></p>
+<ul>
+<li>path：要查看日志的文件和目录</li>
+</ul>
+<h2 id="8、比较差异（svn-di）"><a href="#8、比较差异（svn-di）" class="headerlink" title="8、比较差异（svn di）"></a>8、比较差异（svn di）</h2><p>命令：<code>svn diff path</code></p>
+<ul>
+<li>path：要比较的文件</li>
+</ul>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos 7 上测试网速</title>
+    <url>/p/139c8a02.html</url>
+    <content><![CDATA[<h2 id><a href="#" class="headerlink" title="##"></a>##</h2><p>小伙伴给了台CentOS7服务器过来，yum安装东西下载有点慢，想测试一下网速 ，可以使用测试网速的一个小工具speedtest。<br>　　Speedtest.net强大而知名的全球宽带网络速度测试网站，采用Flash载入界面，Alexa世界排名非常高，Speedtest.net在全球有数百个测试节点，国内有测速节点几十个。作为一款在线并且可视化的网速测试工具。使用方法简单，无需下载、安装Speedtest.net还推出了命令行下测速工具speedtest.py 就能够实时测试网速。</p>
+<h2 id="一、下载安装包"><a href="#一、下载安装包" class="headerlink" title="一、下载安装包"></a>一、下载安装包</h2><pre><code class="line-numbers language-bash">wget https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py</code></pre>
+<h2 id="二、赋予可执行权限"><a href="#二、赋予可执行权限" class="headerlink" title="二、赋予可执行权限"></a>二、赋予可执行权限</h2><pre><code class="line-numbers language-bash">chmod +x speedtest.py</code></pre>
+<h2 id="二、运行"><a href="#二、运行" class="headerlink" title="二、运行"></a>二、运行</h2><p>因为CentOS7默认自带了python2.7，所以可以直接运行</p>
+<pre><code class="line-numbers language-bash">./speedtest.py</code></pre>
+<p>等待执行结束，就可以看到测试结果了。</p>
+<p>除了测速，speedtest 还有其他的一些功能</p>
+<pre><code class="line-numbers language-bash">./speedtest --help</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android下XMLHttpRequest出错</title>
+    <url>/p/ac3ac4f8.html</url>
+    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在Android包下，使用了第三方SDK登录，在切出去登录成功后，在SDK的回调中使用runOnGLThread线程回调到TS代码中。</p>
+<pre><code class="line-numbers language-java">appActivity.runOnGLThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Cocos2dxJavascriptJavaBridge.evalString(&quot;SystemBridge.OnLoginSuccess(\&quot;&quot;+ accessToken + &quot;\&quot;,\&quot;&quot; + userId+&quot;\&quot;)&quot;);
+                        }
+                    });</code></pre>
+<p>然后，在TS代码中，使用了XMLHttpRequest的post协议异步请求消息向服务器登录。</p>
+<pre><code class="line-numbers language-ts">public static OnLoginSuccess(token: string, id: string) {
+        let postData = {
+            &quot;token&quot;:token,
+            &quot;id&quot;:id
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = &#39;arraybuffer&#39;;
+        xhr.onreadystatechange = () =&gt; {
+            if (xhr.readyState === 4) {
+                if (xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300) {
+                    // TODO 处理登录成功
+                }
+            }
+        };
+        xhr.open(&quot;POST&quot;, &quot;登录服务器Url&quot;, true);
+        xhr.timeout = 10000;
+        xhr.ontimeout = () =&gt; {
+                    // TODO 处理登录超时
+        }
+        xhr.send(postData);
+        xhr.onerror = () =&gt; {
+                    // TODO 处理登录错误
+        }
+}</code></pre>
+<p>最后返回的结果是 刚发送数据同一帧就收到了ontimeout的回调，然后部分手机还会出现崩溃情况。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>XMLHttpRequest 的异步逻辑类似于setTimeout，setTimeout 和 XMLHttpRequest.onreadystatechange 用的都是同一个 Event Queue，唯一区别是 setTimeout 是定时器线程往队列里压，XMLHttpRequest.onreadystatechange 是 HTTP 异步请求线程往队列里压，其逻辑就要看CocosCreator的Main Loop了。可能原因是应用从别的程序中切换过来时，导致Main Loop回调出了点问题。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>就是在整个post时，用schedule做一个延迟回调。等到Event Queue队列循环正常后再调用post函数就可以了。</p>
+<pre><code class="line-numbers language-ts">    public static OnLoginSuccess(token: string, id: string) {
+        Timer.scheduleOnce(() =&gt; {
+            let postData = {
+            &quot;token&quot;:token,
+            &quot;id&quot;:id
+        }
+        ...
+        其他代码 
+        }, 0.1)
+    }</code></pre>
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>apk/abb密钥生成</title>
+    <url>/p/dbb8ef42.html</url>
+    <content><![CDATA[<p>提交google包时提示密钥强度太低。<br><img src="//gitee.com/guoke3915/zw/raw/master/p/dbb8ef42/19826068-8f78414dd9e587d7.png" alt></p>
+<p>密钥是用cocos creater生成的，后面查了一下密钥长度是1024位的，google自动 生成的密钥是4096的，最少也要2048才不会有这种提示。可以用jdk自带的keytool工具来生成指定长度的密钥</p>
+<h3 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h3><pre><code class="line-numbers language-bat">keytool -genkeypair -keystore e:/gk.keystore  -storepass gk123456 -alias key0 -keypass gk123456 -keyalg RSA -keysize 4096 -validity 36500 -dname CN=g,OU=cc55,O=cc55,L=sh,ST=sh,C=cn</code></pre>
+<ul>
+<li>-genkeypair：生成密钥</li>
+<li>-keystore：秘钥库文件名及存位位置</li>
+<li>-storepass：指定密钥库的密码</li>
+<li>-alias：指定别名</li>
+<li>-keypass：指定别名条目的密码</li>
+<li>-keyalg：指定密钥的算法 (如 RSA DSA（如果不指定默认采用DSA）)</li>
+<li>-keysize：密钥长度</li>
+<li>-validity：证书有效期(单位：天)</li>
+<li>-dname：CN=(名字与姓氏), OU=(组织单位名称), O=(组织名称), L=(城市或区域名称),ST=(州或省份名称), C=(单位的两字母国家代码)</li>
+</ul>
+<h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><pre><code class="line-numbers language-bat">keytool -list -keystore e:/gk.keystore -storepass gk123456 </code></pre>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 查看修改用户（组）/ 密码</title>
+    <url>/p/9820cd5d.html</url>
+    <content><![CDATA[<ul>
+<li>查看用户列表 cat /etc/passwd 或者 cat /etc/shadow</li>
+<li>增加/修改/删除用户 useradd/usermod/userdel</li>
+<li>查看用户组 cat /etc/group</li>
+<li>增加/修改/删除用户组 groupadd/groupmod/groupdel</li>
+<li>修改密码 passwd <accountName></accountName></li>
+<li>查看一个文件的group ID： stat -c ‘%g’ /var/run/docker.sock</li>
+</ul>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Intellij Idea打包java为可执行jar包</title>
+    <url>/p/2911b980.html</url>
+    <content><![CDATA[<h3 id="1-选中Java项目工程名称，在菜单中选择-File-gt-project-structure…-快捷键Ctrl-Alt-Shift-S-。"><a href="#1-选中Java项目工程名称，在菜单中选择-File-gt-project-structure…-快捷键Ctrl-Alt-Shift-S-。" class="headerlink" title="1. 选中Java项目工程名称，在菜单中选择 File-&gt;project structure… (快捷键Ctrl+Alt+Shift+S)。"></a>1. 选中Java项目工程名称，在菜单中选择 File-&gt;project structure… (快捷键Ctrl+Alt+Shift+S)。</h3><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2911b980/19826068-29a630e562db20a6.png" alt></p>
+<h3 id="2-在弹出的窗口中左侧选中”Artifacts”，点击”-”选择jar，然后选择”from-modules-with-dependencies”。"><a href="#2-在弹出的窗口中左侧选中”Artifacts”，点击”-”选择jar，然后选择”from-modules-with-dependencies”。" class="headerlink" title="2. 在弹出的窗口中左侧选中”Artifacts”，点击”+”选择jar，然后选择”from modules with dependencies”。"></a>2. 在弹出的窗口中左侧选中”Artifacts”，点击”+”选择jar，然后选择”from modules with dependencies”。</h3><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2911b980/19826068-d79f9c23c46276f9.png" alt></p>
+<h3 id="3-在配置窗口中配置”Main-Class”。"><a href="#3-在配置窗口中配置”Main-Class”。" class="headerlink" title="3. 在配置窗口中配置”Main Class”。"></a>3. 在配置窗口中配置”Main Class”。</h3><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2911b980/19826068-b31d3f00392f49e7.png" alt></p>
+<h3 id="4-配置Directory-for-META-INF-MAINFEST-MF，此项配置的缺省值是：羡慕java所在文件目录，需要改成：与src目录同级的目录。如果不这样修改，打成的jar包里没有包含META-INF-MAINFEST-MF文件"><a href="#4-配置Directory-for-META-INF-MAINFEST-MF，此项配置的缺省值是：羡慕java所在文件目录，需要改成：与src目录同级的目录。如果不这样修改，打成的jar包里没有包含META-INF-MAINFEST-MF文件" class="headerlink" title="4.配置Directory for META-INF/MAINFEST.MF，此项配置的缺省值是：羡慕java所在文件目录，需要改成：与src目录同级的目录。如果不这样修改，打成的jar包里没有包含META-INF/MAINFEST.MF文件"></a>4.配置<code>Directory for META-INF/MAINFEST.MF</code>，此项配置的缺省值是：羡慕java所在文件目录，需要改成：与src目录同级的目录。如果不这样修改，打成的jar包里没有包含META-INF/MAINFEST.MF文件</h3><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2911b980/19826068-e5c7d0313b89996d.png" alt></p>
+<h3 id="5-完成后，点击OK，Apply等按钮，回到IDEA的主菜单，选择Build-Build-Artifacts下的Build或者Rebuild即可生成最终的可运行的jar，在项目目录-out-artifacts-项目名称目录下面找到生成的目标jar，可以看到META-INF-MAINFEST-MF文件被正确包含，内容也正确。"><a href="#5-完成后，点击OK，Apply等按钮，回到IDEA的主菜单，选择Build-Build-Artifacts下的Build或者Rebuild即可生成最终的可运行的jar，在项目目录-out-artifacts-项目名称目录下面找到生成的目标jar，可以看到META-INF-MAINFEST-MF文件被正确包含，内容也正确。" class="headerlink" title="5. 完成后，点击OK，Apply等按钮，回到IDEA的主菜单，选择Build - Build Artifacts下的Build或者Rebuild即可生成最终的可运行的jar，在项目目录\out\artifacts\项目名称目录下面找到生成的目标jar，可以看到META-INF/MAINFEST.MF文件被正确包含，内容也正确。"></a>5. 完成后，点击OK，Apply等按钮，回到IDEA的主菜单，选择<code>Build - Build Artifacts</code>下的<code>Build</code>或者<code>Rebuild</code>即可生成最终的可运行的jar，在<code>项目目录\out\artifacts\项目名称目录</code>下面找到生成的目标jar，可以看到META-INF/MAINFEST.MF文件被正确包含，内容也正确。</h3><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2911b980/19826068-76fec235df338d15.png" alt></p>
+<p>本文参考：<a href="https://blog.csdn.net/xuemengrui12/article/details/74984731" target="_blank" rel="noopener">https://blog.csdn.net/xuemengrui12/article/details/74984731</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows后台运行jar包</title>
+    <url>/p/d2832d8e.html</url>
+    <content><![CDATA[<p>可以使用<code>javaw</code>来后台运行jar包，可以与个脚本执行</p>
+<pre><code class="line-numbers language-bat">@echo off
+:: 进入到jar所在盘
+D:
+
+:: 进入jar目录
+cd &quot;D:\Program Files\xxx&quot;
+
+:: 启动
+start javaw -jar xxx.jar
+exit</code></pre>
+<p>可以查看javaw.exe进程来判断jar运行状态</p>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx强制跳转Https</title>
+    <url>/p/ab9adaa4.html</url>
+    <content><![CDATA[<p>如果http默认80端口，https默认443端口，可以使用传统的<code>rewrite</code>和301状态来完成转发，但是如果https不是443端口呢，那就采用nginx的497状态码</p>
+<pre><code class="line-numbers language-conf">server {
+    listen 5443 ssl http2;
+    server_name zngw.icu;
+    #ssl on;
+    ssl_certificate /etc/nginx/conf.d/key/zngw.icu.crt;
+    ssl_certificate_key /etc/nginx/conf.d/key/zngw.icu.key;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;     #指定SSL服务器端支持的协议版本
+    ssl_ciphers  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers   on;    #在使用SSLv3和TLS协议时指定服务器的加密算法要优先于客户端的加密算法
+
+    error_page 497 301 =307 https://$host:$server_port$request_uri;
+
+    location / {
+        root /var/www/html;
+        index index.html;
+    }
+}
+</code></pre>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PM2启动和管理 jar</title>
+    <url>/p/e24baf19.html</url>
+    <content><![CDATA[<h3 id="1-编写启动json脚本-start-json"><a href="#1-编写启动json脚本-start-json" class="headerlink" title="1. 编写启动json脚本 start.json"></a>1. 编写启动json脚本 start.json</h3><pre><code class="line-numbers language-json">{
+  &quot;apps&quot; : {
+        &quot;name&quot;:&quot;zngw&quot;,
+        &quot;script&quot;:&quot;java&quot;,
+        &quot;args&quot;:[
+                &quot;-XX:+UseG1GC&quot;,
+                &quot;-jar&quot;,
+                &quot;zngw.jar&quot;,
+         ],
+        &quot;error_file&quot;:&quot;./log/err.log&quot;,
+        &quot;out_file&quot;:&quot;./log/out.log&quot;,
+        &quot;merge_logs&quot;:true,
+        &quot;log_date_format&quot;:&quot;YYYY/MM/DD HH:mm:ss&quot;,
+                &quot;min_uptime&quot;: &quot;60s&quot;, 
+        &quot;max_restarts&quot;: 30,
+        &quot;autorestart&quot;: true,
+                &quot;restart_delay&quot;: &quot;60&quot; 
+        }
+}</code></pre>
+<h3 id="2-启动"><a href="#2-启动" class="headerlink" title="2. 启动"></a>2. 启动</h3><pre><code class="line-numbers language-bash">pm2 start start.json</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux下使用ipv6连接</title>
+    <url>/p/5e936033.html</url>
+    <content><![CDATA[<h1 id="SSH远程登录服务器"><a href="#SSH远程登录服务器" class="headerlink" title="SSH远程登录服务器"></a>SSH远程登录服务器</h1><p>ssh连接ipv6地址格式为<code>ssh username@[IPv6_Host]:port</code>,如：</p>
+<pre><code class="line-numbers language-bash">ssh root@[fe80::6fea:6e54:3cce:a359]:22</code></pre>
+<p>如果是默认端口也可以直接使用<code>ssh root@fe80::6fea:6e54:3cce:a359</code>来连接</p>
+<h1 id="filezilla连接ipv6"><a href="#filezilla连接ipv6" class="headerlink" title="filezilla连接ipv6"></a>filezilla连接ipv6</h1><p>使用filezilla连接ipv6地址服务器做文件传输时，如果直接使用ipv6地址会出现<code>给定的端口无效，端口号必须是一个1到65535间的值</code>错误。这时候只需要用<code>[]</code>装ipv6地址括起来就可以了</p>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/5e936033/19826068-2d3e3c2a80f0df97.png" alt></p>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java遍历对象的属性和值</title>
     <url>/p/e95d9ea.html</url>
     <content><![CDATA[<p>在Java类中，我们可以使用反射中的getDeclaredFields()或者getFields()方法来获取属性和值。</p>
@@ -127,7 +579,16 @@ sdb               8:16   0   20G  0 disk
 sdc               8:32   0   20G  0 disk 
 sdd               8:48   0   20G  0 disk 
 sde               8:64   0   20G  0 disk </code></pre>
-<h1 id="三、格式化硬盘"><a href="#三、格式化硬盘" class="headerlink" title="三、格式化硬盘"></a>三、格式化硬盘</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# fdisk /dev/sdb
+<h1 id="三、格式化硬盘"><a href="#三、格式化硬盘" class="headerlink" title="三、格式化硬盘"></a>三、格式化硬盘</h1><h2 id="2TB以内硬盘"><a href="#2TB以内硬盘" class="headerlink" title="2TB以内硬盘"></a>2TB以内硬盘</h2><pre><code class="line-numbers language-bash">fdisk /dev/sdb
+n 回车 回车 回车（或输入分区大小，建议预留100M空间） t l fd w</code></pre>
+<ul>
+<li>n：创建分区，回车选择默认分区和大小使用全部硬盘</li>
+<li>t：修改分区类型，回车选择默认分区</li>
+<li>l：列出所有分区类型</li>
+<li>fd：指raid分区，不同版本前的数字不一样，从l显示的列表中找到Linux raid auto类型就行了。</li>
+</ul>
+<p>完整操作实例</p>
+<pre><code class="line-numbers language-bash">[root@localhost ~]# fdisk /dev/sdb
 欢迎使用 fdisk (util-linux 2.23.2)。
 
 更改将停留在内存中，直到您决定将更改写入磁盘。
@@ -199,7 +660,43 @@ The partition table has been altered!
 
 Calling ioctl() to re-read partition table.
 正在同步磁盘。</code></pre>
-<p>这里要注意一点的是修改硬盘格式为<code>fd  Linux raid 自动</code> 修改同步格式化sdc、sdd、sde三个硬盘。</p>
+<h2 id="2TB以上"><a href="#2TB以上" class="headerlink" title="2TB以上"></a>2TB以上</h2><pre><code class="line-numbers language-bash">parted /dev/sdb
+mklabel gpt mkpart 回车 ext4 0GB 4000GB p q</code></pre>
+<ul>
+<li>mklabel:创建一个新的磁盘标签</li>
+<li>gpt: gpt分区</li>
+<li>mkpart: 创建分区</li>
+<li>ext4: 硬盘数据格式</li>
+<li>0GB: 开始位置</li>
+<li>4000GB: 结束位置</li>
+<li>p: 显示信息</li>
+<li>q: 保存退出</li>
+</ul>
+<pre><code class="line-numbers language-bash">[root@zngw ~]# parted /dev/sdb
+GNU Parted 3.1
+Using /dev/sdb
+Welcome to GNU Parted! Type &#39;help&#39; to view a list of commands.
+(parted) mklabel                                                          
+New disk label type? gpt                                                  
+Warning: The existing disk label on /dev/sdb will be destroyed and all data on this disk will be lost. Do you want to continue?
+Yes/No? y                                                                 
+(parted) mkpart                                                           
+Partition name?  []?                                                      
+File system type?  [ext2]? ext4                                           
+Start? 0GB                                                                
+End? 4000GB                                                               
+(parted) p                                                                
+Model: External USB3.0 DISK04 (scsi)
+Disk /dev/sdb: 4001GB
+Sector size (logical/physical): 512B/4096B
+Partition Table: gpt
+Disk Flags: 
+
+Number  Start   End     Size    File system  Name  Flags
+ 1      1049kB  4000GB  4000GB
+
+(parted) q                                                                
+Information: You may need to update /etc/fstab.</code></pre>
 <h1 id="四、创建raid"><a href="#四、创建raid" class="headerlink" title="四、创建raid"></a>四、创建raid</h1><pre><code class="line-numbers language-bash">mdadm --create /dev/md5 --auto yes --level 5 -n4 /dev/sd{b,c,d,e}</code></pre>
 <ul>
 <li>-C/–create:新建阵列</li>
@@ -216,7 +713,7 @@ md5 : active raid5 sde[4] sdd[2] sdc[1] sdb[0]
       [=====&gt;...............]  recovery = 25.7% (5400192/20954112) finish=1.2min speed=200007K/sec
 
 unused devices: &lt;none&gt;</code></pre>
-<h1 id="六、创建md0配置文件"><a href="#六、创建md0配置文件" class="headerlink" title="六、创建md0配置文件"></a>六、创建md0配置文件</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# echo DEVICE /dev/sd{b,c,d,e} &gt;&gt; /etc/mdadm.conf
+<h1 id="六、创建md5配置文件"><a href="#六、创建md5配置文件" class="headerlink" title="六、创建md5配置文件"></a>六、创建md5配置文件</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# echo DEVICE /dev/sd{b,c,d,e} &gt;&gt; /etc/mdadm.conf
 [root@localhost ~]# mdadm -Evs &gt;&gt; /etc/mdadm.conf 
 [root@localhost ~]# cat /etc/mdadm.conf
 DEVICE /dev/sdb1 /dev/sdc1 /dev/sdd1
@@ -287,7 +784,10 @@ mdadm /dev/md5 -a /dev/sdf
 mdadm -G /dev/md5 -n5
 
 # 查看状态等待扩容完成
-mdadm -D /dev/md5</code></pre>
+mdadm -D /dev/md5
+
+# 将/dev/md5分区扩容
+resize2fs /dev/md5</code></pre>
 <blockquote>
 <p>注：数据无价，扩容时最好做好备份。</p>
 </blockquote>
@@ -1549,7 +2049,7 @@ mount --bind /data/share /data/guoke/share</code></pre>
     <content><![CDATA[<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>　　FTP协议有两种工作方式：PORT方式和PASV方式，中文意思为主动式和被动式。如果要用ftp外网穿透，需要使用被动模式。</p>
 <p>　　被动模式(PASV)连接过程是:客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，服务器在命令链路上用PASV命令告诉客户端：“我打开了XXXX端口，你过来连接我”。于是客户端向服务器的XXXX端口发送连接请求，建立一条数据链路来传送数据。<br>　　所以，在使用ftp的时候，不仅需要转发默认的21端口，还需要转发数据端口。</p>
 <h1 id="修改ftp服务器配置"><a href="#修改ftp服务器配置" class="headerlink" title="修改ftp服务器配置"></a>修改ftp服务器配置</h1><p>　　考虑到frp转发的情况，所以数据端口最好是固定的，所以这里需要修改ftp服务器的配置，这里以vsftpd服务为例。修改<code>vsftpd.conf</code>文件，固定被动模式端口范围</p>
-<pre><code class="line-numbers language-conf">vim /etc/vsftpd.vsftpd.conf
+<pre><code class="line-numbers language-conf">vim /etc/vsftpd/vsftpd.conf
 
 # 修改
 pasv_enable=YES
@@ -2998,6 +3498,21 @@ public class MongoAdmin
       </tags>
   </entry>
   <entry>
+    <title>Redis连接报错：ERR Client sent AUTH, but no password is set</title>
+    <url>/p/4bd071c6.html</url>
+    <content><![CDATA[<p>在Java服务器连接Redis时报错<code>Caused by: io.lettuce.core.RedisCommandExecutionException: ERR Client sent AUTH, but no password is set</code></p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>产生这个问题的原因异常信息里已经说明，就是Redis服务器没有设置密码，但客户端向其发送了AUTH（authentication，身份验证）请求携带着密码，导致报错。既然是没有设置密码导致的报错，那我们就把Redis服务器给设置上密码就好了。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>打开redis配置文件，添加密码，然后重启</p>
+<pre><code># requirepass foobared
+requirepass 123456 //123456是设置的密码</code></pre>]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java使用SSH连接MongoDB</title>
     <url>/p/a6b55fd5.html</url>
     <content><![CDATA[<h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>在Java中可以使用<code>mongodb-driver</code>和<code>com.jcraft</code>来实现Java中使用SSH连接MongoDB。</p>
@@ -3603,28 +4118,6 @@ systemctl enable redis-server.service</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu 20.04安装Docker</title>
-    <url>/p/35ea3f99.html</url>
-    <content><![CDATA[<h2 id="一、卸载旧版本"><a href="#一、卸载旧版本" class="headerlink" title="一、卸载旧版本"></a>一、卸载旧版本</h2><pre><code class="line-numbers language-bash">sudo apt-get remove docker docker-engine docker.io containerd runc</code></pre>
-<h2 id="二、使用官方安装脚本中的阿里云镜像自动安装"><a href="#二、使用官方安装脚本中的阿里云镜像自动安装" class="headerlink" title="二、使用官方安装脚本中的阿里云镜像自动安装"></a>二、使用官方安装脚本中的阿里云镜像自动安装</h2><pre><code class="line-numbers language-bash">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></pre>
-<h2 id="三、启动Docker"><a href="#三、启动Docker" class="headerlink" title="三、启动Docker"></a>三、启动Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl start docker</code></pre>
-<h2 id="四、停止Docker"><a href="#四、停止Docker" class="headerlink" title="四、停止Docker"></a>四、停止Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl stop docker.socket</code></pre>
-<p>注意：停止时需要如果使用<code>sudo systemctl stop docker</code>是停止不了的，还会警告</p>
-<pre><code class="line-numbers language-bash">root@ubuntu:~# systemctl stop docker
-Warning: Stopping docker.service, but it can still be activated by:
-  docker.socket</code></pre>
-<p>原因是Docker 有两个服务进程文件，可以通过<code>cd /lib/systemd/system/ &amp;&amp; ll|grep docker</code>查看，分别是<code>docker.service unit file</code> 和 <code>docker.socket unit file</code>，上面的警告意味着如果你试图停止docker服务，但docker.socket unit file还处于激活状态。</p>
-<h2 id="五、设置开机启动"><a href="#五、设置开机启动" class="headerlink" title="五、设置开机启动"></a>五、设置开机启动</h2><pre><code class="line-numbers language-bash">sudo systemctl enable docker</code></pre>
-<h2 id="六、显示版本"><a href="#六、显示版本" class="headerlink" title="六、显示版本"></a>六、显示版本</h2><pre><code class="line-numbers language-bash">docker version</code></pre>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker中pull microsoft/dotnet报错</title>
     <url>/p/cf0371b3.html</url>
     <content><![CDATA[<h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>今天在一台新的服务器中pull microsoft/dotnet的时候报错了</p>
@@ -3680,6 +4173,28 @@ microsoft/dotnet:runtime-deps -&gt; mcr.microsoft.com/dotnet/runtime-deps:2.1</c
         <tag>CentOS</tag>
         <tag>Ubuntu</tag>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 20.04安装Docker</title>
+    <url>/p/35ea3f99.html</url>
+    <content><![CDATA[<h2 id="一、卸载旧版本"><a href="#一、卸载旧版本" class="headerlink" title="一、卸载旧版本"></a>一、卸载旧版本</h2><pre><code class="line-numbers language-bash">sudo apt-get remove docker docker-engine docker.io containerd runc</code></pre>
+<h2 id="二、使用官方安装脚本中的阿里云镜像自动安装"><a href="#二、使用官方安装脚本中的阿里云镜像自动安装" class="headerlink" title="二、使用官方安装脚本中的阿里云镜像自动安装"></a>二、使用官方安装脚本中的阿里云镜像自动安装</h2><pre><code class="line-numbers language-bash">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></pre>
+<h2 id="三、启动Docker"><a href="#三、启动Docker" class="headerlink" title="三、启动Docker"></a>三、启动Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl start docker</code></pre>
+<h2 id="四、停止Docker"><a href="#四、停止Docker" class="headerlink" title="四、停止Docker"></a>四、停止Docker</h2><pre><code class="line-numbers language-bash">sudo systemctl stop docker.socket</code></pre>
+<p>注意：停止时需要如果使用<code>sudo systemctl stop docker</code>是停止不了的，还会警告</p>
+<pre><code class="line-numbers language-bash">root@ubuntu:~# systemctl stop docker
+Warning: Stopping docker.service, but it can still be activated by:
+  docker.socket</code></pre>
+<p>原因是Docker 有两个服务进程文件，可以通过<code>cd /lib/systemd/system/ &amp;&amp; ll|grep docker</code>查看，分别是<code>docker.service unit file</code> 和 <code>docker.socket unit file</code>，上面的警告意味着如果你试图停止docker服务，但docker.socket unit file还处于激活状态。</p>
+<h2 id="五、设置开机启动"><a href="#五、设置开机启动" class="headerlink" title="五、设置开机启动"></a>五、设置开机启动</h2><pre><code class="line-numbers language-bash">sudo systemctl enable docker</code></pre>
+<h2 id="六、显示版本"><a href="#六、显示版本" class="headerlink" title="六、显示版本"></a>六、显示版本</h2><pre><code class="line-numbers language-bash">docker version</code></pre>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -6704,28 +7219,6 @@ func main() {
       </tags>
   </entry>
   <entry>
-    <title>Win10开机默认开启数字小键盘</title>
-    <url>/p/b378ee31.html</url>
-    <content><![CDATA[<h2 id="打开注册表"><a href="#打开注册表" class="headerlink" title="打开注册表"></a>打开注册表</h2><p>按<code>Windows + R</code>打开运行窗口，输入<code>regedit</code>打开注册表编辑器</p>
-<h2 id="找到注册表"><a href="#找到注册表" class="headerlink" title="找到注册表"></a>找到注册表</h2><p>找到<code>计算机\HKEY_USERS\.DEFAULT\Control Panel\Keyboard</code>项中的<code>InitialKeyboardIndicators</code>值</p>
-<p><img src="//gitee.com/guoke3915/zw/raw/master/p/b378ee31/19826068-73d08a1688123c6e.png" alt></p>
-<h2 id="修改值"><a href="#修改值" class="headerlink" title="修改值"></a>修改值</h2><p>将<code>InitialKeyboardIndicators</code>值由<code>2147483648</code>，修改为<code>2</code></p>
-<p><img src="//gitee.com/guoke3915/zw/raw/master/p/b378ee31/19826068-e41a3886ec04f805.png" alt></p>
-<p>InitialKeyboardIndicators值说明：</p>
-<ul>
-<li>0：在登录后关闭数字锁定</li>
-<li>1：禁用数字锁定</li>
-<li>2：在登录后开启数字锁定。（登录页面时还是关闭的）</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>TortoiseGit使用ssh密钥连接git服务器</title>
     <url>/p/443aa556.html</url>
     <content><![CDATA[<p>使用ssh密钥连接git服务器相对于账号密码来说会安全一丢丢，密钥不丢问题不大。而且很git服务提供商如：github、gitee等都提供ssh密钥访问，可以自己设定密钥。这样就可以把不同平台设置成同一个密钥，然后就可以一个密钥访问所有的git服务器。</p>
@@ -8523,10 +9016,13 @@ array(
   0=&gt;&#39;cloud.xxx.cn&#39;
 )
 
+# 如果要修改端口，添加
+&#39;overwritehost&#39; =&gt; &#39;cloud.xxx.cn:8080&#39;
+
 # 修改
-&quot;overwrite.cli.url&#39; =&gt; &quot;http://127.0.0.1&quot; ,
+&#39;overwrite.cli.url&#39; =&gt; &#39;http://127.0.0.1&#39; ,
 # 修改为
-&quot;overwrite.cli.url&#39; =&gt; &quot;http://cloud.xxx.cn&quot; ,</code></pre>
+&#39;overwrite.cli.url&#39; =&gt; &#39;http://cloud.xxx.cn&#39; ,</code></pre>
 ]]></content>
       <categories>
         <category>CentOS</category>
@@ -19079,6 +19575,23 @@ vector&lt;string&gt; split(const string &amp;str, const string &amp;pattern)
       </tags>
   </entry>
   <entry>
+    <title>Android 9.0 应用请求http请求无法访问网络</title>
+    <url>/p/baddbcad.html</url>
+    <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>前两天Android Studio打包时，sdk版本从27 升级到29，发现原来的http请求访问不了。原来是在Android (9.0)+系统的设备上，如果应用使用的是非加密的明文流量的http网络请求，则会导致该应用无法进行网络请求，https则不会受影响</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="1-将SDK版本降为27及以下"><a href="#1-将SDK版本降为27及以下" class="headerlink" title="1. 将SDK版本降为27及以下"></a>1. 将SDK版本降为27及以下</h2><h2 id="2-将http协议改为https协议"><a href="#2-将http协议改为https协议" class="headerlink" title="2. 将http协议改为https协议"></a>2. 将http协议改为https协议</h2><h2 id="3-修改工程配置"><a href="#3-修改工程配置" class="headerlink" title="3. 修改工程配置"></a>3. 修改工程配置</h2><p>修改工程AndroidManifest文件中的application标签内添加</p>
+<pre><code>&lt;application
+...
+  android:usesCleartextTraffic=&quot;true&quot;
+...
+/&gt;</code></pre>]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Android Studio Gradle工程路径太长</title>
     <url>/p/55b12ce9.html</url>
     <content><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>用cocos creator生成了一个gradle 的 android工程，项目本身目录就比较深，再加上默认的生成路径又是一大堆，最后用Android Studio打开的时候，目录已经很长很长了。再然后就编译出错了</p>
@@ -19099,23 +19612,6 @@ vector&lt;string&gt; split(const string &amp;str, const string &amp;pattern)
     }
 }</code></pre><p>然后，重新用Android Studio打开项目就可以了</p>
 ]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android 9.0 应用请求http请求无法访问网络</title>
-    <url>/p/baddbcad.html</url>
-    <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>前两天Android Studio打包时，sdk版本从27 升级到29，发现原来的http请求访问不了。原来是在Android (9.0)+系统的设备上，如果应用使用的是非加密的明文流量的http网络请求，则会导致该应用无法进行网络请求，https则不会受影响</p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="1-将SDK版本降为27及以下"><a href="#1-将SDK版本降为27及以下" class="headerlink" title="1. 将SDK版本降为27及以下"></a>1. 将SDK版本降为27及以下</h2><h2 id="2-将http协议改为https协议"><a href="#2-将http协议改为https协议" class="headerlink" title="2. 将http协议改为https协议"></a>2. 将http协议改为https协议</h2><h2 id="3-修改工程配置"><a href="#3-修改工程配置" class="headerlink" title="3. 修改工程配置"></a>3. 修改工程配置</h2><p>修改工程AndroidManifest文件中的application标签内添加</p>
-<pre><code>&lt;application
-...
-  android:usesCleartextTraffic=&quot;true&quot;
-...
-/&gt;</code></pre>]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -19889,6 +20385,58 @@ FLUSH PRIVILEGES;</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Linux文件目录权限</title>
+    <url>/p/a5bbf9aa.html</url>
+    <content><![CDATA[<p>Linux中文件目录的权限分为三个群组，<code>拥有者</code>、<code>所在群组</code>、<code>其他组</code>，每个群组可以单独设置<code>读</code>、<code>写</code>、<code>执行</code>三种权限。</p>
+<p>一般用3位数字表示，如：777，644，640等</p>
+<ul>
+<li>第一位数字是 拥有者(User)</li>
+<li>第二位数字是 所在群组(Group)</li>
+<li>第三位数字是 其他群组(Other)</li>
+</ul>
+<p>数字的意义就是读写执行三个数字相加得来</p>
+<ul>
+<li>读 r = 4</li>
+<li>写 w = 2</li>
+<li>执行 x = 1</li>
+</ul>
+<p>解析：</p>
+<p>777：所有用户都有读、写、执行权限<br>644：只有拥有者有读写权限；而属组用户和其他用户只有读权限<br>640：只有拥有者有读写权限；而属组用户只有读，其他用户无权限</p>
+<p>修改权限命令</p>
+<pre><code class="line-numbers language-bash">:: 修改文件权限
+chmod 644 test.txt
+
+:: 修改目录
+chmod -R 640 guoke</code></pre>
+<p>用符号操作权限</p>
+<ul>
+<li>u：拥有者</li>
+<li>g：所在群组</li>
+<li>o：其他</li>
+<li>x：可执行</li>
+<li>w：写</li>
+<li>r：读</li>
+<li>+：添加权限</li>
+<li>-：删除权限</li>
+</ul>
+<pre><code class="line-numbers language-bash">:: 给gk.sh文件添加可执行权限，缺省为所有用户组
+chmod +x gk.sh
+
+:: 给gk.sh的拥有者和所在群组添加可执行权限
+chmod ug+x gk.sh
+
+:: 删除gk.sh 其他组的写入和可执行权限 
+chmod o-wx gk.sh
+</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nginx 负载均衡策略</title>
     <url>/p/bb08dfed.html</url>
     <content><![CDATA[<p>Nginx 反向代理的负载均衡中，内置了 <strong>轮询</strong>、<strong>IP分配</strong>、<strong>URL hash</strong>、<strong>最小连接</strong>、<strong>响应时间</strong>等几种策略算法</p>
@@ -19983,58 +20531,6 @@ FLUSH PRIVILEGES;</code></pre>
     server 192.168.0.55:8084;
 }</code></pre>
 <p>本文参考：<a href="https://www.cnblogs.com/yanggb/p/10895326.html" target="_blank" rel="noopener">https://www.cnblogs.com/yanggb/p/10895326.html</a></p>
-]]></content>
-      <categories>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux文件目录权限</title>
-    <url>/p/a5bbf9aa.html</url>
-    <content><![CDATA[<p>Linux中文件目录的权限分为三个群组，<code>拥有者</code>、<code>所在群组</code>、<code>其他组</code>，每个群组可以单独设置<code>读</code>、<code>写</code>、<code>执行</code>三种权限。</p>
-<p>一般用3位数字表示，如：777，644，640等</p>
-<ul>
-<li>第一位数字是 拥有者(User)</li>
-<li>第二位数字是 所在群组(Group)</li>
-<li>第三位数字是 其他群组(Other)</li>
-</ul>
-<p>数字的意义就是读写执行三个数字相加得来</p>
-<ul>
-<li>读 r = 4</li>
-<li>写 w = 2</li>
-<li>执行 x = 1</li>
-</ul>
-<p>解析：</p>
-<p>777：所有用户都有读、写、执行权限<br>644：只有拥有者有读写权限；而属组用户和其他用户只有读权限<br>640：只有拥有者有读写权限；而属组用户只有读，其他用户无权限</p>
-<p>修改权限命令</p>
-<pre><code class="line-numbers language-bash">:: 修改文件权限
-chmod 644 test.txt
-
-:: 修改目录
-chmod -R 640 guoke</code></pre>
-<p>用符号操作权限</p>
-<ul>
-<li>u：拥有者</li>
-<li>g：所在群组</li>
-<li>o：其他</li>
-<li>x：可执行</li>
-<li>w：写</li>
-<li>r：读</li>
-<li>+：添加权限</li>
-<li>-：删除权限</li>
-</ul>
-<pre><code class="line-numbers language-bash">:: 给gk.sh文件添加可执行权限，缺省为所有用户组
-chmod +x gk.sh
-
-:: 给gk.sh的拥有者和所在群组添加可执行权限
-chmod ug+x gk.sh
-
-:: 删除gk.sh 其他组的写入和可执行权限 
-chmod o-wx gk.sh
-</code></pre>
 ]]></content>
       <categories>
         <category>CentOS</category>
@@ -24324,6 +24820,35 @@ https://cdn.jsdelivr.net/gh/zngw/cdn/</code></pre>]]></content>
       </tags>
   </entry>
   <entry>
+    <title>Win10开机内存占用过多问题</title>
+    <url>/p/e25f4c30.html</url>
+    <content><![CDATA[<p>最近发现电脑的内存越来越不够用了，16G的内存，开机就被占用了90%左右，打开任务管理器查看发现，占用的显示的进程占用的内存并不多，内存到底去哪儿了呢。<br>　　尝试过很多方法，把没必要的程序和服务停了什么的，结果貌似作用不是很大，后面无意间在某个论坛上看到有人说可能与SSD磁盘开启了<code>启用设备上的写入缓存</code>有关，直接关了后面没有重启也没有发现有什么效果也没太在意，后面继续折腾别的。第二天重启后发现内存降下来了，开机只占20%多了，后面经过多次的测试，发现开启<code>启用设备上的写入缓存</code>后确实会占用很多的内存，在使用磁盘过程中它会慢慢的向上加，就有点像内存泄漏一样，重启也不解决问题的那种。<br>　　解决办法就是直接关了<code>启用设备上的写入缓存</code>。<br><img src="//gitee.com/guoke3915/zw/raw/master/p/e25f4c30/19826068-e103d535a3824f7a.png" alt></p>
+<p>关于<code>启用设备上的写入缓存</code>这个策略有好也有坏，看个人需求吧。</p>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ul>
+<li><p>开启后对于SSD硬盘顺序写入和随机读写磁盘速度明显提高。<br><img src="//gitee.com/guoke3915/zw/raw/master/p/e25f4c30/19826068-17026f0878682e60.png" alt="SSD硬盘：左图开启，右图未开启"></p>
+</li>
+<li><p>对于机械硬盘来顺序读写提升并不太明显，乱序写速率有一定的提升。</p>
+</li>
+</ul>
+<p><img src="//gitee.com/guoke3915/zw/raw/master/p/e25f4c30/19826068-866a5571acd0b806.png" alt="机械硬盘：左图开启，右图未开启"></p>
+<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><ul>
+<li>有一种类似于内存泄漏的错觉，让你的内存不怎么够用，重启都不能解决。</li>
+<li>如果在写数据过程中，突然的断电有可能会导致数据丢失。</li>
+</ul>
+<h3 id="结论："><a href="#结论：" class="headerlink" title="结论："></a>结论：</h3><ul>
+<li>如果你内存大，平时对大文件和零散文件操作比较频繁的，可以选择开启<code>启用设备上的写入缓存</code>。</li>
+<li>如果你像我这样，平时用电脑就是启动一堆的IDE和运行N个本地服务器测试的，内存优于文件读写操作的，可以选择关掉这个<code>启用设备上的写入缓存</code>功能。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo部署到阿里云OSS上</title>
     <url>/p/dd7e8a7b.html</url>
     <content><![CDATA[<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><pre><code class="line-numbers language-yml">hexo-next: 5.1.4
@@ -24875,20 +25400,6 @@ public class SendQQMail {
       </tags>
   </entry>
   <entry>
-    <title>一片伤心画不成</title>
-    <url>/p/cb1d4911.html</url>
-    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
-<a id="more"></a>
-<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>最孤独的代码</title>
     <url>/p/3b6f45f6.html</url>
     <content><![CDATA[<p><img src="//gitee.com/guoke3915/zw/raw/master/p/3b6f45f6/1581852769139.png" alt></p>
@@ -24902,6 +25413,20 @@ int main()
     printf(&quot;I miss you.\n&quot;);
 }</code></pre>
 <p>两个世界，<br>一封失信，<br>短暂相陪，<br>长久回忆。<br>唯留心头一句：“想你！”倏然打印。<br>进程却已抹去。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一片伤心画不成</title>
+    <url>/p/cb1d4911.html</url>
+    <content><![CDATA[<p>夜阑人静，月满小楼西。<br>小窗幽灯，眸对半阙残词，正恁凝愁。<br>恨堂前斜目，瞥见惊鸿，<br>笑靥粉面，秋水娇横。<br>薶蔓衰草低迷，闲愁知几许？</p>
+<a id="more"></a>
+<p>欲笺心事付瑶琴，人不知，书成谁与？<br>纵使梅子黄时，满城飞絮，乱鸦啼，不及我愁。<br>轻启舍闩，学园曲径，独徘徊。<br>翠湖柳下，月影浮动，<br>几多鸳鸯，不畏三冬寒。<br>当识趣，<br>恐惊月下缠绵人，和羞走。<br>但愿此身化石桥。<br>五百年，雨打风蚀，<br>换一回，香履凌波步。<br>一片伤心，却又道画不成。</p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -26400,6 +26925,60 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)</code></pr
       </categories>
       <tags>
         <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>好压（HaoZip）的命令行模式</title>
+    <url>/p/82a02963.html</url>
+    <content><![CDATA[<p>最近不知道怎么的，右键菜单中没有了<code>好压</code>的菜单了，都不知道怎么压缩文件了。于是，可以用命令模式来压缩吧。</p>
+<pre><code class="line-numbers language-bat">@echo off
+::压缩全部文件，包含当前目录名，zip格式
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; a -tzip 全部1.zip .\test_file
+
+::压缩全部文件，包含子目录
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; a -tzip 全部2.zip .\test_file\*
+
+::压缩全部txt文件，包含子目录
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; a -tzip 全部txt1.zip .\test_file\*.txt -r
+
+::压缩全部txt文件，仅限当前目录
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; a -tzip 全部txt2.zip .\test_file\*.txt
+
+::压缩全部文件，包含子目录，并设置密码是123456789abc
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; a -tzip -p123456789abc 全部3.zip .\test_file
+
+::压缩全部txt文件，仅限当前目录，并设置密码是“你好123”
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; a -tzip -p&quot;你好123&quot; 全部txt3.zip .\test_file\*.txt
+
+::压缩全部文件，包含当前目录名，7z格式
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; a -t7z 全部11.7z .\test_file
+
+::压缩全部文件，包含当前目录名，tar.gz格式
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; a -ttar.gz 全部12.tar.gz .\test_file
+
+:: 解压压缩文件到当前目录,不包含压缩包内路径
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; e 全部1.zip
+
+:: 解压压缩文件到制定目录:全部1Folder，不包含压缩包内路径
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; e 全部1.zip -o全部1Folder
+
+:: 解压压缩文件到当前目录,包含压缩包内路径
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; x 全部1.zip
+
+:: 解压压缩文件到制定目录:全部1Folder，不包含压缩包内路径
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; x 全部1.zip -o全部1Folder
+
+::查看压缩包内容，不解压
+&quot;C:\Program Files\HaoZip\HaoZipC&quot; l 全部1.zip
+pause</code></pre>
+<p>本文参考：<a href="https://www.cnblogs.com/fetty/p/4859670.html" target="_blank" rel="noopener">https://www.cnblogs.com/fetty/p/4859670.html</a></p>
+]]></content>
+      <categories>
+        <category>软件使用</category>
+      </categories>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>Window</tag>
       </tags>
   </entry>
   <entry>
@@ -28089,24 +28668,6 @@ docker version</code></pre>
       <tags>
         <tag>CentOS</tag>
         <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>win10开机默认开启小键盘</title>
-    <url>/p/98fa4bbc.html</url>
-    <content><![CDATA[<ol>
-<li>Ctrl+Win键打开‘运行’窗口，输入<code>regedit</code>打开注册表<a id="more"></a></li>
-<li>定位到<code>计算机\HKEY_USERS\.DEFAULT\Control Panel\Keyboard</code></li>
-<li>双击InitialKeyboardIndicators，把原数值数据2147483648修改为80000002<br><img src="//gitee.com/guoke3915/zw/raw/master/p/98fa4bbc/19826068-49c285814f3c6a9e.png" alt></li>
-<li>重启电脑</li>
-</ol>
-]]></content>
-      <categories>
-        <category>软件使用</category>
-      </categories>
-      <tags>
-        <tag>软件使用</tag>
-        <tag>Window</tag>
       </tags>
   </entry>
   <entry>
@@ -30793,44 +31354,6 @@ DNS2=114.114.114.114         #</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>CentOS7 安装Docker</title>
-    <url>/p/39d97234.html</url>
-    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
-sudo yum -y update
-
-## 卸载旧版本
-sudo yum remove docker  docker-common docker-selinux docker-engine
-&lt;!-- more --&gt;
-## 安装需要的软件包
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
-
-## 安装container-selinux
-yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
-
-## 设置yum源
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-## 安装
-sudo yum -y install docker-ce
-
-## 设置开机启动
-sudo systemctl enable docker
-
-## 启动docker
-sudo systemctl start docker
-
-## 显示版本
-docker version</code></pre>
-]]></content>
-      <categories>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-        <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CentOS 7 关闭selinux</title>
     <url>/p/c2b74a9a.html</url>
     <content><![CDATA[<ol>
@@ -30894,6 +31417,44 @@ SELINUXTYPE=targeted</code></pre>
       </categories>
       <tags>
         <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS7 安装Docker</title>
+    <url>/p/39d97234.html</url>
+    <content><![CDATA[<h2 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h2><pre><code class="line-numbers language-bash">## 确保 yum 包更新到最新。
+sudo yum -y update
+
+## 卸载旧版本
+sudo yum remove docker  docker-common docker-selinux docker-engine
+&lt;!-- more --&gt;
+## 安装需要的软件包
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
+
+## 安装container-selinux
+yum  install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
+
+## 设置yum源
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+## 安装
+sudo yum -y install docker-ce
+
+## 设置开机启动
+sudo systemctl enable docker
+
+## 启动docker
+sudo systemctl start docker
+
+## 显示版本
+docker version</code></pre>
+]]></content>
+      <categories>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -31124,6 +31685,77 @@ sudo cp src/redis-cli /usr/local/bin/</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
+    <url>/p/355346b3.html</url>
+    <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
+<pre><code class="line-numbers language-bash">#!/bin/bash
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
+
+sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+
+cd /
+mkdir data
+cd data
+mkdir db
+mkdir log
+
+mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
+
+read -p &quot;Enter your account:&quot; account
+read -p &quot;Enter your password:&quot; password
+mongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;
+
+ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`
+for id in $ID
+do
+kill -9 $id
+done
+
+mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+<h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol>
+<li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre>
+</li>
+<li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre>
+</li>
+<li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre>
+</li>
+<li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre>
+</li>
+<li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /
+mkdir data
+cd data
+mkdir db
+mkdir log</code></pre>
+</li>
+<li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+</li>
+<li>创建帐号<pre><code class="line-numbers language-bash">mongo
+use admin
+db.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })
+db.auth(&quot;root&quot;,&quot;123456&quot;)
+exit</code></pre>
+</li>
+<li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo
+root      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
+root      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongo
+kill 11737</code></pre>
+</li>
+<li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>MongoDB</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS-7中离线安装MongoDB</title>
     <url>/p/65eba897.html</url>
     <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
@@ -31277,77 +31909,6 @@ systemctl enable mongodb.service</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu18.04从apt-get安装MongoDB.4.0</title>
-    <url>/p/355346b3.html</url>
-    <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
-<pre><code class="line-numbers language-bash">#!/bin/bash
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4
-
-sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-
-cd /
-mkdir data
-cd data
-mkdir db
-mkdir log
-
-mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
-
-read -p &quot;Enter your account:&quot; account
-read -p &quot;Enter your password:&quot; password
-mongo --eval &quot;use admin;db.createUser({user:&#39;$account&#39;,pwd:&#39;$password&#39;,roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] });&quot;
-
-ID=`ps -ef | grep &quot;mongod&quot; | grep -v &quot;grep&quot; | awk &#39;{print $2}&#39;`
-for id in $ID
-do
-kill -9 $id
-done
-
-mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-<h2 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h2><ol>
-<li>添加mongodb签名到APT<pre><code class="line-numbers language-bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 68818C72E52529D4</code></pre>
-</li>
-<li>创建列表文件<pre><code class="line-numbers language-bash">sudo echo &quot;deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</code></pre>
-</li>
-<li>更新软件源列表<pre><code class="line-numbers language-bash">sudo apt-get update</code></pre>
-</li>
-<li>安装mongodb（默认是安装稳定版）<pre><code class="line-numbers language-bash">sudo apt-get install -y mongodb-org</code></pre>
-</li>
-<li>mongodb 数据库配置<br>进入根目录创建 data 文件夹，在 data 中再创建 db 文件夹和 log 文件夹<pre><code class="line-numbers language-bash">cd /
-mkdir data
-cd data
-mkdir db
-mkdir log</code></pre>
-</li>
-<li>启动mongodb 服务<pre><code class="line-numbers language-bash">mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-</li>
-<li>创建帐号<pre><code class="line-numbers language-bash">mongo
-use admin
-db.createUser({ user: &quot;root&quot;, pwd: &quot;123456&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] })
-db.auth(&quot;root&quot;,&quot;123456&quot;)
-exit</code></pre>
-</li>
-<li>关闭 mongodb 服务<pre><code class="line-numbers language-bash">ps -ef|grep mongo
-root      11737      1  0 09:25 ?        00:00:01 mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log
-root      11771   3220  0 09:29 pts/1    00:00:00 grep --color=auto mongo
-kill 11737</code></pre>
-</li>
-<li>权限验证方式重新启动<pre><code class="line-numbers language-bash">mongod -auth --dbpath /data/db --fork --logpath /data/log/mongodb.log</code></pre>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-        <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu安装npm(nodejs)环境</title>
     <url>/p/b387666f.html</url>
     <content><![CDATA[<h2 id="一键安装脚本"><a href="#一键安装脚本" class="headerlink" title="一键安装脚本"></a>一键安装脚本</h2><a id="more"></a>
@@ -31447,32 +32008,6 @@ nvm alias default v10.16.3</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Win10 安装 MongoDB</title>
-    <url>/p/3172944f.html</url>
-    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
-<a id="more"></a>
-<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
-<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
-:: 创建MongoDB服务 
-:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
-:: 数据目录 D:\MongoDB\Server\4.2\data
-:: 外网可访问 --bind_ip_all
-mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
-:: 启动服务
-net start MongoDB</code></pre>
-<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
-<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
-]]></content>
-      <categories>
-        <category>MongoDB</category>
-      </categories>
-      <tags>
-        <tag>MongoDB</tag>
-        <tag>Window</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>将VS Code 添加到友键菜单</title>
     <url>/p/ab6cd228.html</url>
     <content><![CDATA[<p>Windows上面安装Visual Studio Code编辑器后,常常会因为安装的时候忘记勾选等原因,没有将”Open with Code(右键快捷方式)”添加到鼠标右键菜单里,使用起来多有不便,所以需要我们手动将VSCode添加至鼠标右键菜单之中.  </p>
@@ -31541,6 +32076,32 @@ Windows Registry Editor Version 5.00
       </tags>
   </entry>
   <entry>
+    <title>Win10 安装 MongoDB</title>
+    <url>/p/3172944f.html</url>
+    <content><![CDATA[<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>直接去MongoDB官网下载windows版本，直接安装</p>
+<a id="more"></a>
+<h2 id="创建MongoDB服务"><a href="#创建MongoDB服务" class="headerlink" title="创建MongoDB服务"></a>创建MongoDB服务</h2><p>安装之后，打开cmd 输入命令</p>
+<pre><code class="line-numbers language-powershell">:: 如果MongoDB服务存在，删除并重起电脑
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --remove
+:: 创建MongoDB服务 
+:: 输出日志：D:\MongoDB\Server\4.2\log\mongod.log
+:: 数据目录 D:\MongoDB\Server\4.2\data
+:: 外网可访问 --bind_ip_all
+mongod --logpath D:\MongoDB\Server\4.2\log\mongod.log --logappend --dbpath D:\MongoDB\Server\4.2\data --directoryperdb --bind_ip_all --serviceName MongoDB --install
+:: 启动服务
+net start MongoDB</code></pre>
+<h2 id="如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB"><a href="#如果启动mongoDB服务时，出现以下异常-window不能再本地计算机启动MongoDB" class="headerlink" title="如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB"></a>如果启动mongoDB服务时，出现以下异常 window不能再本地计算机启动MongoDB</h2><p>删除文件</p>
+<pre><code class="line-numbers language-powershell">D:\MongoDB\Server\4.2\data下的mongod.lock和storage.bson文件</code></pre>
+]]></content>
+      <categories>
+        <category>MongoDB</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MongoDB 忘记密码</title>
     <url>/p/d9c741f4.html</url>
     <content><![CDATA[<h3 id="先查看MongoDB的启动模式"><a href="#先查看MongoDB的启动模式" class="headerlink" title="先查看MongoDB的启动模式"></a>先查看MongoDB的启动模式</h3><a id="more"></a>
@@ -31570,80 +32131,6 @@ db.addUser(&#39;admin&#39;,&#39;password&#39;) # 添加新帐户</code></pre>
       </categories>
       <tags>
         <tag>MongoDB</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Go文件名命名规则</title>
-    <url>/p/daf9791f.html</url>
-    <content><![CDATA[<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>在golang源代码中，经常看到各种文件名，比如： bolt_windows.go。<br>下面对文件名命令规则的说明：</p>
-<a id="more"></a>
-<ol>
-<li><p>平台区分</p>
-<p>文件名_平台。</p>
-<p>例： file_windows.go, file_unix.go</p>
-<p>可选为<code>windows, unix, posix, plan9, darwin, bsd, linux, freebsd, nacl, netbsd, openbsd, solaris, dragonfly, bsd, notbsd， android，stubs</code></p>
-</li>
-<li><p>测试单远</p>
-<p>文件名_test.go或者 文件名_平台_test.go。</p>
-<p>例： path_test.go,  path_windows_test.go</p>
-</li>
-<li><p>版本区分（猜测）</p>
-<p>文件名_版本号等。</p>
-<p>例：trap_windows_1.4.go</p>
-</li>
-<li><p>CPU类型区分, 汇编用的多</p>
-<p>文件名_(平台:可选)_CPU类型.</p>
-<p>例：vdso_linux_amd64.go</p>
-<p>可选为<code>amd64, none, 386, arm, arm64, mips64, s390,mips64x,ppc64x, nonppc64x, s390x, x86,amd64p32</code></p>
-</li>
-</ol>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
-<li><p>golang的命名需要使用驼峰命名法，且不能出现下划线</p>
-</li>
-<li><p>golang中根据首字母的大小写来确定可以访问的权限。无论是方法名、常量、变量名还是结构体的名称，如果首字母大写，则可以被其他的包访问；如果首字母小写，则只能在本包中使用，可以简单的理解成，首字母大写是公有的，首字母小写是私有的</p>
-</li>
-<li><p>结构体中属性名的大写</p>
-<p>如果属性名小写则在数据解析（如json解析,或将结构体作为请求或访问参数）时无法解析</p>
-</li>
-</ol>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
-<li>go build 的时候会选择性地编译以系统名结尾的文件(linux、darwin、windows、freebsd)。例如Linux(Unix)系统下编译只会选择array_linux.go文件，其它系统命名后缀文件全部忽略。</li>
-<li>在xxx.go文件的文件头上添加 // + build !windows (tags)，可以选择在windows系统下面不编译 <pre><code class="line-numbers language-go">// +build !windows
-package main</code></pre>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Golang</category>
-      </categories>
-      <tags>
-        <tag>Golang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>React环境搭建</title>
-    <url>/p/28a0bfec.html</url>
-    <content><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a>
-<ol>
-<li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li>
-<li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li>
-<li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li>
-<li>命令行cd进入项目目录</li>
-<li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-cli
-npm install babel-preset-react</code></pre>
-</li>
-<li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre>
-</li>
-<li>npm install （安装依赖）</li>
-<li>npm start （启动）</li>
-<li>打包可部署 npm run build （在dist目录下，部署的东西）</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Window</tag>
       </tags>
   </entry>
   <entry>
@@ -31700,6 +32187,80 @@ npm install babel-preset-react</code></pre>
       </categories>
       <tags>
         <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>React环境搭建</title>
+    <url>/p/28a0bfec.html</url>
+    <content><![CDATA[<h1 id="node-安装和-npm"><a href="#node-安装和-npm" class="headerlink" title="node 安装和 npm"></a>node 安装和 npm</h1><a id="more"></a>
+<ol>
+<li>windows 安装node 可以直接在 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node官网</a> 直接下载直接当作普通软件安装即可。  </li>
+<li>安装完成可以在控制台中运行node测试是否安装成功 win + r  输入 cmd ,直接在终端输入node -v  输出版本号及已经成功安装。  </li>
+<li>目前新版本的node自带npm(npm 是随同 node 一起安装的包管理工具)。这里安装好了 node并且测试安装成功之后，可以继续在控制台输入 npm -v 检查是不是安装成功。同样成功会输出版本号。</li>
+<li>命令行cd进入项目目录</li>
+<li>安装 jsx语法tranformer<pre><code class="line-numbers language-powershell">npm install --global babel-cli
+npm install babel-preset-react</code></pre>
+</li>
+<li>在web目录下执行 transformer<pre><code class="line-numbers language-powershell">babel --presets react jsx --watch --out-dir funcjs</code></pre>
+</li>
+<li>npm install （安装依赖）</li>
+<li>npm start （启动）</li>
+<li>打包可部署 npm run build （在dist目录下，部署的东西）</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Window</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Go文件名命名规则</title>
+    <url>/p/daf9791f.html</url>
+    <content><![CDATA[<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>在golang源代码中，经常看到各种文件名，比如： bolt_windows.go。<br>下面对文件名命令规则的说明：</p>
+<a id="more"></a>
+<ol>
+<li><p>平台区分</p>
+<p>文件名_平台。</p>
+<p>例： file_windows.go, file_unix.go</p>
+<p>可选为<code>windows, unix, posix, plan9, darwin, bsd, linux, freebsd, nacl, netbsd, openbsd, solaris, dragonfly, bsd, notbsd， android，stubs</code></p>
+</li>
+<li><p>测试单远</p>
+<p>文件名_test.go或者 文件名_平台_test.go。</p>
+<p>例： path_test.go,  path_windows_test.go</p>
+</li>
+<li><p>版本区分（猜测）</p>
+<p>文件名_版本号等。</p>
+<p>例：trap_windows_1.4.go</p>
+</li>
+<li><p>CPU类型区分, 汇编用的多</p>
+<p>文件名_(平台:可选)_CPU类型.</p>
+<p>例：vdso_linux_amd64.go</p>
+<p>可选为<code>amd64, none, 386, arm, arm64, mips64, s390,mips64x,ppc64x, nonppc64x, s390x, x86,amd64p32</code></p>
+</li>
+</ol>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
+<li><p>golang的命名需要使用驼峰命名法，且不能出现下划线</p>
+</li>
+<li><p>golang中根据首字母的大小写来确定可以访问的权限。无论是方法名、常量、变量名还是结构体的名称，如果首字母大写，则可以被其他的包访问；如果首字母小写，则只能在本包中使用，可以简单的理解成，首字母大写是公有的，首字母小写是私有的</p>
+</li>
+<li><p>结构体中属性名的大写</p>
+<p>如果属性名小写则在数据解析（如json解析,或将结构体作为请求或访问参数）时无法解析</p>
+</li>
+</ol>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
+<li>go build 的时候会选择性地编译以系统名结尾的文件(linux、darwin、windows、freebsd)。例如Linux(Unix)系统下编译只会选择array_linux.go文件，其它系统命名后缀文件全部忽略。</li>
+<li>在xxx.go文件的文件头上添加 // + build !windows (tags)，可以选择在windows系统下面不编译 <pre><code class="line-numbers language-go">// +build !windows
+package main</code></pre>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
       </tags>
   </entry>
   <entry>

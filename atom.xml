@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zengwu.com.cn/"/>
-  <updated>2022-02-11T03:03:32.296Z</updated>
+  <updated>2022-04-13T05:59:44.103Z</updated>
   <id>https://zengwu.com.cn/</id>
   
   <author>
@@ -15,6 +15,412 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Win10开机默认开启数字小键盘</title>
+    <link href="https://zengwu.com.cn/p/b378ee31.html"/>
+    <id>https://zengwu.com.cn/p/b378ee31.html</id>
+    <published>2022-04-12T16:46:55.000Z</published>
+    <updated>2022-04-13T05:59:44.103Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="打开注册表"><a href="#打开注册表" class="headerlink" title="打开注册表"></a>打开注册表</h2><p>按<code>Windows + R</code>打开运行窗口，输入<code>regedit</code>打开注册表编辑器</p><h2 id="找到注册表"><a href="#找到注册表" class="headerlink" title="找到注册表"></a>找到注册表</h2><p>找到<code>计算机\HKEY_USERS\.DEFAULT\Control Panel\Keyboard</code>项中的<code>InitialKeyboardIndicators</code>值</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/b378ee31/19826068-73d08a1688123c6e.png" alt></p><h2 id="修改值"><a href="#修改值" class="headerlink" title="修改值"></a>修改值</h2><p>将<code>InitialKeyboardIndicators</code>值由<code>2147483648</code>，修改为<code>2</code></p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/b378ee31/19826068-e41a3886ec04f805.png" alt></p><p>InitialKeyboardIndicators值说明：</p><ul><li>0：在登录后关闭数字锁定</li><li>1：禁用数字锁定</li><li>2：在登录后开启数字锁定。（登录页面时还是关闭的）</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;打开注册表&quot;&gt;&lt;a href=&quot;#打开注册表&quot; class=&quot;headerlink&quot; title=&quot;打开注册表&quot;&gt;&lt;/a&gt;打开注册表&lt;/h2&gt;&lt;p&gt;按&lt;code&gt;Windows + R&lt;/code&gt;打开运行窗口，输入&lt;code&gt;regedit&lt;/code&gt;打开注册
+      
+    
+    </summary>
+    
+    
+      <category term="Windows" scheme="https://zengwu.com.cn/categories/Windows/"/>
+    
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS 提交审核报错 ERROR ITMS-90087</title>
+    <link href="https://zengwu.com.cn/p/1af38a39.html"/>
+    <id>https://zengwu.com.cn/p/1af38a39.html</id>
+    <published>2022-04-11T05:37:02.000Z</published>
+    <updated>2022-04-12T12:28:37.291Z</updated>
+    
+    <content type="html"><![CDATA[<p>项目中加了Adjust  SDK，在打包提交审核的时候直接报错了。</p><pre><code>ERROR ITMS-90087: &quot;Unsupported Architectures. The executable for yimiaozhaopin.app/Frameworks/AdjustSdk.framework contains unsupported architectures &#39;[x86_64, i386]&#39;.&quot;</code></pre><p>这是下载的``包中包含了x86_64, i386 架构，所以提交时会报错ERROR ITMS-90087。用script命令去掉framework 中的x86_64, i386 架构就可以了。</p><p>先找到项目工程属性的<code>Build Phases</code>属性页，添加<code>Script Phase</code>，将下面脚本直接粘贴到脚本框中就可以了。</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/1af38a39/19826068-4d0c0d18a81027ba.png" alt></p><pre><code>APP_PATH=&quot;${TARGET_BUILD_DIR}/${WRAPPER_NAME}&quot;# This script loops through the frameworks embedded in the application and# removes unused architectures.find &quot;$APP_PATH&quot; -name &#39;*.framework&#39; -type d | while read -r FRAMEWORKdoFRAMEWORK_EXECUTABLE_NAME=$(defaults read &quot;$FRAMEWORK/Info.plist&quot; CFBundleExecutable)FRAMEWORK_EXECUTABLE_PATH=&quot;$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME&quot;echo &quot;Executable is $FRAMEWORK_EXECUTABLE_PATH&quot;EXTRACTED_ARCHS=()for ARCH in $ARCHSdoecho &quot;Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME&quot;lipo -extract &quot;$ARCH&quot; &quot;$FRAMEWORK_EXECUTABLE_PATH&quot; -o &quot;$FRAMEWORK_EXECUTABLE_PATH-$ARCH&quot;EXTRACTED_ARCHS+=(&quot;$FRAMEWORK_EXECUTABLE_PATH-$ARCH&quot;)doneecho &quot;Merging extracted architectures: ${ARCHS}&quot;lipo -o &quot;$FRAMEWORK_EXECUTABLE_PATH-merged&quot; -create &quot;${EXTRACTED_ARCHS[@]}&quot;rm &quot;${EXTRACTED_ARCHS[@]}&quot;echo &quot;Replacing original executable with thinned version&quot;rm &quot;$FRAMEWORK_EXECUTABLE_PATH&quot;mv &quot;$FRAMEWORK_EXECUTABLE_PATH-merged&quot; &quot;$FRAMEWORK_EXECUTABLE_PATH&quot;done</code></pre><p>本文参考：<a href="https://www.jianshu.com/p/c381a07cb758" target="_blank" rel="noopener">https://www.jianshu.com/p/c381a07cb758</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;项目中加了Adjust  SDK，在打包提交审核的时候直接报错了。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ERROR ITMS-90087: &amp;quot;Unsupported Architectures. The executable for yimiaozhaopin.app/
+      
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mac安装braw</title>
+    <link href="https://zengwu.com.cn/p/2fafa45b.html"/>
+    <id>https://zengwu.com.cn/p/2fafa45b.html</id>
+    <published>2022-04-05T03:05:30.000Z</published>
+    <updated>2022-04-12T12:28:37.289Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="命令行安装"><a href="#命令行安装" class="headerlink" title="命令行安装"></a>命令行安装</h2><p>对于braw的安装，只要一条命令就可以了</p><pre><code class="line-numbers language-bash">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&quot;</code></pre><h2 id="安装慢或443问题"><a href="#安装慢或443问题" class="headerlink" title="安装慢或443问题"></a>安装慢或443问题</h2><p>由于安装源在github上，国内访问github有名种蛋疼的问题。</p><p>通过<code>https://www.ipaddress.com</code>先查出<code>raw.githubusercontent.com</code>的真实ip，然后修改本地hosts文件添加直接解析</p><pre><code class="line-numbers language-bash">:: 由于它是通过CDN的，可能不止一个ip，挑一个自己访问最快的ip解析就可以了，ip之后也可能会改变。185.199.108.133 raw.githubusercontent.com185.199.108.133 user-images.githubusercontent.com185.199.108.133 avatars2.githubusercontent.com185.199.108.133 avatars1.githubusercontent.com</code></pre><p>然后再运行上面的命令安装brew。</p><p>自己安装了好几次都卡在了<code>homebrew-core</code>下载上，有时是下不过来，有时直接报错了。</p><pre><code>Cloning into &#39;/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core&#39;...fatal: unable to access &#39;https://github.com/Homebrew/homebrew-core/&#39;: LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54Error: Failure while executing; `git clone https://github.com/Homebrew/homebrew-core /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core` exited with 128.Error: Failure while executing; `/usr/local/bin/brew tap homebrew/core` exited with 1.</code></pre><p>这个，直接进入github网站<a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core</a>，点击直接下载zip包。</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2fafa45b/19826068-905821c16135df24.png" alt></p><p>然后把整个zip包解压，复制到<code>/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core</code>目录下。</p><p>最后诊断一下</p><pre><code>brew doctorbrew -v</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;命令行安装&quot;&gt;&lt;a href=&quot;#命令行安装&quot; class=&quot;headerlink&quot; title=&quot;命令行安装&quot;&gt;&lt;/a&gt;命令行安装&lt;/h2&gt;&lt;p&gt;对于braw的安装，只要一条命令就可以了&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;line-numbers la
+      
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mac 10.9.5系统升级</title>
+    <link href="https://zengwu.com.cn/p/b31124f3.html"/>
+    <id>https://zengwu.com.cn/p/b31124f3.html</id>
+    <published>2022-04-04T04:33:53.000Z</published>
+    <updated>2022-04-12T12:28:37.286Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-先检查兼容性"><a href="#1-先检查兼容性" class="headerlink" title="1. 先检查兼容性"></a>1. 先检查兼容性</h2><p>进入苹果官方网<a href="http://support.apple.com/zh-cn/HT211683" target="_blank" rel="noopener">http://support.apple.com/zh-cn/HT211683</a>，找到兼容性检查，查看对应的系统最低硬件要求<br><img src="//gitee.com/guoke3915/zw/raw/master/p/b31124f3/19826068-d7ff40539bd4835f.png" alt></p><h2 id="2-备份数据"><a href="#2-备份数据" class="headerlink" title="2. 备份数据"></a>2. 备份数据</h2><p>正常情况下来，系统更新后会保持原数据不变，但不排除出错数据丢失的情况，所要，重要的数据先到移动硬盘或网盘备份一下。</p><h2 id="3-下载系统安装包"><a href="#3-下载系统安装包" class="headerlink" title="3. 下载系统安装包"></a>3. 下载系统安装包</h2><p>找到对应的系统后，在 Mac 上使用 Safari 浏览器点击对应的macOS，会自动跳转到Appstore中对应的系统安装包下载。只要下安装就可以了</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/b31124f3/19826068-cb6c537f8e9f2c40.png" alt></p><h2 id="4-等待安装完成"><a href="#4-等待安装完成" class="headerlink" title="4. 等待安装完成"></a>4. 等待安装完成</h2><p>中间可能会重启几次，等待安装完成，系统就更新成功啦</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1-先检查兼容性&quot;&gt;&lt;a href=&quot;#1-先检查兼容性&quot; class=&quot;headerlink&quot; title=&quot;1. 先检查兼容性&quot;&gt;&lt;/a&gt;1. 先检查兼容性&lt;/h2&gt;&lt;p&gt;进入苹果官方网&lt;a href=&quot;http://support.apple.com/zh-
+      
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mac os无法登录appstore</title>
+    <link href="https://zengwu.com.cn/p/2dd7582f.html"/>
+    <id>https://zengwu.com.cn/p/2dd7582f.html</id>
+    <published>2022-04-03T08:40:59.000Z</published>
+    <updated>2022-04-12T12:28:37.288Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在一台老的macbook air（10.9.5系统）上，发现 appstore无法登录，每次输入正确的密码手机也能收到二次验证，但是直接提示密码错误，并没有让你输入二次验证码的地方。</p><h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><ol><li>第一次正常输入账号密码点登录，这时会返回密码错误，但手机会同时收到二次验证吗。</li><li>把验证码添加到apple ID的密码后面，再次点登录，就可以成功登录了。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h1&gt;&lt;p&gt;在一台老的macbook air（10.9.5系统）上，发现 appstore无法登录，每次输入正确的密码手机也能收到二次验证，但是直接提示
+      
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>svn命令行使用</title>
+    <link href="https://zengwu.com.cn/p/475253dd.html"/>
+    <id>https://zengwu.com.cn/p/475253dd.html</id>
+    <published>2022-03-31T06:53:47.000Z</published>
+    <updated>2022-04-12T12:28:37.291Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、检出-（svn-co）"><a href="#1、检出-（svn-co）" class="headerlink" title="1、检出 （svn co）"></a>1、检出 （svn co）</h2><p>命令：<code>svn co url path</code></p><ul><li>url：服务器svn项目地址</li><li>path：本地存放目录，如果不写path，默认会在当前目录创建</li></ul><p>例如：</p><pre><code>svn co svn://192.168.31.55/svn/test test</code></pre><h2 id="2、更新（svn-up）"><a href="#2、更新（svn-up）" class="headerlink" title="2、更新（svn up）"></a>2、更新（svn up）</h2><p>命令：<code>svn up -r m path</code></p><ul><li>m：指定的版本号，如果没有则更新到最新版本</li><li>path：指定更新的目录或文件，如果没有则更新当前目录</li></ul><p>例如：</p><pre><code># 更新当前目录，若当前目录为svn项目根目录则更新所有svn up # 更新指定文件到指定版本svn update -r 55 test.txt</code></pre><h2 id="3、查看文件或者目录状态（svn-st）"><a href="#3、查看文件或者目录状态（svn-st）" class="headerlink" title="3、查看文件或者目录状态（svn st）"></a>3、查看文件或者目录状态（svn st）</h2><p>命令：svn st -v path</p><ul><li>?：不在svn的控制中</li><li>M：内容被修改</li><li>C：发生冲突</li><li>A：预定加入到版本库</li><li>K：被锁定</li><li>-v：显示目录下的文件和子目录的状态，无-v则正常状态不显示</li></ul><p>例如：</p><pre><code>svn stsvn st -v</code></pre><h2 id="4、添加文件（svn-add）"><a href="#4、添加文件（svn-add）" class="headerlink" title="4、添加文件（svn add）"></a>4、添加文件（svn add）</h2><p>命令：<code>svn add file</code></p><ul><li>file：需要添加的文件，可以使用*通配符匹配多个。</li></ul><p>例如：</p><pre><code># 添加单个文件svn add a.txt# 添加同类型文件svn add *.txt# 添加所有版本控制外的新文件svn st | awk &#39;{if ( $1 == &quot;?&quot;) { print $2}}&#39; | xargs svn add</code></pre><h2 id="5、删除文件（svn-del）"><a href="#5、删除文件（svn-del）" class="headerlink" title="5、删除文件（svn del）"></a>5、删除文件（svn del）</h2><p>命令：<code>svn del path -m &quot;msg&quot;</code></p><ul><li>path：要删除的文件和目录</li><li>-m： 删除备注说明，可缺省</li></ul><p>例如：</p><pre><code># 删除当个文件svn del test.txt# 删除本地不存在的所有文件svn st | grep &#39;^\!&#39; | tr &#39;^\!&#39; &#39; &#39; | sed &#39;s/[ ]*//&#39; | sed &#39;s/[ ]/\\ /g&#39; | xargs svn del</code></pre><h2 id="6、提交（svn-ci）"><a href="#6、提交（svn-ci）" class="headerlink" title="6、提交（svn ci）"></a>6、提交（svn ci）</h2><p>命令：<code>svn ci -m &quot;msg&quot;</code></p><ul><li>-m： 删除备注说明</li></ul><h2 id="7、查看日志（svn-log-path）"><a href="#7、查看日志（svn-log-path）" class="headerlink" title="7、查看日志（svn log path）"></a>7、查看日志（svn log path）</h2><p>命令：<code>svn log path</code></p><ul><li>path：要查看日志的文件和目录</li></ul><h2 id="8、比较差异（svn-di）"><a href="#8、比较差异（svn-di）" class="headerlink" title="8、比较差异（svn di）"></a>8、比较差异（svn di）</h2><p>命令：<code>svn diff path</code></p><ul><li>path：要比较的文件</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1、检出-（svn-co）&quot;&gt;&lt;a href=&quot;#1、检出-（svn-co）&quot; class=&quot;headerlink&quot; title=&quot;1、检出 （svn co）&quot;&gt;&lt;/a&gt;1、检出 （svn co）&lt;/h2&gt;&lt;p&gt;命令：&lt;code&gt;svn co url path&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>centos 7 上测试网速</title>
+    <link href="https://zengwu.com.cn/p/139c8a02.html"/>
+    <id>https://zengwu.com.cn/p/139c8a02.html</id>
+    <published>2022-03-27T14:32:47.000Z</published>
+    <updated>2022-04-12T12:28:37.282Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id><a href="#" class="headerlink" title="##"></a>##</h2><p>小伙伴给了台CentOS7服务器过来，yum安装东西下载有点慢，想测试一下网速 ，可以使用测试网速的一个小工具speedtest。<br>　　Speedtest.net强大而知名的全球宽带网络速度测试网站，采用Flash载入界面，Alexa世界排名非常高，Speedtest.net在全球有数百个测试节点，国内有测速节点几十个。作为一款在线并且可视化的网速测试工具。使用方法简单，无需下载、安装Speedtest.net还推出了命令行下测速工具speedtest.py 就能够实时测试网速。</p><h2 id="一、下载安装包"><a href="#一、下载安装包" class="headerlink" title="一、下载安装包"></a>一、下载安装包</h2><pre><code class="line-numbers language-bash">wget https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py</code></pre><h2 id="二、赋予可执行权限"><a href="#二、赋予可执行权限" class="headerlink" title="二、赋予可执行权限"></a>二、赋予可执行权限</h2><pre><code class="line-numbers language-bash">chmod +x speedtest.py</code></pre><h2 id="二、运行"><a href="#二、运行" class="headerlink" title="二、运行"></a>二、运行</h2><p>因为CentOS7默认自带了python2.7，所以可以直接运行</p><pre><code class="line-numbers language-bash">./speedtest.py</code></pre><p>等待执行结束，就可以看到测试结果了。</p><p>除了测速，speedtest 还有其他的一些功能</p><pre><code class="line-numbers language-bash">./speedtest --help</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;##&quot;&gt;&lt;/a&gt;##&lt;/h2&gt;&lt;p&gt;小伙伴给了台CentOS7服务器过来，yum安装东西下载有点慢，想测试一下网速 ，可以使用测试网速的一个小工具speedtest。&lt;br&gt;　　Speedt
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android下XMLHttpRequest出错</title>
+    <link href="https://zengwu.com.cn/p/ac3ac4f8.html"/>
+    <id>https://zengwu.com.cn/p/ac3ac4f8.html</id>
+    <published>2022-03-23T09:50:34.000Z</published>
+    <updated>2022-04-12T12:28:37.284Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在Android包下，使用了第三方SDK登录，在切出去登录成功后，在SDK的回调中使用runOnGLThread线程回调到TS代码中。</p><pre><code class="line-numbers language-java">appActivity.runOnGLThread(new Runnable() {                        @Override                        public void run() {                            Cocos2dxJavascriptJavaBridge.evalString(&quot;SystemBridge.OnLoginSuccess(\&quot;&quot;+ accessToken + &quot;\&quot;,\&quot;&quot; + userId+&quot;\&quot;)&quot;);                        }                    });</code></pre><p>然后，在TS代码中，使用了XMLHttpRequest的post协议异步请求消息向服务器登录。</p><pre><code class="line-numbers language-ts">public static OnLoginSuccess(token: string, id: string) {        let postData = {            &quot;token&quot;:token,            &quot;id&quot;:id        }        var xhr = new XMLHttpRequest();        xhr.responseType = &#39;arraybuffer&#39;;        xhr.onreadystatechange = () =&gt; {            if (xhr.readyState === 4) {                if (xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300) {                    // TODO 处理登录成功                }            }        };        xhr.open(&quot;POST&quot;, &quot;登录服务器Url&quot;, true);        xhr.timeout = 10000;        xhr.ontimeout = () =&gt; {                    // TODO 处理登录超时        }        xhr.send(postData);        xhr.onerror = () =&gt; {                    // TODO 处理登录错误        }}</code></pre><p>最后返回的结果是 刚发送数据同一帧就收到了ontimeout的回调，然后部分手机还会出现崩溃情况。</p><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>XMLHttpRequest 的异步逻辑类似于setTimeout，setTimeout 和 XMLHttpRequest.onreadystatechange 用的都是同一个 Event Queue，唯一区别是 setTimeout 是定时器线程往队列里压，XMLHttpRequest.onreadystatechange 是 HTTP 异步请求线程往队列里压，其逻辑就要看CocosCreator的Main Loop了。可能原因是应用从别的程序中切换过来时，导致Main Loop回调出了点问题。</p><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>就是在整个post时，用schedule做一个延迟回调。等到Event Queue队列循环正常后再调用post函数就可以了。</p><pre><code class="line-numbers language-ts">    public static OnLoginSuccess(token: string, id: string) {        Timer.scheduleOnce(() =&gt; {            let postData = {            &quot;token&quot;:token,            &quot;id&quot;:id        }        ...        其他代码         }, 0.1)    }</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;在Android包下，使用了第三方SDK登录，在切出去登录成功后，在SDK的回调中使用runOnGLThread线程回调到T
+      
+    
+    </summary>
+    
+    
+      <category term="JS" scheme="https://zengwu.com.cn/categories/JS/"/>
+    
+    
+      <category term="JS" scheme="https://zengwu.com.cn/tags/JS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>apk/abb密钥生成</title>
+    <link href="https://zengwu.com.cn/p/dbb8ef42.html"/>
+    <id>https://zengwu.com.cn/p/dbb8ef42.html</id>
+    <published>2022-03-17T05:38:47.000Z</published>
+    <updated>2022-04-12T12:28:37.285Z</updated>
+    
+    <content type="html"><![CDATA[<p>提交google包时提示密钥强度太低。<br><img src="//gitee.com/guoke3915/zw/raw/master/p/dbb8ef42/19826068-8f78414dd9e587d7.png" alt></p><p>密钥是用cocos creater生成的，后面查了一下密钥长度是1024位的，google自动 生成的密钥是4096的，最少也要2048才不会有这种提示。可以用jdk自带的keytool工具来生成指定长度的密钥</p><h3 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h3><pre><code class="line-numbers language-bat">keytool -genkeypair -keystore e:/gk.keystore  -storepass gk123456 -alias key0 -keypass gk123456 -keyalg RSA -keysize 4096 -validity 36500 -dname CN=g,OU=cc55,O=cc55,L=sh,ST=sh,C=cn</code></pre><ul><li>-genkeypair：生成密钥</li><li>-keystore：秘钥库文件名及存位位置</li><li>-storepass：指定密钥库的密码</li><li>-alias：指定别名</li><li>-keypass：指定别名条目的密码</li><li>-keyalg：指定密钥的算法 (如 RSA DSA（如果不指定默认采用DSA）)</li><li>-keysize：密钥长度</li><li>-validity：证书有效期(单位：天)</li><li>-dname：CN=(名字与姓氏), OU=(组织单位名称), O=(组织名称), L=(城市或区域名称),ST=(州或省份名称), C=(单位的两字母国家代码)</li></ul><h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><pre><code class="line-numbers language-bat">keytool -list -keystore e:/gk.keystore -storepass gk123456 </code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;提交google包时提示密钥强度太低。&lt;br&gt;&lt;img src=&quot;//gitee.com/guoke3915/zw/raw/master/p/dbb8ef42/19826068-8f78414dd9e587d7.png&quot; alt&gt;&lt;/p&gt;
+&lt;p&gt;密钥是用cocos crea
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 查看修改用户（组）/ 密码</title>
+    <link href="https://zengwu.com.cn/p/9820cd5d.html"/>
+    <id>https://zengwu.com.cn/p/9820cd5d.html</id>
+    <published>2022-03-09T10:18:55.000Z</published>
+    <updated>2022-03-07T08:40:43.656Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>查看用户列表 cat /etc/passwd 或者 cat /etc/shadow</li><li>增加/修改/删除用户 useradd/usermod/userdel</li><li>查看用户组 cat /etc/group</li><li>增加/修改/删除用户组 groupadd/groupmod/groupdel</li><li>修改密码 passwd <accountName></accountName></li><li>查看一个文件的group ID： stat -c ‘%g’ /var/run/docker.sock</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;查看用户列表 cat /etc/passwd 或者 cat /etc/shadow&lt;/li&gt;
+&lt;li&gt;增加/修改/删除用户 useradd/usermod/userdel&lt;/li&gt;
+&lt;li&gt;查看用户组 cat /etc/group&lt;/li&gt;
+&lt;li&gt;增加/修改/
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Intellij Idea打包java为可执行jar包</title>
+    <link href="https://zengwu.com.cn/p/2911b980.html"/>
+    <id>https://zengwu.com.cn/p/2911b980.html</id>
+    <published>2022-03-08T03:01:55.000Z</published>
+    <updated>2022-03-07T08:40:43.659Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-选中Java项目工程名称，在菜单中选择-File-gt-project-structure…-快捷键Ctrl-Alt-Shift-S-。"><a href="#1-选中Java项目工程名称，在菜单中选择-File-gt-project-structure…-快捷键Ctrl-Alt-Shift-S-。" class="headerlink" title="1. 选中Java项目工程名称，在菜单中选择 File-&gt;project structure… (快捷键Ctrl+Alt+Shift+S)。"></a>1. 选中Java项目工程名称，在菜单中选择 File-&gt;project structure… (快捷键Ctrl+Alt+Shift+S)。</h3><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2911b980/19826068-29a630e562db20a6.png" alt></p><h3 id="2-在弹出的窗口中左侧选中”Artifacts”，点击”-”选择jar，然后选择”from-modules-with-dependencies”。"><a href="#2-在弹出的窗口中左侧选中”Artifacts”，点击”-”选择jar，然后选择”from-modules-with-dependencies”。" class="headerlink" title="2. 在弹出的窗口中左侧选中”Artifacts”，点击”+”选择jar，然后选择”from modules with dependencies”。"></a>2. 在弹出的窗口中左侧选中”Artifacts”，点击”+”选择jar，然后选择”from modules with dependencies”。</h3><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2911b980/19826068-d79f9c23c46276f9.png" alt></p><h3 id="3-在配置窗口中配置”Main-Class”。"><a href="#3-在配置窗口中配置”Main-Class”。" class="headerlink" title="3. 在配置窗口中配置”Main Class”。"></a>3. 在配置窗口中配置”Main Class”。</h3><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2911b980/19826068-b31d3f00392f49e7.png" alt></p><h3 id="4-配置Directory-for-META-INF-MAINFEST-MF，此项配置的缺省值是：羡慕java所在文件目录，需要改成：与src目录同级的目录。如果不这样修改，打成的jar包里没有包含META-INF-MAINFEST-MF文件"><a href="#4-配置Directory-for-META-INF-MAINFEST-MF，此项配置的缺省值是：羡慕java所在文件目录，需要改成：与src目录同级的目录。如果不这样修改，打成的jar包里没有包含META-INF-MAINFEST-MF文件" class="headerlink" title="4.配置Directory for META-INF/MAINFEST.MF，此项配置的缺省值是：羡慕java所在文件目录，需要改成：与src目录同级的目录。如果不这样修改，打成的jar包里没有包含META-INF/MAINFEST.MF文件"></a>4.配置<code>Directory for META-INF/MAINFEST.MF</code>，此项配置的缺省值是：羡慕java所在文件目录，需要改成：与src目录同级的目录。如果不这样修改，打成的jar包里没有包含META-INF/MAINFEST.MF文件</h3><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2911b980/19826068-e5c7d0313b89996d.png" alt></p><h3 id="5-完成后，点击OK，Apply等按钮，回到IDEA的主菜单，选择Build-Build-Artifacts下的Build或者Rebuild即可生成最终的可运行的jar，在项目目录-out-artifacts-项目名称目录下面找到生成的目标jar，可以看到META-INF-MAINFEST-MF文件被正确包含，内容也正确。"><a href="#5-完成后，点击OK，Apply等按钮，回到IDEA的主菜单，选择Build-Build-Artifacts下的Build或者Rebuild即可生成最终的可运行的jar，在项目目录-out-artifacts-项目名称目录下面找到生成的目标jar，可以看到META-INF-MAINFEST-MF文件被正确包含，内容也正确。" class="headerlink" title="5. 完成后，点击OK，Apply等按钮，回到IDEA的主菜单，选择Build - Build Artifacts下的Build或者Rebuild即可生成最终的可运行的jar，在项目目录\out\artifacts\项目名称目录下面找到生成的目标jar，可以看到META-INF/MAINFEST.MF文件被正确包含，内容也正确。"></a>5. 完成后，点击OK，Apply等按钮，回到IDEA的主菜单，选择<code>Build - Build Artifacts</code>下的<code>Build</code>或者<code>Rebuild</code>即可生成最终的可运行的jar，在<code>项目目录\out\artifacts\项目名称目录</code>下面找到生成的目标jar，可以看到META-INF/MAINFEST.MF文件被正确包含，内容也正确。</h3><p><img src="//gitee.com/guoke3915/zw/raw/master/p/2911b980/19826068-76fec235df338d15.png" alt></p><p>本文参考：<a href="https://blog.csdn.net/xuemengrui12/article/details/74984731" target="_blank" rel="noopener">https://blog.csdn.net/xuemengrui12/article/details/74984731</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;1-选中Java项目工程名称，在菜单中选择-File-gt-project-structure…-快捷键Ctrl-Alt-Shift-S-。&quot;&gt;&lt;a href=&quot;#1-选中Java项目工程名称，在菜单中选择-File-gt-project-structure…-快
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://zengwu.com.cn/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Windows后台运行jar包</title>
+    <link href="https://zengwu.com.cn/p/d2832d8e.html"/>
+    <id>https://zengwu.com.cn/p/d2832d8e.html</id>
+    <published>2022-03-07T07:17:55.000Z</published>
+    <updated>2022-03-07T08:40:43.657Z</updated>
+    
+    <content type="html"><![CDATA[<p>可以使用<code>javaw</code>来后台运行jar包，可以与个脚本执行</p><pre><code class="line-numbers language-bat">@echo off:: 进入到jar所在盘D::: 进入jar目录cd &quot;D:\Program Files\xxx&quot;:: 启动start javaw -jar xxx.jarexit</code></pre><p>可以查看javaw.exe进程来判断jar运行状态</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;可以使用&lt;code&gt;javaw&lt;/code&gt;来后台运行jar包，可以与个脚本执行&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;line-numbers language-bat&quot;&gt;@echo off
+:: 进入到jar所在盘
+D:
+
+:: 进入jar目录
+cd &amp;quot;
+      
+    
+    </summary>
+    
+    
+      <category term="Windows" scheme="https://zengwu.com.cn/categories/Windows/"/>
+    
+    
+      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx强制跳转Https</title>
+    <link href="https://zengwu.com.cn/p/ab9adaa4.html"/>
+    <id>https://zengwu.com.cn/p/ab9adaa4.html</id>
+    <published>2022-03-06T14:46:36.000Z</published>
+    <updated>2022-03-07T08:40:43.660Z</updated>
+    
+    <content type="html"><![CDATA[<p>如果http默认80端口，https默认443端口，可以使用传统的<code>rewrite</code>和301状态来完成转发，但是如果https不是443端口呢，那就采用nginx的497状态码</p><pre><code class="line-numbers language-conf">server {    listen 5443 ssl http2;    server_name zngw.icu;    #ssl on;    ssl_certificate /etc/nginx/conf.d/key/zngw.icu.crt;    ssl_certificate_key /etc/nginx/conf.d/key/zngw.icu.key;    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;     #指定SSL服务器端支持的协议版本    ssl_ciphers  HIGH:!aNULL:!MD5;    ssl_prefer_server_ciphers   on;    #在使用SSLv3和TLS协议时指定服务器的加密算法要优先于客户端的加密算法    error_page 497 301 =307 https://$host:$server_port$request_uri;    location / {        root /var/www/html;        index index.html;    }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;如果http默认80端口，https默认443端口，可以使用传统的&lt;code&gt;rewrite&lt;/code&gt;和301状态来完成转发，但是如果https不是443端口呢，那就采用nginx的497状态码&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;line-numbers la
+      
+    
+    </summary>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PM2启动和管理 jar</title>
+    <link href="https://zengwu.com.cn/p/e24baf19.html"/>
+    <id>https://zengwu.com.cn/p/e24baf19.html</id>
+    <published>2022-03-05T11:45:21.000Z</published>
+    <updated>2022-03-07T08:40:43.658Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-编写启动json脚本-start-json"><a href="#1-编写启动json脚本-start-json" class="headerlink" title="1. 编写启动json脚本 start.json"></a>1. 编写启动json脚本 start.json</h3><pre><code class="line-numbers language-json">{  &quot;apps&quot; : {        &quot;name&quot;:&quot;zngw&quot;,        &quot;script&quot;:&quot;java&quot;,        &quot;args&quot;:[                &quot;-XX:+UseG1GC&quot;,                &quot;-jar&quot;,                &quot;zngw.jar&quot;,         ],        &quot;error_file&quot;:&quot;./log/err.log&quot;,        &quot;out_file&quot;:&quot;./log/out.log&quot;,        &quot;merge_logs&quot;:true,        &quot;log_date_format&quot;:&quot;YYYY/MM/DD HH:mm:ss&quot;,                &quot;min_uptime&quot;: &quot;60s&quot;,         &quot;max_restarts&quot;: 30,        &quot;autorestart&quot;: true,                &quot;restart_delay&quot;: &quot;60&quot;         }}</code></pre><h3 id="2-启动"><a href="#2-启动" class="headerlink" title="2. 启动"></a>2. 启动</h3><pre><code class="line-numbers language-bash">pm2 start start.json</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;1-编写启动json脚本-start-json&quot;&gt;&lt;a href=&quot;#1-编写启动json脚本-start-json&quot; class=&quot;headerlink&quot; title=&quot;1. 编写启动json脚本 start.json&quot;&gt;&lt;/a&gt;1. 编写启动json脚本 st
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux下使用ipv6连接</title>
+    <link href="https://zengwu.com.cn/p/5e936033.html"/>
+    <id>https://zengwu.com.cn/p/5e936033.html</id>
+    <published>2022-02-20T06:44:03.000Z</published>
+    <updated>2022-04-12T12:34:53.674Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SSH远程登录服务器"><a href="#SSH远程登录服务器" class="headerlink" title="SSH远程登录服务器"></a>SSH远程登录服务器</h1><p>ssh连接ipv6地址格式为<code>ssh username@[IPv6_Host]:port</code>,如：</p><pre><code class="line-numbers language-bash">ssh root@[fe80::6fea:6e54:3cce:a359]:22</code></pre><p>如果是默认端口也可以直接使用<code>ssh root@fe80::6fea:6e54:3cce:a359</code>来连接</p><h1 id="filezilla连接ipv6"><a href="#filezilla连接ipv6" class="headerlink" title="filezilla连接ipv6"></a>filezilla连接ipv6</h1><p>使用filezilla连接ipv6地址服务器做文件传输时，如果直接使用ipv6地址会出现<code>给定的端口无效，端口号必须是一个1到65535间的值</code>错误。这时候只需要用<code>[]</code>装ipv6地址括起来就可以了</p><p><img src="//gitee.com/guoke3915/zw/raw/master/p/5e936033/19826068-2d3e3c2a80f0df97.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;SSH远程登录服务器&quot;&gt;&lt;a href=&quot;#SSH远程登录服务器&quot; class=&quot;headerlink&quot; title=&quot;SSH远程登录服务器&quot;&gt;&lt;/a&gt;SSH远程登录服务器&lt;/h1&gt;&lt;p&gt;ssh连接ipv6地址格式为&lt;code&gt;ssh username@[IPv6
+      
+    
+    </summary>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
+    
+    
+      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
+    
+  </entry>
   
   <entry>
     <title>Java遍历对象的属性和值</title>
@@ -77,7 +483,7 @@
     <link href="https://zengwu.com.cn/p/397c12f5.html"/>
     <id>https://zengwu.com.cn/p/397c12f5.html</id>
     <published>2022-02-05T07:02:55.000Z</published>
-    <updated>2022-02-11T03:14:14.848Z</updated>
+    <updated>2022-02-11T03:14:45.654Z</updated>
     
     <content type="html"><![CDATA[<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>win10在samba分享时只能使用默认的端口139和445，但如果用了非139或445的端口将无法访问，但是可以使用netsh命令来映射将分享端口映射成139和445。不过先要禁用本地的LanmanServer 服务，不然映射端口时会报端口被占用错误。</p><pre><code class="line-numbers language-bat">sc config LanmanServer start= disablednet stop LanmanServer</code></pre><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>netsh命令可以实现端口转发，即时生效，随意修改删除，不影响其他ip映射 </p><h2 id="添加端口转发"><a href="#添加端口转发" class="headerlink" title="添加端口转发"></a>添加端口转发</h2><pre><code class="line-numbers language-bat">netsh interface portproxy add v4tov4 listenport=5139 connectaddress=192.168.31.55 connectport=139netsh interface portproxy add v4tov4 listenport=5445 connectaddress=192.168.31.55 connectport=445</code></pre><p>将192.168.31.55服务器中非默认端口共享端口5139、5445映射成本地的139和445端口</p><h2 id="查看所有端口转发"><a href="#查看所有端口转发" class="headerlink" title="查看所有端口转发"></a>查看所有端口转发</h2><pre><code class="line-numbers language-bat">netsh interface portproxy show all</code></pre><h2 id="删除端口"><a href="#删除端口" class="headerlink" title="删除端口"></a>删除端口</h2><pre><code class="line-numbers language-bat">netsh interface portproxy delete v4tov4 listenaddress=192.168.31.55 listenport=5139  netsh interface portproxy delete v4tov4 listenaddress=192.168.31.55 listenport=5  </code></pre>]]></content>
     
@@ -105,9 +511,9 @@
     <link href="https://zengwu.com.cn/p/3d8979b.html"/>
     <id>https://zengwu.com.cn/p/3d8979b.html</id>
     <published>2022-02-05T01:41:15.000Z</published>
-    <updated>2022-01-29T04:19:40.903Z</updated>
+    <updated>2022-03-13T02:44:31.927Z</updated>
     
-    <content type="html"><![CDATA[<p>软raid中是通过软件层面来模拟实现raid的相关功能，从而达到与硬件raid相同的功能。在Linux中通常是使用md模块来实现软件raid。</p><h1 id="一、安装mdadm"><a href="#一、安装mdadm" class="headerlink" title="一、安装mdadm"></a>一、安装mdadm</h1><pre><code class="line-numbers language-bash">yum -y install mdadm</code></pre><h1 id="二、显示硬盘和分区信息"><a href="#二、显示硬盘和分区信息" class="headerlink" title="二、显示硬盘和分区信息"></a>二、显示硬盘和分区信息</h1><p>在VM虚拟机中完成测试，sda为系统盘，sdb、sdc、sdd、sde为四个制作raid的硬盘。</p><pre><code class="line-numbers language-bash">lsblk NAME            MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTsda               8:0    0   20G  0 disk ├─sda1            8:1    0    1G  0 part /boot└─sda2            8:2    0   19G  0 part   ├─centos-root 253:0    0   17G  0 lvm  /  └─centos-swap 253:1    0    2G  0 lvm  [SWAP]sdb               8:16   0   20G  0 disk sdc               8:32   0   20G  0 disk sdd               8:48   0   20G  0 disk sde               8:64   0   20G  0 disk </code></pre><h1 id="三、格式化硬盘"><a href="#三、格式化硬盘" class="headerlink" title="三、格式化硬盘"></a>三、格式化硬盘</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# fdisk /dev/sdb欢迎使用 fdisk (util-linux 2.23.2)。更改将停留在内存中，直到您决定将更改写入磁盘。使用写入命令前请三思。Device does not contain a recognized partition table使用磁盘标识符 0xef090fa6 创建新的 DOS 磁盘标签。命令(输入 m 获取帮助)：nPartition type:   p   primary (0 primary, 0 extended, 4 free)   e   extendedSelect (default p): Using default response p分区号 (1-4，默认 1)：起始 扇区 (2048-41943039，默认为 2048)：将使用默认值 2048Last 扇区, +扇区 or +size{K,M,G} (2048-41943039，默认为 41943039)：将使用默认值 41943039分区 1 已设置为 Linux 类型，大小设为 20 GiB命令(输入 m 获取帮助)：l 0  空              24  NEC DOS         81  Minix / 旧 Linu bf  Solaris         1  FAT12           27  隐藏的 NTFS Win 82  Linux 交换 / So c1  DRDOS/sec (FAT- 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT- 3  XENIX usr       3c  PartitionMagic  84  OS/2 隐藏的 C:  c6  DRDOS/sec (FAT- 4  FAT16 &lt;32M      40  Venix 80286     85  Linux 扩展      c7  Syrinx          5  扩展            41  PPC PReP Boot   86  NTFS 卷集       da  非文件系统数据  6  FAT16           42  SFS             87  NTFS 卷集       db  CP/M / CTOS / . 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux 纯文本    de  Dell 工具       8  AIX             4e  QNX4.x 第2部分  8e  Linux LVM       df  BootIt          9  AIX 可启动      4f  QNX4.x 第3部分  93  Amoeba          e1  DOS 访问        a  OS/2 启动管理器 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O         b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor       c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad 休 eb  BeOS fs         e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         ee  GPT             f  W95 扩展 (LBA)  54  OnTrackDM6      a6  OpenBSD         ef  EFI (FAT-12/16/10  OPUS            55  EZ-Drive        a7  NeXTSTEP        f0  Linux/PA-RISC  11  隐藏的 FAT12    56  Golden Bow      a8  Darwin UFS      f1  SpeedStor      12  Compaq 诊断     5c  Priam Edisk     a9  NetBSD          f4  SpeedStor      14  隐藏的 FAT16 &lt;3 61  SpeedStor       ab  Darwin 启动     f2  DOS 次要       16  隐藏的 FAT16    63  GNU HURD or Sys af  HFS / HFS+      fb  VMware VMFS    17  隐藏的 HPFS/NTF 64  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE 18  AST 智能睡眠    65  Novell Netware  b8  BSDI swap       fd  Linux raid 自动1b  隐藏的 W95 FAT3 70  DiskSecure 多启 bb  Boot Wizard 隐  fe  LANstep        1c  隐藏的 W95 FAT3 75  PC/IX           be  Solaris 启动    ff  BBT            1e  隐藏的 W95 FAT1 80  旧 Minix       命令(输入 m 获取帮助)：t已选择分区 1Hex 代码(输入 L 列出所有代码)：fd已将分区“Linux”的类型更改为“Linux raid autodetect”命令(输入 m 获取帮助)：p磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区Units = 扇区 of 1 * 512 = 512 bytes扇区大小(逻辑/物理)：512 字节 / 512 字节I/O 大小(最小/最佳)：512 字节 / 512 字节磁盘标签类型：dos磁盘标识符：0xef090fa6   设备 Boot      Start         End      Blocks   Id  System/dev/sdb1            2048    41943039    20970496   fd  Linux raid autodetect命令(输入 m 获取帮助)：wThe partition table has been altered!Calling ioctl() to re-read partition table.正在同步磁盘。</code></pre><p>这里要注意一点的是修改硬盘格式为<code>fd  Linux raid 自动</code> 修改同步格式化sdc、sdd、sde三个硬盘。</p><h1 id="四、创建raid"><a href="#四、创建raid" class="headerlink" title="四、创建raid"></a>四、创建raid</h1><pre><code class="line-numbers language-bash">mdadm --create /dev/md5 --auto yes --level 5 -n4 /dev/sd{b,c,d,e}</code></pre><ul><li>-C/–create:新建阵列</li><li>-a/–auto:允许mdadm创建设备文件，一般常用参数-a yes一次性创建</li><li>-l/–levle:RAID模式，支持RAID0/1/4/5/6/10等</li><li>-n/–raid-devices=:创建阵列中活动磁盘的数量</li><li>/dev/md0:阵列的设备名称</li><li>/dev/sd{b,c,d,e}1：创建阵列中的物理磁盘分区信息</li></ul><h1 id="五、查看阵列状态"><a href="#五、查看阵列状态" class="headerlink" title="五、查看阵列状态"></a>五、查看阵列状态</h1><pre><code class="line-numbers language-bash">cat /proc/mdstat Personalities : [raid1] [raid10] [raid6] [raid5] [raid4] md5 : active raid5 sde[4] sdd[2] sdc[1] sdb[0]      62862336 blocks super 1.2 level 5, 512k chunk, algorithm 2 [4/3] [UUU_]      [=====&gt;...............]  recovery = 25.7% (5400192/20954112) finish=1.2min speed=200007K/secunused devices: &lt;none&gt;</code></pre><h1 id="六、创建md0配置文件"><a href="#六、创建md0配置文件" class="headerlink" title="六、创建md0配置文件"></a>六、创建md0配置文件</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# echo DEVICE /dev/sd{b,c,d,e} &gt;&gt; /etc/mdadm.conf[root@localhost ~]# mdadm -Evs &gt;&gt; /etc/mdadm.conf [root@localhost ~]# cat /etc/mdadm.confDEVICE /dev/sdb1 /dev/sdc1 /dev/sdd1ARRAY /dev/md/0  level=raid1 metadata=1.2 num-devices=4 UUID=afe6977f:2d213295:513422e5:70099cb9 name=localhost.localdomain:0   devices=/dev/sdb1,/dev/sdc1,/dev/sdd1DEVICE /dev/sdb /dev/sdc /dev/sdd /dev/sdeARRAY /dev/md/5  level=raid5 metadata=1.2 num-devices=4 UUID=ba5caeb6:401904f5:674ddc67:c4f95242 name=localhost.localdomain:5   devices=/dev/sdb,/dev/sdc,/dev/sdd,/dev/sde</code></pre><h1 id="七、格式化RAID分区"><a href="#七、格式化RAID分区" class="headerlink" title="七、格式化RAID分区"></a>七、格式化RAID分区</h1><pre><code class="line-numbers language-bash">mkfs -t ext4 /dev/md5</code></pre><h1 id="八、挂载"><a href="#八、挂载" class="headerlink" title="八、挂载"></a>八、挂载</h1><pre><code class="line-numbers language-bash">mkdir /datamount /dev/md5 /data</code></pre><p>开机自动挂载</p><pre><code class="line-numbers language-bash">vim /etc/fstab/dev/md5 /data ext4 defaults 0 0</code></pre><h1 id="九、测试"><a href="#九、测试" class="headerlink" title="九、测试"></a>九、测试</h1><pre><code class="line-numbers language-bash"># 模拟/dev/sdc故障mdadm /dev/md5 -f /dev/sdc# 显示信息mdadm -D /dev/md5/dev/md5:           Version : 1.2     Creation Time : Mon Jan 24 19:04:38 2022        Raid Level : raid5        Array Size : 62862336 (59.95 GiB 64.37 GB)     Used Dev Size : 20954112 (19.98 GiB 21.46 GB)      Raid Devices : 4     Total Devices : 4       Persistence : Superblock is persistent       Update Time : Mon Jan 24 19:17:38 2022             State : clean, degraded     Active Devices : 3   Working Devices : 3    Failed Devices : 1     Spare Devices : 0            Layout : left-symmetric        Chunk Size : 512KConsistency Policy : resync              Name : localhost.localdomain:5  (local to host localhost.localdomain)              UUID : ba5caeb6:401904f5:674ddc67:c4f95242            Events : 20    Number   Major   Minor   RaidDevice State       0       8       16        0      active sync   /dev/sdb       -       0        0        1      removed       2       8       48        2      active sync   /dev/sdd       4       8       64        3      active sync   /dev/sde       1       8       32        -      faulty   /dev/sdc</code></pre><p>更换硬盘，格式化硬盘，恢复数据</p><pre><code class="line-numbers language-bash"># 移除损坏硬盘mdadm /dev/md5 --remove /dev/sdc# 添加新硬盘mdadm /dev/md5 --add /dev/sdc# 查看状态等待恢复完成mdadm -D /dev/md5</code></pre><h1 id="十、添加新硬盘"><a href="#十、添加新硬盘" class="headerlink" title="十、添加新硬盘"></a>十、添加新硬盘</h1><p>添加一块硬盘<code>/dev/sdf</code>，格式化</p><pre><code class="line-numbers language-bash"># 添加硬盘mdadm /dev/md5 -a /dev/sdf# 扩容硬盘mdadm -G /dev/md5 -n5# 查看状态等待扩容完成mdadm -D /dev/md5</code></pre><blockquote><p>注：数据无价，扩容时最好做好备份。</p></blockquote><h1 id="十一、重装系统后恢复"><a href="#十一、重装系统后恢复" class="headerlink" title="十一、重装系统后恢复"></a>十一、重装系统后恢复</h1><p>先安装mdadm软件，再使用下面命令自动检测并安装所有的 md 硬盘</p><pre><code class="line-numbers language-bash">mdadm --assemble --scan</code></pre><p>可以查看结果存在5块硬盘并恢复成功</p><pre><code class="line-numbers language-bash">mdadm: /dev/md/5 has been started with 5 drives.</code></pre><h1 id="十二、删除软RAID"><a href="#十二、删除软RAID" class="headerlink" title="十二、删除软RAID"></a>十二、删除软RAID</h1><pre><code class="line-numbers language-bash"># 卸载挂载点umount /dev/md5# 停止软件RAID设备mdadm -S /dev/md5# 删除RAID中的磁盘mdadm --misc --zero-superblock /dev/sd{b,c,d,e}# 删除mdadm配置文件rm -f /etc/mdadm.conf# 删除/etc/fstab中的挂载信息</code></pre>]]></content>
+    <content type="html"><![CDATA[<p>软raid中是通过软件层面来模拟实现raid的相关功能，从而达到与硬件raid相同的功能。在Linux中通常是使用md模块来实现软件raid。</p><h1 id="一、安装mdadm"><a href="#一、安装mdadm" class="headerlink" title="一、安装mdadm"></a>一、安装mdadm</h1><pre><code class="line-numbers language-bash">yum -y install mdadm</code></pre><h1 id="二、显示硬盘和分区信息"><a href="#二、显示硬盘和分区信息" class="headerlink" title="二、显示硬盘和分区信息"></a>二、显示硬盘和分区信息</h1><p>在VM虚拟机中完成测试，sda为系统盘，sdb、sdc、sdd、sde为四个制作raid的硬盘。</p><pre><code class="line-numbers language-bash">lsblk NAME            MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTsda               8:0    0   20G  0 disk ├─sda1            8:1    0    1G  0 part /boot└─sda2            8:2    0   19G  0 part   ├─centos-root 253:0    0   17G  0 lvm  /  └─centos-swap 253:1    0    2G  0 lvm  [SWAP]sdb               8:16   0   20G  0 disk sdc               8:32   0   20G  0 disk sdd               8:48   0   20G  0 disk sde               8:64   0   20G  0 disk </code></pre><h1 id="三、格式化硬盘"><a href="#三、格式化硬盘" class="headerlink" title="三、格式化硬盘"></a>三、格式化硬盘</h1><h2 id="2TB以内硬盘"><a href="#2TB以内硬盘" class="headerlink" title="2TB以内硬盘"></a>2TB以内硬盘</h2><pre><code class="line-numbers language-bash">fdisk /dev/sdbn 回车 回车 回车（或输入分区大小，建议预留100M空间） t l fd w</code></pre><ul><li>n：创建分区，回车选择默认分区和大小使用全部硬盘</li><li>t：修改分区类型，回车选择默认分区</li><li>l：列出所有分区类型</li><li>fd：指raid分区，不同版本前的数字不一样，从l显示的列表中找到Linux raid auto类型就行了。</li></ul><p>完整操作实例</p><pre><code class="line-numbers language-bash">[root@localhost ~]# fdisk /dev/sdb欢迎使用 fdisk (util-linux 2.23.2)。更改将停留在内存中，直到您决定将更改写入磁盘。使用写入命令前请三思。Device does not contain a recognized partition table使用磁盘标识符 0xef090fa6 创建新的 DOS 磁盘标签。命令(输入 m 获取帮助)：nPartition type:   p   primary (0 primary, 0 extended, 4 free)   e   extendedSelect (default p): Using default response p分区号 (1-4，默认 1)：起始 扇区 (2048-41943039，默认为 2048)：将使用默认值 2048Last 扇区, +扇区 or +size{K,M,G} (2048-41943039，默认为 41943039)：将使用默认值 41943039分区 1 已设置为 Linux 类型，大小设为 20 GiB命令(输入 m 获取帮助)：l 0  空              24  NEC DOS         81  Minix / 旧 Linu bf  Solaris         1  FAT12           27  隐藏的 NTFS Win 82  Linux 交换 / So c1  DRDOS/sec (FAT- 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT- 3  XENIX usr       3c  PartitionMagic  84  OS/2 隐藏的 C:  c6  DRDOS/sec (FAT- 4  FAT16 &lt;32M      40  Venix 80286     85  Linux 扩展      c7  Syrinx          5  扩展            41  PPC PReP Boot   86  NTFS 卷集       da  非文件系统数据  6  FAT16           42  SFS             87  NTFS 卷集       db  CP/M / CTOS / . 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux 纯文本    de  Dell 工具       8  AIX             4e  QNX4.x 第2部分  8e  Linux LVM       df  BootIt          9  AIX 可启动      4f  QNX4.x 第3部分  93  Amoeba          e1  DOS 访问        a  OS/2 启动管理器 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O         b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor       c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad 休 eb  BeOS fs         e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         ee  GPT             f  W95 扩展 (LBA)  54  OnTrackDM6      a6  OpenBSD         ef  EFI (FAT-12/16/10  OPUS            55  EZ-Drive        a7  NeXTSTEP        f0  Linux/PA-RISC  11  隐藏的 FAT12    56  Golden Bow      a8  Darwin UFS      f1  SpeedStor      12  Compaq 诊断     5c  Priam Edisk     a9  NetBSD          f4  SpeedStor      14  隐藏的 FAT16 &lt;3 61  SpeedStor       ab  Darwin 启动     f2  DOS 次要       16  隐藏的 FAT16    63  GNU HURD or Sys af  HFS / HFS+      fb  VMware VMFS    17  隐藏的 HPFS/NTF 64  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE 18  AST 智能睡眠    65  Novell Netware  b8  BSDI swap       fd  Linux raid 自动1b  隐藏的 W95 FAT3 70  DiskSecure 多启 bb  Boot Wizard 隐  fe  LANstep        1c  隐藏的 W95 FAT3 75  PC/IX           be  Solaris 启动    ff  BBT            1e  隐藏的 W95 FAT1 80  旧 Minix       命令(输入 m 获取帮助)：t已选择分区 1Hex 代码(输入 L 列出所有代码)：fd已将分区“Linux”的类型更改为“Linux raid autodetect”命令(输入 m 获取帮助)：p磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区Units = 扇区 of 1 * 512 = 512 bytes扇区大小(逻辑/物理)：512 字节 / 512 字节I/O 大小(最小/最佳)：512 字节 / 512 字节磁盘标签类型：dos磁盘标识符：0xef090fa6   设备 Boot      Start         End      Blocks   Id  System/dev/sdb1            2048    41943039    20970496   fd  Linux raid autodetect命令(输入 m 获取帮助)：wThe partition table has been altered!Calling ioctl() to re-read partition table.正在同步磁盘。</code></pre><h2 id="2TB以上"><a href="#2TB以上" class="headerlink" title="2TB以上"></a>2TB以上</h2><pre><code class="line-numbers language-bash">parted /dev/sdbmklabel gpt mkpart 回车 ext4 0GB 4000GB p q</code></pre><ul><li>mklabel:创建一个新的磁盘标签</li><li>gpt: gpt分区</li><li>mkpart: 创建分区</li><li>ext4: 硬盘数据格式</li><li>0GB: 开始位置</li><li>4000GB: 结束位置</li><li>p: 显示信息</li><li>q: 保存退出</li></ul><pre><code class="line-numbers language-bash">[root@zngw ~]# parted /dev/sdbGNU Parted 3.1Using /dev/sdbWelcome to GNU Parted! Type &#39;help&#39; to view a list of commands.(parted) mklabel                                                          New disk label type? gpt                                                  Warning: The existing disk label on /dev/sdb will be destroyed and all data on this disk will be lost. Do you want to continue?Yes/No? y                                                                 (parted) mkpart                                                           Partition name?  []?                                                      File system type?  [ext2]? ext4                                           Start? 0GB                                                                End? 4000GB                                                               (parted) p                                                                Model: External USB3.0 DISK04 (scsi)Disk /dev/sdb: 4001GBSector size (logical/physical): 512B/4096BPartition Table: gptDisk Flags: Number  Start   End     Size    File system  Name  Flags 1      1049kB  4000GB  4000GB(parted) q                                                                Information: You may need to update /etc/fstab.</code></pre><h1 id="四、创建raid"><a href="#四、创建raid" class="headerlink" title="四、创建raid"></a>四、创建raid</h1><pre><code class="line-numbers language-bash">mdadm --create /dev/md5 --auto yes --level 5 -n4 /dev/sd{b,c,d,e}</code></pre><ul><li>-C/–create:新建阵列</li><li>-a/–auto:允许mdadm创建设备文件，一般常用参数-a yes一次性创建</li><li>-l/–levle:RAID模式，支持RAID0/1/4/5/6/10等</li><li>-n/–raid-devices=:创建阵列中活动磁盘的数量</li><li>/dev/md0:阵列的设备名称</li><li>/dev/sd{b,c,d,e}1：创建阵列中的物理磁盘分区信息</li></ul><h1 id="五、查看阵列状态"><a href="#五、查看阵列状态" class="headerlink" title="五、查看阵列状态"></a>五、查看阵列状态</h1><pre><code class="line-numbers language-bash">cat /proc/mdstat Personalities : [raid1] [raid10] [raid6] [raid5] [raid4] md5 : active raid5 sde[4] sdd[2] sdc[1] sdb[0]      62862336 blocks super 1.2 level 5, 512k chunk, algorithm 2 [4/3] [UUU_]      [=====&gt;...............]  recovery = 25.7% (5400192/20954112) finish=1.2min speed=200007K/secunused devices: &lt;none&gt;</code></pre><h1 id="六、创建md5配置文件"><a href="#六、创建md5配置文件" class="headerlink" title="六、创建md5配置文件"></a>六、创建md5配置文件</h1><pre><code class="line-numbers language-bash">[root@localhost ~]# echo DEVICE /dev/sd{b,c,d,e} &gt;&gt; /etc/mdadm.conf[root@localhost ~]# mdadm -Evs &gt;&gt; /etc/mdadm.conf [root@localhost ~]# cat /etc/mdadm.confDEVICE /dev/sdb1 /dev/sdc1 /dev/sdd1ARRAY /dev/md/0  level=raid1 metadata=1.2 num-devices=4 UUID=afe6977f:2d213295:513422e5:70099cb9 name=localhost.localdomain:0   devices=/dev/sdb1,/dev/sdc1,/dev/sdd1DEVICE /dev/sdb /dev/sdc /dev/sdd /dev/sdeARRAY /dev/md/5  level=raid5 metadata=1.2 num-devices=4 UUID=ba5caeb6:401904f5:674ddc67:c4f95242 name=localhost.localdomain:5   devices=/dev/sdb,/dev/sdc,/dev/sdd,/dev/sde</code></pre><h1 id="七、格式化RAID分区"><a href="#七、格式化RAID分区" class="headerlink" title="七、格式化RAID分区"></a>七、格式化RAID分区</h1><pre><code class="line-numbers language-bash">mkfs -t ext4 /dev/md5</code></pre><h1 id="八、挂载"><a href="#八、挂载" class="headerlink" title="八、挂载"></a>八、挂载</h1><pre><code class="line-numbers language-bash">mkdir /datamount /dev/md5 /data</code></pre><p>开机自动挂载</p><pre><code class="line-numbers language-bash">vim /etc/fstab/dev/md5 /data ext4 defaults 0 0</code></pre><h1 id="九、测试"><a href="#九、测试" class="headerlink" title="九、测试"></a>九、测试</h1><pre><code class="line-numbers language-bash"># 模拟/dev/sdc故障mdadm /dev/md5 -f /dev/sdc# 显示信息mdadm -D /dev/md5/dev/md5:           Version : 1.2     Creation Time : Mon Jan 24 19:04:38 2022        Raid Level : raid5        Array Size : 62862336 (59.95 GiB 64.37 GB)     Used Dev Size : 20954112 (19.98 GiB 21.46 GB)      Raid Devices : 4     Total Devices : 4       Persistence : Superblock is persistent       Update Time : Mon Jan 24 19:17:38 2022             State : clean, degraded     Active Devices : 3   Working Devices : 3    Failed Devices : 1     Spare Devices : 0            Layout : left-symmetric        Chunk Size : 512KConsistency Policy : resync              Name : localhost.localdomain:5  (local to host localhost.localdomain)              UUID : ba5caeb6:401904f5:674ddc67:c4f95242            Events : 20    Number   Major   Minor   RaidDevice State       0       8       16        0      active sync   /dev/sdb       -       0        0        1      removed       2       8       48        2      active sync   /dev/sdd       4       8       64        3      active sync   /dev/sde       1       8       32        -      faulty   /dev/sdc</code></pre><p>更换硬盘，格式化硬盘，恢复数据</p><pre><code class="line-numbers language-bash"># 移除损坏硬盘mdadm /dev/md5 --remove /dev/sdc# 添加新硬盘mdadm /dev/md5 --add /dev/sdc# 查看状态等待恢复完成mdadm -D /dev/md5</code></pre><h1 id="十、添加新硬盘"><a href="#十、添加新硬盘" class="headerlink" title="十、添加新硬盘"></a>十、添加新硬盘</h1><p>添加一块硬盘<code>/dev/sdf</code>，格式化</p><pre><code class="line-numbers language-bash"># 添加硬盘mdadm /dev/md5 -a /dev/sdf# 扩容硬盘mdadm -G /dev/md5 -n5# 查看状态等待扩容完成mdadm -D /dev/md5# 将/dev/md5分区扩容resize2fs /dev/md5</code></pre><blockquote><p>注：数据无价，扩容时最好做好备份。</p></blockquote><h1 id="十一、重装系统后恢复"><a href="#十一、重装系统后恢复" class="headerlink" title="十一、重装系统后恢复"></a>十一、重装系统后恢复</h1><p>先安装mdadm软件，再使用下面命令自动检测并安装所有的 md 硬盘</p><pre><code class="line-numbers language-bash">mdadm --assemble --scan</code></pre><p>可以查看结果存在5块硬盘并恢复成功</p><pre><code class="line-numbers language-bash">mdadm: /dev/md/5 has been started with 5 drives.</code></pre><h1 id="十二、删除软RAID"><a href="#十二、删除软RAID" class="headerlink" title="十二、删除软RAID"></a>十二、删除软RAID</h1><pre><code class="line-numbers language-bash"># 卸载挂载点umount /dev/md5# 停止软件RAID设备mdadm -S /dev/md5# 删除RAID中的磁盘mdadm --misc --zero-superblock /dev/sd{b,c,d,e}# 删除mdadm配置文件rm -f /etc/mdadm.conf# 删除/etc/fstab中的挂载信息</code></pre>]]></content>
     
     <summary type="html">
     
@@ -150,409 +556,6 @@
     
     
       <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB聚合管道——累加器（转）</title>
-    <link href="https://zengwu.com.cn/p/c9e1223.html"/>
-    <id>https://zengwu.com.cn/p/c9e1223.html</id>
-    <published>2022-02-03T02:45:55.000Z</published>
-    <updated>2022-01-29T03:59:41.189Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="累加器（Accumulators）"><a href="#累加器（Accumulators）" class="headerlink" title="累加器（Accumulators）"></a>累加器（Accumulators）</h1><p>累加器本来只能使用与$groud下，但是版本3.2或以上，部分累加器还能使用于$project。当在$group中使用时，累加器是针对每个分组使用的；当在$project中使用时，累加器则是针对每个字面量起作用。</p><h2 id="常用累加器"><a href="#常用累加器" class="headerlink" title="常用累加器"></a>常用累加器</h2><table><thead><tr><th>操作符</th><th>简述</th></tr></thead><tbody><tr><td>$sum</td><td>求和操作符，v3.2+可以用于$group或是$poject</td></tr><tr><td>$avg</td><td>求均值操作符，v3.2+可以用于$group或是$poject</td></tr><tr><td>$first</td><td>用于返回分组的第一个值，只能用于$group</td></tr><tr><td>$last</td><td>用于返回分组的最后一个值，只能用于$group</td></tr><tr><td>$max</td><td>用于返回分组的最大值，v3.2+可以用于$group或是$poject</td></tr><tr><td>$min</td><td>用于返回分组的最小值，v3.2+可以用于$group或是$poject</td></tr></tbody></table><h3 id="sum-求和操作符"><a href="#sum-求和操作符" class="headerlink" title="$sum 求和操作符"></a>$sum 求和操作符</h3><p>用法：</p><ul><li>$group下使用</li></ul><pre><code class="line-numbers language-gams">{ $sum: &lt;expression&gt; }</code></pre><ul><li>$project下使用：</li></ul><pre><code class="line-numbers language-pf">{ $sum: &lt;expression&gt; }    or{ $sum: [ &lt;expression1&gt;, &lt;expression2&gt; ... ]  }</code></pre><p>说明：</p><table><thead><tr><th>列子</th><th>值</th><th>结果</th></tr></thead><tbody><tr><td><code>{ $sum :  }</code></td><td>只含数字</td><td>所有值的和</td></tr><tr><td><code>{ $sum :  }</code></td><td>含数字和非数字</td><td>所有数字值的和</td></tr><tr><td><code>{ $sum :  }</code></td><td>非数字或不存在</td><td>0</td></tr></tbody></table><p>举例：</p><blockquote><p>请看后面的综合示例</p></blockquote><h3 id="avg-求均值操作符"><a href="#avg-求均值操作符" class="headerlink" title="$avg 求均值操作符"></a>$avg 求均值操作符</h3><p>用法：</p><ul><li>$group下使用</li></ul><pre><code class="line-numbers language-mel">{ $avg: &lt;expression&gt; }</code></pre><ul><li>$project下使用：</li></ul><pre><code class="line-numbers language-pf">{ $avg: &lt;expression&gt; }    or{ $avg: [ &lt;expression1&gt;, &lt;expression2&gt; ... ]  }</code></pre><p>举例：</p><blockquote><p>请看后面的综合示例</p></blockquote><h3 id="first-求第一值操作符"><a href="#first-求第一值操作符" class="headerlink" title="$first 求第一值操作符"></a>$first 求第一值操作符</h3><p>用法：</p><pre><code class="line-numbers language-mel">{ $first: &lt;expression&gt; }</code></pre><p>举例：<br>假设数据：</p><pre><code class="line-numbers language-scheme">[    { _id: 1, name: &#39;kate&#39;, class: &#39;a&#39; },    { _id: 2, name: &#39;jack&#39;, class: &#39;a&#39; },    { _id: 3, name: &#39;kent&#39;, class: &#39;b&#39; },]</code></pre><p>操作：</p><pre><code class="line-numbers language-bash">db.collection.aggregate(   [     {       $group:         {           _id: &quot;$class&quot;,           firstPersonName: { $first: &quot;$name&quot; }         }     }   ])</code></pre><p>结果：</p><pre><code class="line-numbers language-scheme">[    { _id: &#39;a&#39;, firstPersonName: &#39;kate&#39; },    { _id: &#39;b&#39;, firstPersonName: &#39;kent&#39; },]</code></pre><h3 id="last-求最后值操作符"><a href="#last-求最后值操作符" class="headerlink" title="$last 求最后值操作符"></a>$last 求最后值操作符</h3><p>用法：</p><pre><code class="line-numbers language-mel">{ $last: &lt;expression&gt; }</code></pre><p>举例：<br>假设数据：</p><pre><code class="line-numbers language-scheme">[    { _id: 1, name: &#39;kate&#39;, class: &#39;a&#39; },    { _id: 2, name: &#39;jack&#39;, class: &#39;a&#39; },    { _id: 3, name: &#39;kent&#39;, class: &#39;b&#39; },]</code></pre><p>操作：</p><pre><code class="line-numbers language-bash">db.collection.aggregate(   [     {       $group:         {           _id: &quot;$class&quot;,           firstPersonName: { $last: &quot;$name&quot; }         }     }   ])</code></pre><p>结果：</p><pre><code class="line-numbers language-scheme">[    { _id: &#39;a&#39;, firstPersonName: &#39;jack&#39; },    { _id: &#39;b&#39;, firstPersonName: &#39;kent&#39; },]</code></pre><h3 id="max-求最大值操作符"><a href="#max-求最大值操作符" class="headerlink" title="$max 求最大值操作符"></a>$max 求最大值操作符</h3><p>用法：</p><ul><li>$group下使用</li></ul><pre><code class="line-numbers language-gams">{ $max: &lt;expression&gt; }</code></pre><ul><li>$project下使用：</li></ul><pre><code class="line-numbers language-pf">{ $max: &lt;expression&gt; }    or{ $max: [ &lt;expression1&gt;, &lt;expression2&gt; ... ]  }</code></pre><p>举例：</p><blockquote><p>请看后面的综合示例</p></blockquote><h3 id="min-求最小值操作符"><a href="#min-求最小值操作符" class="headerlink" title="$min 求最小值操作符"></a>$min 求最小值操作符</h3><p>用法：</p><ul><li>$group下使用</li></ul><pre><code class="line-numbers language-gams">{ $min: &lt;expression&gt; }</code></pre><ul><li>$project下使用：</li></ul><pre><code class="line-numbers language-pf">{ $min: &lt;expression&gt; }    or{ $min: [ &lt;expression1&gt;, &lt;expression2&gt; ... ]  }</code></pre><p>举例：</p><blockquote><p>请看后面的综合示例</p></blockquote><h2 id="综合示例"><a href="#综合示例" class="headerlink" title="综合示例"></a>综合示例</h2><p>假设有一个关于成绩的集合</p><pre><code class="line-numbers language-scheme">[    { _id: 1, name: &#39;kate&#39;, score: 80, class: &#39;a&#39;, subject: &#39;A&#39; },    { _id: 2, name: &#39;kate&#39;, score: 60, class: &#39;a&#39;, subject: &#39;B&#39; },    { _id: 3, name: &#39;jack&#39;, score: 90, class: &#39;a&#39;, subject: &#39;A&#39; },    { _id: 4, name: &#39;jack&#39;, score: 60, class: &#39;a&#39;, subject: &#39;B&#39; },    { _id: 5, name: &#39;nick&#39;, score: 80, class: &#39;b&#39;, subject: &#39;A&#39; },    { _id: 6, name: &#39;nick&#39;, score: 90, class: &#39;b&#39;, subject: &#39;B&#39; },    { _id: 7, name: &#39;kent&#39;, score: 50, class: &#39;b&#39;, subject: &#39;A&#39; },    { _id: 7, name: &#39;kent&#39;, score: 30, class: &#39;b&#39;, subject: &#39;B&#39; },]</code></pre><h3 id="示例一"><a href="#示例一" class="headerlink" title="示例一"></a>示例一</h3><p>需求：</p><ul><li>获取各科目的最高分</li><li>获取各科目的最低分</li><li>获取各科目的平均分</li></ul><p>操作：</p><pre><code class="line-numbers language-nsis">db.collection.aggregate(   [     {       $group:         {           _id: &quot;$subject&quot;,           maxScore: { $max: &#39;$score&#39; },           minScore: { $min: &#39;$score&#39; },           avgScore: { $avg: &#39;$score&#39; },         }     }   ])</code></pre><p>结果：</p><pre><code class="line-numbers language-yaml">[    { _id: &#39;A&#39;, maxScore: 90, minScore: 50, avgScore: 75 },    { _id: &#39;B&#39;, maxScore: 90, minScore: 30, avgScore: 60 },]</code></pre><h3 id="示例二"><a href="#示例二" class="headerlink" title="示例二"></a>示例二</h3><p>需求：</p><ul><li>获取每人的总分</li><li>从高到低排序</li></ul><p>操作：</p><pre><code class="line-numbers language-nsis">db.collection.aggregate(   [     {       $group:         {           _id: &quot;$name&quot;,           totalScore: { $sum: &#39;$score&#39; }         }     },     {        $sort: { totalScore: -1 }      },     {        $project: {            _id: 0,            name: &#39;$_id&#39;,            totalScore: 1,        }     }   ])</code></pre><p>结果：</p><pre><code class="line-numbers language-scheme">[    { name: &#39;nick&#39;, totalScore: 170 },    { name: &#39;jack&#39;, totalScore: 150 },    { name: &#39;kate&#39;, totalScore: 140 },    { name: &#39;kent&#39;, totalScore: 80 }]</code></pre><p>本文转自：<a href="https://segmentfault.com/a/1190000010971393" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010971393</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;累加器（Accumulators）&quot;&gt;&lt;a href=&quot;#累加器（Accumulators）&quot; class=&quot;headerlink&quot; title=&quot;累加器（Accumulators）&quot;&gt;&lt;/a&gt;累加器（Accumulators）&lt;/h1&gt;&lt;p&gt;累加器本来只能使用与
-      
-    
-    </summary>
-    
-    
-      <category term="MongoDB" scheme="https://zengwu.com.cn/categories/MongoDB/"/>
-    
-    
-      <category term="MongoDB、" scheme="https://zengwu.com.cn/tags/MongoDB%E3%80%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB聚合管道——阶段操作（转）</title>
-    <link href="https://zengwu.com.cn/p/ff066a46.html"/>
-    <id>https://zengwu.com.cn/p/ff066a46.html</id>
-    <published>2022-01-31T16:45:55.000Z</published>
-    <updated>2022-01-29T03:59:41.193Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="阶段操作符（Stage-Operators）"><a href="#阶段操作符（Stage-Operators）" class="headerlink" title="阶段操作符（Stage Operators）"></a>阶段操作符（Stage Operators）</h1><p>阶段操作符是使用于db.collection.aggregate方法里面，数组参数中的第一层。</p><pre><code class="line-numbers language-stylus">db.collection.aggregate( [ { 阶段操作符：表述 }, { 阶段操作符：表述 }, ... ] )</code></pre><h1 id="常用阶段操作符"><a href="#常用阶段操作符" class="headerlink" title="常用阶段操作符"></a>常用阶段操作符</h1><table><thead><tr><th>操作符</th><th>简述</th></tr></thead><tbody><tr><td>$match</td><td>匹配操作符，用于对文档集合进行筛选</td></tr><tr><td>$project</td><td>投射操作符，用于重构每一个文档的字段，可以提取字段，重命名字段，甚至可以对原有字段进行操作后新增字段</td></tr><tr><td>$sort</td><td>排序操作符，用于根据一个或多个字段对文档进行排序</td></tr><tr><td>$limit</td><td>限制操作符，用于限制返回文档的数量</td></tr><tr><td>$skip</td><td>跳过操作符，用于跳过指定数量的文档</td></tr><tr><td>$count</td><td>统计操作符，用于统计文档的数量</td></tr><tr><td>$group</td><td>分组操作符，用于对文档集合进行分组</td></tr><tr><td>$unwind</td><td>拆分操作符，用于将数组中的每一个值拆分为单独的文档</td></tr><tr><td>$lookup</td><td>连接操作符，用于连接同一个数据库中另一个集合，并获取指定的文档，类似于populate</td></tr></tbody></table><p><a href="https://link.segmentfault.com/?enc=U9rNUMMzyQJbzEETukzckw%3D%3D.PcBwoxbmhxdZLbHCIh9vzCveN3ACu0ic%2B8QCr6Nu1KYZwMcU1PWki5ZNoSEKYS0MQCLrtXqZDOdRNXLz7OdAKQ%3D%3D" target="_blank" rel="noopener">更多操作符介绍详见官网：https://docs.mongodb.com/manual/reference/operator/aggregation/</a></p><h1 id="阶段操作符详解"><a href="#阶段操作符详解" class="headerlink" title="阶段操作符详解"></a>阶段操作符详解</h1><p>假设有一个保存用户的集合Users，一个文章的集合Articles，数据大致如下：<br>users:</p><pre><code class="line-numbers language-yaml">[    { name: &#39;John&#39;, age: 16, sex: male, city: guangzhou, _id: 1, ...},    { name: &#39;Rose&#39;, age: 18, sex: female, city: beijing, _id: 2, ...},    { name: &#39;Jack&#39;, age: 29, sex: male, city: guangzhou, _id: 3, ...},    { name: &#39;Allen&#39;, age: 18, sex: female, city: beijing, _id: 4, ...},    { name: &#39;Cruz&#39;, age: 22, sex: male, city: guangzhou, _id: 5, ...},    { name: &#39;Peter&#39;, age: 18, sex: male, city: guangzhou, _id: 6, ...},    { name: &#39;Kelly&#39;, age: 23, sex: female, city: shanghai, _id: 7, ...},    ...]</code></pre><p>articles:</p><pre><code class="line-numbers language-scheme">[    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, ... },    { title: &#39;this is article B&#39;, author: &#39;Jack&#39;, _id: 2, ... },    { title: &#39;this is article C&#39;, author: &#39;Rose&#39;, _id: 3, ... },    { title: &#39;this is article D&#39;, author: &#39;John&#39;, _id: 4, ... },    { title: &#39;this is article E&#39;, author: &#39;John&#39;, _id: 5, ... },    ...]</code></pre><h2 id="match-匹配操作符"><a href="#match-匹配操作符" class="headerlink" title="$match 匹配操作符"></a>$match 匹配操作符</h2><h5 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h5><blockquote><p>用于重构每一个文档的字段，可以提取字段，重命名字段，甚至可以对原有字段进行操作后新增字段</p></blockquote><h5 id="用法"><a href="#用法" class="headerlink" title="用法:"></a>用法:</h5><pre><code class="line-numbers language-pf">{ $match: { &lt;query&gt; } }</code></pre><h5 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h5><ul><li>查询用户年龄是18岁的用户</li></ul><pre><code class="line-numbers language-stata">db.users.aggregate([{ $match : { age : &quot;18&quot; } }]);</code></pre><h2 id="project-投射操作符"><a href="#project-投射操作符" class="headerlink" title="$project 投射操作符"></a>$project 投射操作符</h2><h5 id="说明：-1"><a href="#说明：-1" class="headerlink" title="说明："></a>说明：</h5><blockquote><p>用于对文档集合进行筛选</p></blockquote><h5 id="用法-1"><a href="#用法-1" class="headerlink" title="用法:"></a>用法:</h5><pre><code class="line-numbers language-pf">{ $project: { &lt;specification(s)&gt; } }</code></pre><p>specification的规则</p><table><thead><tr><th>规则</th><th>描述</th></tr></thead><tbody><tr><td>&lt;字段名&gt;: 1 or true</td><td>选择需要返回什么字段</td></tr><tr><td>_id: 0 or false</td><td>不返回_id(默认返回)</td></tr><tr><td>&lt;字段名&gt;: 表达式</td><td>使用表达式，可以用于重命名字段，或对其值进行操作，或新增字段</td></tr><tr><td>&lt;字段名&gt;: 0 or false</td><td>选择需要不返回什么字段，注意：当使用这种用法时，就不要用上面的方法</td></tr></tbody></table><h5 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h5><ul><li>用户集合投射用户姓名</li><li>不返回_id</li></ul><pre><code class="line-numbers language-stata">db.users.aggregate([{ $project : { name: 1 } }]);</code></pre><h5 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h5><ul><li>将_id重命名为userId</li><li>不返回<em>id</em></li></ul><pre><code class="line-numbers language-nsis">db.users.aggregate([{ $project : { ueserId: &#39;$_id&#39;, _id: 0 } }]);</code></pre><h5 id="示例3："><a href="#示例3：" class="headerlink" title="示例3："></a>示例3：</h5><ul><li>返回新字段username,并使用表达式让它的值为name的大写。</li></ul><pre><code class="line-numbers language-nestedtext">db.users.aggregate([     {         $project : {            name: 1,             username: { $toUpper: &#39;$name&#39; },             _id: 0         }     } ]);</code></pre><blockquote><p>关于管道表达式：最简单的“$project”表达式是包含和排除字段(如: { name: 1 })，以及字段名称$fieldname(如: { userId: ‘$_id’ })。除此以外，还可以使用表达式操作符(如: $toUpper)构成更丰富的表达式，将多个字面量和变量组合在一起使用，得到更多有意思的值，更多表达式操作符的说明及使用在另外的篇章中详细阐述。</p></blockquote><h2 id="sort-排序操作符"><a href="#sort-排序操作符" class="headerlink" title="$sort 排序操作符"></a>$sort 排序操作符</h2><h5 id="说明：-2"><a href="#说明：-2" class="headerlink" title="说明："></a>说明：</h5><blockquote><p>用于根据一个或多个字段对文档进行排序</p></blockquote><h5 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-pf">{ $sort: { &lt;field1&gt;: &lt;sort order&gt;, &lt;field2&gt;: &lt;sort order&gt; ... } }</code></pre><h5 id="示例：-1"><a href="#示例：-1" class="headerlink" title="示例："></a>示例：</h5><ul><li>users集合按照年龄age从低到高排序</li></ul><pre><code class="line-numbers language-stata">db.users.aggregate([{ $sort : { age: 1 } }]);</code></pre><h2 id="limit-限制操作符"><a href="#limit-限制操作符" class="headerlink" title="$limit 限制操作符"></a>$limit 限制操作符</h2><h5 id="说明：-3"><a href="#说明：-3" class="headerlink" title="说明："></a>说明：</h5><blockquote><p>用于限制返回文档的数量</p></blockquote><h5 id="用法：-1"><a href="#用法：-1" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-gams">{ $limit: &lt;positive integer&gt; }</code></pre><h5 id="示例：-2"><a href="#示例：-2" class="headerlink" title="示例："></a>示例：</h5><ul><li>返回5篇article</li></ul><pre><code class="line-numbers language-stata">db.articles.aggregate({ $limit : 3 });</code></pre><h2 id="skip-跳过操作符"><a href="#skip-跳过操作符" class="headerlink" title="$skip 跳过操作符"></a>$skip 跳过操作符</h2><h5 id="说明：-4"><a href="#说明：-4" class="headerlink" title="说明："></a>说明：</h5><blockquote><p>用于跳过指定数量的文档</p></blockquote><h5 id="用法：-2"><a href="#用法：-2" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-gams">{ $skip: &lt;positive integer&gt; }</code></pre><h5 id="示例：-3"><a href="#示例：-3" class="headerlink" title="示例："></a>示例：</h5><ul><li>跳过1个文档</li></ul><pre><code class="line-numbers language-stata">db.users.aggregate([{ $skip : 1 }]);</code></pre><h2 id="count-统计操作符"><a href="#count-统计操作符" class="headerlink" title="$count 统计操作符"></a>$count 统计操作符</h2><h5 id="说明：-5"><a href="#说明：-5" class="headerlink" title="说明："></a>说明：</h5><blockquote><p>用于统计文档的数量</p></blockquote><h5 id="用法：-3"><a href="#用法：-3" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-applescript">{ $count: &lt;string&gt; }</code></pre><blockquote><p>string是统计之后输出统计结果的字段名</p></blockquote><h5 id="示例：-4"><a href="#示例：-4" class="headerlink" title="示例："></a>示例：</h5><ul><li>统计文章的总数，以totalArticle返回</li></ul><pre><code class="line-numbers language-ada">db.articles.aggregate([{ totalArticle : 1 }]);</code></pre><h2 id="group-分组操作符"><a href="#group-分组操作符" class="headerlink" title="$group 分组操作符"></a>$group 分组操作符</h2><h5 id="说明：-6"><a href="#说明：-6" class="headerlink" title="说明："></a>说明：</h5><blockquote><p>用于对文档集合进行分组</p></blockquote><h5 id="用法：-4"><a href="#用法：-4" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-pf">{ $group: { _id: &lt;expression&gt;, &lt;field1&gt;: { &lt;accumulator1&gt; : &lt;expression1&gt; }, ... } }</code></pre><blockquote><p>_id是必须的，用作分组的依据条件</p></blockquote><h5 id="示例：-5"><a href="#示例：-5" class="headerlink" title="示例："></a>示例：</h5><ul><li>将用户(users)按性别（sex）分组</li></ul><pre><code class="line-numbers language-crmsh">db.users.aggregate([{ $group : { _id: &#39;$sex&#39; } }]);</code></pre><p>返回结果：</p><pre><code class="line-numbers language-scheme">[  { _id: &#39;male&#39; },  { _id: &#39;female&#39; }]</code></pre><h5 id="进阶示例："><a href="#进阶示例：" class="headerlink" title="进阶示例："></a>进阶示例：</h5><ul><li>将用户(users)按性别（sex）分组</li><li>分组后使用计算各自性别的平均年龄</li><li>统计不同的性别的人数，并以count返回</li></ul><pre><code class="line-numbers language-nsis">db.users.aggregate([    {         $group : {            _id: &#39;$sex&#39;,             avgAge: { $avg: &#39;$age&#39; },             conut: { $sum: 1 }         }     }]);</code></pre><p>返回结果：</p><pre><code class="line-numbers language-sqf">[  { _id: &#39;male&#39;, avgAge: &lt;男性平均年龄&gt;, count: &lt;男性人数&gt; },  { _id: &#39;female&#39;, avgAge: &lt;女性平均年龄&gt;, count: &lt;女性人数&gt; }]</code></pre><blockquote><p>此处用到的表达式 { $avg: ‘$age’ } 用于求平均年龄，$avg是求均值的操作符，$sum用于汇总， 都只能在$group中使用的累加器，mongoDB3.2以上版本则还可以在$project中使用，详细会在另外的篇章中阐述。</p></blockquote><h2 id="unwind-拆分操作符"><a href="#unwind-拆分操作符" class="headerlink" title="$unwind 拆分操作符"></a>$unwind 拆分操作符</h2><h5 id="说明：-7"><a href="#说明：-7" class="headerlink" title="说明："></a>说明：</h5><blockquote><p>用于将数组中的每一个值拆分为单独的文档</p></blockquote><h5 id="用法：-5"><a href="#用法：-5" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-pf">{ $unwind: &lt;field path&gt; }</code></pre><h5 id="3-2-版本的用法："><a href="#3-2-版本的用法：" class="headerlink" title="3.2+版本的用法："></a>3.2+版本的用法：</h5><blockquote><p>增加icludeArrayIndex,preserveNullAndEmptyArrays两个可选配置</p></blockquote><pre><code class="line-numbers language-xquery">{  $unwind:    {      path: &lt;field path&gt;,      includeArrayIndex: &lt;string&gt;,      preserveNullAndEmptyArrays: &lt;boolean&gt;    }}</code></pre><table><thead><tr><th>字段</th><th>类型</th><th>描述</th></tr></thead><tbody><tr><td>path</td><td>string</td><td>必填，数组的字段名，指定需要拆分的字段</td></tr><tr><td>includeArrayIndex</td><td>string</td><td>可选，定义返回的字段名，返回的值是拆分前值在原数组的位置</td></tr><tr><td>preserveNullAndEmptyArrays</td><td>boolean</td><td>可选，配置在path的值为空或缺失的情况下是否拆分， 默认false</td></tr></tbody></table><h5 id="示例：-6"><a href="#示例：-6" class="headerlink" title="示例："></a>示例：</h5><p>假设articles文档集合是这样：</p><pre><code class="line-numbers language-ada">{ title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]}db.articles.aggregate([{ $unwind: &#39;$comments&#39; }]);</code></pre><p>结果：</p><pre><code class="line-numbers language-scheme">[    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;a&#39;},    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;b&#39;},    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;c&#39;},]</code></pre><h5 id="进阶示例（v3-2-）："><a href="#进阶示例（v3-2-）：" class="headerlink" title="进阶示例（v3.2+）："></a>进阶示例（v3.2+）：</h5><p>假设articles文档集合是这样：</p><pre><code class="line-numbers language-scheme">[    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;] }    { title: &#39;this is article B&#39;, author: &#39;Jack&#39;, _id: 2 },    { title: &#39;this is article C&#39;, author: &#39;Amy&#39;, _id: 3, comments: [] },    { title: &#39;this is article D&#39;, author: &#39;Lam&#39;, _id: 4, comments: null },]</code></pre><p>操作：</p><pre><code class="line-numbers language-nsis">db.articles.aggregate([    {         $unwind: {            path: &#39;$comments&#39;,            includeArrayIndex: &#39;arrayIndex&#39;,        }    }]);</code></pre><p>结果：</p><pre><code class="line-numbers language-scheme">[    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;a&#39;, arrayIndex: NumberLong(0) },    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;b&#39;, arrayIndex: NumberLong(1) },    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;c&#39;, arrayIndex: NumberLong(2) },]</code></pre><p>操作：</p><pre><code class="line-numbers language-nsis">db.articles.aggregate([    {         $unwind: {            path: &#39;$comments&#39;,            preserveNullAndEmptyArrays: true,        }    }]);</code></pre><p>结果：</p><pre><code class="line-numbers language-scheme">[    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;a&#39; },    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;b&#39; },    { title: &#39;this is article A&#39;, author: &#39;John&#39;, _id: 1, comments: &#39;c&#39; },    { title: &#39;this is article B&#39;, author: &#39;Jack&#39;, _id: 2 },    { title: &#39;this is article C&#39;, author: &#39;Amy&#39;, _id: 3 },    { title: &#39;this is article C&#39;, author: &#39;Amy&#39;, _id: 3, comments: null }]</code></pre><h2 id="lookup-连接操作符"><a href="#lookup-连接操作符" class="headerlink" title="$lookup 连接操作符"></a>$lookup 连接操作符</h2><h5 id="说明：-8"><a href="#说明：-8" class="headerlink" title="说明："></a>说明：</h5><blockquote><p>用于连接同一个数据库中另一个集合，并获取指定的文档，类似于populate</p></blockquote><h5 id="用法：-6"><a href="#用法：-6" class="headerlink" title="用法："></a>用法：</h5><pre><code class="line-numbers language-smali">{   $lookup:     {       from: &lt;collection to join&gt;,       localField: &lt;field from the input documents&gt;,       foreignField: &lt;field from the documents of the &quot;from&quot; collection&gt;,       as: &lt;output array field&gt;     }}</code></pre><table><thead><tr><th>字段</th><th>描述</th></tr></thead><tbody><tr><td>from</td><td>需要关联的集合名</td></tr><tr><td>localField</td><td>本集合中需要查找的字段</td></tr><tr><td>foreignField</td><td>另外一个集合中需要关联的字段</td></tr><tr><td>as</td><td>输出的字段名</td></tr></tbody></table><h5 id="示例：-7"><a href="#示例：-7" class="headerlink" title="示例："></a>示例：</h5><ul><li>ariticles中的author关联到user表</li><li>authoer字段返回详细的用户的信息</li></ul><pre><code class="line-numbers language-dts">db.articles.aggregate([  {    $lookup:      {        from: &quot;users&quot;,        localField: &quot;author&quot;,        foreignField: &quot;name&quot;,        as: &quot;author&quot;      }  }])</code></pre><p>结果：</p><pre><code class="line-numbers language-json">[    {         title: &#39;this is article A&#39;,         author: {             name: &#39;John&#39;,            age: 16,            sex: male,            city: guangzhou,            _id: 1,             ...        },         _id: 1,         ...     },    {         title: &#39;this is article B&#39;,         author: {             name: &#39;Jack&#39;,            age: 29,            sex: male,            city: guangzhou,            _id: 3,             ...        },         _id: 2,         ...     },    {         title: &#39;this is article C&#39;,         author: {             name: &#39;Rose&#39;,            age: 18,            sex: male,            city: beijing,            _id: 2,             ...        },         _id: 3,         ...     },    {         title: &#39;this is article D&#39;,         author: {             name: &#39;John&#39;,            age: 16,            sex: male,            city: guangzhou,            _id: 1,             ...        },        _id: 4,         ...     },    {         title: &#39;this is article E&#39;,         author: {             name: &#39;John&#39;,            age: 16,            sex: male,            city: guangzhou,            _id: 1,            ...        },        _id: 5,         ...     },    ...]</code></pre><h1 id="综合示例"><a href="#综合示例" class="headerlink" title="综合示例"></a>综合示例</h1><h5 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h5><p>找出发表文章最多的5位作者，按发表文章排序，显示他的发表文章的总次数，和他自己的信息</p><ul><li>文章按照作者分组,统计次数</li><li>按照次数从高到低排序</li><li>截取头5名</li><li>关联用户信息</li><li>不输出文章_id</li></ul><h5 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h5><pre><code class="line-numbers language-stata">db.articles.aggregate([  {    $group:      {        _id: &quot;$author&quot;,        count: { $sum: 1 },      }  },   {        $sort: { count: -1 }  },  {      $skip: 5  },  {      $lookup:        {          from: &quot;users&quot;,          localField: &quot;author&quot;,          foreignField: &quot;name&quot;,          as: &quot;author&quot;        }  },  {      $project: {          _id: 0,      }  }])</code></pre><p>本文转自：<a href="https://segmentfault.com/a/1190000010826809" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010826809</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;阶段操作符（Stage-Operators）&quot;&gt;&lt;a href=&quot;#阶段操作符（Stage-Operators）&quot; class=&quot;headerlink&quot; title=&quot;阶段操作符（Stage Operators）&quot;&gt;&lt;/a&gt;阶段操作符（Stage Operator
-      
-    
-    </summary>
-    
-    
-      <category term="MongoDB" scheme="https://zengwu.com.cn/categories/MongoDB/"/>
-    
-    
-      <category term="MongoDB" scheme="https://zengwu.com.cn/tags/MongoDB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB聚合管道（转）</title>
-    <link href="https://zengwu.com.cn/p/57334785.html"/>
-    <id>https://zengwu.com.cn/p/57334785.html</id>
-    <published>2022-01-29T02:45:55.000Z</published>
-    <updated>2022-01-29T03:59:41.190Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>前言：一般查询可以通过find方法，但如果是比较复杂的查询或者数据统计的话，find可能就无能为力了，这时也许你需要的是aggregate.</p></blockquote><h4 id="什么是聚合管道-aggregation-pipeline"><a href="#什么是聚合管道-aggregation-pipeline" class="headerlink" title="什么是聚合管道(aggregation pipeline)"></a>什么是聚合管道(aggregation pipeline)</h4><p>英文文档中是aggregation pipeline，直译为聚合管道，它可以对数据文档进行变换和组合。聚合管道是基于数据流概念，数据进入管道经过一个或多个stage，每个stage对数据进行操作（筛选，投射，分组，排序，限制或跳过）后输出最终结果。</p><h4 id="官方示例"><a href="#官方示例" class="headerlink" title="官方示例"></a>官方示例</h4><p><a href="https://link.segmentfault.com/?enc=nGq%2B58xxu%2FqvzX1gTPrpkw%3D%3D.d6r3E2%2BZxPonC8U5yv1fTL6hzQQVha%2FrcHI47n9WMICGOJArR%2BI9a99k9bKdsx4ct%2BHBjW0ffVE5j%2F6mIk3pIg%3D%3D" target="_blank" rel="noopener">示例来源：https://docs.mongodb.com/manual/core/aggregation-pipeline/</a></p><h5 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h5><ul><li><p>orders是一个文档集合</p></li><li><p>aggregate是聚合方法，参数是数组，每个数组元素的就是一个stage，对数据进行处理，处理完流到下一个stage</p></li><li><p>$match是匹配操作符，筛选出status是A的文档</p></li><li><p>$group是分组操作符，以cust_id为分组条件，相同的cust_id分为同组</p></li><li><p>$sum是算术操作符，{ $sum: ‘$amount’ }表示分组后，计算amount的总和。</p></li></ul><h4 id="管道操作符介绍"><a href="#管道操作符介绍" class="headerlink" title="管道操作符介绍"></a>管道操作符介绍</h4><p>mongoDB中有许多操作符，在aggregate中每个stage可以使用的操作符叫做管道操作符，以下列举比较常用的管道操作符：</p><table><thead><tr><th>操作符</th><th>简述</th></tr></thead><tbody><tr><td>$project</td><td>投射操作符，用于重构每一个文档的字段，可以提取字段，重命名字段，甚至可以对原有字段进行操作后新增字段</td></tr><tr><td>$match</td><td>匹配操作符，用于对文档集合进行筛选</td></tr><tr><td>$group</td><td>分组操作符，用于对文档集合进行分组</td></tr><tr><td>$unwind</td><td>拆分操作符，用于将数组中的每一个值拆分为单独的文档</td></tr><tr><td>$sort</td><td>排序操作符，用于根据一个或多个字段对文档进行排序</td></tr><tr><td>$limit</td><td>限制操作符，用于限制返回文档的数量</td></tr><tr><td>$skip</td><td>跳过操作符，用于跳过指定数量的文档</td></tr><tr><td>$lookup</td><td>连接操作符，用于连接同一个数据库中另一个集合，并获取指定的文档，类似于populate</td></tr><tr><td>$count</td><td>统计操作符，用于统计文档的数量</td></tr></tbody></table><p><a href="https://link.segmentfault.com/?enc=Fr7OeMU5AQisREwgpK12QQ%3D%3D.6hO48tvacoxmBCk1%2FtlUYnl%2BiAZB0iqj2HOsi9MwAp6Vup88zMHz5BnuHXKAX%2BuGEt49Gt4I%2Fl4gffyhZRtX1A%3D%3D" target="_blank" rel="noopener">更多操作符介绍详见官网：https://docs.mongodb.com/manual/reference/operator/aggregation/</a></p><blockquote><p>操作符先简单介绍一下，因为里面还可以大有文章，留在下一篇。</p></blockquote><h4 id="管道操作符的分类"><a href="#管道操作符的分类" class="headerlink" title="管道操作符的分类"></a>管道操作符的分类</h4><p>管道操作符可以分为三类：</p><ol><li><p>阶段操作符（Stage Operators）</p></li><li><p>表达式操作符（Expression Operators）</p></li><li><p>累加器（Accumulators）</p></li></ol><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>db.collection.aggregate([])是聚合管道查询使用的方法，参数是数组，每个数组元素就是一个stage，stage中运用操作符对数据进行处理后再交由下一个stage，直到没有下个stage，就输出最终的结果，而数据的处理则是通过使用操作符，本文先简单介绍了一下有哪些常用的操作符，下一篇再详细说明。</p><p>本文转自：<a href="https://segmentfault.com/a/1190000010618355" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010618355</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;前言：一般查询可以通过find方法，但如果是比较复杂的查询或者数据统计的话，find可能就无能为力了，这时也许你需要的是aggregate.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;什么是聚合管道-aggregation-pipelin
-      
-    
-    </summary>
-    
-    
-      <category term="MongoDB" scheme="https://zengwu.com.cn/categories/MongoDB/"/>
-    
-    
-      <category term="MongoDB、" scheme="https://zengwu.com.cn/tags/MongoDB%E3%80%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>centos单目录挂载多块硬盘</title>
-    <link href="https://zengwu.com.cn/p/99740f5d.html"/>
-    <id>https://zengwu.com.cn/p/99740f5d.html</id>
-    <published>2022-01-25T16:12:00.000Z</published>
-    <updated>2022-01-29T03:59:41.188Z</updated>
-    
-    <content type="html"><![CDATA[<p>同一目录无法重复挂载，后挂载的会覆盖之前挂载的磁盘。但是现在需要将2块磁盘并行挂载到同一目录。</p><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul><li><strong>PV（Physical Volume）- 物理卷</strong><br>物理卷在逻辑卷管理中处于最底层，它可以是实际物理硬盘上的分区，也可以是整个物理硬盘，也可以是raid设备。</li><li><strong>VG（Volumne Group）- 卷组</strong><br>卷组建立在物理卷之上，一个卷组中至少要包括一个物理卷，在卷组建立之后可动态添加物理卷到卷组中。一个逻辑卷管理系统工程中可以只有一个卷组，也可以拥有多个卷组。</li><li><strong>LV（Logical Volume）- 逻辑卷</strong><br>逻辑卷建立在卷组之上，卷组中的未分配空间可以用于建立新的逻辑卷，逻辑卷建立后可以动态地扩展和缩小空间。系统中的多个逻辑卷可以属于同一个卷组，也可以属于不同的多个卷组</li><li><strong>PE（Physical Extent）- 物理块</strong></li></ul><h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><h3 id="1-查看磁盘"><a href="#1-查看磁盘" class="headerlink" title="1. 查看磁盘"></a>1. 查看磁盘</h3><p>使用<code>fdisk -l</code>查看是否有空余的磁盘可用。可以看到有二块4T磁盘分别为：/dev/sdb 、/dev/sdc</p><h3 id="2-创建分区"><a href="#2-创建分区" class="headerlink" title="2. 创建分区"></a>2. 创建分区</h3><p>分别为2块硬盘创建分区，需要注意的是，与挂载单块磁盘不同，创建分区后需要修改分区类型。</p><pre><code class="line-numbers language-bash">fdisk /dev/sdb# 依次输入n 回车 回车 回车 t l 31 wfdisk /dev/sdc# 依次输入n 回车 回车 回车 t l 31 w</code></pre><ul><li>n：创建分区，回车选择默认分区和大小使用全部硬盘</li><li>t：修改分区类型，回车选择默认分区</li><li>l：列出所有分区类型，</li><li>31：指Linux LVM，不同版本前的数字不一样，从l显示的列表中找到Linux LVM类型就行了。</li><li>w：保存并退出</li></ul><pre><code class="line-numbers language-bash">[root@zngw ~]# fdisk /dev/sdcWARNING: fdisk GPT support is currently new, and therefore in an experimental phase. Use at your own discretion.Welcome to fdisk (util-linux 2.23.2).Changes will remain in memory only, until you decide to write them.Be careful before using the write command.Command (m for help): nPartition number (1-128, default 2): First sector (34-7814037134, default 2048): Last sector, +sectors or +size{K,M,G,T,P} (2048-7814037134, default 7814037134): Created partition 1Command (m for help): tSelected partition 1Partition type (type L to list all types): l  1 EFI System                     C12A7328-F81F-11D2-BA4B-00A0C93EC93B  2 MBR partition scheme           024DEE41-33E7-11D3-9D69-0008C781F39F  3 Intel Fast Flash               D3BFE2DE-3DAF-11DF-BA40-E3A556D89593  4 BIOS boot                      21686148-6449-6E6F-744E-656564454649  5 Sony boot partition            F4019732-066E-4E12-8273-346C5641494F  6 Lenovo boot partition          BFBFAFE7-A34F-448A-9A5B-6213EB736C22  7 PowerPC PReP boot              9E1A2D38-C612-4316-AA26-8B49521E5A8B  8 ONIE boot                      7412F7D5-A156-4B13-81DC-867174929325  9 ONIE config                    D4E6E2CD-4469-46F3-B5CB-1BFF57AFC149 10 Microsoft reserved             E3C9E316-0B5C-4DB8-817D-F92DF00215AE 11 Microsoft basic data           EBD0A0A2-B9E5-4433-87C0-68B6B72699C7 12 Microsoft LDM metadata         5808C8AA-7E8F-42E0-85D2-E1E90434CFB3 13 Microsoft LDM data             AF9B60A0-1431-4F62-BC68-3311714A69AD 14 Windows recovery environment   DE94BBA4-06D1-4D40-A16A-BFD50179D6AC 15 IBM General Parallel Fs        37AFFC90-EF7D-4E96-91C3-2D7AE055B174 16 Microsoft Storage Spaces       E75CAF8F-F680-4CEE-AFA3-B001E56EFC2D 17 HP-UX data                     75894C1E-3AEB-11D3-B7C1-7B03A0000000 18 HP-UX service                  E2A1E728-32E3-11D6-A682-7B03A0000000 19 Linux swap                     0657FD6D-A4AB-43C4-84E5-0933C84B4F4F 20 Linux filesystem               0FC63DAF-8483-4772-8E79-3D69D8477DE4 21 Linux server data              3B8F8425-20E0-4F3B-907F-1A25A76F98E8 22 Linux root (x86)               44479540-F297-41B2-9AF7-D131D5F0458A 23 Linux root (ARM)               69DAD710-2CE4-4E3C-B16C-21A1D49ABED3 24 Linux root (x86-64)            4F68BCE3-E8CD-4DB1-96E7-FBCAF984B709 25 Linux root (ARM-64)            B921B045-1DF0-41C3-AF44-4C6F280D3FAE 26 Linux root    (IA-64)             993D8D3D-F80E-4225-855A-9DAF8ED7EA97 27 Linux reserved                 8DA63339-0007-60C0-C436-083AC8230908 28 Linux home                     933AC7E1-2EB4-4F13-B844-0E14E2AEF915 29 Linux RAID                     A19D880F-05FC-4D3B-A006-743F0F84911E 30 Linux extended boot            BC13C2FF-59E6-4262-A352-B275FD6F7172 31 Linux LVM                      E6D6D379-F507-44C2-A23C-238F2A3DF928 32 FreeBSD data                   516E7CB4-6ECF-11D6-8FF8-00022D09712B 33 FreeBSD boot                   83BD6B9D-7F41-11DC-BE0B-001560B84F0F 34 FreeBSD swap                   516E7CB5-6ECF-11D6-8FF8-00022D09712B 35 FreeBSD UFS                    516E7CB6-6ECF-11D6-8FF8-00022D09712B 36 FreeBSD ZFS                    516E7CBA-6ECF-11D6-8FF8-00022D09712B 37 FreeBSD Vinum                  516E7CB8-6ECF-11D6-8FF8-00022D09712B 38 Apple HFS/HFS+                 48465300-0000-11AA-AA11-00306543ECAC 39 Apple UFS                      55465300-0000-11AA-AA11-00306543ECAC 40 Apple RAID                     52414944-0000-11AA-AA11-00306543ECAC 41 Apple RAID offline             52414944-5F4F-11AA-AA11-00306543ECAC 42 Apple boot                     426F6F74-0000-11AA-AA11-00306543ECAC 43 Apple label                    4C616265-6C00-11AA-AA11-00306543ECAC 44 Apple TV recovery              5265636F-7665-11AA-AA11-00306543ECAC 45 Apple Core storage             53746F72-6167-11AA-AA11-00306543ECAC 46 Solaris boot                   6A82CB45-1DD2-11B2-99A6-080020736631 47 Solaris root                   6A85CF4D-1DD2-11B2-99A6-080020736631 48 Solaris /usr &amp; Apple ZFS       6A898CC3-1DD2-11B2-99A6-080020736631 49 Solaris swap                   6A87C46F-1DD2-11B2-99A6-080020736631 50 Solaris backup                 6A8B642B-1DD2-11B2-99A6-080020736631 51 Solaris /var                   6A8EF2E9-1DD2-11B2-99A6-080020736631 52 Solaris /home                  6A90BA39-1DD2-11B2-99A6-080020736631 53 Solaris alternate sector       6A9283A5-1DD2-11B2-99A6-080020736631 54 Solaris reserved 1             6A945A3B-1DD2-11B2-99A6-080020736631 55 Solaris reserved 2             6A9630D1-1DD2-11B2-99A6-080020736631 56 Solaris reserved 3             6A980767-1DD2-11B2-99A6-080020736631 57 Solaris reserved 4             6A96237F-1DD2-11B2-99A6-080020736631 58 Solaris reserved 5             6A8D2AC7-1DD2-11B2-99A6-080020736631 59 NetBSD swap                    49F48D32-B10E-11DC-B99B-0019D1879648 60 NetBSD FFS                     49F48D5A-B10E-11DC-B99B-0019D1879648 61 NetBSD LFS                     49F48D82-B10E-11DC-B99B-0019D1879648 62 NetBSD concatenated            2DB519C4-B10E-11DC-B99B-0019D1879648 63 NetBSD encrypted               2DB519EC-B10E-11DC-B99B-0019D1879648 64 NetBSD RAID                    49F48DAA-B10E-11DC-B99B-0019D1879648 65 ChromeOS kernel                FE3A2A5D-4F32-41A7-B725-ACCC3285A309 66 ChromeOS root fs               3CB8E202-3B7E-47DD-8A3C-7FF2A13CFCEC 67 ChromeOS reserved              2E0A753D-9E48-43B0-8337-B15192CB1B5E 68 MidnightBSD data               85D5E45A-237C-11E1-B4B3-E89A8F7FC3A7 69 MidnightBSD boot               85D5E45E-237C-11E1-B4B3-E89A8F7FC3A7 70 MidnightBSD swap               85D5E45B-237C-11E1-B4B3-E89A8F7FC3A7 71 MidnightBSD UFS                0394EF8B-237E-11E1-B4B3-E89A8F7FC3A7 72 MidnightBSD ZFS                85D5E45D-237C-11E1-B4B3-E89A8F7FC3A7 73 MidnightBSD Vinum              85D5E45C-237C-11E1-B4B3-E89A8F7FC3A7 74 Ceph Journal                   45B0969E-9B03-4F30-B4C6-B4B80CEFF106 75 Ceph Encrypted Journal         45B0969E-9B03-4F30-B4C6-5EC00CEFF106 76 Ceph OSD                       4FBD7E29-9D25-41B8-AFD0-062C0CEFF05D 77 Ceph crypt OSD                 4FBD7E29-9D25-41B8-AFD0-5EC00CEFF05D 78 Ceph disk in creation          89C57F98-2FE5-4DC0-89C1-F3AD0CEFF2BE 79 Ceph crypt disk in creation    89C57F98-2FE5-4DC0-89C1-5EC00CEFF2BE 80 OpenBSD data                   824CC7A0-36A8-11E3-890A-952519AD3F61 81 QNX6 file system               CEF5A9AD-73BC-4601-89F3-CDEEEEE321A1 82 Plan 9 partition               C91818F9-8025-47AF-89D2-F030D7000C2CPartition type (type L to list all types): 31Changed type of partition &#39;Linux filesystem&#39; to &#39;Linux LVM&#39;Command (m for help): wThe partition table has been altered!Calling ioctl() to re-read partition table.Syncing disks.</code></pre><h3 id="3-查看创建的分区"><a href="#3-查看创建的分区" class="headerlink" title="3. 查看创建的分区"></a>3. 查看创建的分区</h3><p><code>fdisk -l</code>查看分区类型为Linux LVM则表示成功。</p><h3 id="4-创建PV"><a href="#4-创建PV" class="headerlink" title="4. 创建PV"></a>4. 创建PV</h3><pre><code class="line-numbers language-bash">pvcreate /dev/sdb1 /dev/sdc1  Physical volume &quot;/dev/sdb1&quot; successfully created.  Physical volume &quot;/dev/sdc1&quot; successfully created.</code></pre><h3 id="5-查看PV"><a href="#5-查看PV" class="headerlink" title="5. 查看PV"></a>5. 查看PV</h3><pre><code class="line-numbers language-bash">pvdisplay  --- Physical volume ---  PV Name               /dev/sda2  VG Name               centos  PV Size               &lt;110.79 GiB / not usable 4.00 MiB  Allocatable           yes   PE Size               4.00 MiB  Total PE              28361  Free PE               1  Allocated PE          28360  PV UUID               TboH4i-K5H1-xgAc-OJ30-yd3p-43KD-hJSkyf  &quot;/dev/sdb1&quot; is a new physical volume of &quot;&lt;3.64 TiB&quot;  --- NEW Physical volume ---  PV Name               /dev/sdb1  VG Name                 PV Size               &lt;3.64 TiB  Allocatable           NO  PE Size               0     Total PE              0  Free PE               0  Allocated PE          0  PV UUID               5fPy7S-IuHG-50Cb-HwGC-TF7f-tWsY-XkwfZi  &quot;/dev/sdc1&quot; is a new physical volume of &quot;&lt;3.64 TiB&quot;  --- NEW Physical volume ---  PV Name               /dev/sdc1  VG Name                 PV Size               &lt;3.64 TiB  Allocatable           NO  PE Size               0     Total PE              0  Free PE               0  Allocated PE          0  PV UUID               bCyGex-lzGo-04NX-V4fO-k5Fy-nQGZ-pYihEJ</code></pre><h3 id="6-创建VG-卷组"><a href="#6-创建VG-卷组" class="headerlink" title="6. 创建VG 卷组"></a>6. 创建VG 卷组</h3><p>lvm_data是vg组的名字，可以自定义</p><pre><code class="line-numbers language-bash">vgcreate lvm_data /dev/sdb1 /dev/sdc1  Volume group &quot;lvm_data&quot; successfully created</code></pre><h3 id="7-创建LV-逻辑卷"><a href="#7-创建LV-逻辑卷" class="headerlink" title="7. 创建LV 逻辑卷"></a>7. 创建LV 逻辑卷</h3><p>-L是指定大小(可以从fdisk -l中查看每个硬盘大小累加)、-n是自定义lv的名称</p><pre><code class="line-numbers language-bash">lvcreate -L 7450G -n lvmdata_1 lvm_data  Logical volume &quot;lvmdata_1&quot; created.</code></pre><h3 id="8-查看分区"><a href="#8-查看分区" class="headerlink" title="8. 查看分区"></a>8. 查看分区</h3><p>到这里分区就创建完成了，后面的步骤和挂载单块磁盘一样</p><pre><code class="line-numbers language-bash">fdisk -lDisk /dev/mapper/lvm_data-lvmdata_1: 7999.4 GB, 7999376588800 bytes, 15623782400 sectorsUnits = sectors of 1 * 512 = 512 bytesSector size (logical/physical): 512 bytes / 4096 bytesI/O size (minimum/optimal): 4096 bytes / 4096 bytes</code></pre><h3 id="9-格式化"><a href="#9-格式化" class="headerlink" title="9. 格式化"></a>9. 格式化</h3><pre><code class="line-numbers language-bash">mkfs.ext4 /dev/mapper/lvm_data-lvmdata_1</code></pre><h3 id="10-挂载到目录"><a href="#10-挂载到目录" class="headerlink" title="10. 挂载到目录"></a>10. 挂载到目录</h3><p>将分区挂载到需要保存文件的目录即可。</p><pre><code class="line-numbers language-bash">mount /dev/mapper/lvm_data-lvmdata_1 /data</code></pre><h3 id="11-设备开机自动挂载"><a href="#11-设备开机自动挂载" class="headerlink" title="11. 设备开机自动挂载"></a>11. 设备开机自动挂载</h3><pre><code class="line-numbers language-bash">vim /etc/fstab/dev/mapper/lvm_data-lvmdata_1 /data ext4 defaults 0 0</code></pre><ul><li><p>第一列： 设备或磁盘分区</p></li><li><p>第二列： 挂载点</p></li><li><p>第三列： 设备类型或文件系统类型</p></li><li><p>第四列：<br>挂载选项，这里用来填写设置选项，各个选项用逗号隔开。详细选项请用命令 man mount 来查看。这里有个非常重要的关键字需要了解一下：defaults，它代表包含了选项rw,suid,dev,exec,auto,nouser和 async。</p></li><li><p>第五列： dump选项，此处为1的话，表示要将整个<file sysytem>里的内容备份；为0的话，表示不备份。现在很少用到dump这个工具，在这里一般选0。</file></p></li><li><p>第六列： 该选项用来指定如何使用fsck来检查硬盘。如果这里填0，则不检查；挂载点为 / 的（即根分区），必须在这里填写1，其他的都不能填写1。</p></li></ul><h3 id="11-检查结果"><a href="#11-检查结果" class="headerlink" title="11. 检查结果"></a>11. 检查结果</h3><pre><code class="line-numbers language-bash">df -hFilesystem                      Size  Used Avail Use% Mounted on... 省略部分/dev/mapper/lvm_data-lvmdata_1  7.3T   93M  6.9T   1% /data</code></pre><h2 id="删除逻辑卷"><a href="#删除逻辑卷" class="headerlink" title="删除逻辑卷"></a>删除逻辑卷</h2><pre><code class="line-numbers language-bash">umount /dev/mapper/lvm_data-lvmdata_1lvremove /dev/mapper/lvm_data-lvmdata_1vgremove lvm_datapvremove /dev/sdbpvremove /dev/sdc</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;同一目录无法重复挂载，后挂载的会覆盖之前挂载的磁盘。但是现在需要将2块磁盘并行挂载到同一目录。&lt;/p&gt;
-&lt;h2 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot; title=&quot;基本概念&quot;&gt;&lt;/a&gt;基本概念&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;
-      
-    
-    </summary>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vsftpd建立虚拟用户</title>
-    <link href="https://zengwu.com.cn/p/584473bf.html"/>
-    <id>https://zengwu.com.cn/p/584473bf.html</id>
-    <published>2022-01-24T17:33:52.000Z</published>
-    <updated>2022-01-29T03:59:41.185Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="安装vsftpd"><a href="#安装vsftpd" class="headerlink" title="安装vsftpd"></a>安装vsftpd</h1><pre><code class="line-numbers language-bash">yum -y install pam pam-devel db4 db4-tclyum -y install vsftpd</code></pre><h1 id="配置vsftpd-conf"><a href="#配置vsftpd-conf" class="headerlink" title="配置vsftpd.conf"></a>配置vsftpd.conf</h1><pre><code class="line-numbers language-bash">vim /etc/vsftpd/vsftpd.conf#设成YES,允许匿名用户登陆anonymous_enable=NO#允许/禁止本地用户登陆 注意：主要是为虚拟宿主用户，如果该项目设定为NO那么所有虚拟用户将无法访问。local_enable=YES#设定可以进行写操作。write_enable=YES#设定上传后文件的权限掩码，文件644，文件夹755local_umask=022#设定开启目录标语功能dirmessage_enable=YES#设定开启日志记录功能。xferlog_enable=YES#设定端口20进行数据连接connect_from_port_20=YES#设定日志使用标准的记录格式xferlog_std_format=YES#开启独立进程vsftpd，不使用超级进程xinetd。设定该Vsftpd服务工作在StandAlone模式下。listen=YES#设定，启用pam认证，并指定认证文件名/etc/pam.d/vsftpdpam_service_name=vsftpd#设定userlist_file中的用户将不得使用FTPuserlist_enable=YES#设定支持TCP Wrapperstcp_wrappers=YES#限制所有用户在主目录chroot_local_user=YES#设定启用虚拟用户功能guest_enable=YES#指定虚拟用户的宿主用户guest_username=guoke#设定虚拟用户的权限符合他们的宿主用户virtual_use_local_privs=YES#设定虚拟用户个人Vsftp的配置文件存放路径。也就是说，这个被指定的目录里，将存放每个Vsftp虚拟用户个性的配置文件，#一个需要注意的地方就是这些配置文件名必须和虚拟用户名相同。user_config_dir=/etc/vsftpd/vconf</code></pre><h1 id="配置虚拟用户"><a href="#配置虚拟用户" class="headerlink" title="配置虚拟用户"></a>配置虚拟用户</h1><h2 id="创建虚拟用户名单文件"><a href="#创建虚拟用户名单文件" class="headerlink" title="创建虚拟用户名单文件"></a>创建虚拟用户名单文件</h2><p>创建虚拟用户名单文件，在其中加入用户的用户名和口令信息。格式很简单：“奇数行用户名，偶数行口令”。<br>virtusers文件格式如下：</p><pre><code class="line-numbers language-bash">usernamepassword</code></pre><h2 id="生成虚拟用户数据文件"><a href="#生成虚拟用户数据文件" class="headerlink" title="生成虚拟用户数据文件"></a>生成虚拟用户数据文件</h2><pre><code class="line-numbers language-bash">db_load -T -t hash -f /etc/vsftpd/virtusers /etc/vsftpd/virtusers.db</code></pre><h2 id="设置认证文件PAM"><a href="#设置认证文件PAM" class="headerlink" title="设置认证文件PAM"></a>设置认证文件PAM</h2><p>编辑vsftpd的PAM验证配置文件，把原来的配置文件全部注释掉（不注释掉虚拟用户会登录不上），添加如下行</p><pre><code class="line-numbers language-bash">cp /etc/pam.d/vsftpd /etc/pam.d/vsftpd.backupvim /etc/pam.d/vsftpdauth    sufficient      /lib64/security/pam_userdb.so    db=/etc/vsftpd/virtusersaccount sufficient      /lib64/security/pam_userdb.so    db=/etc/vsftpd/virtusers</code></pre><p>以上两条是手动添加的，内容是对虚拟用户的安全和帐户权限进行验证。</p><ul><li>这里的auth是指对用户的用户名口令进行验证。</li><li>这里的accout是指对用户的帐户有哪些权限哪些限制进行验证。</li><li>其后的sufficient表示充分条件，也就是说，一旦在这里通过了验证，那么也就不用经过下面剩下的验证步骤了。相反，如果没有通过的话，也不会被系统立即挡之门外，因为sufficient的失败不决定整个验证的失败，意味着用户还必须将经历剩下来的验证审核。</li><li>再后面的/lib/security/pam_userdb.so表示该条审核将调用pam_userdb.so这个库函数进行。</li><li>最后的db=/etc/vsftpd/virtusers则指定了验证库函数将到这个指定的数据库中调用数据进行验证。</li></ul><h2 id="创建虚拟用户配置文件存放路径"><a href="#创建虚拟用户配置文件存放路径" class="headerlink" title="创建虚拟用户配置文件存放路径"></a>创建虚拟用户配置文件存放路径</h2><p>路径配置在<code>vsftpd.conf</code>文件的<code>user_config_dir</code>中</p><pre><code class="line-numbers language-bash">mkdir /etc/vsftpd/vconf</code></pre><h2 id="建立虚拟用户配置文件"><a href="#建立虚拟用户配置文件" class="headerlink" title="建立虚拟用户配置文件"></a>建立虚拟用户配置文件</h2><p>创建ftp的目录，设置属组属主为guoke，应为我们上面指定虚拟用户的宿主用户是guoke，这样ftp用户才有权限对目录进行操作。</p><pre><code class="line-numbers language-bash"># 创建目录mkdir -p /data/ftp/username/# 设置目录权限chown guoke.guoke -R /data/ftp/username/chmod 755 /data/ftp/username/#编辑配置vim /etc/vsftpd/vconf/username#指定虚拟用户的具体主路径local_root=/data/ftp/username/#设定不允许匿名用户访问anonymous_enable=NO#设定允许写操作write_enable=YES#设定上传文件权限掩码local_umask=022#设定不允许匿名用户上传anon_upload_enable=NO#设定不允许匿名用户建立目录anon_mkdir_write_enable=NO</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;安装vsftpd&quot;&gt;&lt;a href=&quot;#安装vsftpd&quot; class=&quot;headerlink&quot; title=&quot;安装vsftpd&quot;&gt;&lt;/a&gt;安装vsftpd&lt;/h1&gt;&lt;pre&gt;&lt;code class=&quot;line-numbers language-bash&quot;&gt;yum
-      
-    
-    </summary>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vsftpd单用户多目录的配置</title>
-    <link href="https://zengwu.com.cn/p/2413d045.html"/>
-    <id>https://zengwu.com.cn/p/2413d045.html</id>
-    <published>2022-01-22T16:41:15.000Z</published>
-    <updated>2022-01-29T03:59:41.186Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　在使用vsftpd过程中，我们会经常发现vsftpd在默认情况下一个用户（无论是系统用户还是虚拟用户）只能拥有一个目录，一般是根目录。如果此时再要向该用户添加其它目录的话，那么就无法直接添加了（在配置用户只能访问自身目录的情况下）。<br>　　一开始我想到了软连接的方式，结果是vsftpd不支持软连接，硬链接又不允许将硬链接指向目录。最后想到了<code>mount --bind</code>目录挂载来实现这个功能</p><p>如：</p><ul><li>ftp用户目录：<code>/data/guoke</code></li><li>其他目录： <code>/data/share</code></li></ul><pre><code class="line-numbers language-bash"># 创建ftp用户能访问的挂载目录mkdir /data/guoke/share# 将/data/share挂载到ftp用户目录中mount --bind /data/share /data/guoke/share</code></pre><p>这里要注意一点的是 <code>/data/share</code>目录的权限，需要ftp用户有对应读写权限才可以读写。</p><p>这样挂载后重启后就失效了，可以写到<code>/etc/rc.local</code>文件中</p><pre><code class="line-numbers language-bash">vim /etc/rc.local#在最后添加mount --bind /data/share /data/guoke/share</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;　　在使用vsftpd过程中，我们会经常发现vsftpd在默认情况下一个用户（无论是系统用户还是虚拟用户）只能拥有一个目录，一般是根目录。如果此时再要向该用户添加其它目录的话，那么就无法直接添加了（在配置用户只能访问自身目录的情况下）。&lt;br&gt;　　一开始我想到了软连接的方式
-      
-    
-    </summary>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>frp外网穿透ftp服务</title>
-    <link href="https://zengwu.com.cn/p/bc3f68f0.html"/>
-    <id>https://zengwu.com.cn/p/bc3f68f0.html</id>
-    <published>2022-01-22T02:31:59.000Z</published>
-    <updated>2022-01-29T03:59:41.184Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>　　FTP协议有两种工作方式：PORT方式和PASV方式，中文意思为主动式和被动式。如果要用ftp外网穿透，需要使用被动模式。</p><p>　　被动模式(PASV)连接过程是:客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，服务器在命令链路上用PASV命令告诉客户端：“我打开了XXXX端口，你过来连接我”。于是客户端向服务器的XXXX端口发送连接请求，建立一条数据链路来传送数据。<br>　　所以，在使用ftp的时候，不仅需要转发默认的21端口，还需要转发数据端口。</p><h1 id="修改ftp服务器配置"><a href="#修改ftp服务器配置" class="headerlink" title="修改ftp服务器配置"></a>修改ftp服务器配置</h1><p>　　考虑到frp转发的情况，所以数据端口最好是固定的，所以这里需要修改ftp服务器的配置，这里以vsftpd服务为例。修改<code>vsftpd.conf</code>文件，固定被动模式端口范围</p><pre><code class="line-numbers language-conf">vim /etc/vsftpd.vsftpd.conf# 修改pasv_enable=YES# 添加pasv_min_port=50000 pasv_max_port=50002 </code></pre><p>这里只开启了50000、50001、50002三个端口，意思就是同时只能有三个用户连接，如果需要更多用户可以配置更多的端口。</p><h1 id="修改frp配置"><a href="#修改frp配置" class="headerlink" title="修改frp配置"></a>修改frp配置</h1><p>在frp的配置中，需要添加默认端口21和被动数据端口50000、50001、50002四个端口配置</p><pre><code class="line-numbers language-ini">[ftp]type = tcplocal_ip = 127.0.0.1local_port = 21remote_port = 2121[ftp1]type = tcplocal_ip = 127.0.0.1local_port = 50000remote_port = 50000[ftp2]type = tcplocal_ip = 127.0.0.1local_port = 50001remote_port = 50001[ftp3]type = tcplocal_ip = 127.0.0.1local_port = 50002remote_port = 50002</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;说明&quot;&gt;&lt;a href=&quot;#说明&quot; class=&quot;headerlink&quot; title=&quot;说明&quot;&gt;&lt;/a&gt;说明&lt;/h1&gt;&lt;p&gt;　　FTP协议有两种工作方式：PORT方式和PASV方式，中文意思为主动式和被动式。如果要用ftp外网穿透，需要使用被动模式。&lt;/p&gt;
-&lt;p
-      
-    
-    </summary>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Centos7安装搭建FTP服务器</title>
-    <link href="https://zengwu.com.cn/p/517c4c65.html"/>
-    <id>https://zengwu.com.cn/p/517c4c65.html</id>
-    <published>2022-01-20T18:33:56.000Z</published>
-    <updated>2022-01-29T03:59:41.183Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="一、查看是否已经安装了vsftpd"><a href="#一、查看是否已经安装了vsftpd" class="headerlink" title="一、查看是否已经安装了vsftpd"></a>一、查看是否已经安装了vsftpd</h1><pre><code class="line-numbers language-bash">vsftpd -version</code></pre><h1 id="二、安装vsftpd"><a href="#二、安装vsftpd" class="headerlink" title="二、安装vsftpd"></a>二、安装vsftpd</h1><pre><code class="line-numbers language-bash">yum install -y vsftpd</code></pre><h1 id="三、新建FTP目录"><a href="#三、新建FTP目录" class="headerlink" title="三、新建FTP目录"></a>三、新建FTP目录</h1><p>创建的FTP目录 <code>/data/ftp</code></p><pre><code class="line-numbers language-bash">mkdir -p /data/ftp</code></pre><h1 id="四、创建新用户"><a href="#四、创建新用户" class="headerlink" title="四、创建新用户"></a>四、创建新用户</h1><p>guoke为你为该ftp创建的用户名，/data/ftp 为登录进去后的位置</p><pre><code class="line-numbers language-bash">useradd -d /data/ftp -s /bin/bash guoke</code></pre><h1 id="五、为新建的用户设置密码"><a href="#五、为新建的用户设置密码" class="headerlink" title="五、为新建的用户设置密码"></a>五、为新建的用户设置密码</h1><pre><code class="line-numbers language-bash">passwd guoke</code></pre><h1 id="六、设置主目录"><a href="#六、设置主目录" class="headerlink" title="六、设置主目录"></a>六、设置主目录</h1><p>更改登录时看到的目录，看个人需要更改，如果第4步已设置好，此步可忽略</p><pre><code class="line-numbers language-bash">usermod -d /data/ftp guoke</code></pre><h1 id="七、设置目录权限"><a href="#七、设置目录权限" class="headerlink" title="七、设置目录权限"></a>七、设置目录权限</h1><p>将<code>/data/ftp</code>目录权限设置为<code>guoke</code>用户，否则ftp客户端将无法写入文件</p><pre><code class="line-numbers language-bash">chown -Rc guoke. /data/ftp</code></pre><h1 id="八、防火墙添加FTP服务"><a href="#八、防火墙添加FTP服务" class="headerlink" title="八、防火墙添加FTP服务"></a>八、防火墙添加FTP服务</h1><pre><code class="line-numbers language-bash">firewall-cmd --permanent --zone=public --add-service=ftpfirewall-cmd --reload</code></pre><h1 id="九、修改Selinux"><a href="#九、修改Selinux" class="headerlink" title="九、修改Selinux"></a>九、修改Selinux</h1><pre><code class="line-numbers language-bash">setsebool -P ftpd_full_access on</code></pre><h1 id="十、配置只能访问自身目录"><a href="#十、配置只能访问自身目录" class="headerlink" title="十、配置只能访问自身目录"></a>十、配置只能访问自身目录</h1><p>vim /etc/vsftpd/vsftpd.conf</p><pre><code class="line-numbers language-conf">#去掉前面的注释anonymous_enable=NOlocal_enable=YESwrite_enable=YESlocal_umask=022dirmessage_enable=YESxferlog_enable=YESconnect_from_port_20=YESxferlog_std_format=YESascii_upload_enable=YESascii_download_enable=YESchroot_local_user=YESchroot_list_enable=NOchroot_list_file=/etc/vsftpd/chroot_listlisten=NO#文件末尾添加pam_service_name=vsftpduserlist_enable=YEStcp_wrappers=YESallow_writeable_chroot=YESlocal_root=/data/ftp</code></pre><p>在chroot_list中添加guoke用户</p><pre><code class="line-numbers language-bash">vim /etc/vsftpd/chroot_list把ftp用户guoke写入保存</code></pre><h1 id="十一、启动、重启"><a href="#十一、启动、重启" class="headerlink" title="十一、启动、重启"></a>十一、启动、重启</h1><pre><code class="line-numbers language-bash"># 启动systemctl start  vsftpd.service# 停止systemctl stop  vsftpd.service# 设置开机启动systemctl enable vsftpd.service</code></pre><h1 id="十二、禁止ftp用户ssh登录"><a href="#十二、禁止ftp用户ssh登录" class="headerlink" title="十二、禁止ftp用户ssh登录"></a>十二、禁止ftp用户ssh登录</h1><p>由于需要限制ftp用户在自己的目录，在21端口下没有问题，但当ftp用户用sftp登录时，还是可以访问上级目录，于是禁止ftp用户ssh登录，切断22端口的通信。</p><p>查看<code>/etc/shells</code>文件，看禁止登录的shell为<code>/usr/sbin/nologin</code>。如果没有，在文件后面添加</p><pre><code class="line-numbers language-bash">usermod -s /usr/sbin/nologin guoke</code></pre><p>如果要恢复guoke的ssh登录</p><pre><code class="line-numbers language-bash">usermod -s /bin/bash guoke</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;一、查看是否已经安装了vsftpd&quot;&gt;&lt;a href=&quot;#一、查看是否已经安装了vsftpd&quot; class=&quot;headerlink&quot; title=&quot;一、查看是否已经安装了vsftpd&quot;&gt;&lt;/a&gt;一、查看是否已经安装了vsftpd&lt;/h1&gt;&lt;pre&gt;&lt;code cl
-      
-    
-    </summary>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/categories/CentOS/"/>
-    
-    
-      <category term="CentOS" scheme="https://zengwu.com.cn/tags/CentOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>电脑远程开机</title>
-    <link href="https://zengwu.com.cn/p/87b37b63.html"/>
-    <id>https://zengwu.com.cn/p/87b37b63.html</id>
-    <published>2022-01-07T16:47:28.000Z</published>
-    <updated>2022-01-11T14:41:19.383Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　现在网上有一种远程开机卡，这个需要有PCI插槽，还要将线接入到电脑开机和重启的电源开关跳线上，还要依赖于开机卡运营商提供的APP，可能存在一定的不确定和安全隐患。<br>　　下面提供另一种只依赖于可以远程控制的智能插座的远程开机方法，这种办法操作起来非常简单：</p><ul><li>先按插座说明连接上wifi能用手机app控制插座通电/断电。</li><li>然后进入电脑BIOS的电源设置，设置成通电后直接开机。现在的电脑主板都支持这个了，不同品牌的设置可能略有点不同。</li><li>最后把电脑插到智能插座上，就可以完成远程开机了。</li></ul><p>这里要注意一点，插座断电不能立即通电，这样不一定会开机，需要等一二分钟然主板彻底断电后通电才能开机，有的插座可以设定功率低于多少自动断电的话就更好了，先确定一下关机状态下的功耗是多少，然后设置插座功耗在这个值稍微高一点的情况下自动断电。这样关机后插座就自动断电了，等下次直接将插座通电就可以开机了。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;　　现在网上有一种远程开机卡，这个需要有PCI插槽，还要将线接入到电脑开机和重启的电源开关跳线上，还要依赖于开机卡运营商提供的APP，可能存在一定的不确定和安全隐患。&lt;br&gt;　　下面提供另一种只依赖于可以远程控制的智能插座的远程开机方法，这种办法操作起来非常简单：&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iPhone使用虚拟定位</title>
-    <link href="https://zengwu.com.cn/p/1a5742e7.html"/>
-    <id>https://zengwu.com.cn/p/1a5742e7.html</id>
-    <published>2022-01-05T02:51:49.000Z</published>
-    <updated>2022-01-11T14:41:19.342Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　昨天数字人民币app在各应用商店上线了，但是只有几个指定试点地点可以注册，为了体验一下可以使用虚拟定位将自己的位置模拟到试点地区注册。</p><h2 id="一、下载工具"><a href="#一、下载工具" class="headerlink" title="一、下载工具"></a>一、下载工具</h2><p>这里使用<a href="https://www.i4.cn/" target="_blank" rel="noopener">爱思助手</a>，直接去官网下载安装，不需要越狱也可以使用。</p><h2 id="二、打开虚拟定位工具"><a href="#二、打开虚拟定位工具" class="headerlink" title="二、打开虚拟定位工具"></a>二、打开虚拟定位工具</h2><p>运行爱思肋手，用数据线连接上手机，在菜单栏依次找到 <code>工具箱</code> -&gt; <code>虚拟定位</code></p><h2 id="三、修改位置"><a href="#三、修改位置" class="headerlink" title="三、修改位置"></a>三、修改位置</h2><p>在弹出的虚拟定位窗口，拖动地址，将位置选者到上海。  然后点击“修改虚拟定位”完成定位<br><img src="//gitee.com/guoke3915/zw/raw/master/p/1a5742e7/19826068-efa03c4b8b1fc8bf.png" alt></p><h2 id="四、验证"><a href="#四、验证" class="headerlink" title="四、验证"></a>四、验证</h2><p>打开手机上的地图，会发现位置已经到了你设定的位置了。这个时候可以打开数字人民币APP来完成注册了，注册之后的使用就不需要定位了，可以畅快的体验，只是非试点区没有线下商店可以交易。</p><h2 id="五、还原"><a href="#五、还原" class="headerlink" title="五、还原"></a>五、还原</h2><p>点击还原真实定位重启手机就可以恢复正常了。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;　　昨天数字人民币app在各应用商店上线了，但是只有几个指定试点地点可以注册，为了体验一下可以使用虚拟定位将自己的位置模拟到试点地区注册。&lt;/p&gt;
-&lt;h2 id=&quot;一、下载工具&quot;&gt;&lt;a href=&quot;#一、下载工具&quot; class=&quot;headerlink&quot; title=&quot;一、下
-      
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="https://zengwu.com.cn/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://zengwu.com.cn/tags/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C#中声明一个常量数组</title>
-    <link href="https://zengwu.com.cn/p/c006e26c.html"/>
-    <id>https://zengwu.com.cn/p/c006e26c.html</id>
-    <published>2022-01-03T08:05:59.000Z</published>
-    <updated>2022-01-11T14:41:19.304Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　想在C#类中声音一个常量数组，类型为int，里面有初始化的内容且不可更改。习惯性的写上了<code>public const int[] a = {1,2,3,4,5}</code>这样的格式，结果编译就给我报错了。后面尝试过在类中各种const，都是会报错的。<br>　　在C#中，只有byte、char、short、int、long、float、double、decimal、bool、string、enum等这些非引用类型可以定义为常量，其他的引用类型都是不可以的定义为常量的。但是可以用<code>readonly</code>来替代，如：<code>public readonly int[] a = { 1, 2, 3, 4, 5 };</code>，但是这样也有缺陷。不能给a重新赋值，但是可以修改数组a内的值。</p><pre><code class="line-numbers language-C#">public readonly int[] a = { 1, 2, 3, 4, 5 };// 这样是会报错的，修改了a的值a = new int[]{4,5,6}// 但这样是可以的a[1] = 5</code></pre><p>用C++中的指针来解析就是，a相当于是一个指向 { 1, 2, 3, 4, 5 }数组地址的指针，readonly只是表明a指向的地址不能改变，但是原地址内的数据是可以改变的。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;　　想在C#类中声音一个常量数组，类型为int，里面有初始化的内容且不可更改。习惯性的写上了&lt;code&gt;public const int[] a = {1,2,3,4,5}&lt;/code&gt;这样的格式，结果编译就给我报错了。后面尝试过在类中各种const，都是会报错的。&lt;br&gt;
-      
-    
-    </summary>
-    
-    
-      <category term="CSharp(C#)" scheme="https://zengwu.com.cn/categories/CSharp-C/"/>
-    
-    
-      <category term="CSharp(C#)" scheme="https://zengwu.com.cn/tags/CSharp-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>将阿里云盘映射成本地磁盘</title>
-    <link href="https://zengwu.com.cn/p/26da89a5.html"/>
-    <id>https://zengwu.com.cn/p/26da89a5.html</id>
-    <published>2022-01-01T08:30:55.000Z</published>
-    <updated>2021-12-05T10:01:35.689Z</updated>
-    
-    <content type="html"><![CDATA[<p>　　阿里云盘的不限速，可以使用<a href="https://www.aliyundrive.com/s/Q1pJjzfAVxD" target="_blank" rel="noopener">CloudDrive工具</a>将它映射成本地磁盘。</p><h2 id="1、注册阿里去盘账号"><a href="#1、注册阿里去盘账号" class="headerlink" title="1、注册阿里去盘账号"></a>1、注册阿里去盘账号</h2><p><a href="https://pages.aliyundrive.com/mobile-page/web/beinvited.html?code=f01dcaf" target="_blank" rel="noopener">点击连接</a>可以用手机号注册阿里云盘账号，并下载APP</p><h2 id="2、-下载安装"><a href="#2、-下载安装" class="headerlink" title="2、 下载安装"></a>2、 下载安装</h2><p>下载<a href="https://www.aliyundrive.com/s/Q1pJjzfAVxD" target="_blank" rel="noopener">CloudDrive工具</a>，直接双击安装。</p><h2 id="3、注册登录"><a href="#3、注册登录" class="headerlink" title="3、注册登录"></a>3、注册登录</h2><p>安装后直接打开<strong><a href="http://localhost:9798/" target="_blank" rel="noopener">http://localhost:9798</a></strong>，先注册一个账号登录</p><h2 id="4、选择登录网盘"><a href="#4、选择登录网盘" class="headerlink" title="4、选择登录网盘"></a>4、选择登录网盘</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-f251eba5d5f60d25.png" alt></p><h2 id="5、用阿里云盘扫码登录"><a href="#5、用阿里云盘扫码登录" class="headerlink" title="5、用阿里云盘扫码登录"></a>5、用阿里云盘扫码登录</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-717b11203f47b654.png" alt></p><h2 id="6、挂载到本地"><a href="#6、挂载到本地" class="headerlink" title="6、挂载到本地"></a>6、挂载到本地</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-b1ea2a84c9a21c0c.png" alt></p><h2 id="7、设置本地挂载盘符"><a href="#7、设置本地挂载盘符" class="headerlink" title="7、设置本地挂载盘符"></a>7、设置本地挂载盘符</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-bd1bd192cff8be47.png" alt></p><h2 id="8、查看本地电脑就可以看到磁盘了"><a href="#8、查看本地电脑就可以看到磁盘了" class="headerlink" title="8、查看本地电脑就可以看到磁盘了"></a>8、查看本地电脑就可以看到磁盘了</h2><p><img src="//gitee.com/guoke3915/zw/raw/master/p/26da89a5/19826068-c0c90a07a31e5094.png" alt></p><h1 id="安全风险提示"><a href="#安全风险提示" class="headerlink" title="安全风险提示"></a>安全风险提示</h1><p>CloudDrive是由网友个人开发，该项并未开源。存在网盘资源外泄的风险，如果你网盘的内有重要文件或者有自动同步相册，不建议使用此工具，可以创建小号来使用。</p><p>还有就是挂载后在磁盘内删除文件，是永久性删除，不会存放在回收站。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;　　阿里云盘的不限速，可以使用&lt;a href=&quot;https://www.aliyundrive.com/s/Q1pJjzfAVxD&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CloudDrive工具&lt;/a&gt;将它映射成本地磁盘。&lt;/p&gt;
-&lt;h2 id=&quot;
-      
-    
-    </summary>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-      <category term="Window" scheme="https://zengwu.com.cn/tags/Window/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ImageMagick实现图集图片拆分</title>
-    <link href="https://zengwu.com.cn/p/9bf2f1af.html"/>
-    <id>https://zengwu.com.cn/p/9bf2f1af.html</id>
-    <published>2021-12-28T10:07:28.000Z</published>
-    <updated>2022-01-11T14:41:19.387Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="一、起因"><a href="#一、起因" class="headerlink" title="一、起因"></a>一、起因</h1><p>有一个序列帧动画的图集和一个TexturePacker的json描述文件，需要将每一帧图片从图集中拆分下来。</p><h1 id="二、下载安装ImageMagick"><a href="#二、下载安装ImageMagick" class="headerlink" title="二、下载安装ImageMagick"></a>二、下载安装ImageMagick</h1><p>先去<a href="https://imagemagick.org" target="_blank" rel="noopener">ImageMagick</a>官网下载对应系统中的版本安装</p><h1 id="三、使用"><a href="#三、使用" class="headerlink" title="三、使用"></a>三、使用</h1><p>打开图集的json文件，能发现有类似的frames</p><pre><code class="line-numbers language-json">{&quot;frames&quot;: [{    &quot;filename&quot;: &quot;chicken_1_0.png&quot;,    &quot;frame&quot;: {&quot;x&quot;:744,&quot;y&quot;:79,&quot;w&quot;:75,&quot;h&quot;:93},    &quot;rotated&quot;: true,    &quot;trimmed&quot;: true,    &quot;spriteSourceSize&quot;: {&quot;x&quot;:11,&quot;y&quot;:3,&quot;w&quot;:75,&quot;h&quot;:93},    &quot;sourceSize&quot;: {&quot;w&quot;:99,&quot;h&quot;:99}}...],}</code></pre><p>从信息中可以读到单个图片信息：</p><ul><li>图片名:chicken_1_0.png</li><li>在图集中的位置大小: {“x”:744,”y”:79,”w”:75,”h”:93},</li><li>是否旋转90度(rotated)： 是</li><li>单张图片中的位置大小: {“x”:11,”y”:3,”w”:75,”h”:93},</li><li>单张图片的原始尺寸: {“w”:99,”h”:99}</li></ul><p>使用ImageMagick命令直接将子图片裁剪出来，放到一张99x99的新图片中，做-90度旋转和11,3的位移就可以了。</p><pre><code class="line-numbers language-bash">magick chicken.png -crop 93x75+744+79 -rotate -90 -background none -gravity center -geometry +3+11 -extent 99x99 chicken_1_0.png</code></pre><p>参数解析：</p><ul><li>源图片文件：chicken.png</li><li>-crop：裁剪。参数格式为： 宽x长{+-x}{+-y}。参数取frame值93x75+744，因为旋转-90度，所以，这里长和宽是对调的。</li><li>-rotate：旋转，顺时针为正，逆时针为负。rotated为true所以旋转-90度</li><li>-background：填充背景色，默认为白色，这里使用none不填充，png的话就是纯透明色</li><li>-gravity：参照点，会影响通过geometry、annotate、region等来定义坐标点，center为中心点 </li><li>-geometry：移动，格式{+-x}{+-y}，将图片移动(x,y)个像素。取spriteSourceSize的(x、y)值国为旋转了-90度，所以x、y值对调(+3+11)</li><li>-extent：填充，将图片填充到多大。宽x高。取sourceSize的w、h值（99x99）</li><li>最后输出文件：chicken_1_0.png</li></ul><p>注：默认是按参数的顺序执行的，如果参数顺序反了输出的结果可能不是你想要的了</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;一、起因&quot;&gt;&lt;a href=&quot;#一、起因&quot; class=&quot;headerlink&quot; title=&quot;一、起因&quot;&gt;&lt;/a&gt;一、起因&lt;/h1&gt;&lt;p&gt;有一个序列帧动画的图集和一个TexturePacker的json描述文件，需要将每一帧图片从图集中拆分下来。&lt;/p&gt;
-&lt;h1
-      
-    
-    </summary>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/categories/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-    
-      <category term="软件使用" scheme="https://zengwu.com.cn/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>go切片遍历</title>
-    <link href="https://zengwu.com.cn/p/fb7b7ba5.html"/>
-    <id>https://zengwu.com.cn/p/fb7b7ba5.html</id>
-    <published>2021-12-27T00:51:52.000Z</published>
-    <updated>2022-01-11T14:41:19.308Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="顺序遍历"><a href="#顺序遍历" class="headerlink" title="顺序遍历"></a>顺序遍历</h2><p>对于切片的顺序遍历，一般使用<code>range</code>就可以了。</p><pre><code class="line-numbers language-go">var nums = []int{10,20,30,40,50}for i, value := range nums {    // i为索引    // value 为切变值}</code></pre><p>这里有一个问题需要注意一下，如果这里的切片nums不是基本数据类型而是结构体。range遍历出来的value值是拷贝值而并非原结构体，修改value中的值不会改变原切片中的值。如果要遍历修改，可以将切片的结构体改为指针，或都索引来取值。</p><pre><code class="line-numbers language-go">    type Test struct {        A int        B string    }    t1 := Test{        A: 1,        B: &quot;1&quot;,    }    t2 := Test{        A: 2,        B: &quot;2&quot;,    }    var slice1 []Test    slice1 = append(slice1, t1)    slice1 = append(slice1, t2)    for i := range slice1 {        value := &amp;slice1[i]        if value.A == 1 {            value.A = 11        }    }    var slice2 []*Test    slice2 = append(slice2, &amp;t1)    slice2 = append(slice2, &amp;t2)    for _, value := range slice2 {        if value.A == 2 {            value.A = 22        }    }</code></pre><h2 id="逆序遍历"><a href="#逆序遍历" class="headerlink" title="逆序遍历"></a>逆序遍历</h2><p>一般情况下逆序遍历思路就是for size-1到0.</p><pre><code class="line-numbers language-go">    for i := len(nums) - 1; i &gt;= 0; i-- {        fmt.Println(nums[i])    }</code></pre><p>二般的也可以使用range来遍历</p><pre><code class="line-numbers language-go">for i := range nums {    fmt.Println(nums[len(nums)-i-1])}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;顺序遍历&quot;&gt;&lt;a href=&quot;#顺序遍历&quot; class=&quot;headerlink&quot; title=&quot;顺序遍历&quot;&gt;&lt;/a&gt;顺序遍历&lt;/h2&gt;&lt;p&gt;对于切片的顺序遍历，一般使用&lt;code&gt;range&lt;/code&gt;就可以了。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;li
-      
-    
-    </summary>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>判断深度相等DeepEqual</title>
-    <link href="https://zengwu.com.cn/p/14f6e6ab.html"/>
-    <id>https://zengwu.com.cn/p/14f6e6ab.html</id>
-    <published>2021-12-25T12:14:16.000Z</published>
-    <updated>2022-01-11T14:41:19.311Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h1><h2 id="1-不同类型的值不会深度相等"><a href="#1-不同类型的值不会深度相等" class="headerlink" title="1.不同类型的值不会深度相等"></a>1.不同类型的值不会深度相等</h2><p>Values of distinct types are never deeply equal.</p><pre><code class="line-numbers language-go">type S1 struct {    Field int}type S2 struct {    Field int}func main() {    fmt.Println(reflect.DeepEqual(S1{1}, S2{1}))}</code></pre><p>对应输出false</p><h2 id="2-当两个数组的元素对应深度相等时，两个数组深度相等"><a href="#2-当两个数组的元素对应深度相等时，两个数组深度相等" class="headerlink" title="2.当两个数组的元素对应深度相等时，两个数组深度相等"></a>2.当两个数组的元素对应深度相等时，两个数组深度相等</h2><p>Array values are deeply equal when their corresponding elements are deeply equal.</p><pre><code class="line-numbers language-go">func main() {    Array1 := []string{&quot;hello1&quot;, &quot;hello2&quot;}    Array2 := []string{&quot;hello1&quot;, &quot;hello2&quot;}    fmt.Println(reflect.DeepEqual(Array1, Array2))}</code></pre><p>对应输出true</p><h2 id="3-当两个相同结构体的所有字段对应深度相等的时候，两个结构体深度相等"><a href="#3-当两个相同结构体的所有字段对应深度相等的时候，两个结构体深度相等" class="headerlink" title="3.当两个相同结构体的所有字段对应深度相等的时候，两个结构体深度相等"></a>3.当两个相同结构体的所有字段对应深度相等的时候，两个结构体深度相等</h2><p>Struct values are deeply equal if their corresponding fields,both exported and unexported, are deeply equal.</p><pre><code class="line-numbers language-go">type S struct {    Field1 int    field2 string}func main() {    s1 := S{Field1: 1, field2: &quot;hello&quot;}    s2 := S{Field1: 1, field2: &quot;hello&quot;}    fmt.Println(reflect.DeepEqual(s1, s2))}</code></pre><p>对应输出true</p><h2 id="4-当两个函数都为nil时，两个函数深度相等，其他情况不相等（相同函数也不相等）"><a href="#4-当两个函数都为nil时，两个函数深度相等，其他情况不相等（相同函数也不相等）" class="headerlink" title="4.当两个函数都为nil时，两个函数深度相等，其他情况不相等（相同函数也不相等）"></a>4.当两个函数都为nil时，两个函数深度相等，其他情况不相等（相同函数也不相等）</h2><p>Func values are deeply equal if both are nil; otherwise they are not deeply equal.</p><pre><code class="line-numbers language-go">func main() {    f1 := func(a int) int {        return a * 2    }    fmt.Println(reflect.DeepEqual(f1, f1))    f1 = nil    fmt.Println(reflect.DeepEqual(f1, f1))}</code></pre><p>对应输出false跟true</p><h2 id="5-当两个interface的真实值深度相等时，两个interface深度相等"><a href="#5-当两个interface的真实值深度相等时，两个interface深度相等" class="headerlink" title="5.当两个interface的真实值深度相等时，两个interface深度相等"></a>5.当两个interface的真实值深度相等时，两个interface深度相等</h2><p>Interface values are deeply equal if they hold deeply equal concrete values.</p><pre><code class="line-numbers language-go">func main() {    var i1 interface{}    i1 = &quot;hello&quot;    var i2 interface{}    i2 = &quot;hello&quot;    fmt.Println(reflect.DeepEqual(i1, i2))}</code></pre><p>对应输出true</p><h2 id="6-go中map的比较需要同时满足以下几个"><a href="#6-go中map的比较需要同时满足以下几个" class="headerlink" title="6.go中map的比较需要同时满足以下几个"></a>6.go中map的比较需要同时满足以下几个</h2><ul><li>1.两个map都为nil或者都不为nil，并且长度要相等<br>they are both nil or both non-nil, they have the same length</li><li>2.相同的map对象或者所有key要对应相同<br>either they are the same map object or their corresponding keys</li><li>3.map对应的value也要深度相等<br>map to deeply equal values</li></ul><pre><code class="line-numbers language-go">func main() {    m1 := map[string]int{        &quot;a&quot;: 1,        &quot;b&quot;: 2,    }    m2 := map[string]int{        &quot;a&quot;: 1,        &quot;b&quot;: 2,    }    fmt.Println(reflect.DeepEqual(m1, m2))}</code></pre><p>对应输出true</p><h2 id="7-指针，满足以下其一即是深度相等"><a href="#7-指针，满足以下其一即是深度相等" class="headerlink" title="7.指针，满足以下其一即是深度相等"></a>7.指针，满足以下其一即是深度相等</h2><ul><li>1.两个指针满足go的==操作符<br>Pointer values are deeply equal if they are equal using Go’s == operator</li><li>2.两个指针指向的值是深度相等的<pre><code class="line-numbers language-go">func main() {  m1 := map[string]int{      &quot;a&quot;: 1,      &quot;b&quot;: 2,  }  m2 := map[string]int{      &quot;a&quot;: 1,      &quot;b&quot;: 2,  }  M1:=&amp;m1  M2:=&amp;m2  fmt.Println(reflect.DeepEqual(M1, M2))}</code></pre></li></ul><p>对应输出true</p><h2 id="8-切片，需要同时满足以下几点才是深度相等"><a href="#8-切片，需要同时满足以下几点才是深度相等" class="headerlink" title="8.切片，需要同时满足以下几点才是深度相等"></a>8.切片，需要同时满足以下几点才是深度相等</h2><ul><li>1.两个切片都为nil或者都不为nil，并且长度要相等<br>they are both nil or both non-nil, they have the same length</li><li>2.两个切片底层数据指向的第一个位置要相同或者底层的元素要深度相等<br>either they point to the same initial entry of the same underlying array (that is, &amp;x[0] == &amp;y[0]) or their corresponding elements (up to length) are deeply equal.<pre><code class="line-numbers language-gp">func main() {s1 :=[] int {1,2,3,4,5}s2 :=s1[0:3]s3 :=s1[0:3]fmt.Println(reflect.DeepEqual(s2, s3))s4 :=s1[1:4]fmt.Println(reflect.DeepEqual(s2, s4))}</code></pre>对应输出true,false</li></ul><p>注：空的切片跟nil切片是不深度相等的，例如</p><pre><code class="line-numbers language-go">func main() {    s1 :=[]byte{}    s2 :=[]byte(nil)    fmt.Println(reflect.DeepEqual(s1, s2))}</code></pre><p>对应输出false</p><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul><li>其他类型的值（numbers, bools, strings, channels）如果满足go的==操作符，则是深度相等的</li><li>要注意不是所有的值都深度相等于自己，例如函数，以及嵌套包含这些值的结构体，数组等</li><li>go如何避免递归循环判断结构体嵌套自身：通过使用一个visit(类型为map[visit]bool)标记访问<br>在reflect/deepequal.go中的deepValueEqual函数中有这么一段代码</li></ul><pre><code class="line-numbers language-go">if v1.CanAddr() &amp;&amp; v2.CanAddr() &amp;&amp; hard(v1.Kind()) {      addr1 := unsafe.Pointer(v1.UnsafeAddr())      addr2 := unsafe.Pointer(v2.UnsafeAddr())      //对指针进行比较排序，减少重复比较      if uintptr(addr1) &gt; uintptr(addr2) {          // Canonicalize order to reduce number of entries in visited.          // Assumes non-moving garbage collector.          addr1, addr2 = addr2, addr1      }      // Short circuit if references are already seen.      typ := v1.Type()      v := visit{addr1, addr2, typ}      //为已访问的话返回true      if visited[v] {          return true      }      //标记两个比较的变量为已访问      // Remember for later.      visited[v] = true  }</code></pre><p>本文转自<a href="https://studygolang.com/articles/12944" target="_blank" rel="noopener">go语言中文网</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;规则&quot;&gt;&lt;a href=&quot;#规则&quot; class=&quot;headerlink&quot; title=&quot;规则&quot;&gt;&lt;/a&gt;规则&lt;/h1&gt;&lt;h2 id=&quot;1-不同类型的值不会深度相等&quot;&gt;&lt;a href=&quot;#1-不同类型的值不会深度相等&quot; class=&quot;headerlink&quot; titl
-      
-    
-    </summary>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/categories/Golang/"/>
-    
-    
-      <category term="Golang" scheme="https://zengwu.com.cn/tags/Golang/"/>
     
   </entry>
   
